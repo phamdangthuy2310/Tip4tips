@@ -1,27 +1,58 @@
-# Tip4tips Project
-1. CONTEXT<br/>
-✓ InsuranceinAsia.com iiAsia, is an insurance broker. It was founded in Vietnam 1994, taken over in 1999, by Mr. Pascal Ho.<br/>
-✓ 85% of IF Services client are expatriates from different countries.<br/>
-✓ From 2015 to 2016, the business has been slowing down.<br/>
-✓ The company future growth by Techmology by shifting the organization to mobile+collaborative+more expertise wherever the
-collaborator may be. Thus boosting insurance sales: - new products, new countries, new clients -Asia offshores and expats-, new
-internaional collaborators. Starting with Vietnam as pilot.<br/>
+<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-2. OBJECTIVE<br/>
-✓ The goal of the project is to build a mobile application that will make referring easier, with quick and effective management.<br/>
-✓ The application must be like “a game of referral gaining points” to tipsters (referrers) who use it frequently to refernew customers for
-the company.<br/>
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+</p>
 
-3. SCOPE<br/>
-✓ In the beginning, the application will be used for Vietnam, then to any user regardless of their country. Soon to be extended to other
-main stream products -real estate, Tech products. Then to other countries<br/>
-✓ The related dept are: Consuting + Marketing (incl. Customer service)<br/>
-✓ Tipster (not employed by iiAsia) will use this application to convey LEADS information to Consultant dept of iiAsia. They use the app
-to track their score when the Lead buys a product fro iiAsia thru a consultant<br/>
+## About Laravel
 
-4. CONSTRAINTS<br/>
--Technical<br/>
-▪ Data base (on MySQL)<br/>
-▪ Programming language:<br/>
-  + Php: ">=7.0.0"<br/>
-  + Laravel/framework: "5.5"
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+
+Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+
+## Learning Laravel
+
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+
+If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+
+## Laravel Sponsors
+
+We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
+
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[British Software Development](https://www.britishsoftware.co)**
+- [Fragrantica](https://www.fragrantica.com)
+- [SOFTonSOFA](https://softonsofa.com/)
+- [User10](https://user10.com)
+- [Soumettre.fr](https://soumettre.fr/)
+- [CodeBrisk](https://codebrisk.com)
+- [1Forge](https://1forge.com)
+- [TECPRESSO](https://tecpresso.co.jp/)
+- [Pulse Storm](http://www.pulsestorm.net/)
+- [Runtime Converter](http://runtimeconverter.com/)
+- [WebL'Agence](https://weblagence.com/)
+
+## Contributing
+
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
