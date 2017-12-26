@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserCategorygiftsTable extends Migration
+class CreateOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class CreateUserCategorygiftsTable extends Migration
      */
     public function up()
     {
-        Schema::create('categorygifts', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('tipster_id')->unsigned();
+            $table->decimal('total', 3, 0);
+            $table->foreign('tipster_id')->references('id')->on('tipsters');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreateUserCategorygiftsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categorygifts');
+        Schema::dropIfExists('orders');
     }
 }

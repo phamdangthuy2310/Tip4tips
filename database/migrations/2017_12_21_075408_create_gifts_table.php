@@ -17,8 +17,8 @@ class CreateGiftsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->longText('description');
-            $table->decemal('point',8,0);
-            $table->integer('category_id');
+            $table->decimal('point',8,0);
+            $table->integer('category_id')->unsigned();
             $table->binary('thumbnail');
 
             $table->foreign('category_id')->references('id')->on('categorygifts');

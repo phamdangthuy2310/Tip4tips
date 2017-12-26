@@ -21,7 +21,7 @@ class CreateEvaluationsTable extends Migration
             $table->integer('person_is')->unsigned();
 
             $table->foreign('create_by')->references('id')->on('managers');
-            $table->foreign('person_is')->references('id')->on('consultant');
+            $table->foreign('person_is')->references('id')->on('consultants');
             $table->timestamps();
         });
     }

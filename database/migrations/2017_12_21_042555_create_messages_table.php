@@ -18,8 +18,10 @@ class CreateMessagesTable extends Migration
 
             $table->string('title');
             $table->text('content');
+
             $table->integer('author')->unsigned();
             $table->foreign('author')->references('id')->on('managers');
+
             $table->integer('receiver')->unsigned();
             $table->foreign('receiver')->references('id')->on('tipsters');
 

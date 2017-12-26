@@ -19,7 +19,7 @@ class CreateConsultantsTable extends Migration
             $table->smallInteger('rate');
 
             $table->smallInteger('bussinesstype');
-            $table->foreign('bussinesstype')->references('id')->on('categoryproducts');
+//            $table->foreign('bussinesstype')->references('id')->on('categoryproducts');
 
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');

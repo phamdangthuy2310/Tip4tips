@@ -27,8 +27,8 @@ class CreateLeadsTable extends Migration
 
 
             $table->integer('tipster_id')->unsigned();
-            $table->foreign('tipster_id')->references('id')->on('regions');
-            $table->number('region_id');
+            $table->foreign('tipster_id')->references('id')->on('tipsters');
+            $table->integer('region_id')->unsigned();
             $table->foreign('region_id')->references('id')->on('regions');
             $table->timestamps();
         });

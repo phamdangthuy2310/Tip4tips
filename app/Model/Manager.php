@@ -3,14 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
-class Consultant extends User
+class Manager extends User
 {
     //
     protected $fillable = [
-        'rate',
-        'bussinesstype',
+        'typemanager',
+        'is_delete',
         'user_id'
     ];
-
 }

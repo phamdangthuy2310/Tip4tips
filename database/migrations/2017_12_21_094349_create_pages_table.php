@@ -18,7 +18,7 @@ class CreatePagesTable extends Migration
             $table->string('title');
             $table->longText('description');
             $table->boolean('published');
-            $table->decemal('parent', 2, 0);
+            $table->decimal('parents', 2, 0);
             $table->timestamps();
         });
     }

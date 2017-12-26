@@ -13,7 +13,7 @@ class CreateTipstersTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipster', function (Blueprint $table) {
+        Schema::create('tipsters', function (Blueprint $table) {
             $table->increments('id');
             
             $table->decimal('point', 8, 0);
@@ -34,6 +34,6 @@ class CreateTipstersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipster');
+        Schema::dropIfExists('tipsters');
     }
 }
