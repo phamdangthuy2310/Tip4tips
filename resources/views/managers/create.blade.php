@@ -1,9 +1,27 @@
 @extends('layouts.master')
-@section('title', 'Dashboard')
+@section('title', 'Add new manager')
 
 @section('content')
     <div class="row">
-        <div class="col-sm-8 col-sm-offset-2">
+        <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="box box-warning">
+                <div class="box-body box-profile">
+                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
+
+                    <h3 class="profile-username text-center">Thuy Pham</h3>
+
+                    <p class="text-muted text-center">Admin</p>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+
+
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
             <!-- create manager form -->
             <div class="box box-warning">
                 <div class="box-header with-border">

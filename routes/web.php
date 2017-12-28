@@ -26,11 +26,18 @@ Route::get('/managers/add', function () {
 Route::get('/managers/edit', function () {
     return view('managers.edit');
 });
-Route::get('/consultant/', function () {
+Route::get('/managers/show', function () {
+    return view('managers.show');
+});
+
+Route::get('/consultants/', function () {
     return view('consultants.index');
 });
-Route::get('/consultant/edit', function () {
+Route::get('/consultants/edit', function () {
     return view('consultants.edit');
+});
+Route::get('/consultants/add', function () {
+    return view('consultants.create');
 });
 
 Route::get('/mail', function () {

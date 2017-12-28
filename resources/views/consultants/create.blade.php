@@ -7,7 +7,7 @@
             <!-- create manager form -->
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Create a new manager</h3>
+                    <h3 class="box-title">Create a new consultant</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Dashboard')
+@section('title', 'All Managers')
 
 @section('content')
     <div class="box">

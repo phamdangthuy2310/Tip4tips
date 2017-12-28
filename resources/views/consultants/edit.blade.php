@@ -4,10 +4,10 @@
 @section('content')
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
-            <!-- create manager form -->
+            <!-- create consultant form -->
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Edit manager</h3>
+                    <h3 class="box-title">Edit consultant information</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

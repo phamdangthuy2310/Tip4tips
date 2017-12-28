@@ -7,7 +7,7 @@
                 <img src="{{ asset('images/avatar2.png')}}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
+                <p>Thuy Pham</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -38,9 +38,7 @@
                 <a href="mail/">
                     <i class="fa fa-envelope"></i> <span>Mailbox</span>
                     <span class="pull-right-container">
-                      <small class="label pull-right bg-yellow">12</small>
                       <small class="label pull-right bg-green">16</small>
-                      <small class="label pull-right bg-red">5</small>
                     </span>
                 </a>
             </li>

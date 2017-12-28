@@ -83,7 +83,7 @@
                         <!-- The user image in the navbar-->
                         <img src="{{ asset('images/avatar2.png') }}" class="user-image" alt="User Image">
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        <span class="hidden-xs">Thuy Pham</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
@@ -91,7 +91,7 @@
                             <img src="{{ asset('images/avatar2.png') }}" class="img-circle" alt="User Image">
 
                             <p>
-                                Alexander Pierce - Sales Manager
+                                Thuy Pham - Admin
                                 <small>Member since Nov. 2012</small>
                             </p>
                         </li>
@@ -105,10 +105,6 @@
                             </div>
                         </li>
                     </ul>
-                </li>
-                <!-- Control Sidebar Toggle Button -->
-                <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                 </li>
             </ul>
         </div>
