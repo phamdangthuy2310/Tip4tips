@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         //
         $users = User::all();
-        return view('users.index', ['users'=> $users]);
+        return view('users.index', ['users' => $users]);
     }
 
     /**
@@ -27,7 +27,7 @@ class UserController extends Controller
     public function create()
     {
         //
-
+        return view('users.create');
     }
 
     /**
@@ -50,6 +50,8 @@ class UserController extends Controller
     public function show($id)
     {
         //
+        $user = User::find($id);
+        return view('users.show', compact('user', 'id'));
     }
 
     /**
@@ -61,6 +63,8 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        $user = User::find($id);
+        return view('users.edit',compact('user','id'));
     }
 
     /**
@@ -73,6 +77,17 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $user = User::find($id);
+//        $this->validate(request(), [
+//            'username' => 'required',
+//            'price' => 'required|numeric'
+//        ]);
+        $user->fullname = $request->get('fullname');
+        $user->email = $request->get('email');
+        $user->phone = $request->get('phone');
+        $user->address = $request->get('address');
+        $user->save();
+        return redirect('users')->with('success','Users has been updated');
     }
 
     /**

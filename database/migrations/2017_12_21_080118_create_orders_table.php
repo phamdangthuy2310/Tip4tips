@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('tipster_id')->unsigned();
             $table->decimal('total', 3, 0);
-            $table->foreign('tipster_id')->references('id')->on('tipsters');
+            $table->foreign('tipster_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

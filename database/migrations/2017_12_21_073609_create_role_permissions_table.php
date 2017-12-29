@@ -1,10 +1,10 @@
-<?php
+    <?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTipstersTable extends Migration
+class CreateRolePermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateTipstersTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipsters', function (Blueprint $table) {
+        Schema::create('role_permissions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('role_id')->unsigned();
+            $table->integer('permission_id')->unsigned();
             
-            $table->decimal('point', 8, 0);
-            $table->smallInteger('rate');
-            $table->boolean('ambassadors');
-
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('permission_id')->references('id')->on('permissions');
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ class CreateTipstersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipsters');
+        Schema::dropIfExists('role_permissions');
     }
 }

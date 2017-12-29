@@ -19,9 +19,6 @@ class CreateAssignmentsTable extends Migration
             $table->integer('lead_id')->unsigned();
             $table->integer('create_by')->unsigned();
 
-            $table->foreign('consultant_id')->references('id')->on('consultants');
-            $table->foreign('lead_id')->references('id')->on('leads');
-            $table->foreign('create_by')->references('id')->on('managers');
             $table->timestamps();
         });
     }

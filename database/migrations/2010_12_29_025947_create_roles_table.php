@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateManagersTable extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateManagersTable extends Migration
      */
     public function up()
     {
-        Schema::create('managers', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('code')->unique();
 
-            $table->boolean('typemanager');
-            $table->boolean('is_delete');
-
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-
-            $table->timestamps();
+            $table->integer('roletype_id')->unsigned();;
+            $table->foreign('roletype_id')->references('id')->on('roletypes');
         });
     }
 
@@ -33,6 +30,6 @@ class CreateManagersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('managers');
+        Schema::dropIfExists('roles');
     }
 }
