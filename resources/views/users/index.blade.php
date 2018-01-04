@@ -31,7 +31,7 @@
                     <td>{{$user->fullname}}</td>
                     <td>{{ $user->email }}</td>
                     <td>Community</td>
-                    <td><label class="label label-success">Active</label></td>
+                    <td>@if($user->delete_is == 1)<label class="label label-success">Active</label>@else <label class="label label-danger">Deactive</label> @endif</td>
                     <td>
                         <a href="{{action('UsersController@show', $user['id'])}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
                         <a href="{{action('UsersController@edit', $user['id'])}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>

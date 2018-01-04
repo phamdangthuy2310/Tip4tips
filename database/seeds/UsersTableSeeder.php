@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             'address' => 'Ho Chi Minh, Viet Nam',
             'phone' => '093893771',
             'point' => 0,
-            'vote' => '',
+            'vote' => 0,
             'region_id' => 1,
             'role_id' => random_int(1,3),
 
@@ -38,7 +38,7 @@ class UsersTableSeeder extends Seeder
             'address' => 'Ho Chi Minh, Viet Nam',
             'phone' => '093893771',
             'point' => 0,
-            'vote' => '',
+            'vote' => 0,
             'region_id' => 1,
             'role_id' => random_int(1,3),
         ]);

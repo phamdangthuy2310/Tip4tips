@@ -18,8 +18,8 @@ class CreateRolesTable extends Migration
             $table->string('name');
             $table->string('code')->unique();
 
-            $table->integer('roletype_id')->unsigned();;
-            $table->foreign('roletype_id')->references('id')->on('roletypes');
+            $table->integer('role_id')->unsigned();;
+            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 

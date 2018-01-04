@@ -15,13 +15,11 @@ class CreateLeadsTable extends Migration
     {
         Schema::create('leads', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username');
-            $table->string('email')->unique();
-            $table->string('password');
             $table->string('fullname');
-            $table->enum('gender', ['male', 'female', 'other']);
+            $table->tinyInteger('gender');
             $table->date('birthday');
             $table->string('address');
+            $table->string('email')->unique();
             $table->string('phone');
             $table->longText('need');
 

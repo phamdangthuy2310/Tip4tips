@@ -29,23 +29,10 @@
                     <h3 class="box-title">Create a new manager</h3>
                 </div>
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{url('users')}}">
+                <form role="form" method="post" action="{{url('leads')}}">
                     {{ csrf_field() }}
                 <div class="box-body">
                         <!-- text input -->
-                        <div class="form-group">
-                            <label>Username</label>
-                            <input name="username" type="text" class="form-control" placeholder="Enter ...">
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input name="password" type="password" class="form-control" placeholder="Enter ...">
-                        </div>
-                        <div class="form-group">
-                            <label>Password confirm</label>
-                            <input name="passwordconfirm" type="password" class="form-control" placeholder="Enter ...">
-                        </div>
-
                         <div class="form-group">
                             <label>Full name</label>
                             <input name="fullname" type="text" class="form-control" placeholder="Enter ...">
@@ -86,18 +73,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Department</label>
-                            <select name="department" class="form-control">
-                                @foreach($roletypes as $roletype)
-                                    <optgroup label="{{$roletype->name}}">
-                                        @foreach($roles as $role)
-                                            @if($role->roletype_id == $roletype->id)
-                                                <option value="{{$role->id}}">{{$role->name}}</option>
-                                            @endif
-                                        @endforeach
-                                    </optgroup>
-                                @endforeach
-                            </select>
+                            <label>Need</label>
+                            <textarea name="need" class="form-control"></textarea>
                         </div>
 
                 </div>

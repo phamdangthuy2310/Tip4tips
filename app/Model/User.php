@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Model\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -23,7 +24,9 @@ class User extends Authenticatable
         'gender',
         'birthday',
         'address',
-        'phone'
+        'phone',
+        'role_id',
+        'delete_is'
     ];
 
     public function region(){
@@ -38,4 +41,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function role(){
+        return $this->belongsTo('App\Role');
+    }
+
+    public function getAllRole(){
+        return Role::all();
+    }
 }

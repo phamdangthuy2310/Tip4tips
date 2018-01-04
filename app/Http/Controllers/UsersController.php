@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Role;
+use App\Model\RoleType;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -27,7 +29,9 @@ class UsersController extends Controller
     public function create()
     {
         //
-        return view('users.create');
+        $roles = Role::all();
+        $roletypes = RoleType::all();
+        return view('users.create')->with(['roles' => $roles, 'roletypes' => $roletypes]);
     }
 
     /**
@@ -39,6 +43,23 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         //
+        $user = $this->validate(request(),[
+            'username' => 'required',
+            'password' => 'required|min:6',
+            'passwordconfirm' => 'required',
+            'fullname' => 'required',
+            'email' => 'email',
+            'birthday' => 'required|date',
+        ]);
+        $user['gender'] = $request->gender;
+        $user['phone'] = $request->phone;
+        $user['address'] = $request->address;
+        $user['region_id'] = $request->region;
+        $user['role_id'] = $request->department;
+        $user['delete_is'] = 1;
+        User::create($user);
+
+        return back()->with('success', 'User has been added');
     }
 
     /**
@@ -51,7 +72,9 @@ class UsersController extends Controller
     {
         //
         $user = User::find($id);
-        return view('users.show', compact('user', 'id'));
+        $role = Role::find($user->role_id);
+        $roletype = RoleType::find($role->roletype_id);
+        return view('users.show', compact('user', 'id'))->with(['role' => $role, 'roletype'=> $roletype]);
     }
 
     /**
@@ -64,7 +87,10 @@ class UsersController extends Controller
     {
         //
         $user = User::find($id);
-        return view('users.edit',compact('user','id'));
+        $roles = Role::all();
+        $roletypes = RoleType::all();
+//        print_r($roles);die();
+        return view('users.edit',compact('user','id'))->with(['roles'=>$roles, 'roletypes' => $roletypes]);
     }
 
     /**
@@ -78,14 +104,14 @@ class UsersController extends Controller
     {
         //
         $user = User::find($id);
-//        $this->validate(request(), [
-//            'username' => 'required',
-//            'price' => 'required|numeric'
-//        ]);
         $user->fullname = $request->get('fullname');
         $user->email = $request->get('email');
         $user->phone = $request->get('phone');
         $user->address = $request->get('address');
+        $user->gender = $request->get('gender');
+        $user->role_id = $request->get('department');
+        $user->delete_is = $request->get('status');
+
         $user->save();
         return redirect('users')->with('success','Users has been updated');
     }
@@ -99,5 +125,9 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::find($id);
+        $user->delete_is = 0;
+        $user->save();
+        return redirect('users')->with('success', 'Delete a user successfully.');
     }
 }

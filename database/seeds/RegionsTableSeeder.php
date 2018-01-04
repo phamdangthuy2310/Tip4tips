@@ -13,13 +13,13 @@ class RegionsTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('roles')->insert([
+        DB::table('regions')->insert([
             'name' => 'Ha Noi',
         ]);
-        DB::table('roles')->insert([
+        DB::table('regions')->insert([
             'name' => 'Ho Chi Minh',
         ]);
-        DB::table('roles')->insert([
+        DB::table('regions')->insert([
             'name' => 'Da Nang',
         ]);
 

@@ -13,13 +13,13 @@ class RoleTypesTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('users')->insert([
+        DB::table('roletypes')->insert([
             'name' => 'Manager'
         ]);
-        DB::table('users')->insert([
+        DB::table('roletypes')->insert([
             'name' => 'Consultant'
         ]);
-        DB::table('users')->insert([
+        DB::table('roletypes')->insert([
             'name' => 'Tipster'
         ]);
     }
