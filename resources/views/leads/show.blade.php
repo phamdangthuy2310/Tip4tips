@@ -10,17 +10,7 @@
                 <div class="box-body box-profile">
                     <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
 
-                    <h3 class="profile-username text-center">{{$user->fullname}}</h3>
-
-                    <p class="text-muted text-center">Admin</p>
-
-                    <p class="text-center">
-                        @if($user->delete_is == 1)
-                            <span class="label label-success">Active</span>
-                        @else
-                            <span class="label label-danger">Deactive</span>
-                        @endif
-                    </p>
+                    <h3 class="profile-username text-center">{{$lead->fullname}}</h3>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -37,26 +27,10 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <strong><i class="fa fa-user margin-r-5"></i> User name</strong>
-
-                    <p class="text-muted">
-                        {{$user->username}}
-                    </p>
-
-                    <hr>
-                    <strong><i class="fa fa-building margin-r-5"></i> Department</strong>
-
-                    <p class="text-muted">
-                        {{$role->name}} - {{$roletype->name}}
-
-                    </p>
-
-                    <hr>
-
                     <strong><i class="fa fa-address-book margin-r-5"></i> Fullname</strong>
 
                     <p class="text-muted">
-                        {{ $user->fullname }}
+                        {{ $lead->fullname }}
                     </p>
 
                     <hr>
@@ -64,34 +38,34 @@
                     <strong><i class="fa fa-envelope margin-r-5"></i> Email</strong>
 
                     <p class="text-muted">
-                        {{$user->email}}
+                        {{$lead->email}}
                     </p>
 
                     <hr>
                     <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
 
                     <p class="text-muted">
-                        {{$user->phone}}
+                        {{$lead->phone}}
                     </p>
 
                     <hr>
                     <strong><i class="fa fa-home margin-r-5"></i> Address</strong>
 
                     <p class="text-muted">
-                        {{$user->address}}
+                        {{$lead->address}}
                     </p>
 
                     <hr>
 
-                    <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> Region</strong>
 
-                    <p class="text-muted">Sai Gon, Vietnam</p>
+                    <p class="text-muted">{{$lead->region}}</p>
 
                     <hr>
 
-                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Need</strong>
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                    <p>{{$lead->need}}</p>
                 </div>
                 <!-- /.box-body -->
             </div>

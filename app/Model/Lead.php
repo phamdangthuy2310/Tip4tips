@@ -9,13 +9,13 @@ class Lead extends Model
     //
     protected $table = 'leads';
     protected $fillable = [
+        'email',
         'fullname',
         'gender',
         'birthday',
         'address',
         'phone',
         'need',
-        'delete_is',
         'region_id',
         'tipster_id'
     ];

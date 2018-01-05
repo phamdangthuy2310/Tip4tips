@@ -26,7 +26,7 @@
 
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Create a new manager</h3>
+                    <h3 class="box-title">Create a new user</h3>
                 </div>
                 <!-- /.box-header -->
                 <form role="form" method="post" action="{{url('users')}}">
@@ -61,7 +61,7 @@
 
                         <div class="form-group">
                             <label>Birthday</label>
-                            <input name="birthday" type="text" class="form-control" placeholder="Enter ...">
+                            <input name="birthday" type="date" class="form-control" placeholder="Enter ...">
                         </div>
                         <div class="form-group">
                             <label>Email</label>
@@ -78,11 +78,9 @@
                         <div class="form-group">
                             <label>Region</label>
                             <select name="region" class="form-control">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
+                                @foreach($regions as $region)
+                                <option value="{{$region->id}}">{{$region->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">

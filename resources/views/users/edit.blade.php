@@ -88,11 +88,7 @@
                     <div class="form-group">
                         <label>Region</label>
                         <select class="form-control">
-                            <option>option 1</option>
-                            <option>option 2</option>
-                            <option>option 3</option>
-                            <option>option 4</option>
-                            <option>option 5</option>
+
                         </select>
                     </div>
                     <div class="form-group">

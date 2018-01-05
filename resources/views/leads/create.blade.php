@@ -48,7 +48,7 @@
 
                         <div class="form-group">
                             <label>Birthday</label>
-                            <input name="birthday" type="text" class="form-control" placeholder="Enter ...">
+                            <input name="birthday" type="date" class="form-control" placeholder="Enter ...">
                         </div>
                         <div class="form-group">
                             <label>Email</label>
@@ -65,16 +65,24 @@
                         <div class="form-group">
                             <label>Region</label>
                             <select name="region" class="form-control">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
+                                @foreach($regions as $region)
+                                    <option value="{{$region->id}}">{{$region->name}}</option>
+                                @endforeach
                             </select>
                         </div>
+
                         <div class="form-group">
                             <label>Need</label>
                             <textarea name="need" class="form-control"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tipster</label>
+                            <select name="tipster" class="form-control">
+                                @foreach($tipsters as $tipster)
+                                <option value="{{$tipster->id}}">{{$tipster->fullname}} - {{$tipster->username}} </option>
+                                @endforeach
+                            </select>
                         </div>
 
                 </div>

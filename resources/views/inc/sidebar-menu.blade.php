@@ -44,50 +44,39 @@
             </li>
             {{--Sales Manager--}}
             <li class="treeview">
-                <a href="#"><i class="fa fa-users"></i><span>Managers</span>
+                <a href="#"><i class="fa fa-users"></i><span>Users</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href='managers/'>View List</a></li>
-                    <li><a href='managers/add'>Add new</a></li>
+                    <li><a href='{{action('UsersController@index')}}'>View List</a></li>
+                    <li><a href='{{action('UsersController@create')}}'>Add new</a></li>
                 </ul>
             </li>
             <li class="treeview">
-                <a href="#"><i class="fa fa-universal-access"></i><span>Consultants</span>
+                <a><i class="fa fa-street-view"></i> <span>Leads</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">View List</a></li>
-                    <li><a href="#">Add new</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-street-view"></i> <span>Leads</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#">View List</a></li>
-                    <li><a href="#">Assignment</a></li>
+                    <li><a href="{{action('LeadsController@index')}}">View List</a></li>
+                    <li><a href="{{action('LeadsController@create')}}">Add new</a></li>
                 </ul>
             </li>
             {{--End Sales Manager--}}
 
             {{--Community Manager--}}
             <li class="treeview">
-                <a href="#"><i class="fa fa-handshake-o"></i> <span>Tipsters</span>
+                <a href="#"><i class="fa fa-handshake-o"></i> <span>Products</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">View List</a></li>
-                    <li><a href="#">Add new</a></li>
+                    <li><a href="{{action('ProductsController@index')}}">View List</a></li>
+                    <li><a href="{{action('ProductsController@create')}}">Add new</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -97,8 +86,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">View List</a></li>
-                    <li><a href="#">Add new</a></li>
+                    <li><a href="{{action('GiftsController@index')}}">View List</a></li>
+                    <li><a href="{{action('GiftsController@create')}}">Add new</a></li>
                 </ul>
             </li>
             <li>

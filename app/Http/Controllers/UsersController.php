@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Region;
 use App\Model\Role;
 use App\Model\RoleType;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -17,7 +19,14 @@ class UsersController extends Controller
     public function index()
     {
         //
-        $users = User::all();
+//        $users = User::all();
+        $users = DB::table('users')
+            ->join('roles', 'users.role_id', 'roles.id')
+            ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
+            ->select('users.*', 'roles.name as role', 'roletypes.name as roletype')
+            ->get();
+//        print_r($users);die();
+
         return view('users.index', ['users' => $users]);
     }
 
@@ -31,7 +40,8 @@ class UsersController extends Controller
         //
         $roles = Role::all();
         $roletypes = RoleType::all();
-        return view('users.create')->with(['roles' => $roles, 'roletypes' => $roletypes]);
+        $regions = Region::all();
+        return view('users.create')->with(['roles' => $roles, 'roletypes' => $roletypes, 'regions'=> $regions]);
     }
 
     /**
@@ -48,9 +58,10 @@ class UsersController extends Controller
             'password' => 'required|min:6',
             'passwordconfirm' => 'required',
             'fullname' => 'required',
-            'email' => 'email',
+            'email' => 'required|string|email|max:255|unique:users',
             'birthday' => 'required|date',
         ]);
+        $user['password']= bcrypt($request->password);
         $user['gender'] = $request->gender;
         $user['phone'] = $request->phone;
         $user['address'] = $request->address;
@@ -89,8 +100,8 @@ class UsersController extends Controller
         $user = User::find($id);
         $roles = Role::all();
         $roletypes = RoleType::all();
-//        print_r($roles);die();
-        return view('users.edit',compact('user','id'))->with(['roles'=>$roles, 'roletypes' => $roletypes]);
+        $regions = Region::all();
+        return view('users.edit',compact('user','id'))->with(['roles'=>$roles, 'roletypes' => $roletypes, 'regions'=> $regions]);
     }
 
     /**

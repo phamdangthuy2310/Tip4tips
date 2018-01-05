@@ -19,9 +19,7 @@
                 <div class="box-body box-profile">
                     <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
 
-                    <h3 class="profile-username text-center">Thuy Pham</h3>
-
-                    <p class="text-muted text-center">Admin</p>
+                    <h3 class="profile-username text-center">{{$lead->fullname}}</h3>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -46,79 +44,65 @@
                     @endif
                 </div>
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{action('UsersController@update', $id)}}">
+                <form role="form" method="post" action="{{action('LeadsController@update', $id)}}">
                     {{csrf_field()}}
                     <input name="_method" type="hidden" value="PATCH">
                 <div class="box-body">
                     <!-- text input -->
                     <div class="form-group">
-                        <label>Username</label>
-                        <input name="username" type="text" class="form-control" value="{{$user->username}}" disabled="">
-                    </div>
-
-                    <div class="form-group">
                         <label>Full name</label>
-                        <input name="fullname" type="text" class="form-control" value="{{$user->fullname}}" placeholder="Enter ...">
+                        <input name="fullname" type="text" class="form-control" value="{{$lead->fullname}}" placeholder="Enter ...">
                     </div>
                     <div class="form-group">
                         <label>Gender</label>
                         <select class="form-control" name="gender">
-                            <option value="0" @if($user->gender == 0) selected @endif>Male</option>
-                            <option value="1" @if($user->gender == 1) selected @endif>Female</option>
-                            <option value="2" @if($user->gender == 2) selected @endif>Other</option>
+                            <option value="0" @if($lead->gender == 0) selected @endif>Male</option>
+                            <option value="1" @if($lead->gender == 1) selected @endif>Female</option>
+                            <option value="2" @if($lead->gender == 2) selected @endif>Other</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label>Birthday</label>
-                        <input name="birthday" type="text" class="form-control" value="{{$user->birthday}}" placeholder="Enter ...">
+                        <input name="birthday" type="text" class="form-control" value="{{$lead->birthday}}" placeholder="Enter ...">
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input name="email" type="text" class="form-control" value="{{$user->email}}" placeholder="Enter ...">
+                        <input name="email" type="text" class="form-control" value="{{$lead->email}}" placeholder="Enter ...">
                     </div>
                     <div class="form-group">
                         <label>Phone</label>
-                        <input name="phone" type="text" class="form-control" value="{{$user->phone}}" placeholder="Enter ...">
+                        <input name="phone" type="text" class="form-control" value="{{$lead->phone}}" placeholder="Enter ...">
                     </div>
                     <div class="form-group">
                         <label>Address</label>
-                        <input name="address" type="text" class="form-control" value="{{$user->address}}" placeholder="Enter ...">
+                        <input name="address" type="text" class="form-control" value="{{$lead->address}}" placeholder="Enter ...">
                     </div>
                     <div class="form-group">
                         <label>Region</label>
-                        <select class="form-control">
-                            <option>option 1</option>
-                            <option>option 2</option>
-                            <option>option 3</option>
-                            <option>option 4</option>
-                            <option>option 5</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Department</label>
-                        <select class="form-control" name="department">
-                            
-                            @foreach($roletypes as $roletype)
-                                <optgroup label="{{$roletype->name}}">
-                                    @foreach($roles as $role)
-                                        @if($role->roletype_id == $roletype->id)
-                                        <option value="{{$role->id}}" @if($user->role_id == $role->id) selected @endif>{{$role->name}}</option>
-                                        @endif
-                                    @endforeach
-                                </optgroup>
+                        <select name="region" class="form-control">
+                            @foreach($regions as $region)
+                            <option value="{{$region->id}}" @if($region->id == $lead->region_id) selected @endif>{{$region->name}}</option>
                             @endforeach
-
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Status</label>
-                        <select class="form-control" name="status">
-                            <option value="1" @if($user->delete_is == 1) selected @endif>Active</option>
-                            <option value="0" @if($user->delete_is == 0) selected @endif>Deactive</option>
+                        <label>Need</label>
+                        <textarea name="need" class="form-control" placeholder="Enter ...">{{$lead->need}}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipster</label>
+                        <select name="tipster" class="form-control">
+                            @foreach($tipsters as $tipster)
+                            <option value="{{$tipster->id}}" @if($tipster->id == $lead->tipster_id) selected @endif>{{$tipster->fullname}}</option>
+                            @endforeach
                         </select>
                     </div>
+
+
+
 
                 </div>
                 <!-- /.box-body -->
