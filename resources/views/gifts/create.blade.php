@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Add new product')
+@section('title', 'Add new gift')
 
 @section('content')
     <div class="row">
@@ -9,7 +9,7 @@
 
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Create a new product</h3>
+                    <h3 class="box-title">Create a new gift</h3>
                 </div>
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -18,20 +18,25 @@
                                 <li>{{ $error }}</li>
                             @endforeach
                         </ul>
+                    </div><br />
+                @endif
+                @if (\Session::has('success'))
+                    <div class="alert alert-success">
+                        <p>{{ \Session::get('success') }}</p>
                     </div>
                 @endif
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{action('ProductsController@update', $id)}}">
+                <form role="form" method="post" action="{{url('gifts')}}">
                     {{ csrf_field() }}
-                    <input name="_method" type="hidden" value="PATCH">
+
                         <div class="box-body">
                             <div class="form-group">
-                                <label>Product name</label>
-                                <input name="name" value="{{$product->name}}" type="text" class="form-control">
+                                <label>Gifts name</label>
+                                <input name="name" type="text" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea name="description" class="form-control">{{$product->description}}</textarea>
+                                <textarea name="description" class="form-control"></textarea>
                             </div>
 
                             <div class="form-group">
@@ -39,18 +44,14 @@
                                 <input name="thumbnail" type="file" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Price</label>
-                                <input name="price" value="{{$product->price}}" type="number" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Quality</label>
-                                <input name="quality" value="{{$product->quality}}" type="number" class="form-control">
+                                <label>Point</label>
+                                <input name="point" type="number" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Category</label>
                                 <select name="category" class="form-control">
                                     @foreach($categories as $category)
-                                    <option value="{{$category->id}}" @if($category->id == $product->category_id) selected @endif>{{$category->name}}</option>
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -60,7 +61,7 @@
 
                 <div class="box-footer">
                     <button type="button" class="btn btn-default">Cancel</button>
-                    <button type="submit" class="btn btn-primary pull-right">Update</button>
+                    <button type="submit" class="btn btn-primary pull-right">Create</button>
                 </div>
             </form>
             </div>

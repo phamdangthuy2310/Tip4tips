@@ -33,14 +33,14 @@ class UsersTableSeeder extends Seeder
             'email' => str_random(8).'@gmail.com',
             'password' => bcrypt('123456'),
             'fullname' => str_random('5').' '.str_random('3').' '.str_random('5'),
-            'gender' => array_random(['female', 'male', 'other'], 1),
+            'gender' => array_random(['0', '2', '1'], 1),
             'birthday' => '2017-12-12',
             'address' => 'Ho Chi Minh, Viet Nam',
             'phone' => '093893771',
             'point' => 0,
             'vote' => 0,
             'region_id' => 1,
-            'role_id' => random_int(1,3),
+            'role_id' => random_int(1,5),
         ]);
 
     }

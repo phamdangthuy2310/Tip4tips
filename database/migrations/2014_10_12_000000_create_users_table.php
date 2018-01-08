@@ -23,9 +23,9 @@ class CreateUsersTable extends Migration
             $table->date('birthday');
             $table->string('address');
             $table->string('phone');
-            $table->decimal('point', 8, 0);
-            $table->decimal('vote', 4,0);
-            $table->smallInteger('delete_is');
+            $table->decimal('point', 8, 0)->default(0);
+            $table->decimal('vote', 4,0)->default(0);
+            $table->tinyInteger('delete_is')->default(1);
 
             $table->integer('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles');

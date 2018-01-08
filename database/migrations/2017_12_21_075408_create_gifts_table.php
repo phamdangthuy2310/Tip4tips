@@ -16,12 +16,12 @@ class CreateGiftsTable extends Migration
         Schema::create('gifts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->longText('description');
-            $table->decimal('point',8,0);
+            $table->longText('description')->nullable();
+            $table->decimal('point',8,0)->default(0);
             $table->integer('category_id')->unsigned();
-            $table->binary('thumbnail');
+            $table->binary('thumbnail')->nullable();
 
-            $table->foreign('category_id')->references('id')->on('categorygifts');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

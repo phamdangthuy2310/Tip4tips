@@ -18,8 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 Route::resource('users', 'UsersController');
 Route::resource('leads', 'LeadsController');
 Route::resource('products', 'ProductsController');
 Route::resource('gifts', 'GiftsController');
-Route::resource('categoryproducts', 'CategoryProductsController');
+Route::resource('categories', 'CategoriesController');
+Route::resource('messages', 'MessagesController');

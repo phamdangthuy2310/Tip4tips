@@ -48,6 +48,12 @@ class RolesTableSeeder extends Seeder
             'code' => 'ambassador',
             'roletype_id' => 3,
         ]);
+        DB::table('roles')->insert([
+            'name' => 'Tipster',
+            'code' => 'tipster_normal',
+            'roletype_id' => 3,
+        ]);
+
 
     }
 }

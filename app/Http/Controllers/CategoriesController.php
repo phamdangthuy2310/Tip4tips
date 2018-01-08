@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\CategoryProduct;
+use App\Model\Category;
 use Illuminate\Http\Request;
 
-class CategoryProductsController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class CategoryProductsController extends Controller
     public function index()
     {
         //
-        $categories = CategoryProduct::all();
-        return view('categoryproducts.index', ['categories' => $categories]);
+        $categories = Category::all();
+        return view('categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -27,7 +27,7 @@ class CategoryProductsController extends Controller
     public function create()
     {
         //
-        return view('categoryproducts.create');
+        return view('categories.create');
     }
 
     /**
@@ -38,14 +38,14 @@ class CategoryProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $category = $this->validate($request,[
             'name' => 'required'
         ]);
         $category['description'] = $request->description;
-        CategoryProduct::create($category);
+        $category['belong'] = $request->belong;
+        Category::create($category);
 
-        return redirect('categoryproducts')->with('success', 'Product added successfully.');
+        return redirect('categories')->with('success', 'Category added successfully.');
     }
 
     /**

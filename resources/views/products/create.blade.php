@@ -11,6 +11,20 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Create a new product</h3>
                 </div>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div><br />
+                @endif
+                @if (\Session::has('success'))
+                    <div class="alert alert-success">
+                        <p>{{ \Session::get('success') }}</p>
+                    </div>
+                @endif
                 <!-- /.box-header -->
                 <form role="form" method="post" action="{{url('products')}}">
                     {{ csrf_field() }}

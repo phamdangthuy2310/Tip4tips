@@ -28,27 +28,42 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Create a new user</h3>
                 </div>
+
                 <!-- /.box-header -->
                 <form role="form" method="post" action="{{url('users')}}">
                     {{ csrf_field() }}
                 <div class="box-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div><br />
+                    @endif
+                    @if (\Session::has('success'))
+                        <div class="alert alert-success">
+                            <p>{{ \Session::get('success') }}</p>
+                        </div>
+                    @endif
                         <!-- text input -->
                         <div class="form-group">
                             <label>Username</label>
-                            <input name="username" type="text" class="form-control" placeholder="Enter ...">
+                            <input name="username" type="text" class="form-control" placeholder="Enter ..." required>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input name="password" type="password" class="form-control" placeholder="Enter ...">
+                            <input name="password" type="password" class="form-control" placeholder="Enter ..." required>
                         </div>
                         <div class="form-group">
                             <label>Password confirm</label>
-                            <input name="passwordconfirm" type="password" class="form-control" placeholder="Enter ...">
+                            <input name="password_confirmation" type="password" class="form-control" placeholder="Enter ..." required>
                         </div>
 
                         <div class="form-group">
                             <label>Full name</label>
-                            <input name="fullname" type="text" class="form-control" placeholder="Enter ...">
+                            <input name="fullname" type="text" class="form-control" placeholder="Enter ..." required>
                         </div>
                         <div class="form-group">
                             <label>Gender</label>
@@ -61,11 +76,11 @@
 
                         <div class="form-group">
                             <label>Birthday</label>
-                            <input name="birthday" type="date" class="form-control" placeholder="Enter ...">
+                            <input name="birthday" type="date" class="form-control" placeholder="Enter ..." required>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input name="email" type="text" class="form-control" placeholder="Enter ...">
+                            <input name="email" type="text" class="form-control" placeholder="Enter ..." required>
                         </div>
                         <div class="form-group">
                             <label>Phone</label>

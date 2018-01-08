@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\CategoryProduct;
+use App\Model\Category;
 use App\Model\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,8 +19,8 @@ class ProductsController extends Controller
         //
 //        $products = Product::all();
         $products = DB::table('products')
-            ->join('categoryproducts', 'products.category_id', 'categoryproducts.id')
-        ->select('products.*', 'categoryproducts.name as category')
+            ->join('categories', 'products.category_id', 'categories.id')
+        ->select('products.*', 'categories.name as category')
         ->get();
         return view('products.index')->with(['products'=>$products]);
     }
@@ -33,7 +33,7 @@ class ProductsController extends Controller
     public function create()
     {
         //
-        $categories = CategoryProduct::all();
+        $categories = Category::where('belong', 0)->get();
         return view('products.create')->with(['categories'=> $categories]);
     }
 
@@ -55,7 +55,7 @@ class ProductsController extends Controller
         $product['thumbnail'] = $request->thumbnail;
         $product['category_id'] = $request->category;
         Product::create($product);
-        return redirect('products')->with('sucess', 'Product added successfully');
+        return redirect('products')->with('success', 'Product added successfully');
 
     }
 
@@ -70,8 +70,8 @@ class ProductsController extends Controller
         //
 //        $product = Product::find($id);
         $product = DB::table('products')
-        ->join('categoryproducts', 'categoryproducts.id', 'products.category_id')
-        ->select('products.*', 'categoryproducts.name as category')
+        ->join('categories', 'categories.id', 'products.category_id')
+        ->select('products.*', 'categories.name as category')
         ->first();
         return view('products.show', compact('product', 'id'));
     }
@@ -86,7 +86,7 @@ class ProductsController extends Controller
     {
         //
         $product = Product::find($id);
-        $categories = CategoryProduct::all();
+        $categories = Category::where('belong', 0)->get();
         return view('products.edit', compact('product', 'id'))->with(['categories'=>$categories]);
     }
 

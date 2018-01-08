@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Category;
+use App\Model\Gift;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GiftsController extends Controller
 {
@@ -14,6 +17,10 @@ class GiftsController extends Controller
     public function index()
     {
         //
+        $gifts = DB::table('gifts')
+            ->join('categories', 'categories.id', 'gifts.category_id')
+        ->select('gifts.*', 'categories.name as category')->get();
+        return view('gifts.index', ['gifts' => $gifts] );
     }
 
     /**
@@ -24,6 +31,8 @@ class GiftsController extends Controller
     public function create()
     {
         //
+        $categories = Category::where('belong', 1)->get();
+        return view('gifts.create', ['categories' => $categories]);
     }
 
     /**
@@ -35,6 +44,16 @@ class GiftsController extends Controller
     public function store(Request $request)
     {
         //
+        $gift = $this->validate($request,[
+            'name' => 'required'
+        ]);
+        $gift['description'] = $request->description;
+        $gift['thumbnail'] = $request->thumbnail;
+        $gift['point'] = $request->point;
+        $gift['category_id'] = $request->category;
+        Gift::create($gift);
+
+        return redirect('gifts')->with('success', 'Gift created successfully.');
     }
 
     /**
@@ -46,6 +65,11 @@ class GiftsController extends Controller
     public function show($id)
     {
         //
+        $gift = DB::table('gifts')
+        ->join('categories', 'categories.id', 'gifts.category_id')
+        ->where('gifts.id', $id)
+            ->select('gifts.*', 'categories.name as category')->first();
+        return view('gifts.show', compact('gift', 'id'));
     }
 
     /**
@@ -56,7 +80,9 @@ class GiftsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $gift = Gift::find($id);
+        $categories = Category::where('belong', 1)->get();
+        return view('gifts.edit', compact('gift', 'id'))->with(['categories'=> $categories]);
     }
 
     /**
@@ -68,7 +94,14 @@ class GiftsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $gift = Gift::find($id);
+        $gift->name = $request->get('name');
+        $gift->description = $request->get('description');
+        $gift->thumbnail = $request->get('thumbnail');
+        $gift->point = $request->get('point');
+        $gift->category_id = $request->get('category');
+        $gift->save();
+        return redirect('gifts')->with('success', 'Gift updated successfully.');
     }
 
     /**
@@ -80,5 +113,8 @@ class GiftsController extends Controller
     public function destroy($id)
     {
         //
+        $gift = Gift::find($id);
+        $gift->delete();
+        return back()->with('success', 'Gift deleted successfully.');
     }
 }

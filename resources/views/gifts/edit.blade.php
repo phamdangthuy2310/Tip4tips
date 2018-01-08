@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Add new product')
+@section('title', 'Edit new product')
 
 @section('content')
     <div class="row">
@@ -9,7 +9,7 @@
 
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Create a new product</h3>
+                    <h3 class="box-title">Create a new gift</h3>
                 </div>
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -21,17 +21,17 @@
                     </div>
                 @endif
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{action('ProductsController@update', $id)}}">
+                <form role="form" method="post" action="{{action('GiftsController@update', $id)}}">
                     {{ csrf_field() }}
                     <input name="_method" type="hidden" value="PATCH">
                         <div class="box-body">
                             <div class="form-group">
                                 <label>Product name</label>
-                                <input name="name" value="{{$product->name}}" type="text" class="form-control">
+                                <input name="name" value="{{$gift->name}}" type="text" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea name="description" class="form-control">{{$product->description}}</textarea>
+                                <textarea name="description" class="form-control">{{$gift->description}}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -39,18 +39,14 @@
                                 <input name="thumbnail" type="file" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Price</label>
-                                <input name="price" value="{{$product->price}}" type="number" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Quality</label>
-                                <input name="quality" value="{{$product->quality}}" type="number" class="form-control">
+                                <label>Point</label>
+                                <input name="point" value="{{$gift->point}}" type="number" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Category</label>
                                 <select name="category" class="form-control">
                                     @foreach($categories as $category)
-                                    <option value="{{$category->id}}" @if($category->id == $product->category_id) selected @endif>{{$category->name}}</option>
+                                    <option value="{{$category->id}}" @if($category->id == $gift->category_id) selected @endif>{{$category->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

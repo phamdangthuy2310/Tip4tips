@@ -30,12 +30,12 @@
             <li class="header">MAIN NAVIGATION</li>
             <!-- Optionally, you can add icons to the links -->
             <li class="active">
-                <a href="admin/">
+                <a href="{{action('HomeController@dashboard')}}">
                     <i class="fa fa-dashboard"></i><span>Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="mail/">
+                <a href="{{action('MessagesController@index')}}">
                     <i class="fa fa-envelope"></i> <span>Mailbox</span>
                     <span class="pull-right-container">
                       <small class="label pull-right bg-green">16</small>
@@ -75,8 +75,10 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{action('ProductsController@index')}}">View List</a></li>
-                    <li><a href="{{action('ProductsController@create')}}">Add new</a></li>
+                    <li><a href="{{action('ProductsController@index')}}">View all products</a></li>
+                    <li><a href="{{action('ProductsController@create')}}">Add new product</a></li>
+                    <li><a href="{{action('CategoriesController@index')}}">View all categories</a></li>
+                    <li><a href="{{action('CategoriesController@create')}}">Add new category</a></li>
                 </ul>
             </li>
             <li class="treeview">

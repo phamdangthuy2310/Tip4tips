@@ -3,12 +3,18 @@
 
 @section('content')
     <div class="box">
-        <div class="box-header">
+        <div class="box-header clearfix">
             <h3 class="box-title">All Products</h3>
             <a href="{{action('ProductsController@create')}}" class="btn btn-md btn-primary pull-right">Add New Product</a>
         </div>
+
         <!-- /.box-header -->
         <div class="box-body">
+            @if (\Session::has('success'))
+                <div class="alert alert-success clearfix">
+                    <p>{{ \Session::get('success') }}</p>
+                </div><br />
+            @endif
             <table id="view-managers" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -28,7 +34,7 @@
                     <td>{{$product->name}}</td>
                     <td>{{$product->quality}}</td>
                     <td>{{$product->category}}</td>
-                    <td>
+                    <td class="actions">
                         <a href="{{action('ProductsController@show', $product->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
                         <a href="{{action('ProductsController@edit', $product->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
                         <form action="{{action('ProductsController@destroy', $product->id)}}" method="post">

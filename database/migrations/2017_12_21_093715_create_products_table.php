@@ -18,11 +18,11 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->longText('description');
             $table->decimal('price', 8, 0);
-            $table->binary('thumbnail');
-            $table->decimal('quality', 8, 0);
+            $table->binary('thumbnail')->nullable();;
+            $table->decimal('quality', 8, 0)->default(0);
 
             $table->integer('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categoryproducts');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

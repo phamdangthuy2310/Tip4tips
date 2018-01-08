@@ -12,7 +12,7 @@
                     <h3 class="box-title">Create a new category product</h3>
                 </div>
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{url('categoryproducts')}}">
+                <form role="form" method="post" action="{{url('categories')}}">
                     {{ csrf_field() }}
 
                         <div class="box-body">
@@ -27,7 +27,15 @@
                                 <textarea name="description" rows="5" class="form-control"></textarea>
                             </div>
                         </div>
-
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label>Belong to</label>
+                                <select name="belong" class="form-control">
+                                    <option value="0">Product</option>
+                                    <option value="1">Gift</option>
+                                </select>
+                            </div>
+                        </div>
                 <!-- /.box-body -->
 
                 <div class="box-footer">

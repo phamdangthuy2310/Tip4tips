@@ -29,7 +29,7 @@
                     <td>{{ $lead->email }}</td>
                     <td>{{ $lead->need }}</td>
 
-                    <td>
+                    <td class="actions">
                         <a href="{{action('LeadsController@show', $lead['id'])}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
                         <a href="{{action('LeadsController@edit', $lead['id'])}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
                         <form action="{{action('LeadsController@destroy', $lead['id'])}}" method="post">

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Message;
 use Illuminate\Http\Request;
 
-class CategoryGiftsController extends Controller
+class MessagesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +15,8 @@ class CategoryGiftsController extends Controller
     public function index()
     {
         //
+        $messages = Message::all();
+        return view('messages.mailbox', ['messages' => $messages]);
     }
 
     /**
@@ -24,6 +27,7 @@ class CategoryGiftsController extends Controller
     public function create()
     {
         //
+        return view('messages.compose');
     }
 
     /**
@@ -35,6 +39,7 @@ class CategoryGiftsController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**
@@ -46,6 +51,9 @@ class CategoryGiftsController extends Controller
     public function show($id)
     {
         //
+        $message = Message::find($id);
+//        html_entity_decode($message['content']);
+        return view('messages.readmail', compact('message', 'id'));
     }
 
     /**
@@ -57,6 +65,8 @@ class CategoryGiftsController extends Controller
     public function edit($id)
     {
         //
+        $message =  Message::find($id);
+        return view('messages.edit', compact('message', 'id'));
     }
 
     /**
@@ -80,5 +90,8 @@ class CategoryGiftsController extends Controller
     public function destroy($id)
     {
         //
+        $message = Message::find($id);
+        $message->delete();
+        return back()->with('success', 'Message deleted successfully');
     }
 }

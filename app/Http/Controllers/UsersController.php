@@ -55,8 +55,7 @@ class UsersController extends Controller
         //
         $user = $this->validate(request(),[
             'username' => 'required',
-            'password' => 'required|min:6',
-            'passwordconfirm' => 'required',
+            'password' => 'required|string|min:6|confirmed',
             'fullname' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
             'birthday' => 'required|date',
@@ -65,12 +64,13 @@ class UsersController extends Controller
         $user['gender'] = $request->gender;
         $user['phone'] = $request->phone;
         $user['address'] = $request->address;
+        $user['point'] = 0;
+        $user['vote'] = 0;
         $user['region_id'] = $request->region;
         $user['role_id'] = $request->department;
         $user['delete_is'] = 1;
         User::create($user);
-
-        return back()->with('success', 'User has been added');
+        return redirect('users')->with('success', 'User added successfully.');
     }
 
     /**
