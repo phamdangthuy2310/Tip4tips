@@ -13,6 +13,8 @@ class Message extends Model
         'content',
         'sender',
         'receiver',
+        'delete_is',
+        'read_is',
         'create_at'
     ];
 }

@@ -24,4 +24,5 @@ Route::resource('leads', 'LeadsController');
 Route::resource('products', 'ProductsController');
 Route::resource('gifts', 'GiftsController');
 Route::resource('categories', 'CategoriesController');
+Route::get('messages/trash', 'MessagesController@trash');
 Route::resource('messages', 'MessagesController');

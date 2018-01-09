@@ -1,3 +1,6 @@
 .actions form{
     display: inline-block;
 }
+.mailbox-subject a{
+    color: inherit;
+}

@@ -18,10 +18,11 @@ class CreateMessagesTable extends Migration
 
             $table->string('title');
             $table->text('content');
-
             $table->string('author');
 
             $table->string('receiver');
+            $table->tinyInteger('delete_is')->default(0);
+            $table->tinyInteger('read_is')->default(0);
 
             $table->timestamps();
         });

@@ -21,6 +21,7 @@
     <link href="{{ asset('css/admin/jquery-jvectormap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+    @yield('styles')
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -96,5 +97,6 @@
     })
   })
 </script>
+@yield('javascript')
 </body>
 </html>

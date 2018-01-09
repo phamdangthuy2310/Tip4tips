@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MessagesController extends Controller
 {
@@ -15,8 +16,18 @@ class MessagesController extends Controller
     public function index()
     {
         //
-        $messages = Message::all();
-        return view('messages.mailbox', ['messages' => $messages]);
+        $messages = Message::where('delete_is', 0)->get();
+        $count = $this->countYetNotRead();
+        $messagesDelete = $this->getAllMessageDeleted();
+        $countDelete = count($messagesDelete);
+        return view('messages.mailbox',
+            [
+                'messages' => $messages,
+                'count' => $count,
+                'messagesDelete'=>$messagesDelete,
+                'countDelete' => $countDelete
+            ]
+        );
     }
 
     /**
@@ -27,7 +38,14 @@ class MessagesController extends Controller
     public function create()
     {
         //
-        return view('messages.compose');
+        $count = $this->countYetNotRead();
+        $messagesDelete = $this->getAllMessageDeleted();
+        $countDelete = count($messagesDelete);
+        return view('messages.compose')->with([
+            'count' => $count,
+            'messagesDelete'=>$messagesDelete,
+            'countDelete' => $countDelete
+        ]);
     }
 
     /**
@@ -39,7 +57,15 @@ class MessagesController extends Controller
     public function store(Request $request)
     {
         //
-
+        $message = $this->validate($request,[
+            'receiver'
+        ]);
+        $message['receiver'] = $request->get('receiver');
+        $message['sender'] = 'admin';
+        $message['title'] = $request->get('title');
+        $message['content'] = $request->get('content');
+        Message::create($message);
+        return redirect('messages')->with('success', 'Send message successfully.');
     }
 
     /**
@@ -51,9 +77,17 @@ class MessagesController extends Controller
     public function show($id)
     {
         //
+
         $message = Message::find($id);
-//        html_entity_decode($message['content']);
-        return view('messages.readmail', compact('message', 'id'));
+        $count = $this->countYetNotRead();
+        $messagesDelete = $this->getAllMessageDeleted();
+        $countDelete = count($messagesDelete);
+//        die();
+        return view('messages.readmail', compact('message', 'id'))->with([
+            'count' => $count,
+            'messagesDelete'=>$messagesDelete,
+            'countDelete' => $countDelete
+        ]);
     }
 
     /**
@@ -65,8 +99,8 @@ class MessagesController extends Controller
     public function edit($id)
     {
         //
-        $message =  Message::find($id);
-        return view('messages.edit', compact('message', 'id'));
+//        $message =  Message::find($id);
+//        return view('messages.edit', compact('message', 'id'));
     }
 
     /**
@@ -91,7 +125,29 @@ class MessagesController extends Controller
     {
         //
         $message = Message::find($id);
-        $message->delete();
-        return back()->with('success', 'Message deleted successfully');
+        $message->delete_is = 1;
+        $message->save();
+        return redirect('messages')->with('success', 'Your message removed to the trash.');
+    }
+
+    public function countYetNotRead(){
+        $message = Message::where('read_is', 0)->where('delete_is', 0)->get();
+        return count($message);
+    }
+
+    public function getAllMessageDeleted(){
+        $message = Message::where('delete_is', 1)->get();
+        return $message;
+    }
+
+    public function trash(){
+        $count = $this->countYetNotRead();
+        $messages = $this->getAllMessageDeleted();
+        $countDelete = count($messages);
+        return view('messages.trash', [
+            'messages'=>$messages,
+            'count' => $count,
+            'countDelete' => $countDelete
+        ]);
     }
 }
