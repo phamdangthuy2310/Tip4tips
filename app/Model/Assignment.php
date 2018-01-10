@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Assignment extends Model
 {
@@ -13,4 +14,6 @@ class Assignment extends Model
         'lead_id',
         'create_by'
     ];
+
+
 }

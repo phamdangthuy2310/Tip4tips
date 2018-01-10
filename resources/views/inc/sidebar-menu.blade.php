@@ -65,7 +65,20 @@
                     <li><a href="{{action('LeadsController@create')}}">Add new</a></li>
                 </ul>
             </li>
+            <li class="treeview">
+                <a><i class="fa fa-retweet"></i> <span>Assignment Manager</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{action('AssignmentsController@index')}}">View List</a></li>
+                    <li><a href="{{action('AssignmentsController@create')}}">Add new</a></li>
+                </ul>
+            </li>
+
             {{--End Sales Manager--}}
+
 
             {{--Community Manager--}}
             <li class="treeview">

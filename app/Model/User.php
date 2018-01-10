@@ -5,16 +5,18 @@ namespace App;
 use App\Model\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+//    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+    protected $table = 'users';
     protected $fillable = [
         'username',
         'email',
@@ -50,4 +52,36 @@ class User extends Authenticatable
     public function getAllRole(){
         return Role::all();
     }
+
+    public static function getAllConsultant(){
+        $consultants = User::select('users.*')
+            ->join('roles', 'users.role_id', 'roles.id')
+            ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
+            ->where('roletypes.code' ,'consultant')
+            ->get();
+        return $consultants;
+    }
+    public static function getAllManager(){
+        $managers = User::select('users.*')
+            ->join('roles', 'users.role_id', 'roles.id')
+            ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
+            ->where('roletypes.code' ,'manager')
+            ->get();
+        return $managers;
+    }
+    public static function getAllTipster(){
+        $managers = User::select('users.*')
+            ->join('roles', 'users.role_id', 'roles.id')
+            ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
+            ->where('roletypes.code' ,'tipster')
+            ->get();
+        return $managers;
+    }
+
+    public static function getUserByID($id){
+        $name = User::where('users.id', $id)
+            ->select('users.*')->first();
+        return $name;
+    }
+
 }
