@@ -34,6 +34,7 @@
                     <i class="fa fa-dashboard"></i><span>Dashboard</span>
                 </a>
             </li>
+            @if( $user->role_id == 8)
             <li>
                 <a href="{{action('MessagesController@index')}}">
                     <i class="fa fa-envelope"></i> <span>Mailbox</span>
@@ -42,6 +43,7 @@
                     </span>
                 </a>
             </li>
+            @endif
             {{--Sales Manager--}}
             <li class="treeview">
                 <a href="#"><i class="fa fa-users"></i><span>Users</span>

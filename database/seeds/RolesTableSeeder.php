@@ -36,7 +36,7 @@ class RolesTableSeeder extends Seeder
         DB::table('roles')->insert([
             'name' => 'Real estate',
             'code' => 'realestate',
-            'id' => 2,
+            'roletype_id' => 2,
         ]);
         DB::table('roles')->insert([
             'name' => 'Service',

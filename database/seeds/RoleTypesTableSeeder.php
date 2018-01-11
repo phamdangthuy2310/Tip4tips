@@ -14,13 +14,16 @@ class RoleTypesTableSeeder extends Seeder
     {
         //
         DB::table('roletypes')->insert([
-            'name' => 'Manager'
+            'name' => 'Manager',
+            'code' => 'manager'
         ]);
         DB::table('roletypes')->insert([
-            'name' => 'Consultant'
+            'name' => 'Consultant',
+            'code' => 'consultant'
         ]);
         DB::table('roletypes')->insert([
-            'name' => 'Tipster'
+            'name' => 'Tipster',
+            'code' => 'tipster'
         ]);
     }
 }
