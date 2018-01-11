@@ -10,7 +10,9 @@ class Permission extends Model
     protected $table = 'permissions';
     protected $fillable = [
         'name',
-        'code'
+        'code',
+        'menu',//save id of user or category
+        'function_id'
     ];
 
     public static function getAllPermission(){

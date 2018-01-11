@@ -19,7 +19,9 @@ class PermissionsController extends Controller
     public function store(Request $request){
         $permission = $this->validate($request, [
             'name',
-            'code'
+            'code',
+            'menu',
+            'function_id'
         ]);
         Permission::create($permission);
         return redirect('permissions')->with('success', 'Create Successfully.');
@@ -34,13 +36,15 @@ class PermissionsController extends Controller
         $permission = Permission::find($id);
         $permission->name = $request->get('name');
         $permission->code = $request->get('code');
+        $permission->menu = $request->get('menu');
+        $permission->function_id = $request->get('function');
         $permission->save();
         return redirect('permissions')->with('success', 'Updated successfully');
     }
 
     public function destroy($id){
         $permission = Permission::find($id);
-        $permission->delete;
+        $permission->delete();
         return redirect('permissions')->with('success', 'Updated successfully');
     }
 }
