@@ -69,6 +69,15 @@ class User extends Authenticatable
             ->get();
         return $managers;
     }
+    public static function getAllRoleByCode($code){
+        $roles = DB::table('users')
+            ->join('roles', 'users.role_id', 'roles.id')
+            ->join('roletypes', 'roletypes.id', 'roles.roletype_id')
+            ->select('users.*', 'roles.code as role', 'roletypes.name as roletype')
+            ->where('roles.code' ,$code)
+            ->get();
+        return $roles;
+    }
     public static function getAllTipster(){
         $managers = User::select('users.*')
             ->join('roles', 'users.role_id', 'roles.id')

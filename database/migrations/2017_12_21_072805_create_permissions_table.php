@@ -18,8 +18,8 @@ class CreatePermissionsTable extends Migration
             $table->string('name');
             $table->string('code')->unique();
             $table->integer('menu_id')->unsigned();
-            $table->integer('function_id')->unsigned();
-            $table->foreign('function_id')->references('id')->on('functions');
+            $table->integer('action_id')->unsigned();
+            $table->foreign('action_id')->references('id')->on('actions');
             $table->foreign('menu_id')->references('id')->on('menus');
 
             $table->timestamps();

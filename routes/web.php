@@ -15,15 +15,17 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
-Auth::routes();
+Auth::routes([
+    Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard'),
+Route::resource('users', 'UsersController'),
+Route::resource('leads', 'LeadsController'),
+Route::resource('products', 'ProductsController'),
+Route::resource('gifts', 'GiftsController'),
+Route::resource('categories', 'CategoriesController'),
+Route::get('messages/trash', 'MessagesController@trash'),
+Route::resource('messages', 'MessagesController'),
+Route::resource('assignments', 'AssignmentsController'),
+]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
-Route::resource('users', 'UsersController');
-Route::resource('leads', 'LeadsController');
-Route::resource('products', 'ProductsController');
-Route::resource('gifts', 'GiftsController');
-Route::resource('categories', 'CategoriesController');
-Route::get('messages/trash', 'MessagesController@trash');
-Route::resource('messages', 'MessagesController');
-Route::resource('assignments', 'AssignmentsController');
+

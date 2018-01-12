@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class FunctionsController extends Controller
+class SalesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +14,7 @@ class FunctionsController extends Controller
     public function index()
     {
         //
+
     }
 
     /**

@@ -22,6 +22,8 @@ class RegionsTableSeeder extends Seeder
         DB::table('regions')->insert([
             'name' => 'Da Nang',
         ]);
-
+        DB::table('regions')->insert([
+            'name' => 'Nha Trang',
+        ]);
     }
 }

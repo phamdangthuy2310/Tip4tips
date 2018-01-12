@@ -7,6 +7,7 @@ use App\Model\Role;
 use App\Model\RoleType;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
@@ -20,14 +21,40 @@ class UsersController extends Controller
     {
         //
 //        $users = User::all();
-        $users = DB::table('users')
-            ->join('roles', 'users.role_id', 'roles.id')
-            ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
-            ->select('users.*', 'roles.name as role', 'roletypes.name as roletype')
-            ->get();
+//        $users = DB::table('users')
+//            ->join('roles', 'users.role_id', 'roles.id')
+//            ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
+//            ->select('users.*', 'roles.name as role', 'roletypes.name as roletype')
+//            ->get();
 //        print_r($users);die();
 
-        return view('users.index', ['users' => $users]);
+        $userau = Auth::user();
+        if(isset($userau)){
+            $userroles = DB::table('users')
+                ->join('roles', 'users.role_id', 'roles.id')
+                ->select('users.*', 'roles.code')
+                ->get();
+
+            foreach($userroles as $userrole){
+
+                if($userrole->code == 'sale'){
+                    $users = User::getAllRoleByCode($userrole->code);
+//                    print_r($users);die();
+                    return view('users.index')->with(['users'=>$users]);
+                }elseif ($userrole->code == 'community'){
+                    echo 'community';
+                    $users = User::getAllRoleByCode($userrole->code);
+                    return view('users.index', ['users' => $users]);
+                }else{
+                    return view('auth.login');
+                }
+            }
+
+        }else{
+            return view('auth.login');
+        }
+//        print_r($userau);die();
+//        return view('users.index', ['users' => $users]);
     }
 
     /**
