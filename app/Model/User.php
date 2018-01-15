@@ -78,6 +78,7 @@ class User extends Authenticatable
             ->get();
         return $roles;
     }
+
     public static function getAllTipster(){
         $managers = User::select('users.*')
             ->join('roles', 'users.role_id', 'roles.id')

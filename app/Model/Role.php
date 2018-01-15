@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Role extends Model
 {
@@ -21,4 +22,19 @@ class Role extends Model
     public function users(){
         return $this->hasMany('App\User');
     }
+
+    public static function getNameRoleByID($id){
+        $name = Role::find($id)->name;
+        return $name;
+    }
+
+    public static function getIDRoleByCode($code){
+        $code = DB::table('roles')
+        ->where('code', $code)
+        ->select('id')
+        ->get();
+        return $code;
+    }
+
+
 }

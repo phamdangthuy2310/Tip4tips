@@ -1,7 +1,7 @@
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="admin" class="logo">
+    <a href="/" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>A</b>T4T</span>
         <!-- logo for regular state and mobile devices -->
@@ -9,6 +9,7 @@
     </a>
 
     <!-- Header Navbar -->
+    <!-- Right Side Of Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -17,6 +18,10 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+                @guest
+                    <li><a href="{{ route('login') }}">Login</a></li>
+                    <li><a href="{{ route('register') }}">Register</a></li>
+                @else
                 <!-- Messages: style can be found in dropdown.less-->
                 <li class="dropdown messages-menu">
                     <!-- Menu toggle button -->
@@ -83,7 +88,7 @@
                         <!-- The user image in the navbar-->
                         <img src="{{ asset('images/avatar2.png') }}" class="user-image" alt="User Image">
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">Thuy Pham</span>
+                        <span class="hidden-xs">@if(Auth::user()->fullname) {{ Auth::user()->fullname }} @else {{ Auth::user()->username }} @endif</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
@@ -91,21 +96,29 @@
                             <img src="{{ asset('images/avatar2.png') }}" class="img-circle" alt="User Image">
 
                             <p>
-                                Thuy Pham - Admin
-                                <small>Member since Nov. 2012</small>
+                                @if(Auth::user()->fullname) {{ Auth::user()->fullname }} @else {{ Auth::user()->username }} @endif - {{\App\Model\Role::getNameRoleByID(Auth::user()->role_id)}}
+                                <small>Member since {{ \Carbon\Carbon::parse(Auth::user()->create_at)->format('F. Y') }}</small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <a href="{{action('UsersController@show', Auth::user()->id)}}" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    Sign out
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
                             </div>
                         </li>
                     </ul>
                 </li>
+                    @endguest
             </ul>
         </div>
     </nav>

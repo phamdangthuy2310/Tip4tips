@@ -7,7 +7,7 @@
                 <img src="{{ asset('images/avatar2.png')}}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Thuy Pham</p>
+                <p>@if(Auth::user()->fullname) {{ Auth::user()->fullname }} @else {{ Auth::user()->username }} @endif</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -34,7 +34,7 @@
                     <i class="fa fa-dashboard"></i><span>Dashboard</span>
                 </a>
             </li>
-            @if( $user->role_id == 8)
+            @if( Auth::user()->role_id == 8)
             <li>
                 <a href="{{action('MessagesController@index')}}">
                     <i class="fa fa-envelope"></i> <span>Mailbox</span>

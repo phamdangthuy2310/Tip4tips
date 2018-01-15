@@ -21,34 +21,16 @@ class UsersController extends Controller
     {
         //
 //        $users = User::all();
-//        $users = DB::table('users')
-//            ->join('roles', 'users.role_id', 'roles.id')
-//            ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
-//            ->select('users.*', 'roles.name as role', 'roletypes.name as roletype')
-//            ->get();
+        $users = DB::table('users')
+            ->join('roles', 'users.role_id', 'roles.id')
+            ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
+            ->select('users.*', 'roles.name as role', 'roletypes.name as roletype')
+            ->get();
 //        print_r($users);die();
 
         $userau = Auth::user();
         if(isset($userau)){
-            $userroles = DB::table('users')
-                ->join('roles', 'users.role_id', 'roles.id')
-                ->select('users.*', 'roles.code')
-                ->get();
-
-            foreach($userroles as $userrole){
-
-                if($userrole->code == 'sale'){
-                    $users = User::getAllRoleByCode($userrole->code);
-//                    print_r($users);die();
-                    return view('users.index')->with(['users'=>$users]);
-                }elseif ($userrole->code == 'community'){
-                    echo 'community';
-                    $users = User::getAllRoleByCode($userrole->code);
-                    return view('users.index', ['users' => $users]);
-                }else{
-                    return view('auth.login');
-                }
-            }
+            return view('users.index', ['users' => $users]);
 
         }else{
             return view('auth.login');
