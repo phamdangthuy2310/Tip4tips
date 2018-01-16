@@ -22,6 +22,7 @@ class CreateLeadsTable extends Migration
             $table->string('email')->unique();
             $table->string('phone');
             $table->longText('need');
+            $table->tinyInteger('status')->default(0);
 
 
             $table->integer('tipster_id')->unsigned();

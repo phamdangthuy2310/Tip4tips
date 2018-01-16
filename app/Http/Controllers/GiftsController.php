@@ -6,6 +6,7 @@ use App\Model\Category;
 use App\Model\Gift;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class GiftsController extends Controller
 {
@@ -17,6 +18,7 @@ class GiftsController extends Controller
     public function index()
     {
         //
+        //dd(Auth::user()->role_id);
         $gifts = DB::table('gifts')
             ->join('categories', 'categories.id', 'gifts.category_id')
         ->select('gifts.*', 'categories.name as category')->get();

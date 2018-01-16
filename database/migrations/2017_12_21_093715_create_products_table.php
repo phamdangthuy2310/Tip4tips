@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->decimal('quality', 8, 0)->default(0);
 
             $table->integer('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('productcategories');
             $table->timestamps();
         });
     }

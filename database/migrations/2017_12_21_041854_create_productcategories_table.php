@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGiftsTable extends Migration
+class CreateProductCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateGiftsTable extends Migration
      */
     public function up()
     {
-        Schema::create('gifts', function (Blueprint $table) {
+        Schema::create('productcategories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('code')->unique();
             $table->longText('description')->nullable();
-            $table->decimal('point',8,0)->default(0);
-            $table->integer('category_id')->unsigned();
-            $table->binary('thumbnail')->nullable();
-
-            $table->foreign('category_id')->references('id')->on('giftcategories');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ class CreateGiftsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gifts');
+        Schema::dropIfExists('productcategories');
     }
 }

@@ -29,12 +29,12 @@ class UsersController extends Controller
 //        print_r($users);die();
 
         $userau = Auth::user();
-        if(isset($userau)){
+//        if(isset($userau)){
             return view('users.index', ['users' => $users]);
 
-        }else{
-            return view('auth.login');
-        }
+//        }else{
+//            return view('auth.login');
+//        }
 //        return view('users.index', ['users' => $users]);
     }
 

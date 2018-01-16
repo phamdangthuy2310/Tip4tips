@@ -92,8 +92,8 @@
                 <ul class="treeview-menu">
                     <li><a href="{{action('ProductsController@index')}}">List of Products</a></li>
                     <li><a href="{{action('ProductsController@create')}}">Add Products</a></li>
-                    <li><a href="{{action('CategoriesController@index') }}/products">List of Product Categories</a></li>
-                    <li><a href="/categories/products/create">Add Product Categories</a></li>
+                    <li><a href="{{ route('categories.index') }}">List of Product Categories</a></li>
+                    <li><a href="{{ route('categories.create') }}">Add Product Categories</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -105,8 +105,8 @@
                 <ul class="treeview-menu">
                     <li><a href="{{action('GiftsController@index')}}">List of Gifts</a></li>
                     <li><a href="{{action('GiftsController@create')}}">Add Gifts</a></li>
-                    <li><a href="{{action('CategoriesController@index')}}/gifts">List of Gift Categories</a></li>
-                    <li><a href="/categories/gifts/create">Add Gift Categories</a></li>
+                    <li><a href="{{action('GiftCategoriesController@index')}}">List of Gift Categories</a></li>
+                    <li><a href="{{action('GiftCategoriesController@create')}}">Add Gift Categories</a></li>
                 </ul>
             </li>
             <li>

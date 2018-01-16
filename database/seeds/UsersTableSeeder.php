@@ -14,33 +14,20 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'username' => str_random('10'),
-            'email' => 'hamongkiue@gmail.com',
+            'username' => 'admin',
+            'email' => 'admin@amagumolabs.com',
             'password' => bcrypt('123456'),
-            'fullname' => str_random('5').' '.str_random('3').' '.str_random('5'),
-            'gender' => array_random(['0', '2', '1'], 1),
+            'fullname' => 'Admin',
+            'gender' => 1,
             'birthday' => '2017-12-12',
             'address' => 'Ho Chi Minh, Viet Nam',
             'phone' => '093893771',
             'point' => 0,
             'vote' => 0,
+            'delete_is' =>1,
             'region_id' => 1,
-            'role_id' => random_int(1,3),
+            'role_id' => 1,
 
-        ]);
-        DB::table('users')->insert([
-            'username' => str_random('10'),
-            'email' => str_random(8).'@gmail.com',
-            'password' => bcrypt('123456'),
-            'fullname' => str_random('5').' '.str_random('3').' '.str_random('5'),
-            'gender' => array_random(['0', '2', '1'], 1),
-            'birthday' => '2017-12-12',
-            'address' => 'Ho Chi Minh, Viet Nam',
-            'phone' => '093893771',
-            'point' => 0,
-            'vote' => 0,
-            'region_id' => 1,
-            'role_id' => random_int(1,5),
         ]);
 
     }
