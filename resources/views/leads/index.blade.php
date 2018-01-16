@@ -9,13 +9,15 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="view-managers" class="table table-bordered table-striped">
+            <table id="view-managers" class="table table-hover table-striped">
                 <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Fullname</th>
-                    <th>Email</th>
-                    <th>Need</th>
+                    <th>Lead</th>
+                    <th>Product</th>
+                    <th>Tipster</th>
+                    <th>Date</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -24,11 +26,12 @@
                 @foreach($leads as $lead)
                     <?php $i++ ?>
                 <tr>
-                    <td><?php echo $i?></td>
+                    <td>{{$i}}</td>
                     <td>{{$lead->fullname}}</td>
-                    <td>{{ $lead->email }}</td>
                     <td>{{ $lead->need }}</td>
-
+                    <td>{{ \App\User::getUserByID( $lead->tipster_id)->fullname }}</td>
+                    <td>{{ \Carbon\Carbon::parse($lead->created_at)->format('d F Y') }}</td>
+                    <td><span class="fa fa-dot-circle-o text-info"></span> New</td>
                     <td class="actions">
                         <a href="{{action('LeadsController@show', $lead['id'])}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
                         <a href="{{action('LeadsController@edit', $lead['id'])}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
@@ -45,9 +48,11 @@
                 <tfoot>
                 <tr>
                     <th>No.</th>
-                    <th>Fullname</th>
-                    <th>Email</th>
-                    <th>Need</th>
+                    <th>Lead</th>
+                    <th>Product</th>
+                    <th>Tipster</th>
+                    <th>Date</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
                 </tfoot>

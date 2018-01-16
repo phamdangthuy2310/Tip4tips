@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title', 'All Managers')
+@section('title', 'All Users')
 
 @section('content')
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">All Managers</h3>
-            <a href="users/create" class="btn btn-md btn-primary pull-right">Add New Manager</a>
+            <h3 class="box-title">All Users</h3>
+            <a href="users/create" class="btn btn-md btn-primary pull-right">Add New User</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

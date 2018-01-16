@@ -20,7 +20,6 @@
                     <th>No.</th>
                     <th>Category name</th>
                     <th>Description</th>
-                    <th>Belong to</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -32,7 +31,6 @@
                     <td><?php echo $i?></td>
                     <td>{{$category->name}}</td>
                     <td>{{$category->description}}</td>
-                    <td>@if($category->belong == 0) Product @else Gift @endif</td>
                     <td class="actions">
 {{--                        <a href="{{action('CategoriesController@show', $category->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>--}}
                         {{--<a href="{{action('CategoriesController@edit', $category->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>--}}
@@ -51,7 +49,6 @@
                     <th>No.</th>
                     <th>Category name</th>
                     <th>Description</th>
-                    <th>Belong to</th>
                     <th>Actions</th>
                 </tr>
                 </tfoot>

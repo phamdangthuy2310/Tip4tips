@@ -12,10 +12,17 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($catetype)
     {
         //
-        $categories = Category::all();
+        if($catetype == 'gifts'){
+            $categories = Category::where('belong', 1)->get();
+        }elseif ($catetype == 'products'){
+            $categories = Category::where('belong', 0)->get();
+        }else{
+            $categories = Category::all();
+        }
+
         return view('categories.index', ['categories' => $categories]);
     }
 
@@ -24,10 +31,10 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($catetype)
     {
         //
-        return view('categories.create');
+        return view('categories.create', ['catetype' => $catetype]);
     }
 
     /**
@@ -42,10 +49,15 @@ class CategoriesController extends Controller
             'name' => 'required'
         ]);
         $category['description'] = $request->description;
-        $category['belong'] = $request->belong;
+        if($request->belong == 'products'){
+            $belong = 0;
+        }else{
+            $belong =1;
+        }
+        $category['belong'] = $belong;
         Category::create($category);
 
-        return redirect('categories')->with('success', 'Category added successfully.');
+        return redirect('categories/'.$request->belong)->with('success', 'Category added successfully.');
     }
 
     /**
@@ -91,5 +103,8 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         //
+        $category = Category::find($id);
+        $category->delete();
+        return back()->with('success', 'Delete Successfully.');
     }
 }

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Edit Manager')
+@section('title', 'Edit User')
 
 @section('content')
     @if ($errors->any())
@@ -19,9 +19,9 @@
                 <div class="box-body box-profile">
                     <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
 
-                    <h3 class="profile-username text-center">Thuy Pham</h3>
+                    <h3 class="profile-username text-center">@if($user->fullname) {{ $user->fullname }} @else {{ $user->username }} @endif </h3>
 
-                    <p class="text-muted text-center">Admin</p>
+                    <p class="text-muted text-center">{{\App\Model\Role::getNameRoleByID($user->role_id)}}</p>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -34,7 +34,7 @@
             <!-- create manager form -->
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Edit manager</h3>
+                    <h3 class="box-title">Edit user</h3>
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>

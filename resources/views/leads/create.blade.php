@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Add new manager')
+@section('title', 'Add new user')
 
 @section('content')
     <div class="row">
@@ -9,10 +9,6 @@
             <div class="box box-warning">
                 <div class="box-body box-profile">
                     <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
-
-                    <h3 class="profile-username text-center">Thuy Pham</h3>
-
-                    <p class="text-muted text-center">Admin</p>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -26,7 +22,7 @@
 
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Create a new manager</h3>
+                    <h3 class="box-title">Create a new user</h3>
                 </div>
                 <!-- /.box-header -->
                 <form role="form" method="post" action="{{url('leads')}}">

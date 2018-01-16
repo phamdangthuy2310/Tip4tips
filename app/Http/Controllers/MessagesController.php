@@ -17,8 +17,8 @@ class MessagesController extends Controller
     {
         //
         $messages = Message::where('delete_is', 0)->get();
-        $count = $this->countYetNotRead();
-        $messagesDelete = $this->getAllMessageDeleted();
+        $count = Message::countYetNotRead();
+        $messagesDelete = Message::getAllMessageDeleted();
         $countDelete = count($messagesDelete);
         return view('messages.mailbox',
             [
@@ -38,8 +38,8 @@ class MessagesController extends Controller
     public function create()
     {
         //
-        $count = $this->countYetNotRead();
-        $messagesDelete = $this->getAllMessageDeleted();
+        $count = Message::countYetNotRead();
+        $messagesDelete = Message::getAllMessageDeleted();
         $countDelete = count($messagesDelete);
         return view('messages.compose')->with([
             'count' => $count,
@@ -79,8 +79,8 @@ class MessagesController extends Controller
         //
 
         $message = Message::find($id);
-        $count = $this->countYetNotRead();
-        $messagesDelete = $this->getAllMessageDeleted();
+        $count = Message::countYetNotRead();
+        $messagesDelete = Message::getAllMessageDeleted();
         $countDelete = count($messagesDelete);
 //        die();
         return view('messages.readmail', compact('message', 'id'))->with([
@@ -130,19 +130,9 @@ class MessagesController extends Controller
         return redirect('messages')->with('success', 'Your message removed to the trash.');
     }
 
-    public function countYetNotRead(){
-        $message = Message::where('read_is', 0)->where('delete_is', 0)->get();
-        return count($message);
-    }
-
-    public function getAllMessageDeleted(){
-        $message = Message::where('delete_is', 1)->get();
-        return $message;
-    }
-
     public function trash(){
-        $count = $this->countYetNotRead();
-        $messages = $this->getAllMessageDeleted();
+        $count = Message::countYetNotRead();
+        $messages = Message::getAllMessageDeleted();
         $countDelete = count($messages);
         return view('messages.trash', [
             'messages'=>$messages,

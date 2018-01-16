@@ -17,15 +17,19 @@ Route::get('/', function () {
 
 Auth::routes([
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard'),
-Route::resource('users', 'UsersController'),
-Route::resource('leads', 'LeadsController'),
-Route::resource('products', 'ProductsController'),
-Route::resource('gifts', 'GiftsController'),
-Route::resource('categories', 'CategoriesController'),
-Route::get('messages/trash', 'MessagesController@trash'),
-Route::resource('messages', 'MessagesController'),
-Route::resource('assignments', 'AssignmentsController'),
+    Route::resource('users', 'UsersController'),
+    Route::resource('leads', 'LeadsController'),
+    Route::resource('products', 'ProductsController'),
+    Route::resource('gifts', 'GiftsController'),
+    Route::resource('categories', 'CategoriesController'),
+    Route::get('messages/trash', 'MessagesController@trash'),
+    Route::resource('messages', 'MessagesController'),
+    Route::resource('assignments', 'AssignmentsController'),
+    Route::get('categories/{catetype}', 'CategoriesController@index',function ($catetype){} ),
+    Route::get('categories/{catetype}/create', 'CategoriesController@create',function ($catetype){} )
 ]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+//    Route::get('image-upload',['as'=>'image.upload','uses'=>'ImageUploadController@imageUpload']);
+//Route::post('image-upload',['as'=>'image.upload.post','uses'=>'ImageUploadController@imageUploadPost']);
 

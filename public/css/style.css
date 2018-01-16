@@ -4,3 +4,27 @@
 .mailbox-subject a{
     color: inherit;
 }
+.skin-blue .sidebar-menu>li>.treeview-menu > li{
+    padding-left: 32px;
+}
+.skin-blue .sidebar-menu .treeview-menu>li>a{
+    position: relative;
+    border-left: 1px dotted #8aa4af;
+}
+.skin-blue .sidebar-menu .treeview-menu>li>a:before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    border-bottom: 1px dotted #8aa4af;
+    width: 12px;
+    z-index: 99;
+}
+.skin-blue .sidebar-menu .treeview-menu>li:last-child>a{
+    border-left: none;
+}
+.skin-blue .sidebar-menu .treeview-menu>li:last-child>a:before{
+    height: 50%;
+    top: 0;
+    border-left: 1px dotted #8aa4af;
+}

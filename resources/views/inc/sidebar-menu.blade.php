@@ -34,16 +34,16 @@
                     <i class="fa fa-dashboard"></i><span>Dashboard</span>
                 </a>
             </li>
-            @if( Auth::user()->role_id == 8)
+
             <li>
                 <a href="{{action('MessagesController@index')}}">
                     <i class="fa fa-envelope"></i> <span>Mailbox</span>
                     <span class="pull-right-container">
-                      <small class="label pull-right bg-green">16</small>
+                      <small class="label pull-right bg-green">{{\App\Model\Message::countYetNotRead()}}</small>
                     </span>
                 </a>
             </li>
-            @endif
+
             {{--Sales Manager--}}
             <li class="treeview">
                 <a href="#"><i class="fa fa-users"></i><span>Users</span>
@@ -52,30 +52,30 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href='{{action('UsersController@index')}}'>View List</a></li>
-                    <li><a href='{{action('UsersController@create')}}'>Add new</a></li>
+                    <li><a href='{{action('UsersController@index')}}'>List of Users</a></li>
+                    <li><a href='{{action('UsersController@create')}}'>Add Users</a></li>
                 </ul>
             </li>
             <li class="treeview">
-                <a><i class="fa fa-street-view"></i> <span>Leads</span>
+                <a href="#"><i class="fa fa-street-view"></i> <span>Leads</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{action('LeadsController@index')}}">View List</a></li>
-                    <li><a href="{{action('LeadsController@create')}}">Add new</a></li>
+                    <li><a href="{{action('LeadsController@index')}}">List of Leads</a></li>
+                    <li><a href="{{action('LeadsController@create')}}">Add Leads</a></li>
                 </ul>
             </li>
             <li class="treeview">
-                <a><i class="fa fa-retweet"></i> <span>Assignment Manager</span>
+                <a href="#"><i class="fa fa-retweet"></i> <span>Assignment Manager</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{action('AssignmentsController@index')}}">View List</a></li>
-                    <li><a href="{{action('AssignmentsController@create')}}">Add new</a></li>
+                    <li><a href="{{action('AssignmentsController@index')}}">List of Assignments</a></li>
+                    <li><a href="{{action('AssignmentsController@create')}}">Add Assignments</a></li>
                 </ul>
             </li>
 
@@ -90,10 +90,10 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{action('ProductsController@index')}}">View all products</a></li>
-                    <li><a href="{{action('ProductsController@create')}}">Add new product</a></li>
-                    <li><a href="{{action('CategoriesController@index')}}">View all categories</a></li>
-                    <li><a href="{{action('CategoriesController@create')}}">Add new category</a></li>
+                    <li><a href="{{action('ProductsController@index')}}">List of Products</a></li>
+                    <li><a href="{{action('ProductsController@create')}}">Add Products</a></li>
+                    <li><a href="{{action('CategoriesController@index') }}/products">List of Product Categories</a></li>
+                    <li><a href="/categories/products/create">Add Product Categories</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -103,8 +103,10 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{action('GiftsController@index')}}">View List</a></li>
-                    <li><a href="{{action('GiftsController@create')}}">Add new</a></li>
+                    <li><a href="{{action('GiftsController@index')}}">List of Gifts</a></li>
+                    <li><a href="{{action('GiftsController@create')}}">Add Gifts</a></li>
+                    <li><a href="{{action('CategoriesController@index')}}/gifts">List of Gift Categories</a></li>
+                    <li><a href="/categories/gifts/create">Add Gift Categories</a></li>
                 </ul>
             </li>
             <li>

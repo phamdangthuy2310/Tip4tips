@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Add new category product')
+@section('title', 'Add new category')
 
 @section('content')
     <div class="row">
@@ -9,12 +9,12 @@
 
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Create a new category product</h3>
+                    <h3 class="box-title">Create a new {{$catetype}} category</h3>
                 </div>
                 <!-- /.box-header -->
                 <form role="form" method="post" action="{{url('categories')}}">
                     {{ csrf_field() }}
-
+                    <input type="hidden" name="belong" value="{{$catetype}}">
                         <div class="box-body">
                             <div class="form-group">
                                 <label>Category name</label>
@@ -25,15 +25,6 @@
                             <div class="form-group">
                                 <label>Description</label>
                                 <textarea name="description" rows="5" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label>Belong to</label>
-                                <select name="belong" class="form-control">
-                                    <option value="0">Product</option>
-                                    <option value="1">Gift</option>
-                                </select>
                             </div>
                         </div>
                 <!-- /.box-body -->

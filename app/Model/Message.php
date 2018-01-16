@@ -17,4 +17,14 @@ class Message extends Model
         'read_is',
         'create_at'
     ];
+
+    public static function countYetNotRead(){
+        $message = Message::where('read_is', 0)->where('delete_is', 0)->get();
+        return count($message);
+    }
+
+    public static function getAllMessageDeleted(){
+        $message = Message::where('delete_is', 1)->get();
+        return $message;
+    }
 }

@@ -35,7 +35,6 @@ class UsersController extends Controller
         }else{
             return view('auth.login');
         }
-//        print_r($userau);die();
 //        return view('users.index', ['users' => $users]);
     }
 
