@@ -1,0 +1,92 @@
+body,
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+    font-family: 'Roboto', sans-serif;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+    font-weight: 400;
+}
+.actions form{
+    display: inline-block;
+}
+.mailbox-subject a{
+    color: inherit;
+}
+.sidebar-menu li>a{
+    text-transform: uppercase;
+}
+.sidebar-menu>li>.treeview-menu > li{
+    padding-left: 32px;
+}
+.sidebar-menu .treeview-menu>li>a{
+    position: relative;
+    /*border-left: 1px dotted #8aa4af;*/
+    text-transform: inherit;
+}
+.sidebar-menu .treeview-menu>li>a:before{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    border-bottom: 1px dotted #8aa4af;
+    width: 12px;
+    z-index: 99;
+}
+.sidebar-menu .treeview-menu>li:last-child>a{
+    border-left: none;
+}
+.sidebar-menu .treeview-menu>li:last-child>a:before{
+    height: 50%;
+    top: 0;
+    border-left: 1px dotted #8aa4af;
+}
+.label-status{
+    display: inline-block;
+    position: relative;
+    padding-left: 15px;
+    text-transform: uppercase;
+}
+.label-status:before{
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    top: 6px;
+    left: 0;
+
+}
+.label-status.label-new:before{
+    background-color: #00c0ef;
+}
+
+.label-status.label-quote:before{
+    background-color: #e08e0b;
+}
+
+.label-status.label-call:before{
+    background-color: #367fa9;
+}
+.label-status.label-win:before{
+    background-color: #00a65a;
+}
+.label-status.label-lost:before{
+    background-color: #d73925;
+}
+/*
+css custom form*/
+input[type=date]::-webkit-outer-spin-button,
+input[type=date]::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+.box-header,
+.box-body,
+.box-footer{
+    padding: 15px;
+}
+.form-control{
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    height: 43px;
+}

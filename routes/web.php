@@ -17,20 +17,8 @@ Route::get('/', function () {
 
 Auth::routes([
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard'),
-    //Route::resource('users', 'UsersController'),
-    //Route::resource('leads', 'LeadsController'),
-    Route::resource('products', 'ProductsController'),
-    //Route::resource('gifts', 'GiftsController'),
-    Route::resource('categories', 'GiftCategoriesController'),
-    Route::resource('categories', 'ProductCategoriesController'),
-    Route::get('messages/trash', 'MessagesController@trash'),
-    Route::resource('messages', 'MessagesController'),
-    Route::resource('assignments', 'AssignmentsController'),
-
     //Route::get('categories/{id}/create', 'CategoriesController@create')->name('categories.create'),
 ]);
-Route::get('categories/create', 'GiftCategoriesController@create')->name('categories.create');
-Route::get('categories/', 'GiftCategoriesController@index')->name('categories.index');
 
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -94,4 +94,21 @@ class User extends Authenticatable
         return $name;
     }
 
+    public static function showGender($gender){
+        $name = '';
+        switch ($gender){
+            case 0:
+                $name = 'Male';
+                break;
+            case 1:
+                $name = 'Female';
+                break;
+            case 2:
+                $name = 'Other';
+                break;
+        }
+        return $name;
+    }
+
+
 }

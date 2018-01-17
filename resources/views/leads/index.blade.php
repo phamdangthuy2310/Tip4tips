@@ -31,7 +31,7 @@
                     <td>{{ $lead->need }}</td>
                     <td>{{ \App\User::getUserByID( $lead->tipster_id)->fullname }}</td>
                     <td>{{ \Carbon\Carbon::parse($lead->created_at)->format('d F Y') }}</td>
-                    <td><span class="fa fa-dot-circle-o text-info"></span> New</td>
+                    <td><span class="label-status {{\App\Model\Lead::showColorStatus($lead->status)}}">{{ \App\Model\Lead::showNameStatus($lead->status) }}</span></td>
                     <td class="actions">
                         <a href="{{action('LeadsController@show', $lead['id'])}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
                         <a href="{{action('LeadsController@edit', $lead['id'])}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>

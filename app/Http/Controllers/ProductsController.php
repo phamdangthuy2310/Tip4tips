@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Category;
 use App\Model\Product;
+use App\Model\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,8 +19,8 @@ class ProductsController extends Controller
         //
 //        $products = Product::all();
         $products = DB::table('products')
-            ->join('categories', 'products.category_id', 'categories.id')
-        ->select('products.*', 'categories.name as category')
+            ->join('productcategories', 'products.category_id', 'productcategories.id')
+        ->select('products.*', 'productcategories.name as category')
         ->get();
         return view('products.index')->with(['products'=>$products]);
     }
@@ -33,7 +33,7 @@ class ProductsController extends Controller
     public function create()
     {
         //
-        $categories = Category::where('belong', 0)->get();
+        $categories = ProductCategory::all();
         return view('products.create')->with(['categories'=> $categories]);
     }
 
@@ -70,8 +70,8 @@ class ProductsController extends Controller
         //
 //        $product = Product::find($id);
         $product = DB::table('products')
-        ->join('categories', 'categories.id', 'products.category_id')
-        ->select('products.*', 'categories.name as category')
+        ->join('productcategories', 'productcategories.id', 'products.category_id')
+        ->select('products.*', 'productcategories.name as category')
         ->first();
         return view('products.show', compact('product', 'id'));
     }
@@ -86,7 +86,7 @@ class ProductsController extends Controller
     {
         //
         $product = Product::find($id);
-        $categories = Category::where('belong', 0)->get();
+        $categories = ProductCategory::all();
         return view('products.edit', compact('product', 'id'))->with(['categories'=>$categories]);
     }
 

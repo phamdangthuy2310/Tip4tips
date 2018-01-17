@@ -11,7 +11,7 @@ class GiftCategoriesController extends Controller
     public function index()
     {
         $categories = GiftCategory::all();
-        return view('categories.index', ['categories' => $categories]);
+        return view('giftcategories.index', ['categories' => $categories]);
     }
 
     /**
@@ -22,7 +22,7 @@ class GiftCategoriesController extends Controller
     public function create()
     {
         //
-        return view('categories.create');
+        return view('giftcategories.create');
     }
 
     /**
@@ -35,15 +35,15 @@ class GiftCategoriesController extends Controller
     {
         $category = $this->validate($request,[
             'name' => 'required',
-            'code' => 'required'
         ]);
+        $category['name'] = $request->name;
         $category['code'] = strtolower(preg_replace('/\s*/', '', $request->code));
         $category['description'] = $request->description;
 
 
         GiftCategory::create($category);
 
-        return redirect('categories')->with('success', 'Category added successfully.');
+        return redirect('giftcategories/')->with('success', 'Category added successfully.');
     }
 
     /**

@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\ProductCategory;
+use App\User;
 use Illuminate\Http\Request;
 
-class ProductCategoriesController extends Controller
+class TipstersController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $categories = ProductCategory::all();
-        return view('productcategories.index', ['categories' => $categories]);
+        //
+        $users = User::getAllTipster();
+        return view('tipsters.index', ['users' => $users]);
     }
 
     /**
@@ -21,7 +27,6 @@ class ProductCategoriesController extends Controller
     public function create()
     {
         //
-        return view('productcategories.create');
     }
 
     /**
@@ -32,15 +37,7 @@ class ProductCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $category = $this->validate($request,[
-            'name' => 'required',
-        ]);
-        $category['name'] = $request->name;
-        $category['code'] =strtolower(preg_replace('/\s*/', '', $request->name));
-        $category['description'] = $request->description;
-        ProductCategory::create($category);
-
-        return redirect('productcategories')->with('success', 'Category added successfully.');
+        //
     }
 
     /**
@@ -86,8 +83,5 @@ class ProductCategoriesController extends Controller
     public function destroy($id)
     {
         //
-        $category = ProductCategory::find($id);
-        $category->delete();
-        return back()->with('success', 'Delete Successfully.');
     }
 }

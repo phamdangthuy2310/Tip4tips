@@ -13,4 +13,7 @@ class RoleType extends Model
         'code'
     ];
 
+    public static function getNameByID($id){
+        return RoleType::where('id', $id)->select('*')->first();
+    }
 }

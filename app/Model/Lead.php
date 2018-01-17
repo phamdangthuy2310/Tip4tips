@@ -17,6 +17,7 @@ class Lead extends Model
         'address',
         'phone',
         'need',
+        'status',
         'region_id',
         'tipster_id'
     ];
@@ -39,6 +40,49 @@ class Lead extends Model
     public static function getLeadByID($id){
         $name = Lead::where('leads.id', $id)
             ->select('leads.*')->first();
+        return $name;
+    }
+
+    public static function showNameStatus($statusID){
+        $name = '';
+        switch ($statusID){
+            case 0:
+                $name = 'New';
+                break;
+            case 1:
+                $name = 'Quote';
+                break;
+            case 2:
+                $name = 'Call';
+                break;
+            case 3:
+                $name = 'Win';
+                break;
+            case 4:
+                $name = 'Lost';
+                break;
+        }
+        return $name;
+    }
+    public static function showColorStatus($statusID){
+        $name = '';
+        switch ($statusID){
+            case 0:
+                $name = 'label-new';
+                break;
+            case 1:
+                $name = 'lable-quote';
+                break;
+            case 2:
+                $name = 'label-call';
+                break;
+            case 3:
+                $name = 'label-win';
+                break;
+            case 4:
+                $name = 'label-lost';
+                break;
+        }
         return $name;
     }
 }

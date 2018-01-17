@@ -3,14 +3,14 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4 col-md-push-8">
 
             <!-- Profile Image -->
             <div class="box box-primary">
                 <div class="box-body box-profile">
                     <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
-
-                    <h3 class="profile-username text-center">{{$lead->fullname}}</h3>
+                    <p class="text-muted text-center">Avatar</p>
+                    <p class="text-muted text-center"><span class="label-status {{\App\Model\Lead::showColorStatus($lead->status)}}">{{\App\Model\Lead::showNameStatus($lead->status)}}</span></p>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -19,53 +19,72 @@
 
         </div>
         <!-- /.col -->
-        <div class="col-md-9">
+        <div class="col-md-8 col-md-pull-4">
             <!-- About Me Box -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">About Me</h3>
+                    <h3 class="box-title">About {{$lead->fullname}}</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <strong><i class="fa fa-address-book margin-r-5"></i> Fullname</strong>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <strong><i class="fa fa-address-book margin-r-5"></i> Fullname</strong>
 
-                    <p class="text-muted">
-                        {{ $lead->fullname }}
-                    </p>
+                            <p class="text-muted">
+                                {{ $lead->fullname }}
+                            </p>
+                        </div>
+                    </div>
 
-                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <hr>
+                            <strong><i class="fa fa-envelope margin-r-5"></i> Email</strong>
 
-                    <strong><i class="fa fa-envelope margin-r-5"></i> Email</strong>
+                            <p class="text-muted">
+                                {{$lead->email}}
+                            </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <hr>
+                            <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
 
-                    <p class="text-muted">
-                        {{$lead->email}}
-                    </p>
+                            <p class="text-muted">
+                                {{$lead->phone}}
+                            </p>
+                        </div>
+                    </div>
 
-                    <hr>
-                    <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <hr>
+                            <strong><i class="fa fa-home margin-r-5"></i> Address</strong>
 
-                    <p class="text-muted">
-                        {{$lead->phone}}
-                    </p>
+                            <p class="text-muted">
+                                {{$lead->address}}
+                            </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <hr>
 
-                    <hr>
-                    <strong><i class="fa fa-home margin-r-5"></i> Address</strong>
+                            <strong><i class="fa fa-map-marker margin-r-5"></i> Region</strong>
 
-                    <p class="text-muted">
-                        {{$lead->address}}
-                    </p>
+                            <p class="text-muted">{{$lead->region}}</p>
 
-                    <hr>
+                        </div>
+                    </div>
 
-                    <strong><i class="fa fa-map-marker margin-r-5"></i> Region</strong>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <hr>
 
-                    <p class="text-muted">{{$lead->region}}</p>
+                            <strong><i class="fa fa-file-text-o margin-r-5"></i> Need</strong>
 
-                    <hr>
+                            <p>{{$lead->need}}</p>
+                        </div>
+                    </div>
 
-                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Need</strong>
-
-                    <p>{{$lead->need}}</p>
                 </div>
                 <!-- /.box-body -->
             </div>

@@ -10,11 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('leads', 'LeadsController',[
+Route::get('messages/trash', 'MessagesController@trash')->name('messages.trash');
+Route::resource('messages', 'MessagesController', [
     'name' => [
-        'index' => 'leads.index',
-        'create' => 'leads.create',
-        'edit' => 'leads.edit',
-        'show' => 'leads.show',
+        'index' => 'messages.index',
+        'create' => 'messages.create',
+        'edit' => 'messages.edit',
+        'show' => 'messages.show',
     ]
 ]);

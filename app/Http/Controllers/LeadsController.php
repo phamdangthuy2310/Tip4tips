@@ -58,11 +58,12 @@ class LeadsController extends Controller
         $lead['phone'] = $request->phone;
         $lead['address'] = $request->address;
         $lead['need'] = $request->need;
+        $lead['status'] = 0;
         $lead['region_id'] = $request->region;
         $lead['tipster_id'] = $request->tipster;
         Lead::create($lead);
 
-        return back()->with('success', 'Lead has been added');
+        return redirect('leads.index')->with('success', 'Lead has been added');
     }
 
     /**

@@ -59,13 +59,38 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/web/route_user.php'));
         //Route Lead
-        Route::middleware('web')
+        Route::middleware('web', 'auth')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/route_lead.php'));
         //Route Gift
-        Route::middleware('web','community.rule')
+        Route::middleware('web','auth')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/route_gift.php'));
+        //Route Gift Category
+        Route::middleware('web','auth')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/route_giftcategory.php'));
+        //Route Product Category
+        Route::middleware('web','auth')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/route_productcategory.php'));
+        //Route Product
+        Route::middleware('web','auth')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/route_product.php'));
+        //Route Assignment
+        Route::middleware('web','auth')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/route_assignment.php'));
+        //Route Message
+        Route::middleware('web','auth')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/route_message.php'));
+        //Route Message
+        Route::middleware('web','auth')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/route_tipster.php'));
+
     }
 
     /**

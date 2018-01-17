@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Category;
 use App\Model\Gift;
+use App\Model\GiftCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +20,8 @@ class GiftsController extends Controller
         //
         //dd(Auth::user()->role_id);
         $gifts = DB::table('gifts')
-            ->join('categories', 'categories.id', 'gifts.category_id')
-        ->select('gifts.*', 'categories.name as category')->get();
+            ->join('giftcategories', 'giftcategories.id', 'gifts.category_id')
+        ->select('gifts.*', 'giftcategories.name as category')->get();
         return view('gifts.index', ['gifts' => $gifts] );
     }
 
@@ -33,7 +33,7 @@ class GiftsController extends Controller
     public function create()
     {
         //
-        $categories = Category::where('belong', 1)->get();
+        $categories = GiftCategory::all();
         return view('gifts.create', ['categories' => $categories]);
     }
 
@@ -68,9 +68,9 @@ class GiftsController extends Controller
     {
         //
         $gift = DB::table('gifts')
-        ->join('categories', 'categories.id', 'gifts.category_id')
+        ->join('giftcategories', 'giftcategories.id', 'gifts.category_id')
         ->where('gifts.id', $id)
-            ->select('gifts.*', 'categories.name as category')->first();
+            ->select('gifts.*', 'giftcategories.name as category')->first();
         return view('gifts.show', compact('gift', 'id'));
     }
 
@@ -83,7 +83,7 @@ class GiftsController extends Controller
     public function edit($id)
     {
         $gift = Gift::find($id);
-        $categories = Category::where('belong', 1)->get();
+        $categories = GiftCategory::all();
         return view('gifts.edit', compact('gift', 'id'))->with(['categories'=> $categories]);
     }
 

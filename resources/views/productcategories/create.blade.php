@@ -12,12 +12,17 @@
                     <h3 class="box-title">Create a new category</h3>
                 </div>
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{url('categories')}}">
+                <form role="form" method="post" action="{{url('productcategories')}}">
                     {{ csrf_field() }}
                         <div class="box-body">
-                            <div class="form-group">
+                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label>Category name</label>
-                                <input name="name" type="text" class="form-control">
+                                <input name="name" type="text" class="form-control" value="{{ old('name') }}" required>
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         <div class="box-body">

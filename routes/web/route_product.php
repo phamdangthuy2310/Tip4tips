@@ -10,11 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('leads', 'LeadsController',[
+Route::resource('products', 'ProductsController', [
     'name' => [
-        'index' => 'leads.index',
-        'create' => 'leads.create',
-        'edit' => 'leads.edit',
-        'show' => 'leads.show',
+        'index' => 'products.index',
+        'create' => 'products.create',
+        'show' => 'products.show',
+        'edit' => 'products.edit',
     ]
 ]);

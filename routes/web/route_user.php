@@ -11,4 +11,11 @@
 |
 */
 
-Route::resource('/users', 'UsersController');
+Route::resource('/users', 'UsersController', [
+    'name' => [
+        'index' => 'users.index',
+        'create' => 'users.create',
+        'edit' => 'users.edit',
+        'show' => 'users.show',
+    ]
+]);

@@ -10,4 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('gifts', 'GiftsController');
+Route::resource('gifts', 'GiftsController', [
+    'name' => [
+        'index' => 'gifts.index',
+        'create' => 'gifts.create',
+        'edit' => 'gifts.edit',
+        'show' => 'gifts.show',
+    ]
+]);

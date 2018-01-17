@@ -12,4 +12,10 @@ class Region extends Model
         'id',
         'name'
     ];
+
+    public static function getNameByID($id){
+        $name = Region::where('id', $id)
+            ->select('*')->first();
+        return $name;
+    }
 }
