@@ -79,7 +79,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{route('products.index')}}">List of Products</a></li>
+                    <li><a href="{{route('products.index')}}">{{ trans('menu.product') }}</a></li>
                     <li><a href="{{route('products.create')}}">Add Products</a></li>
                     <li><a href="{{ route('productcategories.index') }}">List of Product Categories</a></li>
                     <li><a href="{{ route('productcategories.create') }}">Add Product Categories</a></li>
