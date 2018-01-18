@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class CheckRoleMiddleware
 {
@@ -19,18 +20,31 @@ class CheckRoleMiddleware
         if(!Auth::check()){
             return redirect()->route('login');
         }
-        $role_id = Auth::User()->role_id;
+        $role_id = DB::table('users')
+        ->where('id', Auth::user()->id)
+        ->join('roles', 'roles.id', 'users.role_id')
+        ->select('users.*', 'roles.*')->first();
+//        $role_id = Auth::User()->role_id;
         $uri = $request->path();
         $arrayUrl = [];
-        switch ($role_id) {
-            case 1:
-                $arrayUrl = ['users','leads','products','tipsters','gifts','messages'];
+        switch ($role_id->code) {
+            case 'admin':
+                $arrayUrl = ['users','leads','products','productcategories','tipsters','gifts','giftcategories','messages', 'assignments'];
                 break;
-            case 2:
+            case 'community':
                 $arrayUrl = ['tipsters','products','gifts','messages'];
                 break;
-            case 3:
-                echo "Your favorite color is green!";
+            case 'sale':
+                $arrayUrl = ['leads','tipsters','products','gifts','messages'];
+                break;
+            case 'insurance':
+            case 'car':
+            case 'realestate':
+            case 'service':
+                $arrayUrl = ['leads','products','gifts','messages'];
+                break;
+            case 'ambassador':
+                $arrayUrl = ['tipsters','products','gifts','messages'];
                 break;
             default:
                 echo "Your favorite color is neither red, blue, nor green!";

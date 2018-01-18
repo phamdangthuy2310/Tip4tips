@@ -62,7 +62,7 @@ class AssignmentsController extends Controller
         $user =  Auth::user();
         $assignment['consultant_id'] = $request->get('consultant');
         $assignment['lead_id'] = $request->get('lead');
-        $assignment['create_by'] = 1;
+        $assignment['create_by'] = Auth::user()->id;
         Assignment::create($assignment);
         return redirect('assignments')->with('success', 'Assignment successfully.');
     }
@@ -111,7 +111,7 @@ class AssignmentsController extends Controller
         $assignment = Assignment::find($id);
         $assignment->consultant_id = $request->get('consultant');
         $assignment->lead_id = $request->get('lead');
-        $assignment->create_by = 1;
+        $assignment->create_by = Auth::user()->id;
         $assignment->save();
         return redirect('assignments')->with('success', 'Updated successfully');
     }

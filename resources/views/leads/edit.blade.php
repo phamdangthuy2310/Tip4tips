@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Edit Manager')
+@section('title', 'Edit Lead')
 
 @section('content')
     @if ($errors->any())
@@ -16,12 +16,49 @@
 
             <!-- Profile Image -->
             <div class="box box-warning">
-                <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Assignment Area</h3>
                 </div>
-                <div class="box-body text-center">
-                    <p>Change Avatar</p>
+                <div class="box-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div><br />
+                    @endif
+                    @if (\Session::has('success'))
+                        <div class="alert alert-success">
+                            <p>{{ \Session::get('success') }}</p>
+                        </div>
+                @endif
+                <!-- /.box-header -->
+                    <form role="form" method="post" action="{{url('assignments')}}">
+                        {{ csrf_field() }}
+
+                        <div class="box-body">
+                            <input type="hidden" name="lead" value="{{$lead->id}}">
+                            <div class="form-group">
+                                <label>Assign to Consultant</label>
+                                <select name="consultant" class="form-control">
+                                    @foreach(\App\User::getAllConsultant() as $consultant)
+                                        <option value="{{$consultant->id}}">{{$consultant->fullname}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary pull-right">Assign</button>
+                        </div>
+                    </form>
                 </div>
+
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
@@ -33,7 +70,7 @@
             <!-- create manager form -->
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Edit user</h3>
+                    <h3 class="box-title">Edit Lead</h3>
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>

@@ -36,5 +36,13 @@ class Role extends Model
         return $code;
     }
 
+    public static function getAllRoleInCompany(){
+        $roles = DB::table('roles')
+        ->whereNOTIn('id', function ($query){
+            $query->select('id')->where('code', 'tipster')->from('roletypes');
+        })->get();
+        return $roles;
+    }
+
 
 }

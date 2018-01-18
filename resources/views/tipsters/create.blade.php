@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Add new user')
+@section('title', 'Create Tipster')
 
 @section('content')
     <div class="row">
@@ -8,7 +8,7 @@
             <!-- Profile Image -->
             <div class="box box-warning">
                 <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
+                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="Tipster profile picture">
                 </div>
                 <div class="box-body text-center">
                     <p>Please upload an image.</p>
@@ -24,11 +24,11 @@
             <!-- create manager form -->
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Create a new user</h3>
+                    <h3 class="box-title">Create Tipster</h3>
                 </div>
 
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{url('users')}}">
+                <form role="form" method="post" action="{{url('tipsters')}}">
                     {{ csrf_field() }}
                 <div class="box-body">
                     @if ($errors->any())
@@ -132,7 +132,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Department</label>
+                                <label>Level</label>
                                 <select name="department" class="form-control">
                                     @foreach($roletypes as $roletype)
                                         <optgroup label="{{$roletype->name}}">
@@ -152,7 +152,7 @@
                 <!-- /.box-body -->
 
                 <div class="box-footer">
-                    <button type="button" class="btn btn-default">Cancel</button>
+                    <a href="{{route('tipsters.index')}}" class="btn btn-default">Cancel</a>
                     <button type="submit" class="btn btn-primary pull-right">Create</button>
                 </div>
             </form>

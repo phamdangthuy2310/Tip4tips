@@ -90,3 +90,27 @@ input[type=date]::-webkit-inner-spin-button {
     -moz-border-radius: 3px;
     height: 43px;
 }
+.form-control[type=search]{
+    height: 34px;
+}
+/*
+Css for breadcrumb*/
+.content-header>.breadcrumb{
+    float: none;
+    position: static;
+}
+
+@media (min-width: 992px) {
+    .box-list .box-header{
+        position: relative;
+    }
+    .box-list .box-header .box-title{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -moz-transform: translateX(-100%);
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+        z-index: 99;
+    }
+}

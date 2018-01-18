@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Add new category')
+@section('title', 'Create product category')
 
 @section('content')
     <div class="row">
@@ -9,7 +9,7 @@
 
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Create a new category</h3>
+                    <h3 class="box-title">Create Product Category</h3>
                 </div>
                 <!-- /.box-header -->
                 <form role="form" method="post" action="{{url('productcategories')}}">
@@ -34,7 +34,7 @@
                 <!-- /.box-body -->
 
                 <div class="box-footer">
-                    <button type="button" class="btn btn-default">Cancel</button>
+                    <a href="{{route('productcategories.index')}}" class="btn btn-default">Cancel</a>
                     <button type="submit" class="btn btn-primary pull-right">Create</button>
                 </div>
             </form>

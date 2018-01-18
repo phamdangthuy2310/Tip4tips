@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Add new user')
+@section('title', 'Create User')
 
 @section('content')
     <div class="row">
@@ -24,7 +24,7 @@
             <!-- create manager form -->
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Create a new user</h3>
+                    <h3 class="box-title">Create User</h3>
                 </div>
 
                 <!-- /.box-header -->
@@ -152,7 +152,7 @@
                 <!-- /.box-body -->
 
                 <div class="box-footer">
-                    <button type="button" class="btn btn-default">Cancel</button>
+                    <a href="{{route('users.index')}}" class="btn btn-default">Cancel</a>
                     <button type="submit" class="btn btn-primary pull-right">Create</button>
                 </div>
             </form>

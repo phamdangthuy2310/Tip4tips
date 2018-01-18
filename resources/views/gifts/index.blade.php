@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title', 'All Gifts')
+@section('title', 'List of gifts')
 
 @section('content')
-    <div class="box">
+    <div class="box box-list">
         <div class="box-header clearfix">
-            <h3 class="box-title">All Gifts</h3>
-            <a href="{{action('GiftsController@create')}}" class="btn btn-md btn-primary pull-right">Add New Gift</a>
+            <h3 class="box-title">List of gifts</h3>
+            <a href="{{action('GiftsController@create')}}" class="btn btn-md btn-primary pull-right"><i class="fa fa-plus"></i> New Gift</a>
         </div>
 
         <!-- /.box-header -->

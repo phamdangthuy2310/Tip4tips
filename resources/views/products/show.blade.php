@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Add new product')
+@section('title', 'Product Information')
 
 @section('content')
     <div class="row">

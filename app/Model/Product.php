@@ -16,4 +16,9 @@ class Product extends Model
         'quality',
         'category_id'
     ];
+
+    public static function getAllProduct(){
+        $product = Product::all();
+        return $product;
+    }
 }

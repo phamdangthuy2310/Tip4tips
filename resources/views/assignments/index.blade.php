@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title', 'All Assignments')
+@section('title', 'List of Assignments')
 
 @section('content')
-    <div class="box">
+    <div class="box box-list">
         <div class="box-header">
-            <h3 class="box-title">All Category Products</h3>
-            <a href="{{action('AssignmentsController@create')}}" class="btn btn-md btn-primary pull-right">Add New Assignment</a>
+            <h3 class="box-title">List of Assignments</h3>
+            <a href="{{action('AssignmentsController@create')}}" class="btn btn-md btn-primary pull-right"><i class="fa fa-plus"></i> New Assignment</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Add new user')
+@section('title', 'Create Lead')
 
 @section('content')
     <div class="row">
@@ -7,11 +7,11 @@
 
             <!-- Profile Image -->
             <div class="box box-warning">
-                <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Assignment Area</h3>
                 </div>
-                <div class="box-body text-center">
-                    <p>Please upload an image.</p>
+                <div class="box-body">
+                    <p class="text-center">Please create lead to use this action at <br/><span class="inline text-bold">Edit Lead Screen</span>.</p>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -25,7 +25,7 @@
 
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Create a new user</h3>
+                    <h3 class="box-title">Create Lead</h3>
                 </div>
                 <!-- /.box-header -->
                 <form role="form" method="post" action="{{url('leads')}}">
@@ -36,7 +36,7 @@
                             <!-- text input -->
                             <div class="form-group">
                                 <label>Full name</label>
-                                <input name="fullname" type="text" class="form-control" placeholder="Enter ...">
+                                <input name="fullname" type="text" class="form-control" placeholder="Enter ..." required>
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,11 @@
 
                         <div class="form-group">
                             <label>Need</label>
-                            <textarea name="need" class="form-control" rows="5"></textarea>
+                            <select name="need" class="form-control">
+                                @foreach(\App\Model\Product::getAllProduct() as $product)
+                                    <option value="{{$product->id}}">{{$product->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group">

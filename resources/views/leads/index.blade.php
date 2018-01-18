@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title', 'All Managers')
+@section('title', 'List of Leads')
 
 @section('content')
-    <div class="box">
+    <div class="box box-list">
         <div class="box-header">
-            <h3 class="box-title">All Leads</h3>
-            <a href="leads/create" class="btn btn-md btn-primary pull-right">Add New Lead</a>
+            <h3 class="box-title text-center">List of Leads</h3>
+            <a href="{{route('leads.create')}}" class="btn btn-md btn-primary pull-right"><i class="fa fa-plus"></i> New Lead</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

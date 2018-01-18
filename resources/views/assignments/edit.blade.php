@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Edit new product')
+@section('title', 'Edit Assignment')
 
 @section('content')
     <div class="row">
@@ -9,7 +9,7 @@
 
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Edit an assignment</h3>
+                    <h3 class="box-title">Edit an Assignment</h3>
                 </div>
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -48,7 +48,7 @@
                 <!-- /.box-body -->
 
                 <div class="box-footer">
-                    <button type="button" class="btn btn-default">Cancel</button>
+                    <a href="{{route('assignments.index')}}" class="btn btn-default">Cancel</a>
                     <button type="submit" class="btn btn-primary pull-right">Update</button>
                 </div>
             </form>

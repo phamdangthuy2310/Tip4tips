@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title', 'All Users')
+@section('title', 'List of Product Categories')
 
 @section('content')
-    <div class="box">
+    <div class="box box-list">
         <div class="box-header">
-            <h3 class="box-title">All Category Products</h3>
-            <a href="{{ route('productcategories.create') }}" class="btn btn-md btn-primary pull-right">Add New Category</a>
+            <h3 class="box-title">List of Product Categories</h3>
+            <a href="{{ route('productcategories.create') }}" class="btn btn-md btn-primary pull-right"><i class="fa fa-plus"></i> New Category</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

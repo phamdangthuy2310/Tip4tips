@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title', 'All Managers')
+@section('title', 'List of Products')
 
 @section('content')
-    <div class="box">
+    <div class="box box-list">
         <div class="box-header clearfix">
-            <h3 class="box-title">All Products</h3>
-            <a href="{{action('ProductsController@create')}}" class="btn btn-md btn-primary pull-right">Add New Product</a>
+            <h3 class="box-title">List of Products</h3>
+            <a href="{{action('ProductsController@create')}}" class="btn btn-md btn-primary pull-right"><i class="fa fa-plus"></i> New Product</a>
         </div>
 
         <!-- /.box-header -->

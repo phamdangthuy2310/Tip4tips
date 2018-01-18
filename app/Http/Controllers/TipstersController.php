@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Region;
+use App\Model\Role;
+use App\Model\RoleType;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -27,6 +30,10 @@ class TipstersController extends Controller
     public function create()
     {
         //
+        $roles = Role::all();
+        $roletypes = RoleType::where('code', 'tipster')->get();
+        $regions = Region::all();
+        return view('tipsters.create')->with(['roles' => $roles, 'roletypes' => $roletypes, 'regions'=> $regions]);
     }
 
     /**
@@ -38,6 +45,24 @@ class TipstersController extends Controller
     public function store(Request $request)
     {
         //
+        $user = $this->validate(request(),[
+            'username' => 'required',
+            'password' => 'required|string|min:6|confirmed',
+            'fullname' => 'required',
+            'email' => 'required|string|email|max:255|unique:users',
+            'birthday' => 'required|date',
+        ]);
+        $user['password']= bcrypt($request->password);
+        $user['gender'] = $request->gender;
+        $user['phone'] = $request->phone;
+        $user['address'] = $request->address;
+        $user['point'] = 0;
+        $user['vote'] = 0;
+        $user['region_id'] = $request->region;
+        $user['role_id'] = $request->department;
+        $user['delete_is'] = 1;
+        User::create($user);
+        return redirect('tipsters')->with('success', 'Tipster added successfully.');
     }
 
     /**
@@ -49,6 +74,11 @@ class TipstersController extends Controller
     public function show($id)
     {
         //
+        $user = User::find($id);
+        $role = Role::find($user->role_id);
+        $roletype = RoleType::find($role->roletype_id);
+        return view('tipsters.show', compact('user', 'id'))->with(['role' => $role, 'roletype'=> $roletype]);
+
     }
 
     /**
@@ -60,6 +90,11 @@ class TipstersController extends Controller
     public function edit($id)
     {
         //
+        $user = User::find($id);
+        $roles = Role::all();
+        $roletypes = RoleType::where('code', 'tipster')->get();
+        $regions = Region::all();
+        return view('tipsters.edit',compact('user','id'))->with(['roles'=>$roles, 'roletypes' => $roletypes, 'regions'=> $regions]);
     }
 
     /**
@@ -72,6 +107,19 @@ class TipstersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        //
+        $user = User::find($id);
+        $user->fullname = $request->get('fullname');
+        $user->email = $request->get('email');
+        $user->phone = $request->get('phone');
+        $user->birthday = $request->get('birthday');
+        $user->address = $request->get('address');
+        $user->gender = $request->get('gender');
+        $user->role_id = $request->get('department');
+        $user->delete_is = $request->get('status');
+
+        $user->save();
+        return redirect('tipsters')->with('success','Users has been updated');
     }
 
     /**

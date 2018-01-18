@@ -50,10 +50,11 @@ class LeadsController extends Controller
     {
         //
         $lead = $this->validate(request(),[
-            'fullname' => 'required',
-            'email' => 'required|email',
-            'birthday' => 'required|date',
+            'fullname' => 'required'
         ]);
+        $lead['fullname'] = $request->fullname;
+        $lead['email'] = $request->email;
+        $lead['birthday'] = $request->birthday;
         $lead['gender'] = $request->gender;
         $lead['phone'] = $request->phone;
         $lead['address'] = $request->address;
@@ -63,7 +64,7 @@ class LeadsController extends Controller
         $lead['tipster_id'] = $request->tipster;
         Lead::create($lead);
 
-        return redirect('leads.index')->with('success', 'Lead has been added');
+        return redirect('leads')->with('success', 'Lead has been added');
     }
 
     /**
@@ -138,6 +139,6 @@ class LeadsController extends Controller
         //
         $lead = Lead::find($id);
         $lead->delete();
-        return redirect('leads')->with('success', 'Lead deleted successfully.');
+        return back()->with('success', 'Lead deleted successfully.');
     }
 }

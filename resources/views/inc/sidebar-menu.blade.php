@@ -35,7 +35,7 @@
                 </a>
             </li>
             <li class="treeview">
-                <a href="#"><i class="fa fa-street-view"></i> <span>Leads</span>
+                <a href="#"><i class="fa fa-street-view"></i><span>Leads</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -47,14 +47,14 @@
             </li>
             {{--Tipster--}}
             <li class="treeview">
-                <a href="#"><i class="fa fa-eye"></i><span>Tipster</span>
+                <a href="#"><i class="fa fa-eye"></i><span>Tipsters</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href='{{route('tipsters.index')}}'>List of Tipster</a></li>
-                    <li><a href='{{route('tipsters.create')}}'>Add Tipster</a></li>
+                    <li><a href='{{route('tipsters.index')}}'>List of Tipsters</a></li>
+                    <li><a href='{{route('tipsters.create')}}'>Add Tipsters</a></li>
                 </ul>
             </li>
             {{--Manager--}}
@@ -73,7 +73,7 @@
             </li>
             {{--Product--}}
             <li class="treeview">
-                <a href="#"><i class="fa fa-shield"></i> <span>Products</span>
+                <a href="#"><i class="fa fa-shield"></i><span>Products</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -86,7 +86,7 @@
                 </ul>
             </li>
             <li class="treeview">
-                <a href="#"><i class="fa fa-gift"></i> <span>Gifts</span>
+                <a href="#"><i class="fa fa-gift"></i><span>Gifts</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -100,7 +100,7 @@
             </li>
             <li>
                 <a href="{{route('messages.index')}}">
-                    <i class="fa fa-envelope"></i> <span>Message</span>
+                    <i class="fa fa-envelope"></i><span>Messages</span>
                     <span class="pull-right-container">
                       <small class="label pull-right bg-green">{{\App\Model\Message::countYetNotRead()}}</small>
                     </span>

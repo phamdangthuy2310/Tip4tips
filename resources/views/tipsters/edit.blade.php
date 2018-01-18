@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Edit User')
+@section('title', 'Edit Tipster')
 
 @section('content')
     @if ($errors->any())
@@ -46,7 +46,7 @@
                     @endif
                 </div>
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{action('UsersController@update', $id)}}">
+                <form role="form" method="post" action="{{action('TipstersController@update', $id)}}">
                     {{csrf_field()}}
                     <input name="_method" type="hidden" value="PATCH">
                 <div class="box-body">
@@ -119,9 +119,8 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Department</label>
+                                <label>Level</label>
                                 <select class="form-control" name="department">
-
                                     @foreach($roletypes as $roletype)
                                         <optgroup label="{{$roletype->name}}">
                                             @foreach($roles as $role)
@@ -153,7 +152,7 @@
                 <!-- /.box-body -->
 
                 <div class="box-footer">
-                    <button type="button" class="btn btn-default">Cancel</button>
+                    <a href="{{route('tipsters.index')}}" class="btn btn-default">Cancel</a>
                     <button type="submit" class="btn btn-primary pull-right">Update</button>
                 </div>
                 </form>

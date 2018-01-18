@@ -16,11 +16,11 @@ class CreateLeadsTable extends Migration
         Schema::create('leads', function (Blueprint $table) {
             $table->increments('id');
             $table->string('fullname');
-            $table->tinyInteger('gender');
-            $table->date('birthday');
-            $table->string('address');
+            $table->tinyInteger('gender')->nullable();
+            $table->date('birthday')->default('1900-01-01');
+            $table->string('address')->nullable();
             $table->string('email')->unique();
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->longText('need');
             $table->tinyInteger('status')->default(0);
 

@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title', 'All Users')
+@section('title', 'List of Tipsters')
 
 @section('content')
-    <div class="box">
+    <div class="box box-list">
         <div class="box-header">
-            <h3 class="box-title">All Users</h3>
-            <a href="users/create" class="btn btn-md btn-primary pull-right">Add New User</a>
+            <h3 class="box-title">List of Tipsters</h3>
+            <a href="{{route('tipsters.create')}}" class="btn btn-md btn-primary pull-right"><i class="fa fa-plus"></i> New Tipster</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -16,7 +16,7 @@
                     <th>Username</th>
                     <th>Fullname</th>
                     <th>Email</th>
-                    <th>Department</th>
+                    <th>Level</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -33,9 +33,9 @@
                     <td> {{--{{\App\Model\RoleType::getNameByID($user->roletype)}} ---}} {{\App\Model\Role::getNameRoleByID($user->role_id)}}</td>
                     <td>@if($user->delete_is == 1)<label class="label label-success">Active</label>@else <label class="label label-danger">Deactive</label> @endif</td>
                     <td class="actions">
-                        <a href="{{action('UsersController@show', $user->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
-                        <a href="{{action('UsersController@edit', $user->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
-                        <form action="{{action('UsersController@destroy', $user->id)}}" method="post">
+                        <a href="{{action('TipstersController@show', $user->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
+                        <a href="{{action('TipstersController@edit', $user->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
+                        <form action="{{action('TipstersController@destroy', $user->id)}}" method="post">
                             {{csrf_field()}}
                             <input name="_method" type="hidden" value="DELETE">
                             <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>
@@ -51,7 +51,7 @@
                     <th>Username</th>
                     <th>Fullname</th>
                     <th>Email</th>
-                    <th>Department</th>
+                    <th>Level</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>

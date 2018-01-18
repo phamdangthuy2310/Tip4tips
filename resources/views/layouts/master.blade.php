@@ -48,12 +48,8 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                @yield('title')
-                <small>Control panel</small>
-            </h1>
             <ol class="breadcrumb">
-                <li><a href="http://tip4tips.dev/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li class="active">@yield('title')</li>
             </ol>
         </section>

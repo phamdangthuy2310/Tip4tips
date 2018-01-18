@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Compose New Message')
+@section('title', 'Compose Message')
 @section('styles')
     <!-- Bootstrap WYSIHTML5 -->
     <link href="{{ asset('css/admin/bootstrap3-wysihtml5.min.css') }}" rel="stylesheet" type="text/css">

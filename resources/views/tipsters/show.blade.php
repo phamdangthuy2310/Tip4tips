@@ -50,7 +50,7 @@
                             </p>
                         </div>
                         <div class="col-sm-6">
-                            <strong><i class="fa fa-building margin-r-5"></i> Department</strong>
+                            <strong><i class="fa fa-building margin-r-5"></i> Level</strong>
 
                             <p class="text-muted">
                                 {{$role->name}} - {{$roletype->name}}

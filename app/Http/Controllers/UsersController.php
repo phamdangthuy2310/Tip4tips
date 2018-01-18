@@ -47,7 +47,7 @@ class UsersController extends Controller
     {
         //
         $roles = Role::all();
-        $roletypes = RoleType::all();
+        $roletypes = RoleType::where('code', '<>', 'tipster')->get();
         $regions = Region::all();
         return view('users.create')->with(['roles' => $roles, 'roletypes' => $roletypes, 'regions'=> $regions]);
     }
@@ -107,7 +107,7 @@ class UsersController extends Controller
         //
         $user = User::find($id);
         $roles = Role::all();
-        $roletypes = RoleType::all();
+        $roletypes = RoleType::where('code', '<>', 'tipster')->get();
         $regions = Region::all();
         return view('users.edit',compact('user','id'))->with(['roles'=>$roles, 'roletypes' => $roletypes, 'regions'=> $regions]);
     }
