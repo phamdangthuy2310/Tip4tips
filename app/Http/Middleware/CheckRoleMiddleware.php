@@ -20,34 +20,35 @@ class CheckRoleMiddleware
         if(!Auth::check()){
             return redirect()->route('login');
         }
-        $role_id = DB::table('users')
-        ->where('id', Auth::user()->id)
+        $role = DB::table('users')
+        ->where('users.id', Auth::user()->id)
         ->join('roles', 'roles.id', 'users.role_id')
-        ->select('users.*', 'roles.*')->first();
+        ->select('users.*', 'roles.name as role', 'roles.code')->first();
 //        $role_id = Auth::User()->role_id;
         $uri = $request->path();
         $arrayUrl = [];
-        switch ($role_id->code) {
+        switch ($role->code) {
             case 'admin':
                 $arrayUrl = ['users','leads','products','productcategories','tipsters','gifts','giftcategories','messages', 'assignments'];
                 break;
             case 'community':
-                $arrayUrl = ['tipsters','products','gifts','messages'];
+                $arrayUrl = ['users','tipsters','products','gifts','messages'];
                 break;
             case 'sale':
-                $arrayUrl = ['leads','tipsters','products','gifts','messages'];
+                $arrayUrl = ['users','leads','tipsters','products','gifts','messages'];
                 break;
             case 'insurance':
             case 'car':
             case 'realestate':
             case 'service':
-                $arrayUrl = ['leads','products','gifts','messages'];
+                $arrayUrl = ['users','leads','products','gifts','messages'];
                 break;
             case 'ambassador':
-                $arrayUrl = ['tipsters','products','gifts','messages'];
+                $arrayUrl = ['users','tipsters','leads','products','gifts','messages'];
                 break;
-            default:
-                echo "Your favorite color is neither red, blue, nor green!";
+            case 'tipster_normal':
+                $arrayUrl = ['users','tipsters','leads','products','gifts','messages'];
+                break;
         }
         foreach($arrayUrl as $url){
             if(strpos($uri, $url) !== false){

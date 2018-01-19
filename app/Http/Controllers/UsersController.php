@@ -20,22 +20,27 @@ class UsersController extends Controller
     public function index()
     {
         //
-//        $users = User::all();
         $users = DB::table('users')
             ->join('roles', 'users.role_id', 'roles.id')
             ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
             ->select('users.*', 'roles.name as role', 'roletypes.name as roletype')
             ->get();
-//        print_r($users);die();
 
-        $userau = Auth::user();
-//        if(isset($userau)){
-            return view('users.index', ['users' => $users]);
+        $user = Auth::user();
 
-//        }else{
-//            return view('auth.login');
-//        }
-//        return view('users.index', ['users' => $users]);
+        $role = RoleType::getNameByID(Role::getInfoRoleByID($user->role_id)->roletype_id);
+
+//        dd($role->code);
+        $flag = true;
+        if($role->code == 'tipster' || $role->code == 'consultant'){
+            $flag = false;
+            $alert = "You do not have access to this screen";
+            return view('users.index', ['alert' => $alert, 'flag' => $flag]);
+        }else{
+            return view('users.index', ['users' => $users, 'flag' => $flag]);
+        }
+
+
     }
 
     /**
@@ -49,6 +54,14 @@ class UsersController extends Controller
         $roles = Role::all();
         $roletypes = RoleType::where('code', '<>', 'tipster')->get();
         $regions = Region::all();
+        $user = Auth::user();
+        $role = RoleType::getNameByID(Role::getInfoRoleByID($user->role_id)->roletype_id);
+        $flag = true;
+        if($role->code == 'tipster' || $role->code == 'consultant'){
+            $flag = false;
+            $alert = "You do not have access to this screen";
+            return view('users.create')->with(['alert' => $alert, 'flag' => $flag]);
+        }
         return view('users.create')->with(['roles' => $roles, 'roletypes' => $roletypes, 'regions'=> $regions]);
     }
 

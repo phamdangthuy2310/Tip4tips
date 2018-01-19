@@ -27,6 +27,10 @@ class Role extends Model
         $name = Role::find($id)->name;
         return $name;
     }
+    public static function getInfoRoleByID($id){
+        $role = Role::find($id);
+        return $role;
+    }
 
     public static function getIDRoleByCode($code){
         $code = DB::table('roles')
@@ -43,6 +47,5 @@ class Role extends Model
         })->get();
         return $roles;
     }
-
 
 }
