@@ -2,6 +2,13 @@
 @section('title', 'Profile')
 
 @section('content')
+    @if($flag ==false)
+    <div class="box box-danger">
+        <div class="box-body text-center">
+            <p>{{$alert}}</p>
+        </div>
+    </div>
+    @else
     <div class="row">
         <div class="col-md-4 col-md-push-8">
 
@@ -130,6 +137,7 @@
         </div>
         <!-- /.col -->
     </div>
+    @endif
     <!-- /.row -->
 
 @endsection

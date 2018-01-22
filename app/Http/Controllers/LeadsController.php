@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Model\Lead;
 use App\Model\Region;
+use App\Model\Role;
+use App\Model\RoleType;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class LeadsController extends Controller
@@ -19,7 +22,31 @@ class LeadsController extends Controller
     {
         //
         $leads= Lead::all();
-        return view('leads.index', ['leads' => $leads]);
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+        $editAction = false;
+        $deleteAction = false;
+        $createAction = false;
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin'){
+            $editAction = true;
+            $deleteAction = true;
+            $createAction = true;
+        }
+        if($roletypeAuth->code == 'consultant'){
+            $editAction = true;
+            $deleteAction = true;
+        }
+        if($roletypeAuth->code == 'tipster'){
+            $editAction = true;
+            $createAction = true;
+        }
+        return view('leads.index', [
+            'leads' => $leads,
+            'editAction' => $editAction,
+            'deleteAction' => $deleteAction,
+            'createAction' => $createAction
+        ]);
     }
 
     /**
@@ -30,6 +57,14 @@ class LeadsController extends Controller
     public function create()
     {
         //
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+        $createAction = false;
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin' || $roletypeAuth == 'tipster'){
+            $createAction = true;
+        }
+
         $tipsters = DB::table('users')
             ->join('roles', 'users.role_id', 'roles.id')
             ->join('roletypes', 'roletypes.id', 'roles.roletype_id')
@@ -37,7 +72,11 @@ class LeadsController extends Controller
             ->where('roletypes.code','tipster')
             ->get();
         $regions = Region::all();
-        return view('leads.create', ['tipsters' => $tipsters, 'regions' => $regions]);
+        return view('leads.create', [
+            'tipsters' => $tipsters,
+            'regions' => $regions,
+            'createAction' => $createAction
+        ]);
     }
 
     /**
@@ -94,6 +133,14 @@ class LeadsController extends Controller
     public function edit($id)
     {
         //
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+        $editAction = false;
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin' || $roletypeAuth == 'tipster'|| $roletypeAuth == 'consultant'){
+            $editAction = true;
+        }
+
         $lead = Lead::find($id);
         $regions = Region::all();
         $tipsters = DB::table('users')
@@ -102,7 +149,11 @@ class LeadsController extends Controller
             ->select('users.*', 'roles.name', 'roletypes.code')
             ->where('roletypes.code','tipster')
             ->get();
-        return view('leads.edit', compact('lead', 'id'))->with(['regions'=> $regions, 'tipsters'=>$tipsters]);
+        return view('leads.edit', compact('lead', 'id'))->with([
+            'regions'=> $regions,
+            'tipsters'=>$tipsters,
+            'editAction' => $editAction
+        ]);
     }
 
     /**

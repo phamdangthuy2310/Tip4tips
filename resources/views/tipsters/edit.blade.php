@@ -2,6 +2,13 @@
 @section('title', 'Edit Tipster')
 
 @section('content')
+    @if($editAction == false)
+        <div class="box box-danger">
+            <div class="box-body text-center">
+                <p>You do not access to this screen. Please contact to admin.</p>
+            </div>
+        </div>
+    @else
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -74,12 +81,18 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Gender</label>
-                                <select class="form-control" name="gender">
-                                    <option value="0" @if($user->gender == 0) selected @endif>Male</option>
-                                    <option value="1" @if($user->gender == 1) selected @endif>Female</option>
-                                    <option value="2" @if($user->gender == 2) selected @endif>Other</option>
-                                </select>
+                                <label style="width: 100%">Gender</label>
+                                <div class="radio-inline">
+                                    <label><input type="radio" value="0" name="gender" @if($user->gender == 0) checked @endif>
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label><input type="radio" value="1" name="gender" @if($user->gender == 1) checked @endif>
+                                        Female
+                                    </label>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -160,5 +173,5 @@
             <!-- /.box -->
         </div>
     </div>
-
+@endif
 @endsection

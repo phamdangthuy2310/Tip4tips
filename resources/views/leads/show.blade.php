@@ -11,6 +11,9 @@
                     <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
                     <p class="text-muted text-center">Avatar</p>
                     <p class="text-muted text-center"><span class="label-status {{\App\Model\Lead::showColorStatus($lead->status)}}">{{\App\Model\Lead::showNameStatus($lead->status)}}</span></p>
+                    <hr/>
+                    <p><strong>Be Assigned to:</strong><br/>
+                    {{ \App\User::getUserByID(\App\Model\Assignment::getConsultantByLead($lead->id)->consultant_id)->fullname }} - {{\App\Model\Role::getNameRoleByID(\App\User::getUserByID(\App\Model\Assignment::getConsultantByLead($lead->id)->consultant_id)->role_id)}}</p>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -33,6 +36,25 @@
 
                             <p class="text-muted">
                                 {{ $lead->fullname }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <hr>
+                            <strong><i class="fa fa-calendar margin-r-5"></i> Birthday</strong>
+
+                            <p class="text-muted">
+                                {{$lead->birthday}}
+                            </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <hr>
+                            <strong><i class="fa fa-venus-mars margin-r-5"></i> Gender</strong>
+
+                            <p class="text-muted">
+                                {{\App\Model\Lead::showGender($lead->gender)}}
                             </p>
                         </div>
                     </div>
@@ -79,7 +101,7 @@
                         <div class="col-sm-12">
                             <hr>
 
-                            <strong><i class="fa fa-file-text-o margin-r-5"></i> Need</strong>
+                            <strong><i class="fa fa-file-text-o margin-r-5"></i> Product</strong>
 
                             <p>{{$lead->need}}</p>
                         </div>

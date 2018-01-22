@@ -31,7 +31,7 @@
                     <td><?php echo $i?></td>
                     <td>{{$category->name}}</td>
                     <td>{{$category->description}}</td>
-                    <td class="actions">
+                    <td class="actions text-center" style="width: 80px">
 {{--                        <a href="{{action('CategoriesController@show', $category->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>--}}
                         {{--<a href="{{action('CategoriesController@edit', $category->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>--}}
                         <form action="{{action('GiftCategoriesController@destroy', $category->id)}}" method="post">

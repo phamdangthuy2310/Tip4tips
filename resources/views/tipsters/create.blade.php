@@ -2,11 +2,18 @@
 @section('title', 'Create Tipster')
 
 @section('content')
+    @if($createAction == false)
+        <div class="box box-danger">
+            <div class="box-body text-center">
+                <p>You do not access to this screen. Please contact to admin.</p>
+            </div>
+        </div>
+    @else
     <div class="row">
         <div class="col-md-4 col-md-push-8">
 
             <!-- Profile Image -->
-            <div class="box box-warning">
+            <div class="box box-success">
                 <div class="box-body box-profile">
                     <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="Tipster profile picture">
                 </div>
@@ -22,7 +29,7 @@
         <!-- /.col -->
         <div class="col-md-8 col-md-pull-4">
             <!-- create manager form -->
-            <div class="box box-warning">
+            <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Create Tipster</h3>
                 </div>
@@ -87,12 +94,18 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Gender</label>
-                                <select class="form-control" name="gender">
-                                    <option value="0">Male</option>
-                                    <option value="1">Female</option>
-                                    <option value="2">Other</option>
-                                </select>
+                                <label style="width: 100%">Gender</label>
+                                <div class="radio-inline">
+                                    <label><input type="radio" value="0" name="gender" checked>
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label><input type="radio" value="1" name="gender">
+                                        Female
+                                    </label>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -161,5 +174,5 @@
             <!-- /.box -->
         </div>
     </div>
-
+@endif
 @endsection

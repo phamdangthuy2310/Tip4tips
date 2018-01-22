@@ -4,7 +4,7 @@
 @section('content')
     <div class="row">
         <!-- /.col -->
-        <div class="col-md-12">
+        <div class="col-md-8">
             <!-- create manager form -->
 
             <div class="box box-primary">
@@ -47,6 +47,20 @@
             </div>
 
             <!-- /.box -->
+        </div>
+        <div class="col-md-4">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Upload Gifts Image</h3>
+                </div>
+                <div class="box-body">
+                    <p><img src="{{ asset('images/no_image_available.jpg') }}"></p>
+                    <div class="form-group">
+                        <label>Image</label>
+                        <input name="thumbnail" type="file" class="form-control">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

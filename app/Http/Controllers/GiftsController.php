@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Gift;
 use App\Model\GiftCategory;
+use App\Model\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -18,11 +19,25 @@ class GiftsController extends Controller
     public function index()
     {
         //
-        //dd(Auth::user()->role_id);
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $editAction = false;
+        $deleteAction = false;
+        $createAction = false;
+        if($roleAuth->code == 'community' || $roleAuth->code == 'admin'){
+            $editAction = true;
+            $deleteAction = true;
+            $createAction = true;
+        }
         $gifts = DB::table('gifts')
             ->join('giftcategories', 'giftcategories.id', 'gifts.category_id')
         ->select('gifts.*', 'giftcategories.name as category')->get();
-        return view('gifts.index', ['gifts' => $gifts] );
+        return view('gifts.index', [
+            'gifts' => $gifts,
+            'editAction' => $editAction,
+            'deleteAction' => $deleteAction,
+            'createAction' => $createAction
+        ] );
     }
 
     /**
@@ -33,8 +48,14 @@ class GiftsController extends Controller
     public function create()
     {
         //
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $createAction = false;
+        if($roleAuth->code == 'community' || $roleAuth->code == 'admin'){
+            $createAction = true;
+        }
         $categories = GiftCategory::all();
-        return view('gifts.create', ['categories' => $categories]);
+        return view('gifts.create', ['categories' => $categories, 'createAction' => $createAction]);
     }
 
     /**
@@ -84,7 +105,16 @@ class GiftsController extends Controller
     {
         $gift = Gift::find($id);
         $categories = GiftCategory::all();
-        return view('gifts.edit', compact('gift', 'id'))->with(['categories'=> $categories]);
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $editAction = false;
+        if($roleAuth->code == 'community' || $roleAuth->code == 'admin'){
+            $editAction = true;
+        }
+        return view('gifts.edit', compact('gift', 'id'))->with([
+            'categories'=> $categories,
+            'editAction' => $editAction
+        ]);
     }
 
     /**

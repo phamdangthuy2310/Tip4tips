@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Model\Assignment;
 use App\Model\Lead;
+use App\Model\Role;
+use App\Model\RoleType;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,14 +21,24 @@ class AssignmentsController extends Controller
     {
         //
         $assignments = Assignment::all();
-//        $assignments = DB::table('assignments')
-//        ->join('users', 'users.id', 'assignments.consultant_id')
-//        ->join('leads', 'users.lead_id', 'leads.id')
-//        ->select('assignments.*','users.username as consultant', 'leads.fullname as lead');
-//        $assigners = DB::table('assignments')
-//            ->join('users', 'users.id', 'assignments.consultant_id')
-//        ->get();
-        return view('assignments.index', ['assignments'=>$assignments]);
+
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+        $editAction = false;
+        $deleteAction = false;
+        $createAction = false;
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin'){
+            $editAction = true;
+            $deleteAction = true;
+            $createAction = true;
+        }
+        return view('assignments.index', [
+            'assignments'=>$assignments,
+            'editAction' => $editAction,
+            'deleteAction' => $deleteAction,
+            'createAction' => $createAction
+        ]);
     }
 
     /**

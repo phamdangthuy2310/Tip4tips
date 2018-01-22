@@ -103,9 +103,6 @@ class User extends Authenticatable
             case 1:
                 $name = 'Female';
                 break;
-            case 2:
-                $name = 'Other';
-                break;
         }
         return $name;
     }

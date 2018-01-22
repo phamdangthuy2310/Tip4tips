@@ -20,23 +20,43 @@ class UsersController extends Controller
     public function index()
     {
         //
-        $users = DB::table('users')
-            ->join('roles', 'users.role_id', 'roles.id')
-            ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
-            ->select('users.*', 'roles.name as role', 'roletypes.name as roletype')
-            ->get();
+        $auth = Auth::user();
 
-        $user = Auth::user();
-
-        $role = RoleType::getNameByID(Role::getInfoRoleByID($user->role_id)->roletype_id);
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
 
 //        dd($role->code);
         $flag = true;
-        if($role->code == 'tipster' || $role->code == 'consultant'){
+        if($roletypeAuth->code == 'tipster' || $roletypeAuth->code == 'consultant'){
             $flag = false;
             $alert = "You do not have access to this screen";
             return view('users.index', ['alert' => $alert, 'flag' => $flag]);
         }else{
+            if($roleAuth->code == 'sale'){
+                $users = DB::table('users')
+                    ->join('roles', 'users.role_id', 'roles.id')
+                    ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
+                    ->where('roletypes.code', 'consultant')
+                    ->orWhere('roletypes.code', 'tipster')
+                    ->select('users.*', 'roles.name as role', 'roletypes.name as roletype')
+                    ->get();
+
+            }elseif($roleAuth->code == 'community'){
+                $users = DB::table('users')
+                    ->join('roles', 'users.role_id', 'roles.id')
+                    ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
+                    ->where('roletypes.code', 'tipster')
+                    ->orWhere('roletypes.code', 'consultant')
+                    ->select('users.*', 'roles.name as role', 'roletypes.name as roletype')
+                    ->get();
+            }else{
+                $users = DB::table('users')
+                    ->join('roles', 'users.role_id', 'roles.id')
+                    ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
+                    ->where('roletypes.code', '<>', 'tipster')
+                    ->select('users.*', 'roles.name as role', 'roletypes.name as roletype')
+                    ->get();
+            }
             return view('users.index', ['users' => $users, 'flag' => $flag]);
         }
 
@@ -52,17 +72,27 @@ class UsersController extends Controller
     {
         //
         $roles = Role::all();
-        $roletypes = RoleType::where('code', '<>', 'tipster')->get();
+
         $regions = Region::all();
-        $user = Auth::user();
-        $role = RoleType::getNameByID(Role::getInfoRoleByID($user->role_id)->roletype_id);
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
         $flag = true;
-        if($role->code == 'tipster' || $role->code == 'consultant'){
+        if($roletypeAuth->code == 'tipster' || $roletypeAuth->code == 'consultant'){
             $flag = false;
             $alert = "You do not have access to this screen";
             return view('users.create')->with(['alert' => $alert, 'flag' => $flag]);
+        }else{
+            if($roleAuth->code == 'sale'){
+                $roletypes = RoleType::where('code', 'consultant')->get();
+
+            }elseif($roleAuth->code == 'community'){
+                $roletypes = RoleType::where('code', 'tipster')->get();
+            }else{
+                $roletypes = RoleType::where('code', '<>', 'tipster');
+            }
         }
-        return view('users.create')->with(['roles' => $roles, 'roletypes' => $roletypes, 'regions'=> $regions]);
+        return view('users.create')->with(['roles' => $roles, 'roletypes' => $roletypes, 'regions'=> $regions, 'flag' => $flag]);
     }
 
     /**
@@ -106,7 +136,18 @@ class UsersController extends Controller
         $user = User::find($id);
         $role = Role::find($user->role_id);
         $roletype = RoleType::find($role->roletype_id);
-        return view('users.show', compact('user', 'id'))->with(['role' => $role, 'roletype'=> $roletype]);
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+        $flag = true;
+        if($roletypeAuth->code == 'tipster' || $roletypeAuth->code == 'consultant'){
+            $flag = false;
+            $alert = "You do not have access to this screen";
+            return view('users.show', compact('user', 'id'))->with(['alert' => $alert, 'flag' => $flag]);
+        }else{
+            return view('users.show', compact('user', 'id'))->with(['role' => $role, 'roletype'=> $roletype, 'flag' => $flag]);
+        }
+
     }
 
     /**
@@ -122,7 +163,30 @@ class UsersController extends Controller
         $roles = Role::all();
         $roletypes = RoleType::where('code', '<>', 'tipster')->get();
         $regions = Region::all();
-        return view('users.edit',compact('user','id'))->with(['roles'=>$roles, 'roletypes' => $roletypes, 'regions'=> $regions]);
+
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+
+        if($roletypeAuth->code == 'tipster' || $roletypeAuth->code == 'consultant'){
+            return back()->with('error', 'You do not have access delete user.');
+        }else{
+            if($roleAuth->code == 'sale'){
+                if(RoleType::getNameByID(Role::getInfoRoleByID($user->role_id)->roletype_id)->code == 'consultant'){
+                    return view('users.edit',compact('user','id'))->with(['roles'=>$roles, 'roletypes' => $roletypes, 'regions'=> $regions]);
+                }else{
+                    return back()->with('You do not have access this screen.');
+                }
+            }elseif ($roleAuth->code == 'community'){
+                if(RoleType::getNameByID(Role::getInfoRoleByID($user->role_id)->roletype_id)->code == 'tipster'){
+                    return view('users.edit',compact('user','id'))->with(['roles'=>$roles, 'roletypes' => $roletypes, 'regions'=> $regions]);
+                }else{
+                    return back()->with('You do not have access this screen.');
+                }
+            }else{
+                return view('users.edit',compact('user','id'))->with(['roles'=>$roles, 'roletypes' => $roletypes, 'regions'=> $regions]);
+            }
+        }
     }
 
     /**
@@ -157,9 +221,35 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+
         $user = User::find($id);
-        $user->delete_is = 0;
-        $user->save();
-        return redirect('users')->with('success', 'Delete a user successfully.');
+        if($roletypeAuth->code == 'tipster' || $roletypeAuth->code == 'consultant'){
+            return back()->with('error', 'You do not have access delete user.');
+        }else{
+            if($roleAuth->code == 'sale'){
+                if(RoleType::getNameByID(Role::getInfoRoleByID($user->role_id)->roletype_id)->code == 'consultant'){
+                    $user->delete_is = 0;
+                    $user->save();
+                    return back()->with('success', 'Delete a user successfully.');
+                } else{
+                    return back()->with('error', 'You do not have access delete user.');
+                }
+            }elseif($roleAuth->code == 'community'){
+                if(Role::getInfoRoleByID($user->id) == 'tipster'){
+                    $user->delete_is = 0;
+                    $user->save();
+                    return back()->with('success', 'Delete a user successfully.');
+                }else{
+                    return back()->with('error', 'You do not have access delete user.');
+                }
+            }else{
+                $user->delete_is = 0;
+                $user->save();
+                return back()->with('success', 'Delete a user successfully.');
+            }
+        }
     }
 }

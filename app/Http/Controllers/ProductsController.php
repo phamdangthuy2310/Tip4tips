@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Model\Product;
 use App\Model\ProductCategory;
+use App\Model\Role;
+use App\Model\RoleType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
@@ -18,11 +21,27 @@ class ProductsController extends Controller
     {
         //
 //        $products = Product::all();
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+//        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+        $editAction = false;
+        $deleteAction = false;
+        $createAction = false;
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin'){
+            $editAction = true;
+            $deleteAction = true;
+            $createAction = true;
+        }
         $products = DB::table('products')
             ->join('productcategories', 'products.category_id', 'productcategories.id')
         ->select('products.*', 'productcategories.name as category')
         ->get();
-        return view('products.index')->with(['products'=>$products]);
+        return view('products.index')->with([
+            'products'=>$products,
+            'editAction' => $editAction,
+            'deleteAction' => $deleteAction,
+            'createAction' => $createAction
+        ]);
     }
 
     /**
@@ -34,7 +53,13 @@ class ProductsController extends Controller
     {
         //
         $categories = ProductCategory::all();
-        return view('products.create')->with(['categories'=> $categories]);
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $createAction = false;
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin'){
+            $createAction = true;
+        }
+        return view('products.create')->with(['categories'=> $categories, 'createAction' => $createAction]);
     }
 
     /**
@@ -85,9 +110,18 @@ class ProductsController extends Controller
     public function edit($id)
     {
         //
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $editAction = false;
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin'){
+            $editAction = true;
+        }
         $product = Product::find($id);
         $categories = ProductCategory::all();
-        return view('products.edit', compact('product', 'id'))->with(['categories'=>$categories]);
+        return view('products.edit', compact('product', 'id'))->with([
+            'categories'=>$categories,
+            'editAction' => $editAction
+        ]);
     }
 
     /**

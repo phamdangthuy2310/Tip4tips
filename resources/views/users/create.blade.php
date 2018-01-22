@@ -2,6 +2,13 @@
 @section('title', 'Create User')
 
 @section('content')
+    @if($flag ==false)
+        <div class="box box-danger">
+            <div class="box-body text-center">
+                <p>{{$alert}}</p>
+            </div>
+        </div>
+    @else
     <div class="row">
         <div class="col-md-4 col-md-push-8">
 
@@ -27,9 +34,6 @@
                     <h3 class="box-title">Create User</h3>
                 </div><!-- /.box-header -->
 
-                @if($flag == false)
-                    <p class="text-danger text-center">{{$alert}}</p>
-                    @else
                     <form role="form" method="post" action="{{url('users')}}">
                         {{ csrf_field() }}
                         <div class="box-body">
@@ -89,12 +93,20 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Gender</label>
-                                        <select class="form-control" name="gender">
-                                            <option value="0">Male</option>
-                                            <option value="1">Female</option>
-                                            <option value="2">Other</option>
-                                        </select>
+                                        <label style="width: 100%">Gender</label>
+                                        <div class="radio-inline">
+                                            <label>
+                                                <input type="radio" value="0" name="gender" checked>
+                                                Male
+                                            </label>
+                                        </div>
+                                        <div class="radio-inline">
+                                            <label>
+                                                <input type="radio" value="1" name="gender">
+                                                Female
+                                            </label>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -158,13 +170,14 @@
                             <button type="submit" class="btn btn-primary pull-right">Create</button>
                         </div>
                     </form>
-                @endif
+
 
 
             </div>
 
             <!-- /.box -->
         </div>
+        @endif
     </div>
 
 @endsection

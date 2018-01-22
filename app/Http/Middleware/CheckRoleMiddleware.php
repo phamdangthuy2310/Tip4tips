@@ -32,7 +32,7 @@ class CheckRoleMiddleware
                 $arrayUrl = ['users','leads','products','productcategories','tipsters','gifts','giftcategories','messages', 'assignments'];
                 break;
             case 'community':
-                $arrayUrl = ['users','tipsters','products','gifts','messages'];
+                $arrayUrl = ['users','leads','tipsters','products','gifts','messages'];
                 break;
             case 'sale':
                 $arrayUrl = ['users','leads','tipsters','products','gifts','messages'];

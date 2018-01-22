@@ -5,6 +5,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
     font-weight: 400;
 }
+img{
+    max-width: 100%;
+    vertical-align: middle;
+}
 .actions form{
     display: inline-block;
 }
@@ -93,13 +97,19 @@ input[type=date]::-webkit-inner-spin-button {
 .form-control[type=search]{
     height: 34px;
 }
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header{
+    height: auto;
+    min-height: 175px;
+}
 /*
 Css for breadcrumb*/
 .content-header>.breadcrumb{
     float: none;
     position: static;
 }
-
+.radio-inline, .checkbox-inline{
+    margin-top: 10px!important;
+}
 @media (min-width: 992px) {
     .box-list .box-header{
         position: relative;

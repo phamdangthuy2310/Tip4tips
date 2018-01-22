@@ -85,4 +85,16 @@ class Lead extends Model
         }
         return $name;
     }
+    public static function showGender($gender){
+        $name = '';
+        switch ($gender){
+            case 0:
+                $name = 'Male';
+                break;
+            case 1:
+                $name = 'Female';
+                break;
+        }
+        return $name;
+    }
 }

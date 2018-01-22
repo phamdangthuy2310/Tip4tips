@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <!-- create manager form -->
 
-            <div class="box box-warning">
+            <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Create new Assignment</h3>
                 </div>

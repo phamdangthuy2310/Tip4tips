@@ -2,28 +2,18 @@
 @section('title', 'Create Lead')
 
 @section('content')
-    <div class="row">
-        <div class="col-md-4 col-md-push-8">
-
-            <!-- Profile Image -->
-            <div class="box box-warning">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Assignment Area</h3>
-                </div>
-                <div class="box-body">
-                    <p class="text-center">Please create lead to use this action at <br/><span class="inline text-bold">Edit Lead Screen</span>.</p>
-                </div>
-                <!-- /.box-body -->
+    @if($createAction == false)
+        <div class="box box-danger">
+            <div class="box-body text-center">
+                <p>You do not access to this screen. Please contact to admin.</p>
             </div>
-            <!-- /.box -->
-
-
         </div>
-        <!-- /.col -->
-        <div class="col-md-8 col-md-pull-4">
+    @else
+    <div class="row">
+        <div class="col-md-8">
             <!-- create manager form -->
 
-            <div class="box box-warning">
+            <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Create Lead</h3>
                 </div>
@@ -49,12 +39,20 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Gender</label>
-                                <select class="form-control" name="gender">
-                                    <option value="0">Male</option>
-                                    <option value="1">Female</option>
-                                    <option value="2">Other</option>
-                                </select>
+                                <label style="width: 100%">Gender</label>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" value="0" name="gender" checked>
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" value="1" name="gender">
+                                        Female
+                                    </label>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -95,7 +93,7 @@
 
 
                         <div class="form-group">
-                            <label>Need</label>
+                            <label>Product</label>
                             <select name="need" class="form-control">
                                 @foreach(\App\Model\Product::getAllProduct() as $product)
                                     <option value="{{$product->id}}">{{$product->name}}</option>
@@ -125,7 +123,25 @@
             <!-- /.box -->
         </div>
 
+        <div class="col-md-4">
+
+            <!-- Profile Image -->
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Assignment Area</h3>
+                </div>
+                <div class="box-body">
+                    <p class="text-center">Please create lead to uses this action at <br/><span class="inline text-bold">Edit Lead Screen</span>.</p>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+
+
+        </div>
+        <!-- /.col -->
+
 
     </div>
-
+@endif
 @endsection

@@ -4,10 +4,10 @@
 @section('content')
     <div class="row">
         <!-- /.col -->
-        <div class="col-md-12">
+        <div class="col-md-8 col-md-offset-2">
             <!-- create manager form -->
 
-            <div class="box box-warning">
+            <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Create Product Category</h3>
                 </div>
