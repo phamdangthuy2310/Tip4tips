@@ -34,7 +34,7 @@
                         <tr>
                             <td><?php echo $i?></td>
                             <td>{{$gift->name}}</td>
-                            <td style="width:300px;">{{$gift->description}}</td>
+                            <td style="width:300px;">{{{ strip_tags(str_limit($gift->description, 110)) }}}</td>
                             <td>{{$gift->category}}</td>
                             <td>Thumbnail</td>
                             <td class="actions text-center" style="width: 100px">

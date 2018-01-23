@@ -140,8 +140,16 @@ class ProductsController extends Controller
 //        ]);
         $product->name = $request->get('name');
         $product->description = $request->get('description');
-        $product->price = $request->get('price');
-        $product->quality = $request->get('quality');
+        $price = $request->get('price');
+        if(empty($price)){
+            $price = 0;
+        }
+        $product->price = $price;
+        $quality = $request->get('quality');
+        if(empty($quality)){
+            $quality = 0;
+        }
+        $product->quality = $quality;
         $product->category_id = $request->get('category');
         $product->save();
         return redirect('products')->with('success', 'Product updated successfully');

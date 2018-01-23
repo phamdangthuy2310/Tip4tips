@@ -29,12 +29,12 @@
                         <tr>
                             <td>{{$i}}</td>
                             <td>{{$lead->fullname}}</td>
-                            <td>{{ $lead->need }}</td>
+                            <td>{{ \App\Model\Product::getProductByID($lead->product_id)->name }}</td>
                             <td>{{ \App\User::getUserByID( $lead->tipster_id)->fullname }}</td>
                             <td>{{ \Carbon\Carbon::parse($lead->created_at)->format('d F Y') }}</td>
                             <td><span class="label-status {{\App\Model\Lead::showColorStatus($lead->status)}}">{{ \App\Model\Lead::showNameStatus($lead->status) }}</span></td>
                             <td class="actions text-center" style="width: 100px">
-                                <a href="{{action('LeadsController@show', $lead['id'])}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
+                                <a href="{{route('leads.show', $lead->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
                                 @if($editAction == true)<a href="{{action('LeadsController@edit', $lead['id'])}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
                                 @if($deleteAction == true)<form action="{{action('LeadsController@destroy', $lead['id'])}}" method="post">
                                     {{csrf_field()}}

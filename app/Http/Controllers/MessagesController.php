@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Model\Message;
+use App\Model\Role;
+use App\Model\RoleType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class MessagesController extends Controller
 {
@@ -16,6 +19,14 @@ class MessagesController extends Controller
     public function index()
     {
         //
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+        $createAction = false;
+        if($roletypeAuth->code == 'manager' || $roleAuth->code == 'ambassador'){
+            $createAction = true;
+        }
+
         $messages = Message::where('delete_is', 0)->get();
         $count = Message::countYetNotRead();
         $messagesDelete = Message::getAllMessageDeleted();
@@ -25,7 +36,8 @@ class MessagesController extends Controller
                 'messages' => $messages,
                 'count' => $count,
                 'messagesDelete'=>$messagesDelete,
-                'countDelete' => $countDelete
+                'countDelete' => $countDelete,
+                'createAction' => $createAction
             ]
         );
     }
@@ -38,13 +50,21 @@ class MessagesController extends Controller
     public function create()
     {
         //
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+        $createAction = false;
+        if($roletypeAuth->code == 'manager' || $roleAuth->code == 'ambassador'){
+            $createAction = true;
+        }
         $count = Message::countYetNotRead();
         $messagesDelete = Message::getAllMessageDeleted();
         $countDelete = count($messagesDelete);
         return view('messages.compose')->with([
             'count' => $count,
             'messagesDelete'=>$messagesDelete,
-            'countDelete' => $countDelete
+            'countDelete' => $countDelete,
+            'createAction' => $createAction
         ]);
     }
 

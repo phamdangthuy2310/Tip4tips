@@ -34,7 +34,7 @@
                         <tr>
                             <td><?php echo $i?></td>
                             <td>{{$product->name}}</td>
-                            <td style="width: 300px;">{{$product->description}}</td>
+                            <td style="width: 300px;">{{{ strip_tags(str_limit($product->description, 110)) }}}</td>
                             <td>{{$product->category}}</td>
                             <td>Thumbnail</td>
                             <td class="actions text-center" style="width: 100px">
@@ -44,7 +44,7 @@
                                     {{csrf_field()}}
                                     <input name="_method" type="hidden" value="DELETE">
                                     <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>
-                                </form>@endif`
+                                </form>@endif
                             </td>
                         </tr>
                     @endforeach

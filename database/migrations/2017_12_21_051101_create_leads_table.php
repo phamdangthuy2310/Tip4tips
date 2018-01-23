@@ -21,7 +21,7 @@ class CreateLeadsTable extends Migration
             $table->string('address')->nullable();
             $table->string('email')->unique();
             $table->string('phone')->nullable();
-            $table->longText('need');
+            $table->integer('product_id')->unsigned();
             $table->tinyInteger('status')->default(0);
 
 

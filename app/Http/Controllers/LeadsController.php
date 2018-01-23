@@ -97,7 +97,7 @@ class LeadsController extends Controller
         $lead['gender'] = $request->gender;
         $lead['phone'] = $request->phone;
         $lead['address'] = $request->address;
-        $lead['need'] = $request->need;
+        $lead['product_id'] = $request->product;
         $lead['status'] = 0;
         $lead['region_id'] = $request->region;
         $lead['tipster_id'] = $request->tipster;
@@ -172,9 +172,10 @@ class LeadsController extends Controller
         $lead->phone = $request->get('phone');
         $lead->address = $request->get('address');
         $lead->gender = $request->get('gender');
-        $lead->need = $request->get('need');
+        $lead->product_id = $request->get('product');
         $lead->tipster_id = $request->get('tipster');
         $lead->region_id = $request->get('region');
+        $lead->status = $request->get('status');
         $lead->save();
         return redirect('leads')->with('success','Leads has been updated');
     }

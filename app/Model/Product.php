@@ -14,11 +14,14 @@ class Product extends Model
         'price',
         'thumbnail',
         'quality',
-        'category_id'
+        'category_id',
     ];
 
     public static function getAllProduct(){
         $product = Product::all();
         return $product;
+    }
+    public static function getProductByID($id){
+        return Product::find($id);
     }
 }

@@ -17,6 +17,7 @@ class AssignmentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -49,17 +50,23 @@ class AssignmentsController extends Controller
     public function create()
     {
         //
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+        $createAction = false;
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin'){
+            $createAction = true;
+        }
+
         $consultants = User::getAllConsultant();
 
         $leads = Lead::getAllLeadNotYetAssign();
 
-//        print_r($consultants);die();
-        return view('assignments.create',
-            [
-                'consultants'=>$consultants,
-                'leads' => $leads
-            ])
-            ->with('success', 'Assignment successfully.');
+        return view('assignments.create', [
+            'consultants'=>$consultants,
+            'leads' => $leads,
+            'createAction' => $createAction
+            ])->with('success', 'Assignment successfully.');
     }
 
     /**
@@ -74,7 +81,7 @@ class AssignmentsController extends Controller
         $user =  Auth::user();
         $assignment['consultant_id'] = $request->get('consultant');
         $assignment['lead_id'] = $request->get('lead');
-        $assignment['create_by'] = Auth::user()->id;
+        $assignment['create_by'] = $user->id;
         Assignment::create($assignment);
         return redirect('assignments')->with('success', 'Assignment successfully.');
     }
@@ -98,6 +105,13 @@ class AssignmentsController extends Controller
      */
     public function edit($id)
     {
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+        $editAction = false;
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin'){
+            $editAction = true;
+        }
         $consultants = User::getAllConsultant();
 
         $leads = Lead::getAllLeadNotYetAssign();
@@ -105,7 +119,8 @@ class AssignmentsController extends Controller
 
         return  view('assignments.edit', compact('assignment', 'id'))->with([
             'consultants'=>$consultants,
-            'leads' => $leads
+            'leads' => $leads,
+            'editAction' => $editAction
         ]);
     }
 
@@ -123,7 +138,7 @@ class AssignmentsController extends Controller
         $assignment = Assignment::find($id);
         $assignment->consultant_id = $request->get('consultant');
         $assignment->lead_id = $request->get('lead');
-        $assignment->create_by = Auth::user()->id;
+        $assignment->create_by = $user->id;
         $assignment->save();
         return redirect('assignments')->with('success', 'Updated successfully');
     }

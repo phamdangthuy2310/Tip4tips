@@ -2,9 +2,16 @@
 @section('title', 'Create new Assignment')
 
 @section('content')
+    @if($createAction == false)
+        <div class="box box-danger">
+            <div class="box-body text-center">
+                <p>You do not access to this screen. Please contact to admin.</p>
+            </div>
+        </div>
+    @else
     <div class="row">
         <!-- /.col -->
-        <div class="col-md-12">
+        <div class="col-md-8 col-md-offset-2">
             <!-- create manager form -->
 
             <div class="box box-success">
@@ -62,5 +69,6 @@
             <!-- /.box -->
         </div>
     </div>
+    @endif
 
 @endsection

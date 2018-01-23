@@ -2,9 +2,16 @@
 @section('title', 'Edit Assignment')
 
 @section('content')
+    @if($editAction == false)
+        <div class="box box-danger">
+            <div class="box-body text-center">
+                <p>You do not access to this screen. Please contact to admin.</p>
+            </div>
+        </div>
+    @else
     <div class="row">
         <!-- /.col -->
-        <div class="col-md-12">
+        <div class="col-md-8 col-md-offset-2">
             <!-- create manager form -->
 
             <div class="box box-warning">
@@ -57,5 +64,5 @@
             <!-- /.box -->
         </div>
     </div>
-
+@endif
 @endsection

@@ -27,34 +27,15 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">About {{$lead->fullname}}</h3>
+                    <a href="{{route('leads.edit', $lead->id)}}" class="btn btn-xs btn-info pull-right"><i class="fa fa-pencil"></i> Edit</a>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
                         <div class="col-sm-12">
-                            <strong><i class="fa fa-address-book margin-r-5"></i> Fullname</strong>
-
                             <p class="text-muted">
+                                <strong><i class="fa fa-address-book margin-r-5"></i> Fullname:</strong>
                                 {{ $lead->fullname }}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <hr>
-                            <strong><i class="fa fa-calendar margin-r-5"></i> Birthday</strong>
-
-                            <p class="text-muted">
-                                {{$lead->birthday}}
-                            </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <hr>
-                            <strong><i class="fa fa-venus-mars margin-r-5"></i> Gender</strong>
-
-                            <p class="text-muted">
-                                {{\App\Model\Lead::showGender($lead->gender)}}
                             </p>
                         </div>
                     </div>
@@ -100,10 +81,26 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <hr>
+                            <p class="text-muted"><strong><i class="fa fa-shield margin-r-5"></i> Product</strong>:
+                                {{\App\Model\Product::getProductByID($lead->product_id)->name}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <hr>
+                            <strong><i class="fa fa-calendar margin-r-5"></i> Birthday</strong>
 
-                            <strong><i class="fa fa-file-text-o margin-r-5"></i> Product</strong>
+                            <p class="text-muted">
+                                {{$lead->birthday}}
+                            </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <hr>
+                            <strong><i class="fa fa-venus-mars margin-r-5"></i> Gender</strong>
 
-                            <p>{{$lead->need}}</p>
+                            <p class="text-muted">
+                                {{\App\Model\Lead::showGender($lead->gender)}}
+                            </p>
                         </div>
                     </div>
 

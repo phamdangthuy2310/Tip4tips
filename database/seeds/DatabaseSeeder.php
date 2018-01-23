@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
 //                 RegionsTableSeeder::class,
 //                 ActionsTableSeeder::class,
 //                 UsersTableSeeder::class,
+//             ProductTableSeeder::class
              ]
 
          );

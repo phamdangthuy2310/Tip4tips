@@ -10,44 +10,46 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">About Product</h3>
+                    <a href="{{route('products.edit', $product->id)}}" class="btn btn-xs btn-info pull-right"><i class="fa fa-pencil"></i> Edit</a>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <strong><i class="fa fa-user margin-r-5"></i> Product name</strong>
+
 
                     <p class="text-muted">
+                        <strong><i class="fa fa-shield margin-r-5"></i> Product name: </strong>
                         {{$product->name}}
                     </p>
 
                     <hr>
-                    <strong><i class="fa fa-building margin-r-5"></i> Description</strong>
 
                     <p class="text-muted">
+                        <strong><i class="fa fa-info-circle margin-r-5"></i> Description:</strong>
                         {{$product->description}}
 
                     </p>
 
                     <hr>
 
-                    <strong><i class="fa fa-envelope margin-r-5"></i> Category</strong>
 
                     <p class="text-muted">
+                        <strong><i class="fa fa-folder-open margin-r-5"></i> Category:</strong>
                         {{$product->category}}
                     </p>
 
                     <hr>
 
-                    <strong><i class="fa fa-address-book margin-r-5"></i> Price</strong>
 
                     <p class="text-muted">
+                        <strong><i class="fa fa-money margin-r-5"></i> Price:</strong>
                         {{$product->price}}
                     </p>
 
                     <hr>
 
-                    <strong><i class="fa fa-envelope margin-r-5"></i> Quality</strong>
 
                     <p class="text-muted">
+                        <strong><i class="fa fa-cubes margin-r-5"></i> Quality:</strong>
                         {{$product->quality}}
                     </p>
 
@@ -63,7 +65,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Product Image</h3>
                 </div>
-                <div class="box-body">
+                <div class="box-body text-center">
                     <p><img src="{{ asset('images/no_image_available.jpg') }}"></p>
                 </div>
             </div>

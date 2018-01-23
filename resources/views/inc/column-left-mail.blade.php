@@ -1,5 +1,5 @@
 <div class="col-md-3">
-    <a href="{{action('MessagesController@create')}}" class="btn btn-primary btn-block margin-bottom">Compose</a>
+    <a href="{{route('messages.create')}}" class="btn btn-primary btn-block margin-bottom">Compose</a>
 
     <div class="box box-solid">
         <div class="box-header with-border">
@@ -12,7 +12,7 @@
         </div>
         <div class="box-body no-padding">
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="{{action('MessagesController@index')}}"><i class="fa fa-inbox"></i> Inbox
+                <li class="active"><a href="{{route('messages.index')}}"><i class="fa fa-inbox"></i> Inbox
                         <span class="label label-primary pull-right">{{$count}}</span></a></li>
                 <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
                 <li><a href="{{action('MessagesController@trash')}}"><i class="fa fa-trash-o"></i> Trash <span class="label label-danger pull-right">{{ $countDelete}}</span></a></li>

@@ -12,7 +12,6 @@
     <div class="row">
         <div class="col-md-8">
             <!-- create manager form -->
-
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Create Lead</h3>
@@ -21,6 +20,8 @@
                 <form role="form" method="post" action="{{url('leads')}}">
                     {{ csrf_field() }}
                 <div class="box-body">
+                    <h4 class="label label-primary">Primary</h4>
+                    <hr/>
                     <div class="row">
                         <div class="col-xs-12">
                             <!-- text input -->
@@ -30,33 +31,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Birthday</label>
-                                <input name="birthday" type="date" class="form-control" placeholder="Enter ...">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label style="width: 100%">Gender</label>
-                                <div class="radio-inline">
-                                    <label>
-                                        <input type="radio" value="0" name="gender" checked>
-                                        Male
-                                    </label>
-                                </div>
-                                <div class="radio-inline">
-                                    <label>
-                                        <input type="radio" value="1" name="gender">
-                                        Female
-                                    </label>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -90,31 +64,64 @@
                             </div>
                         </div>
                     </div>
-
-
-                        <div class="form-group">
-                            <label>Product</label>
-                            <select name="need" class="form-control">
-                                @foreach(\App\Model\Product::getAllProduct() as $product)
-                                    <option value="{{$product->id}}">{{$product->name}}</option>
-                                @endforeach
-                            </select>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Product</label>
+                                <select name="product" class="form-control">
+                                    @foreach(\App\Model\Product::getAllProduct() as $product)
+                                        <option value="{{$product->id}}">{{$product->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label>Tipster</label>
-                            <select name="tipster" class="form-control">
-                                @foreach($tipsters as $tipster)
-                                <option value="{{$tipster->id}}">{{$tipster->fullname}} - {{$tipster->username}} </option>
-                                @endforeach
-                            </select>
+                    <hr/>
+                    <h4 class="label label-default">General</h4>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Birthday</label>
+                                <input name="birthday" type="date" class="form-control" placeholder="Enter ...">
+                            </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label style="width: 100%">Gender</label>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" value="0" name="gender" checked>
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" value="1" name="gender">
+                                        Female
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Tipster</label>
+                                <select name="tipster" class="form-control">
+                                    @foreach($tipsters as $tipster)
+                                        <option value="{{$tipster->id}}">{{$tipster->fullname}} - {{$tipster->username}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- /.box-body -->
 
                 <div class="box-footer">
-                    <button type="button" class="btn btn-default">Cancel</button>
+                    <a href="{{route('leads.index')}}" class="btn btn-default">Cancel</a>
                     <button type="submit" class="btn btn-primary pull-right">Create</button>
                 </div>
             </form>

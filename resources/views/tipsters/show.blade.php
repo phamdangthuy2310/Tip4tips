@@ -38,6 +38,7 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">About Me</h3>
+                    <a href="{{route('tipsters.edit', $tipster->id)}}" class="btn btn-xs btn-info pull-right"><i class="fa fa-pencil"></i> Edit</a>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -61,7 +62,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <hr>
-                            <strong><i class="fa fa-calendar margin-r-5"></i> Calendar</strong>
+                            <strong><i class="fa fa-calendar margin-r-5"></i> Birthday</strong>
 
                             <p class="text-muted">
                                 {{$user->birthday}}

@@ -16,7 +16,7 @@ class Lead extends Model
         'birthday',
         'address',
         'phone',
-        'need',
+        'product_id',
         'status',
         'region_id',
         'tipster_id'

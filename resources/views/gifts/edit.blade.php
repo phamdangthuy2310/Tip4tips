@@ -34,7 +34,7 @@
                     <input name="_method" type="hidden" value="PATCH">
                         <div class="box-body">
                             <div class="form-group">
-                                <label>Product name</label>
+                                <label>Gift name</label>
                                 <input name="name" value="{{$gift->name}}" type="text" class="form-control">
                             </div>
                             <div class="form-group">

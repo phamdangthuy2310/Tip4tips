@@ -61,6 +61,26 @@ class GiftCategoriesTableSeeder extends Seeder
             'name' => 'High Tech',
             'code' => 'hightech'
         ]);
+        DB::table('giftcategories')->insert([
+            'name' => 'House Ware',
+            'code' => 'houseware'
+        ]);
+        DB::table('giftcategories')->insert([
+            'name' => 'Jewels',
+            'code' => 'jewels'
+        ]);
+        DB::table('giftcategories')->insert([
+            'name' => 'Medical',
+            'code' => 'medical'
+        ]);
+        DB::table('giftcategories')->insert([
+            'name' => 'Sport items',
+            'code' => 'sportitems'
+        ]);
+        DB::table('giftcategories')->insert([
+            'name' => 'Travel',
+            'code' => 'travel'
+        ]);
 
     }
 }
