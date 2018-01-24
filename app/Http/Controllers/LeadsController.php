@@ -61,7 +61,7 @@ class LeadsController extends Controller
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
         $createAction = false;
-        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin' || $roletypeAuth == 'tipster'){
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin' || $roletypeAuth->code == 'tipster'){
             $createAction = true;
         }
 
@@ -115,12 +115,7 @@ class LeadsController extends Controller
     public function show($id)
     {
         //
-//        $lead = Lead::find($id);
-        $lead = DB::table('leads')
-            ->join('regions', 'regions.id', 'leads.region_id')
-        ->select('leads.*', 'regions.name as region')
-        ->first();
-//        print_r($lead);die();
+        $lead = Lead::find($id);
         return view('leads.show', compact('lead', 'id'));
     }
 
@@ -137,7 +132,7 @@ class LeadsController extends Controller
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
         $editAction = false;
-        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin' || $roletypeAuth == 'tipster'|| $roletypeAuth == 'consultant'){
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin' || $roletypeAuth->code == 'tipster'|| $roletypeAuth->code == 'consultant'){
             $editAction = true;
         }
 

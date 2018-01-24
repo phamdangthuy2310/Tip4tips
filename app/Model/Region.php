@@ -14,8 +14,7 @@ class Region extends Model
     ];
 
     public static function getNameByID($id){
-        $name = Region::where('id', $id)
-            ->select('*')->first();
+        $name = Region::find($id);
         return $name;
     }
 }

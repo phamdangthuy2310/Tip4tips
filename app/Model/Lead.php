@@ -71,7 +71,7 @@ class Lead extends Model
                 $name = 'label-new';
                 break;
             case 1:
-                $name = 'lable-quote';
+                $name = 'label-quote';
                 break;
             case 2:
                 $name = 'label-call';

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Message;
 use App\Model\Role;
 use App\Model\RoleType;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,7 @@ class MessagesController extends Controller
             $createAction = true;
         }
 
-        $messages = Message::where('delete_is', 0)->get();
+        $messages = Message::getMessageOfUser($auth->id);
         $count = Message::countYetNotRead();
         $messagesDelete = Message::getAllMessageDeleted();
         $countDelete = count($messagesDelete);
@@ -54,9 +55,17 @@ class MessagesController extends Controller
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
         $createAction = false;
+        $receivers = User::all();
         if($roletypeAuth->code == 'manager' || $roleAuth->code == 'ambassador'){
             $createAction = true;
         }
+        if($roleAuth->code == 'sale'){
+            $receivers = User::getAllConsultant();
+        }
+        if($roleAuth->code == 'community' || $roleAuth->code == 'ambassador'){
+            $receivers = User::getAllTipster();
+        }
+
         $count = Message::countYetNotRead();
         $messagesDelete = Message::getAllMessageDeleted();
         $countDelete = count($messagesDelete);
@@ -64,6 +73,7 @@ class MessagesController extends Controller
             'count' => $count,
             'messagesDelete'=>$messagesDelete,
             'countDelete' => $countDelete,
+            'receivers' => $receivers,
             'createAction' => $createAction
         ]);
     }
@@ -78,12 +88,14 @@ class MessagesController extends Controller
     {
         //
         $message = $this->validate($request,[
-            'receiver'
+            'receiver' => 'required'
         ]);
         $message['receiver'] = $request->get('receiver');
-        $message['sender'] = 'admin';
+        $message['author'] = Auth::user()->id;
         $message['title'] = $request->get('title');
         $message['content'] = $request->get('content');
+        $message['delete_is'] = 0;
+        $message['read_is'] = 0;
         Message::create($message);
         return redirect('messages')->with('success', 'Send message successfully.');
     }

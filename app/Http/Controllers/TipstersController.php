@@ -27,11 +27,13 @@ class TipstersController extends Controller
         $editAction = false;
         $deleteAction = false;
         $createAction = false;
-        if($roleAuth->code == 'community' || $roleAuth->code == 'admin'){
+
+        if($roleAuth->code == 'community' || $roleAuth->code == 'admin' || $roleAuth->code == 'ambassador'){
             $editAction = true;
             $deleteAction = true;
             $createAction = true;
         }
+
         if($roletypeAuth->code == 'consultant'){
             $editAction = true;
         }
@@ -56,7 +58,7 @@ class TipstersController extends Controller
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
         $createAction = false;
-        if($roleAuth->code == 'community' || $roleAuth->code == 'admin'){
+        if($roleAuth->code == 'community' || $roleAuth->code == 'admin' || $roleAuth->code == 'ambassador'){
             $createAction = true;
         }
 
@@ -129,7 +131,8 @@ class TipstersController extends Controller
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
         $editAction = false;
-        if($roleAuth->code == 'community' || $roleAuth->code == 'admin' || $roletypeAuth->code == 'consultant'){
+        if($roleAuth->code == 'community' || $roleAuth->code == 'admin' ||
+            $roletypeAuth->code == 'consultant' || $roleAuth->code == 'ambassador'){
             $editAction = true;
         }
 
@@ -179,5 +182,9 @@ class TipstersController extends Controller
     public function destroy($id)
     {
         //
+        $tipster = User::find($id);
+        $tipster->delete();
+
+        return $tipster;
     }
 }

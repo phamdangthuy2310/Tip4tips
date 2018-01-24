@@ -21,6 +21,7 @@
                     <th>Consultant</th>
                     <th>Lead</th>
                     <th>Assigner</th>
+                    <th>Created At</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -33,6 +34,7 @@
                     <td>{{App\User::getUserByID($assignment->consultant_id)->username}}</td>
                     <td>{{App\Model\Lead::getLeadByID($assignment->lead_id)->fullname}}</td>
                     <td>{{App\User::getUserByID($assignment->create_by)->username}}</td>
+                    <td style="width: 150px">{{$assignment->created_at}}</td>
                     <td class="actions">
 {{--                        <a href="{{action('CategoriesController@show', $category->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>--}}
                         @if($editAction == true)<a href="{{action('AssignmentsController@edit', $assignment->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
@@ -52,6 +54,7 @@
                     <th>Consultant</th>
                     <th>Lead</th>
                     <th>Assignment</th>
+                    <th>Created At</th>
                     <th>Actions</th>
                 </tr>
                 </tfoot>

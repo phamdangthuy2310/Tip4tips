@@ -2,10 +2,10 @@
 @section('title', 'Edit User')
 
 @section('content')
-    @if($flag ==false)
+    @if($editAction == false)
         <div class="box box-danger">
             <div class="box-body text-center">
-                <p>{{$alert}}</p>
+                <p>You do not access to this screen. Please contact to admin.</p>
             </div>
         </div>
     @else
@@ -25,10 +25,9 @@
                 <div class="box box-warning">
                     <div class="box-body box-profile">
                         <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
-
-                        <h3 class="profile-username text-center">@if($user->fullname) {{ $user->fullname }} @else {{ $user->username }} @endif </h3>
-
-                        <p class="text-muted text-center">{{\App\Model\Role::getNameRoleByID($user->role_id)}}</p>
+                        <div class="box-body text-center">
+                            <p>Please upload an image.</p>
+                        </div>
                     </div>
                     <!-- /.box-body -->
                 </div>

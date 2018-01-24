@@ -3,14 +3,17 @@
 @section('styles')
     <!-- Bootstrap WYSIHTML5 -->
     <link href="{{ asset('css/admin/bootstrap3-wysihtml5.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/admin/select2.min.css') }}" rel="stylesheet" type="text/css">
 @stop
 @section('javascript')
     <!-- Bootstrap WYSIHTML5 -->
     <script src="{{ asset('js/admin/bootstrap3-wysihtml5.all.min.js') }}"></script>
+    <script src="{{ asset('js/admin/select2.full.min.js') }}"></script>
     <script>
       $(function () {
         //Add text editor
         $("#compose-textarea").wysihtml5();
+        $('.select2').select2();
       });
     </script>
 @stop
@@ -20,9 +23,14 @@
                 <form method="post" action="{{url('messages')}}">
                     {{ csrf_field() }}
                     <div class="box-body">
-                        <input type="hidden" name="sender">
                         <div class="form-group">
-                            <input name="receiver" class="form-control" placeholder="To:">
+                            <select name="receiver" class="form-control select2" style="width: 100%;">
+                                <option selected disabled>To:</option>
+                                @foreach($receivers as $receiver)
+                                    <option value="{{$receiver->id}}">{{$receiver->username}}</option>
+                                @endforeach
+
+                            </select>
                         </div>
                         <div class="form-group">
                             <input name="title" class="form-control" placeholder="Subject:">

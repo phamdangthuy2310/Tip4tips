@@ -13,7 +13,12 @@
                     <p class="text-muted text-center"><span class="label-status {{\App\Model\Lead::showColorStatus($lead->status)}}">{{\App\Model\Lead::showNameStatus($lead->status)}}</span></p>
                     <hr/>
                     <p><strong>Be Assigned to:</strong><br/>
-                    {{ \App\User::getUserByID(\App\Model\Assignment::getConsultantByLead($lead->id)->consultant_id)->fullname }} - {{\App\Model\Role::getNameRoleByID(\App\User::getUserByID(\App\Model\Assignment::getConsultantByLead($lead->id)->consultant_id)->role_id)}}</p>
+                        @if(!empty(\App\Model\Assignment::getConsultantByLead($lead->id)->consultant_id))
+                    {{ \App\User::getUserByID(\App\Model\Assignment::getConsultantByLead($lead->id)->consultant_id)->fullname }} - {{\App\Model\Role::getNameRoleByID(\App\User::getUserByID(\App\Model\Assignment::getConsultantByLead($lead->id)->consultant_id)->role_id)}}
+                    @else
+                            Not assign yet.
+                        @endif
+                    </p>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -73,7 +78,11 @@
 
                             <strong><i class="fa fa-map-marker margin-r-5"></i> Region</strong>
 
-                            <p class="text-muted">{{$lead->region}}</p>
+                            <p class="text-muted">
+                                @if(!empty(\App\Model\Region::getNameByID($lead->region_id)))
+                                    {{\App\Model\Region::getNameByID($lead->region_id)->name}}
+                                @endif
+                            </p>
 
                         </div>
                     </div>
@@ -82,7 +91,7 @@
                         <div class="col-sm-12">
                             <hr>
                             <p class="text-muted"><strong><i class="fa fa-shield margin-r-5"></i> Product</strong>:
-                                {{\App\Model\Product::getProductByID($lead->product_id)->name}}</p>
+                                @if(!empty(\App\Model\Product::getProductByID($lead->product_id))){{\App\Model\Product::getProductByID($lead->product_id)->name}}@endif</p>
                         </div>
                     </div>
                     <div class="row">

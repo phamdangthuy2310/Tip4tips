@@ -2,7 +2,9 @@
 
 namespace App\Model;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Message extends Model
 {
@@ -11,7 +13,7 @@ class Message extends Model
     protected $fillable = [
         'title',
         'content',
-        'sender',
+        'author',
         'receiver',
         'delete_is',
         'read_is',
@@ -26,5 +28,10 @@ class Message extends Model
     public static function getAllMessageDeleted(){
         $message = Message::where('delete_is', 1)->get();
         return $message;
+    }
+
+    public static function getMessageOfUser($user){
+        $messages = Message::where('receiver', $user)->get();
+        return $messages;
     }
 }

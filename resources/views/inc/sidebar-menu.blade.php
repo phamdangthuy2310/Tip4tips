@@ -34,69 +34,24 @@
                     <i class="fa fa-home"></i><span>HOME</span>
                 </a>
             </li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-street-view"></i><span>Leads</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{route('leads.index')}}">List of Leads</a></li>
-                    <li><a href="{{route('leads.create')}}">Add Leads</a></li>
-                </ul>
+            <li>
+                <a href="{{route('leads.index')}}"><i class="fa fa-street-view"></i><span>Leads</span></a>
             </li>
-            {{--Tipster--}}
-            <li class="treeview">
-                <a href="#"><i class="fa fa-eye"></i><span>Tipsters</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href='{{route('tipsters.index')}}'>List of Tipsters</a></li>
-                    <li><a href='{{route('tipsters.create')}}'>Add Tipsters</a></li>
-                </ul>
+            <li>
+                <a href="{{route('tipsters.index')}}"><i class="fa fa-eye"></i><span>Tipsters</span></a>
             </li>
             {{--Manager--}}
             <li class="header">MANAGER</li>
 
-            <li class="treeview">
-                <a href="#"><i class="fa fa-users"></i><span>Users</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href='{{route('users.index')}}'>List of Users</a></li>
-                    <li><a href='{{route('users.create')}}'>Add Users</a></li>
-                </ul>
+            <li>
+                <a href='{{route('users.index')}}'><i class="fa fa-users"></i><span>Users</span></a>
             </li>
             {{--Product--}}
-            <li class="treeview">
-                <a href="#"><i class="fa fa-shield"></i><span>Products</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{route('products.index')}}">{{ trans('menu.product') }}</a></li>
-                    <li><a href="{{route('products.create')}}">Add Products</a></li>
-                    <li><a href="{{ route('productcategories.index') }}">List of Product Categories</a></li>
-                    <li><a href="{{ route('productcategories.create') }}">Add Product Categories</a></li>
-                </ul>
+            <li>
+                <a href="{{route('products.index')}}"><i class="fa fa-shield"></i><span>Products</span>                </a>
             </li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-gift"></i><span>Gifts</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{route('gifts.index')}}">List of Gifts</a></li>
-                    <li><a href="{{route('gifts.create')}}">Add Gifts</a></li>
-                    <li><a href="{{ route('giftcategories.index') }}">List of Gift Categories</a></li>
-                    <li><a href="{{route('giftcategories.create')}}">Add Gift Categories</a></li>
-                </ul>
+            <li>
+                <a href="{{route('gifts.index')}}"><i class="fa fa-gift"></i><span>Gifts</span></a>
             </li>
             <li>
                 <a href="{{route('messages.index')}}">

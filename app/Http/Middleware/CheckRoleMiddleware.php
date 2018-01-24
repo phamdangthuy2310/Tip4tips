@@ -35,19 +35,19 @@ class CheckRoleMiddleware
                 $arrayUrl = ['users','leads','tipsters','products','gifts','messages'];
                 break;
             case 'sale':
-                $arrayUrl = ['users','leads','tipsters','products','gifts','messages'];
+                $arrayUrl = ['users','leads','tipsters','products','gifts','messages', 'assignments'];
                 break;
             case 'insurance':
             case 'car':
             case 'realestate':
             case 'service':
-                $arrayUrl = ['users','leads','products','gifts','messages'];
+                $arrayUrl = ['users','leads','products','gifts','messages', 'assignments'];
                 break;
             case 'ambassador':
-                $arrayUrl = ['users','tipsters','leads','products','gifts','messages'];
+                $arrayUrl = ['tipsters','leads','products','gifts','messages'];
                 break;
             case 'tipster_normal':
-                $arrayUrl = ['users','tipsters','leads','products','gifts','messages'];
+                $arrayUrl = ['tipsters','leads','products','gifts','messages'];
                 break;
         }
         foreach($arrayUrl as $url){

@@ -2,10 +2,10 @@
 @section('title', 'Create User')
 
 @section('content')
-    @if($flag ==false)
+    @if($createAction == false)
         <div class="box box-danger">
             <div class="box-body text-center">
-                <p>{{$alert}}</p>
+                <p>You do not access to this screen. Please contact to admin.</p>
             </div>
         </div>
     @else

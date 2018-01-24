@@ -110,6 +110,18 @@ Css for breadcrumb*/
 .radio-inline, .checkbox-inline{
     margin-top: 10px!important;
 }
+
+.select2-container--default .select2-selection--single{
+    height: 43px;
+    border-color: #d2d6de;
+
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+    padding: 5px 0;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+    height: 36px;
+}
 @media (min-width: 992px) {
     .box-list .box-header{
         position: relative;
