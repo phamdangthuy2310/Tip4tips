@@ -32,7 +32,7 @@
                             @foreach($messages as $message)
                                 <tr>
                                     <td><input type="checkbox"></td>
-                                    <td class="mailbox-name"><a href="{{action('MessagesController@show', $message->id)}}">{{ $message->sender }}</a></td>
+                                    <td class="mailbox-name"><a href="{{action('MessagesController@show', $message->id)}}">{{ $message->author }}</a></td>
                                     <td class="mailbox-subject"><a href="{{action('MessagesController@show', $message->id)}}">
                                             <b>{{$message->title}}</b>
                                             -

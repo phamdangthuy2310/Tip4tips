@@ -11,11 +11,13 @@
 |
 */
 Route::get('messages/trash', 'MessagesController@trash')->name('messages.trash');
+Route::get('messages/sent', 'MessagesController@sent')->name('messages.sent');
 Route::resource('messages', 'MessagesController', [
     'name' => [
         'index' => 'messages.index',
         'create' => 'messages.create',
         'edit' => 'messages.edit',
         'show' => 'messages.show',
+        'sent' => 'messages.sent',
     ]
 ]);

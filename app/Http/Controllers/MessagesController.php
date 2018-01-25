@@ -29,8 +29,8 @@ class MessagesController extends Controller
         }
 
         $messages = Message::getMessageOfUser($auth->id);
-        $count = Message::countYetNotRead();
-        $messagesDelete = Message::getAllMessageDeleted();
+        $count = Message::countYetNotRead($auth->id);
+        $messagesDelete = Message::getAllMessageDeleted($auth->id);
         $countDelete = count($messagesDelete);
         return view('messages.mailbox',
             [
@@ -66,8 +66,8 @@ class MessagesController extends Controller
             $receivers = User::getAllTipster();
         }
 
-        $count = Message::countYetNotRead();
-        $messagesDelete = Message::getAllMessageDeleted();
+        $count = Message::countYetNotRead($auth->id);
+        $messagesDelete = Message::getAllMessageDeleted($auth->id);
         $countDelete = count($messagesDelete);
         return view('messages.compose')->with([
             'count' => $count,
@@ -109,16 +109,14 @@ class MessagesController extends Controller
     public function show($id)
     {
         //
-
+        $auth = Auth::user();
         $message = Message::find($id);
-        $count = Message::countYetNotRead();
-        $messagesDelete = Message::getAllMessageDeleted();
-        $countDelete = count($messagesDelete);
+        $count = Message::countYetNotRead($auth->id);
+        $messagesDelete = Message::getAllMessageDeleted($auth->id);
 //        die();
         return view('messages.readmail', compact('message', 'id'))->with([
             'count' => $count,
             'messagesDelete'=>$messagesDelete,
-            'countDelete' => $countDelete
         ]);
     }
 
@@ -163,13 +161,25 @@ class MessagesController extends Controller
     }
 
     public function trash(){
-        $count = Message::countYetNotRead();
-        $messages = Message::getAllMessageDeleted();
+        $auth = Auth::user();
+        $count = Message::countYetNotRead($auth->id);
+        $messages = Message::getAllMessageDeleted($auth->id);
         $countDelete = count($messages);
         return view('messages.trash', [
-            'messages'=>$messages,
+            'messages' => $messages,
             'count' => $count,
             'countDelete' => $countDelete
+        ]);
+    }
+
+    public function sent(){
+        $auth = Auth::user();
+        $messages = Message::getMessageSent($auth->id);
+        $count = count($messages);
+
+        return view('messages.sent',[
+            'messages' => $messages,
+            'count' => $count
         ]);
     }
 }

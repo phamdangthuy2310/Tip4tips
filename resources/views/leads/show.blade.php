@@ -24,7 +24,19 @@
             </div>
             <!-- /.box -->
 
-
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Status history</h3>
+                </div>
+                <div class="box-body">
+                    <ul>
+                        <li><strong>Lead 1:</strong> NEW (10-01-2018)</li>
+                        <li><strong>Lead 1:</strong> CALL (12-01-2018)</li>
+                        <li><strong>Lead 1:</strong> QUOTE (13-01-2018)</li>
+                        <li><strong>Lead 1:</strong> WIN (15-01-2018)</li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <!-- /.col -->
         <div class="col-md-8 col-md-pull-4">

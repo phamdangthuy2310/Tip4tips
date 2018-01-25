@@ -11,7 +11,7 @@
                     <!-- /.mail-box-messages --></div>
                     <div class="mailbox-read-info">
                         <h3>{{ $message->title }}</h3>
-                        <h5>From: {{ $message->sender }}
+                        <h5>From: {{ \App\User::getUserByID($message->author)->username }}
                             <span class="mailbox-read-time pull-right">{{ \Carbon\Carbon::parse($message->create_at)->format('d F. Y H:i') }}</span></h5>
                     </div>
                     <!-- /.mailbox-read-info -->

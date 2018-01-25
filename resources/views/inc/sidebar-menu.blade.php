@@ -57,7 +57,7 @@
                 <a href="{{route('messages.index')}}">
                     <i class="fa fa-envelope"></i><span>Messages</span>
                     <span class="pull-right-container">
-                      <small class="label pull-right bg-green">{{\App\Model\Message::countYetNotRead()}}</small>
+                      <small class="label pull-right bg-green">{{\App\Model\Message::countYetNotRead(Auth::user()->id)}}</small>
                     </span>
                 </a>
             </li>

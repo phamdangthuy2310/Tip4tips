@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Mailbox')
+@section('title', 'Sent')
 
 @section('content')
     <div class="row">
@@ -31,16 +31,15 @@
                             <tbody>
                             @foreach($messages as $message)
                                 <tr>
-                                    <td style="width: 20px;"><input type="checkbox"></td>
-                                    <td class="mailbox-name text-left"><a href="{{action('MessagesController@show', $message->id)}}">{{ \App\User::getUserByID($message->author)->username  }}</a></td>
-                                    <td class="mailbox-subject text-left">
-                                        <a href="{{action('MessagesController@show', $message->id)}}">
+                                    <td><input type="checkbox"></td>
+                                    <td class="mailbox-name">To: <a href="{{action('MessagesController@show', $message->id)}}">{{ \App\User::getUserByID($message->receiver)->username }}</a></td>
+                                    <td class="mailbox-subject"><a href="{{action('MessagesController@show', $message->id)}}">
                                             <b>{{$message->title}}</b>
                                             -
                                             {{{ strip_tags(str_limit($message->content, 90)) }}}
                                         </a></td>
                                     <td class="mailbox-attachment"></td>
-                                    <td class="mailbox-date text-right">5 mins ago</td>
+                                    <td class="mailbox-date">5 mins ago</td>
                                 </tr>
                             @endforeach
                             </tbody>

@@ -20,18 +20,35 @@ class Message extends Model
         'create_at'
     ];
 
-    public static function countYetNotRead(){
-        $message = Message::where('read_is', 0)->where('delete_is', 0)->get();
+    public static function countYetNotRead($auth){
+        $message = Message::where([
+            ['read_is', 0],
+            ['receiver', $auth]
+        ])->where('delete_is', 0)->get();
         return count($message);
     }
 
-    public static function getAllMessageDeleted(){
-        $message = Message::where('delete_is', 1)->get();
+    public static function getAllMessageDeleted($auth){
+        $message = Message::where([
+            ['delete_is','=', 1],
+            ['receiver', '=', $auth]
+        ])->get();
         return $message;
     }
 
     public static function getMessageOfUser($user){
-        $messages = Message::where('receiver', $user)->get();
+        $messages = Message::where([
+            ['receiver', '=',$user],
+            ['delete_is','=',0]
+        ])->get();
+        return $messages;
+    }
+
+    public static function getMessageSent($user){
+        $messages = Message::where([
+            ['author','=',$user],
+            ['delete_is','=',0]
+        ])->get();
         return $messages;
     }
 }

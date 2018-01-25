@@ -93,16 +93,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Status</label>
-                                        <select name="status" class="form-control">
-                                            @for($i=1; $i < 6; $i++)
-                                                <option value="{{$i}}" @if($i == $lead->status) selected @endif>{{\App\Model\Lead::showNameStatus($i)}}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                </div>
+
                             </div>
 
                             <hr/>
@@ -146,11 +137,6 @@
                                 </div>
                             </div>
 
-
-
-
-
-
                         </div>
                         <!-- /.box-body -->
 
@@ -170,40 +156,22 @@
                         <h3 class="box-title">Assignment Area</h3>
                     </div>
                     <div class="box-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div><br />
-                        @endif
-                        @if (\Session::has('success'))
-                            <div class="alert alert-success">
-                                <p>{{ \Session::get('success') }}</p>
-                            </div>
-                    @endif
                     <!-- /.box-header -->
                         <form role="form" method="post" action="{{url('assignments')}}">
                             {{ csrf_field() }}
 
-                            <div class="box-body">
-                                <input type="hidden" name="lead" value="{{$lead->id}}">
-                                <div class="form-group">
-                                    <label>Assign to Consultant</label>
-                                    <select name="consultant" class="form-control">
-                                        @foreach(\App\User::getAllConsultant() as $consultant)
-                                            <option value="{{$consultant->id}}" @if(!empty(\App\Model\Assignment::getConsultantByLead($lead->id)) && \App\Model\Assignment::getConsultantByLead($lead->id)->consultant_id == $consultant->id) selected @endif>{{$consultant->fullname}} - {{\App\Model\Role::getInfoRoleByID($consultant->role_id)->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-
+                            <input type="hidden" name="lead" value="{{$lead->id}}">
+                            <div class="form-group">
+                                <label>Assign to Consultant</label>
+                                <select name="consultant" class="form-control">
+                                    @foreach(\App\User::getAllConsultant() as $consultant)
+                                        <option value="{{$consultant->id}}" @if(!empty(\App\Model\Assignment::getConsultantByLead($lead->id)) && \App\Model\Assignment::getConsultantByLead($lead->id)->consultant_id == $consultant->id) selected @endif>{{$consultant->fullname}} - {{\App\Model\Role::getInfoRoleByID($consultant->role_id)->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <!-- /.box-body -->
 
-                            <div class="box-footer">
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary pull-right">Assign</button>
                             </div>
                         </form>
@@ -213,6 +181,25 @@
                 </div>
                 <!-- /.box -->
 
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Status process</h3>
+                    </div>
+                    <div class="box-body">
+                        <form>
+                            <div class="form-group">
+                                <select name="status" class="form-control">
+                                    @for($i=1; $i < 5; $i++)
+                                        <option value="{{$i}}" @if($i == $lead->status) selected @endif>{{\App\Model\Lead::showNameStatus($i)}}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button class="pull-right btn btn-primary">Change</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
             </div>
             <!-- /.col -->

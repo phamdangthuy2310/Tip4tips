@@ -13,9 +13,10 @@
         <div class="box-body no-padding">
             <ul class="nav nav-pills nav-stacked">
                 <li class="active"><a href="{{route('messages.index')}}"><i class="fa fa-inbox"></i> Inbox
-                        <span class="label label-primary pull-right">{{$count}}</span></a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
-                <li><a href="{{action('MessagesController@trash')}}"><i class="fa fa-trash-o"></i> Trash <span class="label label-danger pull-right">{{ $countDelete}}</span></a></li>
+                        <span class="label label-primary pull-right">{{count(\App\Model\Message::getMessageOfUser(Auth::user()->id))}}</span></a></li>
+                <li><a href="{{route('messages.sent')}}"><i class="fa fa-envelope-o"></i> Sent
+                    <span class="label label-default pull-right">{{count(\App\Model\Message::getMessageSent(Auth::user()->id))}}</span></a></li>
+                <li><a href="{{action('MessagesController@trash')}}"><i class="fa fa-trash-o"></i> Trash <span class="label label-danger pull-right">{{ count(\App\Model\Message::getAllMessageDeleted(Auth::user()->id))}}</span></a></li>
             </ul>
         </div>
         <!-- /.box-body -->

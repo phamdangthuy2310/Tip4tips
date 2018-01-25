@@ -18,9 +18,9 @@ class CreateMessagesTable extends Migration
 
             $table->string('title');
             $table->text('content');
-            $table->string('author');
+            $table->integer('author')->unsigned();
 
-            $table->string('receiver');
+            $table->integer('receiver')->unsigned();
             $table->tinyInteger('delete_is')->default(0);
             $table->tinyInteger('read_is')->default(0);
 
