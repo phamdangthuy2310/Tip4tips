@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\LeadProcess;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LeadProcessesController extends Controller
@@ -15,6 +16,7 @@ class LeadProcessesController extends Controller
     public function index()
     {
         //
+        return view('leadsprocesses.index');
     }
 
     /**
@@ -25,6 +27,7 @@ class LeadProcessesController extends Controller
     public function create()
     {
         //
+        return view('leadsprocesses.create');
     }
 
     /**
@@ -36,9 +39,14 @@ class LeadProcessesController extends Controller
     public function store(Request $request)
     {
         //
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         $process['lead_id'] = $request->lead;
         $process['status_id'] = $request->status;
-        $process->save();
+        $mytime = Carbon::now();
+        $status['created_at']= $mytime->toDateTimeString();
+//        dd(date('Y-m-d H:i:s'));
+        LeadProcess::create($process);
+        return view('leadsprocesses.index');
     }
 
     /**
@@ -50,6 +58,7 @@ class LeadProcessesController extends Controller
     public function show($id)
     {
         //
+
     }
 
     /**
@@ -85,4 +94,5 @@ class LeadProcessesController extends Controller
     {
         //
     }
+
 }

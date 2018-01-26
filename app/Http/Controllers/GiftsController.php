@@ -149,4 +149,16 @@ class GiftsController extends Controller
         $gift->delete();
         return back()->with('success', 'Gift deleted successfully.');
     }
+
+    public function ajaxAddCategory(Request $request){
+        $response = array(
+            'status' => $request->name,
+            'msg' => 'Added successfully',
+        );
+        $category['name'] = $request->name;
+        $category['code'] =strtolower(preg_replace('/\s*/', '', $request->name));
+        GiftCategory::create($category);
+
+        return response()->json($response);
+    }
 }

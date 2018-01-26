@@ -29,12 +29,14 @@
                     <h3 class="box-title">Status history</h3>
                 </div>
                 <div class="box-body">
-                    <ul>
-                        <li><strong>Lead 1:</strong> NEW (10-01-2018)</li>
-                        <li><strong>Lead 1:</strong> CALL (12-01-2018)</li>
-                        <li><strong>Lead 1:</strong> QUOTE (13-01-2018)</li>
-                        <li><strong>Lead 1:</strong> WIN (15-01-2018)</li>
+                    @if(\App\Model\LeadProcess::getStatusByLead($lead->id))
+                    <ul class="list-unstyled list-statuses">
+                        @foreach(\App\Model\LeadProcess::getStatusByLead($lead->id) as $status)
+                            <li>
+                                <strong>{{$lead->fullname}}:</strong>
+                                {{\App\Model\Lead::showNameStatus($status->status_id)}} ({{\Carbon\Carbon::parse($status->created_at)->addHours(7)->format('d-m-Y h:iA')}})</li>@endforeach
                     </ul>
+                    @endif
                 </div>
             </div>
         </div>

@@ -122,6 +122,25 @@ Css for breadcrumb*/
 .select2-container--default .select2-selection--single .select2-selection__arrow{
     height: 36px;
 }
+/*List status*/
+.list-statuses > li{
+    padding: 10px 0;
+    border-bottom: 1px solid #f4f4f4;
+}
+.list-statuses > li:last-child{
+    border-bottom: none;
+}
+.categoryForm .form-group{
+    position: relative;
+}
+.categoryForm button{
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 9;
+    height: 100%;
+
+}
 @media (min-width: 992px) {
     .box-list .box-header{
         position: relative;

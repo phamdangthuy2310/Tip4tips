@@ -85,6 +85,22 @@
                     </div>
                 </div>
             </div>
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Category</h3>
+                </div>
+                <div class="box-body">
+                    <div id="categoryForm" class="categoryForm" data-url="{{route('gifts.addcategory')}}">
+                        <div class="form-group">
+                            <input name="categoryName" class="form-control" placeholder="Ex: Insurance">
+                            <button id="catAdd" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                        </div>
+                        <div class="form-group">
+                            <label id="catAlert" class="label"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     </form>

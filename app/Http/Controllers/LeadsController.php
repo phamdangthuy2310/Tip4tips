@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Model\Lead;
+use App\Model\LeadProcess;
 use App\Model\Region;
 use App\Model\Role;
 use App\Model\RoleType;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -116,6 +118,7 @@ class LeadsController extends Controller
     {
         //
         $lead = Lead::find($id);
+
         return view('leads.show', compact('lead', 'id'));
     }
 
@@ -187,5 +190,20 @@ class LeadsController extends Controller
         $lead = Lead::find($id);
         $lead->delete();
         return back()->with('success', 'Lead deleted successfully.');
+    }
+
+    public function ajaxStatus(Request $request){
+        $response = array(
+            'status' => $request->lead,
+            'msg' => 'Setting created successfully',
+        );
+        $status['lead_id'] = $request->lead;
+        $status['status_id'] = $request->status;
+        $lead = Lead::find($request->lead);
+        $lead['status'] = $request->status;
+        $lead->save();
+        LeadProcess::create($status);
+
+        return response()->json($response);
     }
 }

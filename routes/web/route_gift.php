@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/gifts/ajaxAddCategory', 'GiftsController@ajaxAddCategory')->name('gifts.addcategory');
 Route::resource('gifts', 'GiftsController', [
     'name' => [
         'index' => 'gifts.index',

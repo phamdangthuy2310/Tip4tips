@@ -1,6 +1,8 @@
 @extends('layouts.master')
 @section('title', 'Edit Product')
-
+@section('javascript')
+    <script src="{{ asset('js/admin/product.js') }}"></script>
+@stop
 @section('content')
     @if($editAction == false)
         <div class="box box-danger">
@@ -41,7 +43,6 @@
                                 <label>Description</label>
                                 <textarea name="description" class="form-control" rows="5">{{$product->description}}</textarea>
                             </div>
-
                             <div class="form-group">
                                 <label>Category</label>
                                 <select name="category" class="form-control">
@@ -50,14 +51,18 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>Price</label>
-                                <input name="price" value="{{$product->price}}" type="number" class="form-control">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label>Price</label>
+                                    <input name="price" value="{{$product->price}}" type="number" class="form-control">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label>Quality</label>
+                                    <input name="quality" value="{{$product->quality}}" type="number" class="form-control">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Quality</label>
-                                <input name="quality" value="{{$product->quality}}" type="number" class="form-control">
-                            </div>
+
+
 
                         </div>
                 <!-- /.box-body -->
@@ -81,6 +86,23 @@
                     <div class="form-group">
                         <label>Image</label>
                         <input name="thumbnail" type="file" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Category</h3>
+                </div>
+                <div class="box-body">
+                    <div id="categoryForm" class="categoryForm" data-url="{{route('products.addcategory')}}">
+                        <div class="form-group">
+                            <input name="categoryName" class="form-control" placeholder="Ex: Insurance">
+                            <button id="catAdd" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                        </div>
+                        <div class="form-group">
+                            <label id="catAlert" class="label"></label>
+                        </div>
                     </div>
                 </div>
             </div>

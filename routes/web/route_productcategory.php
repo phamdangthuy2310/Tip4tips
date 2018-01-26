@@ -16,5 +16,6 @@ Route::get('productcategories/', 'ProductCategoriesController@index')->name('pro
 Route::resource('productcategories', 'ProductCategoriesController',
     ['names' => [
         'index' => 'productcategories.index',
-        'create' => 'productcategories.create'
+        'create' => 'productcategories.create',
+        'store' => 'productcategories.store'
     ]]);

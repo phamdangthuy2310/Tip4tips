@@ -1,6 +1,8 @@
 @extends('layouts.master')
 @section('title', 'Edit Lead')
-
+@section('javascript')
+    <script src="{{ asset('js/admin/lead.js') }}"></script>
+@stop
 @section('content')
     @if($editAction == false)
         <div class="box box-danger">
@@ -181,24 +183,30 @@
                 </div>
                 <!-- /.box -->
 
-                <div class="box box-primary">
+                <div class="box box-warning">
                     <div class="box-header with-border">
                         <h3 class="box-title">Status process</h3>
                     </div>
                     <div class="box-body">
-                        <form>
+                        <form id="statusGroup" action="{{route('leads.ajaxStatus')}}">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="lead" value="{{$lead->id}}">
                             <div class="form-group">
                                 <select name="status" class="form-control">
-                                    @for($i=1; $i < 5; $i++)
+                                    @for($i=0; $i < 5; $i++)
                                         <option value="{{$i}}" @if($i == $lead->status) selected @endif>{{\App\Model\Lead::showNameStatus($i)}}</option>
                                     @endfor
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button class="pull-right btn btn-primary">Change</button>
+                                <label id="statusAlert" class="label label-success"></label>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" id="statusChange" class="pull-right btn btn-primary">Change</button>
                             </div>
                         </form>
                     </div>
+
                 </div>
 
             </div>

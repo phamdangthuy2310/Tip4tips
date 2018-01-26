@@ -1,6 +1,8 @@
 @extends('layouts.master')
 @section('title', 'Create Gift')
-
+@section('javascript')
+    <script src="{{ asset('js/admin/product.js') }}"></script>
+@stop
 @section('content')
     @if($createAction == false)
         <div class="box box-danger">
@@ -81,6 +83,23 @@
                         <div class="form-group">
                             <label>Image</label>
                             <input name="thumbnail" type="file" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Category</h3>
+                    </div>
+                    <div class="box-body">
+                        <div id="categoryForm" class="categoryForm" data-url="{{route('gifts.addcategory')}}">
+                            <div class="form-group">
+                                <input name="categoryName" class="form-control" placeholder="Ex: Insurance">
+                                <button id="catAdd" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                            </div>
+                            <div class="form-group">
+                                <label id="catAlert" class="label"></label>
+                            </div>
                         </div>
                     </div>
                 </div>
