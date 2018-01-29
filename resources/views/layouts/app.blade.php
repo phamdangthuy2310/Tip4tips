@@ -16,7 +16,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 </head>
-<body>
+<body class="@yield('bodyclass')">
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -32,17 +32,11 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{--{{ config('app.name', 'Laravel') }}--}}
                         Tip4tips
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
@@ -80,5 +74,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('javascript')
 </body>
 </html>

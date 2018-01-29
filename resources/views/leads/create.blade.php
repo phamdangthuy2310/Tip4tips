@@ -34,14 +34,14 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Email</label>
-                                <input name="email" type="text" class="form-control" placeholder="Enter ...">
+                                <label>Phone</label>
+                                <input name="phone" type="text" class="form-control" placeholder="Enter ...">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Phone</label>
-                                <input name="phone" type="text" class="form-control" placeholder="Enter ...">
+                                <label>Email</label>
+                                <input name="email" type="text" class="form-control" placeholder="Enter ...">
                             </div>
                         </div>
                     </div>
@@ -49,8 +49,12 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Address</label>
-                                <input name="address" type="text" class="form-control" placeholder="Enter ...">
+                                <label>Product</label>
+                                <select name="product" class="form-control">
+                                    @foreach(\App\Model\Product::getAllProduct() as $product)
+                                        <option value="{{$product->id}}">{{$product->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -65,16 +69,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label>Product</label>
-                                <select name="product" class="form-control">
-                                    @foreach(\App\Model\Product::getAllProduct() as $product)
-                                        <option value="{{$product->id}}">{{$product->name}}</option>
-                                    @endforeach
-                                </select>
+                                <label>Address</label>
+                                <input name="address" type="text" class="form-control" placeholder="Enter ...">
                             </div>
                         </div>
+
                     </div>
 
                     <hr/>

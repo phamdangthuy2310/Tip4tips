@@ -123,13 +123,50 @@ Css for breadcrumb*/
     height: 36px;
 }
 /*List status*/
-.list-statuses > li{
+.history-statuses > li{
     padding: 10px 0;
-    border-bottom: 1px solid #f4f4f4;
+    border-bottom: 1px dashed #f4f4f4;
+    display: table;
+    width: 100%;
 }
-.list-statuses > li:last-child{
+.history-statuses > li:last-child{
     border-bottom: none;
 }
+.history-statuses > li > span{
+    display: table-cell;
+    vertical-align: middle;
+}
+.history-statuses .history__time{
+    width: 95px;
+    font-size: 13px;
+    color: #aaaaaa;
+}
+.history-statuses .history__info{
+    width: calc(100% - 95px);
+    padding: 0 10px;
+    font-weight: bold;
+}
+.history-statuses > li.label-new .history__info{
+    border-left: 4px solid #00c0ef;
+}
+.history-statuses > li.label-quote .history__info{
+    border-left: 4px solid #e08e0b;
+}
+.history-statuses > li.label-call .history__info{
+    border-left: 4px solid #367fa9;
+}
+.history-statuses > li.label-win .history__info{
+    border-left: 4px solid #00a65a;
+}
+.history-statuses > li.label-lost .history__info{
+    border-left: 4px solid #d73925;
+}
+span.text-highlight{
+    font-size: 16px;
+    color: #333333;
+    font-weight: bold;
+}
+
 .categoryForm .form-group{
     position: relative;
 }

@@ -1,3 +1,46 @@
 body{
     font-family: 'Roboto', sans-serif;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    -webkit-transition: background-image 0.8s ease-in-out;
+    -moz-transition: background-image 0.8s ease-in-out;
+    transition: background-image 0.8s ease-in-out;
 }
+.login-page{
+    min-height: 100vh;
+}
+.navbar-static-top{
+    background-color: rgba(255,255,255,0.8);
+}
+.navbar-header .navbar-brand{
+    color: #3097D1;
+    font-size: 28px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+}
+/*
+Form login*/
+.login__wrapper{
+    max-width: 320px;
+    margin: 30px auto;
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: 0 1px 10px 1px rgba(0,0,0,0.3);
+}
+.login__wrapper > .panel-heading{
+    font-size: 24px;
+    text-transform: uppercase;
+    background-color: transparent;
+}
+.login__form [type=submit]{
+    width: 100%;
+    text-transform: uppercase;
+}
+.login__form .btn-forget{
+    text-decoration: none;
+    font-size: 12px;
+}
+
+/*
+End Form login*/
