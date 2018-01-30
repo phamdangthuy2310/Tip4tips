@@ -77,6 +77,9 @@ img{
 }
 /*
 css custom form*/
+label{
+    font-weight: normal;
+}
 input[type=date]::-webkit-outer-spin-button,
 input[type=date]::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
@@ -93,6 +96,7 @@ input[type=date]::-webkit-inner-spin-button {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     height: 43px;
+    background-color: #f9ffff;
 }
 .form-control[type=search]{
     height: 34px;
@@ -101,6 +105,37 @@ input[type=date]::-webkit-inner-spin-button {
     height: auto;
     min-height: 175px;
 }
+.form-inline-simple{
+    position: relative;
+    overflow: hidden;
+}
+.form-inline-simple button,
+.form-inline-simple .form-control{
+    height: 43px;
+}
+.form-inline-simple button{
+    position: absolute;
+    z-index: 99;
+    right: 0;
+    top: 0;
+}
+/*tipster update in lead*/
+.tipster__update{
+    position: relative;
+}
+.tipster__update select,
+.tipster__update button{
+    height: 43px;
+}
+.tipster__update .form-control{
+}
+.tipster__update button{
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 9;
+}
+/*end tipster update in lead*/
 /*
 Css for breadcrumb*/
 .content-header>.breadcrumb{
@@ -123,6 +158,9 @@ Css for breadcrumb*/
     height: 36px;
 }
 /*List status*/
+.history-statuses {
+    width: 100%;
+}
 .history-statuses > li{
     padding: 10px 0;
     border-bottom: 1px dashed #f4f4f4;
@@ -161,10 +199,18 @@ Css for breadcrumb*/
 .history-statuses > li.label-lost .history__info{
     border-left: 4px solid #d73925;
 }
+#clickHistory{
+    cursor: pointer;
+}
+#showHistory{
+    display: none;
+}
+/*End List status*/
 span.text-highlight{
     font-size: 16px;
     color: #333333;
     font-weight: bold;
+    display: block;
 }
 
 .categoryForm .form-group{
@@ -178,6 +224,24 @@ span.text-highlight{
     height: 100%;
 
 }
+/*
+Detail page*/
+.box-line > div{
+    margin: 5px 0;
+}
+/*
+End detail page*/
+/*Right column*/
+.block__action{
+    overflow: hidden;
+    margin: 0 0 15px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #ddd;
+}
+.block__action:last-child{
+    border-bottom: none;
+}
+/*End Right column*/
 @media (min-width: 992px) {
     .box-list .box-header{
         position: relative;

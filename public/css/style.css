@@ -1,5 +1,8 @@
-body{
+body.has-img{
     font-family: 'Roboto', sans-serif;
+    -webkit-background-image: url("../images/bg-home-1.jpg");
+    -moz-background-image: url("../images/bg-home-1.jpg");
+    -o-background-image: url("../images/bg-home-1.jpg");
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -9,31 +12,41 @@ body{
     -moz-transition: background-image 0.8s ease-in-out;
     transition: background-image 0.8s ease-in-out;
 }
-.login-page{
+.has-img{
     min-height: 100vh;
 }
 .navbar-static-top{
-    background-color: rgba(255,255,255,0.8);
+    background-color: transparent;
+    border: none;
 }
 .navbar-header .navbar-brand{
-    color: #3097D1;
     font-size: 28px;
     text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+    font-family: 'Berkshire Swash', cursive;
+    color: #ffffff;
+}
+.navbar-static-top .btn-register{
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    line-height: 1;
+    background-color: #ffffff;
+    margin-top: 15px;
 }
 /*
 Form login*/
-.login__wrapper{
+.form__transparent{
     max-width: 320px;
-    margin: 30px auto;
+    margin: 50px auto 0;
     background-color: rgba(255,255,255,0.8);
     box-shadow: 0 1px 10px 1px rgba(0,0,0,0.3);
 }
-.login__wrapper > .panel-heading{
+.form__transparent > .panel-heading{
     font-size: 24px;
     text-transform: uppercase;
     background-color: transparent;
 }
-.login__form [type=submit]{
+.form__transparent form [type=submit]{
     width: 100%;
     text-transform: uppercase;
 }

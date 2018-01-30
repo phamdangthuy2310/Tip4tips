@@ -15,6 +15,13 @@ function ajaxAddStatus(){
       },
       success: function(data){
         $('#statusAlert').text('Changed successfully.');
+        if(data.status == 5){
+          $('#pointArea').append('<p>Point for tipster</p>' +
+            '<div id="updatePoint" class="form-inline-simple">' +
+            '<input class="form-control" name="point" type="number" placeholder="0">' +
+            '<button class="btn btn-primary" type="button" title="Plus Point"><i class="fa fa-plus"></i></button>' +
+            '</div>');
+        }
       }
     });
   })

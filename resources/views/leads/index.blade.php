@@ -36,11 +36,11 @@
                             <td class="actions text-center" style="width: 100px">
                                 <a href="{{route('leads.show', $lead->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
                                 @if($editAction == true)<a href="{{action('LeadsController@edit', $lead['id'])}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
-                                @if($deleteAction == true)<form action="{{action('LeadsController@destroy', $lead['id'])}}" method="post">
-                                    {{csrf_field()}}
-                                    <input name="_method" type="hidden" value="DELETE">
-                                    <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>
-                                </form>@endif
+                                {{--@if($deleteAction == true)<form action="{{action('LeadsController@destroy', $lead['id'])}}" method="post">--}}
+                                    {{--{{csrf_field()}}--}}
+                                    {{--<input name="_method" type="hidden" value="DELETE">--}}
+                                    {{--<button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>--}}
+                                {{--</form>@endif--}}
                             </td>
                         </tr>
                     @endforeach

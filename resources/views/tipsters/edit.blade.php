@@ -42,16 +42,18 @@
             <div class="box box-warning">
                 <div class="box-header with-border">
                     <h3 class="box-title">Edit user</h3>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                    <a href="{{route('tipsters.index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-angle-left"></i> Back to list</a>
                 </div>
+                @if ($errors->any())
+                <div class="box-body">
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>@endif
                 <!-- /.box-header -->
                 <form role="form" method="post" action="{{action('TipstersController@update', $id)}}">
                     {{csrf_field()}}

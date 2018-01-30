@@ -41,7 +41,10 @@
                 <div class="box box-warning">
                     <div class="box-header with-border">
                         <h3 class="box-title">Edit User</h3>
-                        @if ($errors->any())
+                        <a href="{{route('users.index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-angle-left"></i> Back to list</a>
+                    </div>
+                    @if ($errors->any())
+                        <div class="box-body">
                             <div class="alert alert-danger">
                                 <ul>
                                     @foreach ($errors->all() as $error)
@@ -49,8 +52,8 @@
                                     @endforeach
                                 </ul>
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
                     <!-- /.box-header -->
                     <form role="form" method="post" action="{{action('UsersController@update', $id)}}">
                         {{csrf_field()}}

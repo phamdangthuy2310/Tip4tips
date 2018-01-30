@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Model\Role;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -62,11 +64,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $role_id = Role::getIDRoleByCode('tipster');
         return User::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'role_id' => 8
+            'role_id' => $role_id
         ]);
     }
 }

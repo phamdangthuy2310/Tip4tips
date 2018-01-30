@@ -1,34 +1,11 @@
 @extends('layouts.app')
-@section('bodyclass','login-page')
-@section('javascript')
-    <script>
-      $(function () {
-        var body = $('body');
-        var backgrounds = [
-          'url({{asset('images/bg-home-1.jpg')}})',
-          'url({{asset('images/bg-home-2.jpg')}})',
-          'url({{asset('images/bg-home-3.jpg')}})',
-          'url({{asset('images/bg-home-4.jpg')}})'
-        ];
-        var current = 0;
-
-        function nextBackground() {
-          body.css(
-            'background-image',
-            backgrounds[current = ++current % backgrounds.length]);
-
-          setTimeout(nextBackground, 20000);
-        }
-        setTimeout(nextBackground, 20000);
-        body.css('background-image', backgrounds[0]);
-      });
-    </script>
-@stop
+@section('bodyclass','has-img')
+@include('inc.changeImageBody')
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-default login__wrapper">
+            <div class="panel panel-default login__wrapper form__transparent">
                 <div class="panel-heading">Login</div>
 
                 <div class="panel-body">

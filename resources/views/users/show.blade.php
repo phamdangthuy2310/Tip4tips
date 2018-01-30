@@ -42,85 +42,70 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <div class="row">
+                    <div class="row box-line">
                         <div class="col-sm-6">
-                            <strong><i class="fa fa-address-book margin-r-5"></i> Fullname</strong>
-
                             <p class="text-muted">
-                                {{ $user->fullname }}
+                                <i class="fa fa-address-book margin-r-5"></i> Fullname
+                                <span class="text-highlight">{{ $user->fullname }}</span>
                             </p>
                         </div>
                         <div class="col-sm-6">
-                            <strong><i class="fa fa-building margin-r-5"></i> Department</strong>
-
                             <p class="text-muted">
-                                {{$role->name}} - {{$roletype->name}}
+                                <i class="fa fa-building margin-r-5"></i> Department
+                                <span class="text-highlight">{{$role->name}} - {{$roletype->name}}</span>
 
                             </p>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row box-line">
                         <div class="col-sm-6">
-                            <hr>
-                            <strong><i class="fa fa-calendar margin-r-5"></i> Birthday</strong>
-
                             <p class="text-muted">
-                                {{$user->birthday}}
+                                <i class="fa fa-calendar margin-r-5"></i> Birthday
+                                <span class="text-highlight">{{$user->birthday}}</span>
                             </p>
                         </div>
                         <div class="col-sm-6">
-                            <hr>
-                            <strong><i class="fa fa-venus-mars margin-r-5"></i> Gender</strong>
-
                             <p class="text-muted">
-                                {{ $user::showGender($user->gender) }}
+                                <i class="fa fa-venus-mars margin-r-5"></i> Gender
+                                <span class="text-highlight">{{ $user::showGender($user->gender) }}</span>
                             </p>
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row box-line">
                         <div class="col-sm-6">
-                            <hr>
-                            <strong><i class="fa fa-envelope margin-r-5"></i> Email</strong>
-
                             <p class="text-muted">
-                                {{$user->email}}
+                                <i class="fa fa-envelope margin-r-5"></i> Email
+                                <span class="text-highlight">{{$user->email}}</span>
                             </p>
                         </div>
                         <div class="col-sm-6">
-                            <hr>
-                            <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
-
                             <p class="text-muted">
-                                {{$user->phone}}
+                                <i class="fa fa-phone margin-r-5"></i> Phone
+                                <span class="text-highlight">{{$user->phone}}</span>
                             </p>
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row box-line">
                         <div class="col-sm-6">
-                            <hr>
-                            <strong><i class="fa fa-home margin-r-5"></i> Address</strong>
-
                             <p class="text-muted">
-                                {{$user->address}}
+                                <i class="fa fa-home margin-r-5"></i> Address
+                                <span class="text-highlight">{{$user->address}}</span>
                             </p>
                         </div>
                         <div class="col-sm-6">
-                            <hr>
-
-                            <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-
-                            <p class="text-muted">{{ \App\Model\Region::getNameByID($user->region_id)->name }}</p>
+                            <p class="text-muted">
+                                <i class="fa fa-map-marker margin-r-5"></i> Location
+                                <span class="text-highlight">{{ \App\Model\Region::getNameByID($user->region_id)->name }}</span></p>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row box-line">
                         <div class="col-sm-12">
-                            <hr>
-
-                            <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                            <p>
+                                <i class="fa fa-file-text-o margin-r-5"></i> Notes
+                                <span class="text-highlight"></span>
+                            </p>
                         </div>
                     </div>
 

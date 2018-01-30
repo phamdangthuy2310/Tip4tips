@@ -19,7 +19,7 @@ class LeadProcess extends Model
     }
 
     public static function getStatusByLead($lead){
-        $statuses = LeadProcess::where('lead_id', $lead)->get();
+        $statuses = LeadProcess::where('lead_id', $lead)->orderBy('created_at', 'desc')->get();
         return $statuses;
     }
 }

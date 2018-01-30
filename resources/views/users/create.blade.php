@@ -32,8 +32,8 @@
             <div class="box box-warning">
                 <div class="box-header with-border">
                     <h3 class="box-title">Create User</h3>
+                    <a href="{{route('users.index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-angle-left"></i> Back to list</a>
                 </div><!-- /.box-header -->
-
                     <form role="form" method="post" action="{{url('users')}}">
                         {{ csrf_field() }}
                         <div class="box-body">

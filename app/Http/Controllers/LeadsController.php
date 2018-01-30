@@ -99,6 +99,7 @@ class LeadsController extends Controller
         $lead['gender'] = $request->gender;
         $lead['phone'] = $request->phone;
         $lead['address'] = $request->address;
+        $lead['notes'] = $request->notes;
         $lead['product_id'] = $request->product;
         $lead['status'] = 0;
         $lead['region_id'] = $request->region;
@@ -117,9 +118,19 @@ class LeadsController extends Controller
     public function show($id)
     {
         //
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+        $deleteAction = false;
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin' || $roletypeAuth->code == 'consultant' || $roletypeAuth->code == 'tipster'){
+            $deleteAction = true;
+        }
+
         $lead = Lead::find($id);
 
-        return view('leads.show', compact('lead', 'id'));
+        return view('leads.show', compact('lead', 'id'))->with([
+            'deleteAction' => $deleteAction
+        ]);
     }
 
     /**
@@ -171,9 +182,10 @@ class LeadsController extends Controller
         $lead->address = $request->get('address');
         $lead->gender = $request->get('gender');
         $lead->product_id = $request->get('product');
+        $lead->notes = $request->get('notes');
         $lead->tipster_id = $request->get('tipster');
         $lead->region_id = $request->get('region');
-        $lead->status = $request->get('status');
+//        $lead->status = $request->get('status');
         $lead->save();
         return redirect('leads')->with('success','Leads has been updated');
     }
@@ -189,12 +201,12 @@ class LeadsController extends Controller
         //
         $lead = Lead::find($id);
         $lead->delete();
-        return back()->with('success', 'Lead deleted successfully.');
+        return redirect('leads.index')->with('success', 'Lead deleted successfully.');
     }
 
     public function ajaxStatus(Request $request){
         $response = array(
-            'status' => $request->lead,
+            'status' => $request->status,
             'msg' => 'Setting created successfully',
         );
         $status['lead_id'] = $request->lead;
