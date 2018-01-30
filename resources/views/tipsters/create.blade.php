@@ -57,7 +57,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Username</label>
-                                <input name="username" type="text" class="form-control" placeholder="Enter ..." required>
+                                <input name="username" value="{{ old('username') }}" type="text" class="form-control" placeholder="Enter ..." required>
                             </div>
                         </div>
                     </div>

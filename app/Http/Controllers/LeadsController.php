@@ -201,7 +201,7 @@ class LeadsController extends Controller
         //
         $lead = Lead::find($id);
         $lead->delete();
-        return redirect('leads.index')->with('success', 'Lead deleted successfully.');
+        return redirect('leads')->with('success', 'Lead deleted successfully.');
     }
 
     public function ajaxStatus(Request $request){
@@ -209,13 +209,16 @@ class LeadsController extends Controller
             'status' => $request->status,
             'msg' => 'Setting created successfully',
         );
-        $status['lead_id'] = $request->lead;
-        $status['status_id'] = $request->status;
-        $lead = Lead::find($request->lead);
-        $lead['status'] = $request->status;
-        $lead->save();
-        LeadProcess::create($status);
-
+        try{
+            $status['lead_id'] = $request->lead;
+            $status['status_id'] = $request->status;
+            $lead = Lead::find($request->lead);
+            $lead['status'] = $request->status;
+            $lead->save();
+            LeadProcess::create($status);
+        }catch (\Exception $e) {
+            $response['error'] = $e->getMessage();
+        }
         return response()->json($response);
     }
 }

@@ -110,13 +110,11 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <form>
-                        @if($deleteAction == true)<form action="{{action('LeadsController@destroy', $lead->id)}}" method="post">
-                            {{csrf_field()}}
-                            <input name="_method" type="hidden" value="DELETE">
-                            <button title="Delete this user" class="btn btn-block btn-danger" type="submit"><i class="fa fa-trash"></i> {{$lead->fullname}}</button>
-                        </form>@endif
-                    </form>
+                    @if($deleteAction == true)<form action="{{action('LeadsController@destroy', $lead->id)}}" method="post">
+                        {{csrf_field()}}
+                        <input name="_method" type="hidden" value="DELETE">
+                        <button title="Delete this user" class="btn btn-block btn-danger" type="submit"><i class="fa fa-trash"></i> {{$lead->fullname}}</button>
+                    </form>@endif
                 </div>
                 <!-- /.box-body -->
             </div>
