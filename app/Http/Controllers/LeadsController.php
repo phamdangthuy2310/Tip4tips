@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Mockery\Exception;
+use App\Common\Common;
 
 class LeadsController extends Controller
 {
@@ -206,19 +207,75 @@ class LeadsController extends Controller
     }
 
     public function ajaxStatus(Request $request){
-        $response = array(
-            'status' => $request->status,
-            'msg' => 'Setting created successfully',
-        );
+//        $response = array(
+//            'status' => $request->status,
+//            'msg' => 'Setting created successfully',
+//        );
+//        try{
+//            $status['lead_id'] = $request->lead;
+//            $status['status_id'] = $request->status;
+//            $lead = Lead::find($request->lead);
+//            $lead['status'] = $request->status;
+//            $lead->save();
+//            LeadProcess::create($status);
+//        }catch (\Exception $e) {
+//            $response['error'] = $e->getMessage();
+//        }
+//        return response()->json($response);
+        $lead = $request->lead;
+        $status = $request->status;
+        $response = array();
         try{
-            $status['lead_id'] = $request->lead;
-            $status['status_id'] = $request->status;
-            $lead = Lead::find($request->lead);
-            $lead['status'] = $request->status;
-            $lead->save();
-            LeadProcess::create($status);
+            $leadTable = Lead::find($lead);
+            if(isset($leadTable)){
+                $statusDb = $leadTable->status;
+                $response['status_db'] = $statusDb;
+                $response['status_view'] = $status;
+                if($statusDb != $status){
+                    $process['lead_id'] = $lead;
+                    $process['status_id'] = $status;
+                    LeadProcess::create($process);
+                    $leadTable->status = $status;
+                    $leadTable->save();
+                    //get all history
+                    $listHistoryProcess = LeadProcess::getStatusByLead($lead);
+                    foreach ($listHistoryProcess as $listProcessItem){
+                        $listProcessItem->created_format = Common::dateFormat($listProcessItem->created_at,'d-M-Y');
+                    }
+                    $response["listHistoryProcess"] = $listHistoryProcess;
+                    $message= "Update successfully";
+                    $response["status"] = "0";
+                    $response["message"] = $message;
+                }else{
+                    $error = "Current status was picked. Please pick another.";
+                    $response["error"] = $error;
+                    $response["status"] = "-1";
+                }
+            }else{
+                $error = "Current status was picked. Please pick another.";
+                $response["error"] = $error;
+                $response["status"] = "-1";
+            }
+
+//            $result = count(LeadProcess::checkExist($lead, $status));
+//            if($result > 0){
+//                $error = "Current status was picked. Please pick another.";
+//                $response["error"] = $error;
+//                $response["status"] = "-1";
+//            }else{
+//                $process['lead_id'] = $lead;
+//                $process['status_id'] = $status;
+//                LeadProcess::create($process);
+//                $lead = Lead::find($lead);
+//                $lead->status = $status;
+//                $lead->save();
+//                $message= "Update successfully";
+//                $response["status"] = "0";
+//                $response["message"] = $message;
+//            }
         }catch (\Exception $e) {
             $response['error'] = $e->getMessage();
+            $response["status"] = "-2";
         }
         return response()->json($response);
     }

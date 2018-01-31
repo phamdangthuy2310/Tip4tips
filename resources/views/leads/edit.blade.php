@@ -1,3 +1,4 @@
+<?php use App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'Edit Lead')
 @section('javascript')
@@ -183,8 +184,9 @@
                         {{--Block update status--}}
                         <div class="block__action">
                             <h5>Update status lead:</h5>
-                            <form method="get" action="{{route('leads.updateStatus')}}">
+                            <form method="get" action="{{route('leads.ajaxStatus')}}" id="statusGroup">
                                 {{ csrf_field() }}
+                                <label id="statusAlert" class="label"></label>
                                 <input type="hidden" name="lead" value="{{$lead->id}}">
                                 <div class="form-inline-simple">
                                     <select name="status" class="form-control">
@@ -192,31 +194,32 @@
                                             <option value="{{$i}}" @if($i == $lead->status) selected @endif>{{\App\Model\Lead::showNameStatus($i)}}</option>
                                         @endfor
                                     </select>
-                                    <button type="submit" class="pull-right btn btn-primary">Update</button>
+                                    <button type="button" class="pull-right btn btn-primary" id="statusChange">Update</button>
                                 </div>
                             </form>
                         </div>{{--/Block update status--}}
 
                         {{--Block plus point--}}
-                        @if($lead->status == 3)
-                            <div class="block__action">
+                        {{--@if($lead->status == Utils::$lead_process_status_win)--}}
+                            <div id="plusPoint" class="block__action @if($lead->status != Utils::$lead_process_status_win) hidden @endif">
                                 <h5>Point for tipster</h5>
                                 <div id="updatePoint" class="form-inline-simple">
                                     <form method="get" action="{{route('tipsters.updatePoint')}}">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="tipster" value="{{$lead->tipster_id}}">
-                                        <input class="form-control" name="point" type="number" value="0">
-                                        <button class="btn btn-primary" type="submit" title="Plus Point">Plus</button>
+                                        <input class="form-control" name="point" type="number" value="0" readonly>
+                                        <button class="btn btn-primary" type="submit" title="Plus Point">Edit</button>
                                     </form>
 
                                 </div>
                             </div>
-                        @endif{{--/Block plus point--}}
+                        {{--@endif--}}
+                        {{--/Block plus point--}}
                         {{--Block status history--}}
                         <div class="block__action">
                             <h5>Status history</h5>
                             @if(\App\Model\LeadProcess::getStatusByLead($lead->id))
-                                <ul class="list-unstyled history-statuses">
+                                <ul class="list-unstyled history-statuses" id="contentHistory">
                                     @foreach(\App\Model\LeadProcess::getStatusByLead($lead->id) as $status)
                                         <li class="{{\App\Model\Lead::showColorStatus($status->status_id)}}">
                                             <span class="history__time">{{\Carbon\Carbon::parse($status->created_at)->addHours(7)->format('d-M-Y H:i')}}</span>
