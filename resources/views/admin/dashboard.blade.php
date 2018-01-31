@@ -37,6 +37,9 @@
                     </div>
                     <!-- /.row -->
                 </div>
+                <div class="box-footer text-center">
+                    <a href="{{route('leads.index')}}" class="uppercase">View All Leads</a>
+                </div>
             </div>
             <!-- /.box -->
             <!--/.box -->
@@ -82,7 +85,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer text-center">
-                    <a href="javascript:void(0)" class="uppercase">View All Users</a>
+                    <a href="{{route('tipsters.index')}}" class="uppercase">View All Tipster</a>
                 </div>
                 <!-- /.box-footer -->
             </div>
