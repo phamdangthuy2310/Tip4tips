@@ -8,61 +8,46 @@
             <!-- About Me Box -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">About {{$lead->fullname}}</h3>
-                    <a href="{{route('leads.edit', $lead->id)}}" class="btn btn-xs btn-info pull-right"><i class="fa fa-pencil"></i> Edit</a>
+                    <h3 class="box-title">
+                        Profile</h3>
+                    <span class="group__action pull-right">
+                                <a href="{{route('leads.edit', $lead->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
+                        @if($deleteAction == true)<form class="inline" action="{{action('LeadsController@destroy', $lead->id)}}" method="post">
+                                {{csrf_field()}}
+                            <input name="_method" type="hidden" value="DELETE">
+                                <button title="Delete this user" class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i> Delete</button>
+                            </form>@endif
+                            </span>
+
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <div class="row box-line">
-                        <div class="col-sm-6">
-                            <p class="text-muted">
-                                <i class="fa fa-address-book margin-r-5"></i> Fullname:
-                                <span class="text-highlight">{{ $lead->fullname }}</span>
-                            </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="text-muted">
-                                <i class="fa fa-venus-mars margin-r-5"></i> Gender: <br/>
-                                <span class="text-highlight">{{\App\Model\Lead::showGender($lead->gender)}}</span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row box-line">
-                        <div class="col-sm-6">
-                            <p class="text-muted">
-                                <i class="fa fa-phone margin-r-5"></i> Phone: <br/>
-                                <span class="text-highlight">{{$lead->phone}}</span>
-                            </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="text-muted">
-                            <i class="fa fa-envelope margin-r-5"></i> Email:<br/>
-                                <span class="text-highlight">{{$lead->email}}</span>
-                            </p>
-                        </div>
+                    <div class="block__profile">
+                        <h3 class="profile__name">@if($lead->gender == 0) Mr. @else Mrs/Miss. @endif {{ $lead->fullname }}</h3>
 
-                    </div>
-                    <div class="row box-line">
-                        <div class="col-sm-6">
-                            <p class="text-muted">
-                                <i class="fa fa-map-marker margin-r-5"></i> Region: <br/>
-                                <span class="text-highlight">@if(!empty(\App\Model\Region::getNameByID($lead->region_id)))
-                                        {{\App\Model\Region::getNameByID($lead->region_id)->name}}
-                                    @endif</span>
-                            </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="text-muted"><i class="fa fa-shield margin-r-5"></i> Product: <br/>
-                                <span class="text-highlight"> @if(!empty(\App\Model\Product::getProductByID($lead->product_id))){{\App\Model\Product::getProductByID($lead->product_id)->name}}@endif </span></p>
-                        </div>
-                    </div>
-                    <div class="row box-line">
-                        <div class="col-sm-12">
-                            <p class="text-muted">
-                                <i class="fa fa-file-text-o margin-r-5"></i> Notes:
-                                <span class="text-highlight">{{$lead->notes}}</span>
-                            </p>
-                        </div>
+                        @if($lead->phone)<p class="text-muted">
+                            <span class="text-label"><i class="fa fa-phone margin-r-5"></i> Phone</span>
+                            <span class="text-highlight">{{$lead->phone}}</span>
+                        </p>@endif
+
+                        @if($lead->email)<p class="text-muted">
+                        <span class="text-label"><i class="fa fa-envelope margin-r-5"></i> Email</span>
+                        <span class="text-highlight">{{$lead->email}}</span>
+                        </p>@endif
+                        <p class="text-muted">
+                        <span class="text-label"><i class="fa fa-map-marker margin-r-5"></i> Region</span>
+                        <span class="text-highlight">@if(!empty(\App\Model\Region::getNameByID($lead->region_id)))
+                        {{\App\Model\Region::getNameByID($lead->region_id)->name}}
+                        @endif</span>
+                        </p>
+                        <p class="text-muted">
+                        <span class="text-label"><i class="fa fa-shield margin-r-5"></i> Product</span>
+                        <span class="text-highlight"> @if(!empty(\App\Model\Product::getProductByID($lead->product_id))){{\App\Model\Product::getProductByID($lead->product_id)->name}}@endif </span>
+                        </p>
+                        @if($lead->notes)<p class="text-muted">
+                        <span class="text-label"><i class="fa fa-file-text-o margin-r-5"></i> Notes</span>
+                        <span class="text-highlight">{{$lead->notes}}</span>
+                        </p>@endif
                     </div>
                 </div>
                 <!-- /.box-body -->
@@ -79,7 +64,7 @@
                 </div>
                 <div class="box-body">
                     <div class="block__action">
-                        <p>Tipster reference:<br/>
+                        <p>Tipster reference:
                             <span class="text-highlight">{{\App\User::getUserByID($lead->tipster_id)->fullname}}</span></p>
                     </div>
                     <div class="block__action">
@@ -108,13 +93,6 @@
                             </ul>
                         @endif
                     </div>
-                </div>
-                <div class="box-footer">
-                    @if($deleteAction == true)<form action="{{action('LeadsController@destroy', $lead->id)}}" method="post">
-                        {{csrf_field()}}
-                        <input name="_method" type="hidden" value="DELETE">
-                        <button title="Delete this user" class="btn btn-block btn-danger" type="submit"><i class="fa fa-trash"></i> {{$lead->fullname}}</button>
-                    </form>@endif
                 </div>
                 <!-- /.box-body -->
             </div>

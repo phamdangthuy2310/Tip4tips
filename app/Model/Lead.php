@@ -51,10 +51,10 @@ class Lead extends Model
                 $name = 'New';
                 break;
             case 1:
-                $name = 'Quote';
+                $name = 'Call';
                 break;
             case 2:
-                $name = 'Call';
+                $name = 'Quote';
                 break;
             case 3:
                 $name = 'Win';

@@ -41,7 +41,7 @@
                 <a href="{{route('tipsters.index')}}"><i class="fa fa-eye"></i><span>Tipsters</span></a>
             </li>
             {{--Manager--}}
-            <li class="header">MANAGER</li>
+            <li class="header">ADMIN</li>
 
             <li>
                 <a href='{{route('users.index')}}'><i class="fa fa-users"></i><span>Users</span></a>

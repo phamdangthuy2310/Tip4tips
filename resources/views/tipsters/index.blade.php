@@ -10,12 +10,12 @@
         <!-- /.box-header -->
         <div class="box-body">
             <div class="table-responsive">
-                <table id="view-managers" class="table table-bordered table-striped">
+                <table id="view-managers" class="table table-bordered table-striped tbsty">
                     <thead>
                     <tr>
-                        <th>No.</th>
-                        <th>Username</th>
-                        <th>Fullname</th>
+                        <th width="30">No.</th>
+                        <th>Tipster</th>
+                        <th width="50">Points</th>
                         <th>Email</th>
                         <th>Level</th>
                         <th>Status</th>
@@ -28,19 +28,14 @@
                         <?php $i++ ?>
                         <tr>
                             <td><?php echo $i?></td>
-                            <td>{{ $user->username }}</td>
-                            <td>{{$user->fullname}}</td>
+                            <td>{{ $user->username }}<span class="label-small">{{$user->fullname}}</span></td>
+                            <td>{{$user->point}}</td>
                             <td>{{ $user->email }}</td>
                             <td> {{--{{\App\Model\RoleType::getNameByID($user->roletype)}} ---}} {{\App\Model\Role::getNameRoleByID($user->role_id)}}</td>
                             <td>@if($user->delete_is == 1)<label class="label label-success">Active</label>@else <label class="label label-danger">Deactive</label> @endif</td>
                             <td class="actions text-center" style="width: 100px">
                                 <a href="{{action('TipstersController@show', $user->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
                                 @if($editAction == true)<a href="{{action('TipstersController@edit', $user->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
-                                @if($deleteAction == true)<form action="{{action('TipstersController@destroy', $user->id)}}" method="post">
-                                    {{csrf_field()}}
-                                    <input name="_method" type="hidden" value="DELETE">
-                                    <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>
-                                </form>@endif
                             </td>
                         </tr>
                     @endforeach
@@ -49,8 +44,8 @@
                     <tfoot>
                     <tr>
                         <th>No.</th>
-                        <th>Username</th>
-                        <th>Fullname</th>
+                        <th>Tipster</th>
+                        <th>Points</th>
                         <th>Email</th>
                         <th>Level</th>
                         <th>Status</th>

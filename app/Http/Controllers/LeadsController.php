@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
 
 class LeadsController extends Controller
 {
@@ -23,7 +24,7 @@ class LeadsController extends Controller
     public function index()
     {
         //
-        $leads= Lead::all();
+        $leads= Lead::select('*')->orderBy('created_at', 'desc')->get();
         $auth = Auth::user();
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
@@ -220,5 +221,32 @@ class LeadsController extends Controller
             $response['error'] = $e->getMessage();
         }
         return response()->json($response);
+    }
+
+    public function updateStatus(Request $request){
+        $lead = $request->lead;
+        $status = $request->status;
+
+        $result = count(LeadProcess::checkExist($lead, $status));
+        if($result > 0){
+            $error = "Current status was picked. Please pick another.";
+            return back()->with(['error', $error]);
+        }else{
+            $process['lead_id'] = $lead;
+            $process['status_id'] = $status;
+            LeadProcess::create($process);
+            $lead = Lead::find($lead);
+            $lead->status = $status;
+            $lead->save();
+            return back()->with(['success', 'Update successfully']);
+        }
+    }
+
+    public function updateTipster(Request $request){
+        $tipster = $request->tipster;
+        $lead = Lead::find($request->lead);
+        $lead->tipster_id = $tipster;
+        $lead->save();
+        return back()->with('Update tipster successfully.');
     }
 }

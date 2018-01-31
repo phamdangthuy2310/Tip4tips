@@ -38,7 +38,14 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">About Me</h3>
-                    <a href="{{route('tipsters.edit', $user->id)}}" class="btn btn-xs btn-info pull-right"><i class="fa fa-pencil"></i> Edit</a>
+                    <span class="group__action pull-right">
+                        <a href="{{route('tipsters.edit', $user->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
+                        @if($deleteAction == true)<form class="inline" action="{{action('TipstersController@destroy', $user->id)}}" method="post">
+                        {{csrf_field()}}
+                            <input name="_method" type="hidden" value="DELETE">
+                        <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i> Delete</button>
+                        </form>@endif
+                    </span>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

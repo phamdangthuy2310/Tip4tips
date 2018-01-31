@@ -118,7 +118,44 @@ input[type=date]::-webkit-inner-spin-button {
     z-index: 99;
     right: 0;
     top: 0;
+    width: 70px;
 }
+/*profile*/
+.text-head span.text-highlight{
+    color: #636b6f;
+    font-size: 24px;
+    text-align: center;
+}
+.block__profile{
+    max-width: 450px;
+    margin: 20px auto;
+}
+.block__profile .profile__name{
+    margin-bottom: 60px;
+}
+.block__profile .profile__title{
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+.block__profile .text-muted{
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.block__profile .text-muted > span{
+    float: left;
+    display: inline-block;
+}
+.block__profile .text-label{
+    width: 100px;
+    padding-right: 30px;
+}
+.block__profile .text-highlight{
+    width: calc(100% - 100px);
+    font-weight: normal;
+    padding-left: 30px;
+}
+/*end profile*/
 /*tipster update in lead*/
 .tipster__update{
     position: relative;
@@ -226,6 +263,9 @@ span.text-highlight{
 }
 /*
 Detail page*/
+.group__action .btn{
+    margin-left: 10px;
+}
 .box-line > div{
     margin: 5px 0;
 }
@@ -234,14 +274,29 @@ End detail page*/
 /*Right column*/
 .block__action{
     overflow: hidden;
-    margin: 0 0 15px 0;
-    padding-bottom: 20px;
-    border-bottom: 1px dashed #ddd;
+    margin-bottom: 17px;
 }
 .block__action:last-child{
     border-bottom: none;
 }
+.block__action > h5{
+    margin-top: 0;
+}
 /*End Right column*/
+
+/*
+Table style*/
+.table .actions .btn{
+    margin: 0 4px;
+}
+.tbsty .label-small{
+    font-size: 12px;
+    color: #aaaaaa;
+    display: block;
+}
+/*End
+Table style*/
+
 @media (min-width: 992px) {
     .box-list .box-header{
         position: relative;

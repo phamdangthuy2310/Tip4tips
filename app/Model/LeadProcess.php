@@ -22,4 +22,12 @@ class LeadProcess extends Model
         $statuses = LeadProcess::where('lead_id', $lead)->orderBy('created_at', 'desc')->get();
         return $statuses;
     }
+
+    public static function checkExist($lead, $status){
+        $result = LeadProcess::where([
+            ['lead_id', $lead],
+            ['status_id', $status]
+        ])->get();
+        return $result;
+    }
 }

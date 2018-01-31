@@ -113,8 +113,20 @@ class TipstersController extends Controller
         //
         $user = User::find($id);
         $role = Role::find($user->role_id);
+        $auth = Auth::user();
         $roletype = RoleType::find($role->roletype_id);
-        return view('tipsters.show', compact('user', 'id'))->with(['role' => $role, 'roletype'=> $roletype]);
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+        $deleteAction = false;
+
+        if($roleAuth->code == 'community' || $roleAuth->code == 'admin' || $roleAuth->code == 'ambassador' || $roletypeAuth->code == 'consultant'){
+            $deleteAction = true;
+        }
+        return view('tipsters.show', compact('user', 'id'))->with([
+            'role' => $role,
+            'roletype' => $roletype,
+            'deleteAction' => $deleteAction
+        ]);
 
     }
 
@@ -185,6 +197,14 @@ class TipstersController extends Controller
         $tipster = User::find($id);
         $tipster->delete();
 
-        return $tipster;
+        return redirect('tipsters')->with('success','Deleted successfully.');
+    }
+
+    public function updatePoint(Request $request){
+        $pointnew = $request->point;
+        $tipster = User::find($request->tipster);
+        $tipster->point = $tipster->point + $pointnew;
+        $tipster->save();
+        return redirect('tipsters');
     }
 }

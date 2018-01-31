@@ -93,7 +93,7 @@ class User extends Authenticatable
         $managers = User::select('users.*')
             ->join('roles', 'users.role_id', 'roles.id')
             ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
-            ->where('roletypes.code' ,'tipster')
+            ->where('roletypes.code' ,'tipster')->orderBy('created_at', 'desc')
             ->get();
         return $managers;
     }

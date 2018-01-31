@@ -148,68 +148,75 @@
                         <h3 class="box-title">Actions</h3>
                     </div>
                     <div class="box-body">
+                        {{--Block update tipster--}}
                         <div class="block__action">
-                            <label>Update tipster</label>
-                            <div class="form-group tipster__update">
-                                <select id="tipsterAnchor" name="tipster" class="form-control">
-                                    @foreach($tipsters as $tipster)
-                                        <option value="{{$tipster->id}}" @if($tipster->id == $lead->tipster_id) selected @endif>{{$tipster->fullname}}</option>
-                                    @endforeach
-                                </select>
-                                <button class="btn btn-primary pull-right" title="Update"><i class="fa fa-wrench"></i></button>
-                            </div>
-                        </div>
+                            <h5>Update tipster</h5>
+                            <form method="get" action="{{route('leads.updateTipster')}}">
+                                {{ csrf_field() }}
+                                <input type="hidden" value="{{$lead->id}}" name="lead">
+                                <div class="form-inline-simple">
+                                    <select id="tipsterAnchor" name="tipster" class="form-control">
+                                        @foreach($tipsters as $tipster)
+                                            <option value="{{$tipster->id}}" @if($tipster->id == $lead->tipster_id) selected @endif>{{$tipster->fullname}}</option>
+                                        @endforeach
+                                    </select>
+                                    <button type="submit" class="btn btn-primary pull-right" title="Update">Update</button>
+                                </div>
+                            </form>
+                        </div>{{--/Block update tipster--}}
+                        {{--Block assign--}}
                         <div class="block__action">
+                            <h5>Assign to Consultant</h5>
                             <form role="form" method="post" action="{{url('assignments')}}">
                                 {{ csrf_field() }}
-
                                 <input type="hidden" name="lead" value="{{$lead->id}}">
-                                <div class="form-group">
-                                    <label>Assign to Consultant</label>
+                                <div class="form-inline-simple">
                                     <select name="consultant" class="form-control">
                                         @foreach(\App\User::getAllConsultant() as $consultant)
                                             <option value="{{$consultant->id}}" @if(!empty(\App\Model\Assignment::getConsultantByLead($lead->id)) && \App\Model\Assignment::getConsultantByLead($lead->id)->consultant_id == $consultant->id) selected @endif>{{$consultant->fullname}} - {{\App\Model\Role::getInfoRoleByID($consultant->role_id)->name}}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                                <!-- /.box-body -->
-
-                                <div class="form-group">
                                     <button type="submit" class="btn btn-primary pull-right">Assign</button>
                                 </div>
                             </form>
-                        </div>
+                        </div>{{--/Block assign--}}
+                        {{--Block update status--}}
                         <div class="block__action">
-                            <form id="statusGroup" action="{{route('leads.ajaxStatus')}}">
+                            <h5>Update status lead:</h5>
+                            <form method="get" action="{{route('leads.updateStatus')}}">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="lead" value="{{$lead->id}}">
-                                <div class="form-group">
-                                    <label>Change status lead:</label>
+                                <div class="form-inline-simple">
                                     <select name="status" class="form-control">
                                         @for($i=0; $i < 5; $i++)
                                             <option value="{{$i}}" @if($i == $lead->status) selected @endif>{{\App\Model\Lead::showNameStatus($i)}}</option>
                                         @endfor
                                     </select>
-                                </div>
-                                <div class="form-group">
-                                    <label id="statusAlert" class="label label-success"></label>
-                                </div>
-                                <div class="form-group">
-                                    <button type="button" id="statusChange" class="pull-right btn btn-primary">Change</button>
+                                    <button type="submit" class="pull-right btn btn-primary">Update</button>
                                 </div>
                             </form>
-                            <div class="clearfix"></div>
-                            {{--<div id="pointArea"></div>--}}
-                            <p>Point for tipster</p>
-                            <div id="updatePoint" class="form-inline-simple">
-                                <input class="form-control" name="point" type="number" placeholder="0">
-                                <button class="btn btn-primary" type="button" title="Plus Point"><i class="fa fa-plus"></i></button>
+                        </div>{{--/Block update status--}}
+
+                        {{--Block plus point--}}
+                        @if($lead->status == 3)
+                            <div class="block__action">
+                                <h5>Point for tipster</h5>
+                                <div id="updatePoint" class="form-inline-simple">
+                                    <form method="get" action="{{route('tipsters.updatePoint')}}">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="tipster" value="{{$lead->tipster_id}}">
+                                        <input class="form-control" name="point" type="number" value="0">
+                                        <button class="btn btn-primary" type="submit" title="Plus Point">Plus</button>
+                                    </form>
+
+                                </div>
                             </div>
-                        </div>
+                        @endif{{--/Block plus point--}}
+                        {{--Block status history--}}
                         <div class="block__action">
-                            <p><a id="clickHistory" class="pull-left">View status history</a></p>
+                            <h5>Status history</h5>
                             @if(\App\Model\LeadProcess::getStatusByLead($lead->id))
-                                <ul id="showHistory" class="list-unstyled history-statuses">
+                                <ul class="list-unstyled history-statuses">
                                     @foreach(\App\Model\LeadProcess::getStatusByLead($lead->id) as $status)
                                         <li class="{{\App\Model\Lead::showColorStatus($status->status_id)}}">
                                             <span class="history__time">{{\Carbon\Carbon::parse($status->created_at)->addHours(7)->format('d-M-Y H:i')}}</span>
@@ -222,7 +229,7 @@
                                     </li>
                                 </ul>
                             @endif
-                        </div>
+                        </div>{{--Block status history--}}
                     </div>
                 </div>
 
