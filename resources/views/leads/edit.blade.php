@@ -203,18 +203,27 @@
                         {{--@if($lead->status == Utils::$lead_process_status_win)--}}
                             <div id="plusPoint" class="block__action @if($lead->status != Utils::$lead_process_status_win) hidden @endif">
                                 <h5>Point for tipster</h5>
-                                <div id="updatePoint" class="form-inline-simple">
-                                    <form method="get" action="{{route('tipsters.updatePoint')}}">
+                                <div id="updatePoint">
+                                    <form id="updatePointForm" action="{{route('tipsters.updatePointAjax')}}">
                                         {{ csrf_field() }}
+                                        <label id="pointAlert" class="label"></label>
                                         <input type="hidden" name="tipster" value="{{$lead->tipster_id}}">
-                                        <input class="form-control" name="point" type="number" value="0" readonly>
-                                        <button class="btn btn-primary" type="submit" title="Plus Point">Edit</button>
+                                        <input type="hidden" name="lead" value="{{$lead->id}}">
+                                        <div class="form-inline-simple">
+                                            @if($plussed == true )
+                                            <input class="form-control" name="point" type="number" value="{{$oldPoint}}" readonly>
+                                            <button id="editPointButton" class="btn btn-primary" type="button">Edit</button>
+                                            @else
+                                                <input class="form-control" name="point" type="number" value="0">
+                                                <button id="plusPointButton" class="btn btn-primary" type="button">Plus</button>
+                                            @endif
+                                        </div>
                                     </form>
-
                                 </div>
                             </div>
                         {{--@endif--}}
                         {{--/Block plus point--}}
+
                         {{--Block status history--}}
                         <div class="block__action">
                             <h5>Status history</h5>

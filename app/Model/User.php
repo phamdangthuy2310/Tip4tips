@@ -90,12 +90,12 @@ class User extends Authenticatable
     }
 
     public static function getAllTipster(){
-        $managers = User::select('users.*')
+        $tipsters = User::select('users.*')
             ->join('roles', 'users.role_id', 'roles.id')
             ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
             ->where('roletypes.code' ,'tipster')->orderBy('created_at', 'desc')
             ->get();
-        return $managers;
+        return $tipsters;
     }
 
     public static function getUserByID($id){
@@ -117,5 +117,17 @@ class User extends Authenticatable
         return $name;
     }
 
+//    public static function getRecentTipster($num = 5){
+//        $tipsters = DB::table('users')
+//            ->join('roles', 'users.role_id', 'roles.id')
+//            ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
+//            ->where('roletypes.code' ,'tipster')
+//            ->orderBy('created_at', 'desc')
+//            ->select('users.*')
+//            ->limit($num)
+//            ->get();
+//        dd($tipsters);
+//        return $tipsters;
+//    }
 
 }

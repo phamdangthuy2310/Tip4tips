@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Lead;
 use App\Model\LeadProcess;
+use App\Model\PointHistory;
 use App\Model\Region;
 use App\Model\Role;
 use App\Model\RoleType;
@@ -153,6 +154,16 @@ class LeadsController extends Controller
         }
 
         $lead = Lead::find($id);
+
+        $rowPoint = PointHistory::countRowPlusPointForTipsterFollowLead($lead->id, $lead->tipster_id);
+        $oldPoint = 0;
+        if(isset($rowPoint)){
+            $oldPoint = $rowPoint->point;
+        }
+        $plussed = false;
+        if(count($rowPoint) > 0){
+            $plussed = true;
+        }
         $regions = Region::all();
         $tipsters = DB::table('users')
             ->join('roles', 'users.role_id', 'roles.id')
@@ -163,7 +174,9 @@ class LeadsController extends Controller
         return view('leads.edit', compact('lead', 'id'))->with([
             'regions'=> $regions,
             'tipsters'=>$tipsters,
-            'editAction' => $editAction
+            'editAction' => $editAction,
+            'plussed' => $plussed,
+            'oldPoint' => $oldPoint
         ]);
     }
 
@@ -207,27 +220,14 @@ class LeadsController extends Controller
     }
 
     public function ajaxStatus(Request $request){
-//        $response = array(
-//            'status' => $request->status,
-//            'msg' => 'Setting created successfully',
-//        );
-//        try{
-//            $status['lead_id'] = $request->lead;
-//            $status['status_id'] = $request->status;
-//            $lead = Lead::find($request->lead);
-//            $lead['status'] = $request->status;
-//            $lead->save();
-//            LeadProcess::create($status);
-//        }catch (\Exception $e) {
-//            $response['error'] = $e->getMessage();
-//        }
-//        return response()->json($response);
+        //
         $lead = $request->lead;
         $status = $request->status;
         $response = array();
         try{
+            $result = count(LeadProcess::checkExist($lead, $status));
             $leadTable = Lead::find($lead);
-            if(isset($leadTable)){
+            if($result < 1){
                 $statusDb = $leadTable->status;
                 $response['status_db'] = $statusDb;
                 $response['status_view'] = $status;
@@ -238,11 +238,12 @@ class LeadsController extends Controller
                     $leadTable->status = $status;
                     $leadTable->save();
                     //get all history
-                    $listHistoryProcess = LeadProcess::getStatusByLead($lead);
-                    foreach ($listHistoryProcess as $listProcessItem){
-                        $listProcessItem->created_format = Common::dateFormat($listProcessItem->created_at,'d-M-Y');
-                    }
-                    $response["listHistoryProcess"] = $listHistoryProcess;
+                    $newHistoryProcess = LeadProcess::getStatusByLead($lead)->first();
+                    $newHistoryProcess->created_format = Common::dateFormat($newHistoryProcess->created_at,'d-M-Y H:i');
+                    $newHistoryProcess->classStatus = Lead::showColorStatus($status);
+                    $newHistoryProcess->nameStatus = Lead::showNameStatus($status);
+
+                    $response["newHistoryProcess"] = $newHistoryProcess;
                     $message= "Update successfully";
                     $response["status"] = "0";
                     $response["message"] = $message;

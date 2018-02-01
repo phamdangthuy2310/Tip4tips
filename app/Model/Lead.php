@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -97,5 +98,10 @@ class Lead extends Model
                 break;
         }
         return $name;
+    }
+
+    public static function getRecentLead($num = 5){
+        $leads = DB::table('leads')->orderBy('created_at', 'desc')->limit($num)->get();
+        return $leads;
     }
 }

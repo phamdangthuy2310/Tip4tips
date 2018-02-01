@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Lead;
+use App\Model\PointHistory;
 use App\Model\Region;
 use App\Model\Role;
 use App\Model\RoleType;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Exception;
 
 class TipstersController extends Controller
 {
@@ -180,6 +183,7 @@ class TipstersController extends Controller
         $user->gender = $request->get('gender');
         $user->role_id = $request->get('department');
         $user->delete_is = $request->get('status');
+        $user->point = $request->get('point');
 
         $user->save();
         return redirect('tipsters')->with('success','Users has been updated');
@@ -202,9 +206,69 @@ class TipstersController extends Controller
 
     public function updatePoint(Request $request){
         $pointnew = $request->point;
+        //Add points, tipster, lead to point_histories
+        $history['lead_id'] = $request->lead;
+        $history['tipster_id'] = $request->tipster;
+        $history['point'] = $pointnew;
+        PointHistory::create($history);
+
+        //Update points to Tipster
         $tipster = User::find($request->tipster);
         $tipster->point = $tipster->point + $pointnew;
         $tipster->save();
         return redirect('tipsters');
+    }
+
+    public function updatePointAjax(Request $request){
+        //get info of ajax
+        $lead_id = $request->lead;
+        $tipster_id = $request->tipster;
+        $newpoint = $request->point;
+        $response = array();
+        try{
+            /*Check point plussed for this tipster from lead?*/
+            $countRowPlus = count(PointHistory::countRowPlusPointForTipsterFollowLead($lead_id, $tipster_id));
+
+            if($countRowPlus > 0){ /*If tipster was plussed point*/
+                $warning = "This tipster was updated the point successfully.";
+                $response["warning"] = $warning;
+                $response["status"] = "-1";
+
+                $historyUpdate = PointHistory::where([
+                    ['lead_id', $lead_id],
+                    ['tipster_id', $tipster_id]
+                ])->first();
+                $oldPoint = $historyUpdate->point;
+                $historyUpdate['point'] = $newpoint;
+                $historyUpdate->save();
+
+                /*Update point for tipster*/
+                $tipster = User::find($tipster_id);
+                $tipster['point'] = $tipster['point'] - $oldPoint + $newpoint;
+                $tipster->save();
+
+            }else{/*If tipster do not plussed point yet.*/
+                //Add points, tipster, lead to point_histories table
+                $history['lead_id'] = $lead_id;
+                $history['tipster_id'] = $tipster_id;
+                $history['point'] = $newpoint;
+                PointHistory::create($history);
+
+                //Update points to Tipster
+                $tipster = User::find($tipster_id);
+                $tipster->point = $tipster->point + $newpoint;
+                $tipster->save();
+
+                $success = 'Plussed successfully.';
+                $response["status"] = "0";
+                $response["success"] = $success;
+            }
+
+        }catch(Exception $e){
+            $response['error'] = $e->getMessage();
+            $response["status"] = "-2";
+        }
+
+        return response()->json($response);
     }
 }

@@ -296,7 +296,45 @@ Table style*/
 }
 /*End
 Table style*/
+/*.ul__leads*/
+.ul__leads{
+    padding: 10px 15px;
+}
+.ul__leads > li{
+    list-style-type: none;
+    margin: 0 -15px 10px;
+}
+.ul__leads > li a{
+}
+.ul__leads > li a:hover,
+.ul__leads > li a:focus{
+    color: #337ab7;
+}
+.ul__leads .info,
+.ul__leads .name{
+    display: block;
+}
+.ul__leads .info,
+.ul__leads .date{
+    color: #aaaaaa;
+}
+/*.ul__leads*/
+.ul__users{
 
+}
+.ul__users > li{
+    width: 100%;
+}
+.ul__users .users-list-avatar{
+    float: left;
+    width: 50px;
+}
+.ul__users .users-list-info{
+    float: left;
+    width: calc(100% - 50px);
+    text-align: left;
+    padding-left: 20px;
+}
 @media (min-width: 992px) {
     .box-list .box-header{
         position: relative;

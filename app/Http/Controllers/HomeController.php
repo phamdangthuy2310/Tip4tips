@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Common\Common;
+use App\Model\Lead;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,6 +39,13 @@ class HomeController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        return view('admin.dashboard',compact('user',$user));
+        $recentleads = Lead::getRecentLead();
+
+//        $recenttipsters = User::getRecentTipster();
+
+        return view('admin.dashboard',compact('user',$user))->with([
+            'recentleads' => $recentleads,
+//            'recenttipsters' => $recenttipsters
+        ]);
     }
 }

@@ -158,6 +158,13 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Point</label>
+                                <input class="form-control" type="number" value="{{$user->point}}" name="point">
+                            </div>
+                        </div>
+
                     </div>
 
 

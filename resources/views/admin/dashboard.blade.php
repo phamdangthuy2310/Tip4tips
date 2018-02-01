@@ -1,3 +1,4 @@
+<?php use App\Common\Common; ?>
 @extends('layouts.master')
 @section('title', 'Dashboard')
 
@@ -19,20 +20,34 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-md-8">
-                            <div class="chart-responsive">
-                                <canvas id="pieChart" height="150"></canvas>
-                            </div>
-                            <!-- ./chart-responsive -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-4">
-                            <ul class="chart-legend clearfix">
-                                <li><i class="fa fa-circle-o text-green"></i> Win</li>
-                                <li><i class="fa fa-circle-o text-yellow"></i> Quote</li>
-                                <li><i class="fa fa-circle-o text-red"></i> Lost</li>
-                            </ul>
-                        </div>
+                        <ul class="ul__leads">
+                            @foreach($recentleads as $recentlead)
+                            <li class="row">
+                                <div class="col-sm-8">
+                                    <a href="{{route('leads.edit', $recentlead->id)}}"><span class="name">{{$recentlead->fullname}}</span>
+                                    <span class="info">{{$recentlead->email}} - {{$recentlead->phone}}</span></a>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span class="date">{{Common::dateFormat($recentlead->created_at, 'd-M-Y')}}</span>
+                                </div>
+
+                            </li>
+                            @endforeach
+                        </ul>
+                        {{--<div class="col-md-8">--}}
+                            {{--<div class="chart-responsive">--}}
+                                {{--<canvas id="pieChart" height="150"></canvas>--}}
+                            {{--</div>--}}
+                            {{--<!-- ./chart-responsive -->--}}
+                        {{--</div>--}}
+                        {{--<!-- /.col -->--}}
+                        {{--<div class="col-md-4">--}}
+                            {{--<ul class="chart-legend clearfix">--}}
+                                {{--<li><i class="fa fa-circle-o text-green"></i> Win</li>--}}
+                                {{--<li><i class="fa fa-circle-o text-yellow"></i> Quote</li>--}}
+                                {{--<li><i class="fa fa-circle-o text-red"></i> Lost</li>--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
                         <!-- /.col -->
                     </div>
                     <!-- /.row -->
@@ -59,27 +74,43 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
-                    <ul class="users-list clearfix">
+                    <ul class="users-list ul__users clearfix">
                         <li>
-                            <img src="{{asset('images/user1-128x128.jpg') }}" alt="User Image">
-                            <a class="users-list-name" href="#">Alexander Pierce</a>
-                            <span class="users-list-date">Today</span>
+                            <span class="users-list-avatar"><img src="{{asset('images/user1-128x128.jpg') }}" alt="User Image"></span>
+                            <span class="users-list-info">
+                                <a class="users-list-name" href="#">Alexander Pierce</a>
+                                <span class="users-list-date">Today</span>
+                            </span>
                         </li>
                         <li>
-                            <img src="{{asset('images/user8-128x128.jpg') }}" alt="User Image">
-                            <a class="users-list-name" href="#">Norman</a>
-                            <span class="users-list-date">Yesterday</span>
+                            <span class="users-list-avatar"><img src="{{asset('images/user1-128x128.jpg') }}" alt="User Image"></span>
+                            <span class="users-list-info">
+                                <a class="users-list-name" href="#">Alexander Pierce</a>
+                                <span class="users-list-date">Yesterday</span>
+                            </span>
                         </li>
                         <li>
-                            <img src="{{asset('images/user7-128x128.jpg') }}" alt="User Image">
-                            <a class="users-list-name" href="#">Jane</a>
-                            <span class="users-list-date">12 Jan</span>
+                            <span class="users-list-avatar"><img src="{{asset('images/user1-128x128.jpg') }}" alt="User Image"></span>
+                            <span class="users-list-info">
+                                <a class="users-list-name" href="#">Alexander Pierce</a>
+                                <span class="users-list-date">Yesterday</span>
+                            </span>
                         </li>
                         <li>
-                            <img src="{{asset('images/user6-128x128.jpg') }}" alt="User Image">
-                            <a class="users-list-name" href="#">John</a>
-                            <span class="users-list-date">12 Jan</span>
+                            <span class="users-list-avatar"><img src="{{asset('images/user1-128x128.jpg') }}" alt="User Image"></span>
+                            <span class="users-list-info">
+                                <a class="users-list-name" href="#">Alexander Pierce</a>
+                                <span class="users-list-date">Yesterday</span>
+                            </span>
                         </li>
+                        <li>
+                            <span class="users-list-avatar"><img src="{{asset('images/user1-128x128.jpg') }}" alt="User Image"></span>
+                            <span class="users-list-info">
+                                <a class="users-list-name" href="#">Alexander Pierce</a>
+                                <span class="users-list-date">Yesterday</span>
+                            </span>
+                        </li>
+
                     </ul>
                     <!-- /.users-list -->
                 </div>
