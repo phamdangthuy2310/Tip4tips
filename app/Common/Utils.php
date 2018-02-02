@@ -1,5 +1,7 @@
 <?php
 namespace App\Common;
+use App\Model\Lead;
+
 /**
  * Created by PhpStorm.
  * User: User

@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Common\Common;
 use App\Model\Lead;
-use Illuminate\Foundation\Auth\User;
+//use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -41,11 +42,25 @@ class HomeController extends Controller
         $user = Auth::user();
         $recentleads = Lead::getRecentLead();
 
-//        $recenttipsters = User::getRecentTipster();
+        $recenttipsters = User::getRecentTipster();
+
+        $highestPointTipsters = User::getHighestPointTipster();
+
+        $new = Lead::getAmountByStatus(0);
+        $call = Lead::getAmountByStatus(1);
+        $quote = Lead::getAmountByStatus(2);
+        $win = Lead::getAmountByStatus(3);
+        $lost = Lead::getAmountByStatus(4);
 
         return view('admin.dashboard',compact('user',$user))->with([
             'recentleads' => $recentleads,
-//            'recenttipsters' => $recenttipsters
+            'recenttipsters' => $recenttipsters,
+            'highestPointTipsters' => $highestPointTipsters,
+            'new' => $new,
+            'call' => $call,
+            'quote' => $quote,
+            'win' => $win,
+            'lost' => $lost,
         ]);
     }
 }

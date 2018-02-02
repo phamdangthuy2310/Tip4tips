@@ -117,17 +117,33 @@ class User extends Authenticatable
         return $name;
     }
 
-//    public static function getRecentTipster($num = 5){
-//        $tipsters = DB::table('users')
-//            ->join('roles', 'users.role_id', 'roles.id')
-//            ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
-//            ->where('roletypes.code' ,'tipster')
-//            ->orderBy('created_at', 'desc')
-//            ->select('users.*')
-//            ->limit($num)
-//            ->get();
-//        dd($tipsters);
-//        return $tipsters;
-//    }
+    public static function getRecentTipster($num = 5){
+        $tipsters = DB::table('users')
+            ->join('roles', 'users.role_id', 'roles.id')
+            ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
+            ->where('roletypes.code' ,'tipster')
+            ->orderBy('created_at', 'desc')
+            ->select('users.*')
+            ->limit($num)
+            ->get();
+        return $tipsters;
+    }
+
+    public static function getHighestPointTipster($num = 5){
+        $tipsters = DB::table('users')
+            ->join('roles', 'users.role_id', 'roles.id')
+            ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
+            ->where([
+                ['roletypes.code' ,'tipster'],
+                ['users.point', '>', '0']
+            ])
+            ->orderBy('users.point', 'desc')
+            ->select('users.*')
+            ->limit($num)
+            ->get();
+        return $tipsters;
+    }
+
+
 
 }

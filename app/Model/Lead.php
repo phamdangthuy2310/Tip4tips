@@ -104,4 +104,9 @@ class Lead extends Model
         $leads = DB::table('leads')->orderBy('created_at', 'desc')->limit($num)->get();
         return $leads;
     }
+
+    public static function getAmountByStatus($status){
+        $amount = count(Lead::where('status', $status)->get());
+        return $amount;
+    }
 }

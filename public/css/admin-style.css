@@ -335,6 +335,14 @@ Table style*/
     text-align: left;
     padding-left: 20px;
 }
+/*Pie Chart*/
+#pieChartLeads{
+    margin-top: -20px;
+}
+#pieChart-legend-con{
+    margin-top: 30px;
+}
+/*Pie Chart*/
 @media (min-width: 992px) {
     .box-list .box-header{
         position: relative;
