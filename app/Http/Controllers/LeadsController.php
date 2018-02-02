@@ -157,7 +157,7 @@ class LeadsController extends Controller
 
         $rowPoint = PointHistory::countRowPlusPointForTipsterFollowLead($lead->id, $lead->tipster_id);
         $oldPoint = 0;
-        if(isset($rowPoint)){
+        if(!empty($rowPoint)){
             $oldPoint = $rowPoint->point;
         }
         $plussed = false;
