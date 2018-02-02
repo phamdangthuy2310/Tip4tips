@@ -156,12 +156,11 @@ class LeadsController extends Controller
         $lead = Lead::find($id);
 
         $rowPoint = PointHistory::countRowPlusPointForTipsterFollowLead($lead->id, $lead->tipster_id);
+//        dd($rowPoint);
         $oldPoint = 0;
+        $plussed = false;
         if(!empty($rowPoint)){
             $oldPoint = $rowPoint->point;
-        }
-        $plussed = false;
-        if(count($rowPoint) > 0){
             $plussed = true;
         }
         $regions = Region::all();
