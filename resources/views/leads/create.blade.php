@@ -1,3 +1,4 @@
+<?php use App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'Create Lead')
 
@@ -11,6 +12,10 @@
     @else
         <form role="form" method="post" action="{{url('leads')}}">
             {{ csrf_field() }}
+            @include('layouts.partials._input_history_user',
+                        ['affectedValue' => Utils::$LOG_AFFECTED_OBJECT_LEAD ,
+                        'actionValue' => Utils::$LOG_ACTION_CREATE,
+                        'nameObjectValue' => 'fullname'])
             <div class="row">
                 <div class="col-md-8">
                     <!-- create manager form -->

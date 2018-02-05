@@ -51,10 +51,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Thumbnail</label>
-                                <input name="thumbnail" type="file" class="form-control">
-                            </div>
-                            <div class="form-group">
                                 <label>Point</label>
                                 <input name="point" value="{{$gift->point}}" type="number" class="form-control">
                             </div>

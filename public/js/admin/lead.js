@@ -10,6 +10,7 @@ function ajaxAddStatus(){
     var data = {};
     data.lead = form.find('[name=lead]').val();
     data.status = form.find('[name=status]').val();
+    FormLogActivities.serializeDataUserHistory(data,form);
     var url = form.attr('action');
     $.ajax({
       dataType: 'json',

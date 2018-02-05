@@ -151,6 +151,12 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
+                    <ul>
+                        @foreach($logActivities as $logActivity)
+                            <li>{{$logActivity->user_name}} - {{$logActivity->description}}</li>
+                        @endforeach
+                    </ul>
+
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer text-center">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Common\Common;
 use App\Model\Lead;
 //use Illuminate\Foundation\Auth\User;
+use App\Model\LogActivity;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +53,11 @@ class HomeController extends Controller
         $win = Lead::getAmountByStatus(3);
         $lost = Lead::getAmountByStatus(4);
 
+        $logActivities = LogActivity::getAllLogs();
+        foreach ($logActivities as $logActivity){
+            $logActivity['user_name'] = User::getUserByID($logActivity->user_id)->username;
+        }
+
         return view('admin.dashboard',compact('user',$user))->with([
             'recentleads' => $recentleads,
             'recenttipsters' => $recenttipsters,
@@ -61,6 +67,8 @@ class HomeController extends Controller
             'quote' => $quote,
             'win' => $win,
             'lost' => $lost,
+            'logActivities' => $logActivities
         ]);
     }
+
 }

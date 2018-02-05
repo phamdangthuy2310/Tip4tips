@@ -82,6 +82,7 @@
 <script src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('js/admin/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/admin/dashboard.js') }}"></script>
+<script src="{{ asset('js/admin/common.js') }}"></script>
 <script>
   $(function () {
     $('#view-managers').DataTable({

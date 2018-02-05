@@ -186,6 +186,11 @@
                             <h5>Update status lead:</h5>
                             <form method="get" action="{{route('leads.ajaxStatus')}}" id="statusGroup">
                                 {{ csrf_field() }}
+                                {{ csrf_field() }}
+                                @include('layouts.partials._input_history_user',
+                                        ['affectedValue' => Utils::$LOG_AFFECTED_OBJECT_LEAD ,
+                                        'actionValue' => Utils::$LOG_ACTION_UPDATE,
+                                        'descriptionValue' => 'Update status lead : '.$lead->fullname])
                                 <label id="statusAlert" class="label"></label>
                                 <input type="hidden" name="lead" value="{{$lead->id}}">
                                 <div class="form-inline-simple">

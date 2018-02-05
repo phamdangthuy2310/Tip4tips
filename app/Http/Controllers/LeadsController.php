@@ -250,11 +250,13 @@ class LeadsController extends Controller
                     $error = "Current status was picked. Please pick another.";
                     $response["error"] = $error;
                     $response["status"] = "-1";
+                    BaseController::rollbackLogActiviteis($request);
                 }
             }else{
                 $error = "Current status was picked. Please pick another.";
                 $response["error"] = $error;
                 $response["status"] = "-1";
+                BaseController::rollbackLogActiviteis($request);
             }
 
 //            $result = count(LeadProcess::checkExist($lead, $status));
@@ -274,6 +276,7 @@ class LeadsController extends Controller
 //                $response["message"] = $message;
 //            }
         }catch (\Exception $e) {
+            BaseController::rollbackLogActiviteis($request);
             $response['error'] = $e->getMessage();
             $response["status"] = "-2";
         }
