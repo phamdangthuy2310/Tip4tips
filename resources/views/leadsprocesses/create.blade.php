@@ -12,6 +12,7 @@
                 <input type="hidden" name="lead" value="1">
                 <div class="form-group">
                     <select name="status" class="form-control">
+                        <option value="" disabled selected>Please pick a status</option>
                         @for($i=1; $i < 5; $i++)
                             <option value="{{$i}}">{{\App\Model\Lead::showNameStatus($i)}}</option>
                         @endfor

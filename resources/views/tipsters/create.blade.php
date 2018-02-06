@@ -36,7 +36,7 @@
                 </div>
 
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{url('tipsters')}}">
+                <form role="form" method="post" action="{{route('tipsters.create')}}">
                     {{ csrf_field() }}
                 <div class="box-body">
                     @if ($errors->any())
@@ -136,6 +136,7 @@
                             <div class="form-group">
                                 <label>Region</label>
                                 <select name="region" class="form-control">
+                                    <option value="" disabled selected>Please pick a region</option>
                                     @foreach($regions as $region)
                                         <option value="{{$region->id}}">{{$region->name}}</option>
                                     @endforeach
@@ -148,6 +149,7 @@
                             <div class="form-group">
                                 <label>Level</label>
                                 <select name="department" class="form-control">
+                                    <option value="" disabled selected>Please pick a level</option>
                                     @foreach($roletypes as $roletype)
                                         <optgroup label="{{$roletype->name}}">
                                             @foreach($roles as $role)

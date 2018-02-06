@@ -94,7 +94,10 @@ class LeadsController extends Controller
     {
         //
         $lead = $this->validate(request(),[
-            'fullname' => 'required'
+            'fullname' => 'required',
+            'product' => 'required',
+            'region' => 'required',
+            'tipster' => 'required'
         ]);
         $lead['fullname'] = $request->fullname;
         $lead['email'] = $request->email;

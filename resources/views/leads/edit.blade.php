@@ -104,6 +104,7 @@
                                     <div class="form-group">
                                         <label>Region</label>
                                         <select name="region" class="form-control">
+                                            <option value="" disabled selected>Please pick a region</option>
                                             @foreach($regions as $region)
                                                 <option value="{{$region->id}}" @if($region->id == $lead->region_id) selected @endif>{{$region->name}}</option>
                                             @endforeach
@@ -114,6 +115,7 @@
                                     <div class="form-group">
                                         <label>Product</label>
                                         <select name="product" class="form-control">
+                                            <option value="" disabled selected>Please pick a product</option>
                                             @foreach(\App\Model\Product::getAllProduct() as $product)
                                                 <option value="{{$product->id}}" @if($product->id == $lead->product_id) selected @endif>{{$product->name}}</option>
                                             @endforeach
@@ -157,6 +159,7 @@
                                 <input type="hidden" value="{{$lead->id}}" name="lead">
                                 <div class="form-inline-simple">
                                     <select id="tipsterAnchor" name="tipster" class="form-control">
+                                        <option value="" disabled selected>Please pick a tipster</option>
                                         @foreach($tipsters as $tipster)
                                             <option value="{{$tipster->id}}" @if($tipster->id == $lead->tipster_id) selected @endif>{{$tipster->fullname}}</option>
                                         @endforeach
@@ -173,6 +176,7 @@
                                 <input type="hidden" name="lead" value="{{$lead->id}}">
                                 <div class="form-inline-simple">
                                     <select name="consultant" class="form-control">
+                                        <option value="" disabled selected>Please pick a consultant</option>
                                         @foreach(\App\User::getAllConsultant() as $consultant)
                                             <option value="{{$consultant->id}}" @if(!empty(\App\Model\Assignment::getConsultantByLead($lead->id)) && \App\Model\Assignment::getConsultantByLead($lead->id)->consultant_id == $consultant->id) selected @endif>{{$consultant->fullname}} - {{\App\Model\Role::getInfoRoleByID($consultant->role_id)->name}}</option>
                                         @endforeach
@@ -195,6 +199,7 @@
                                 <input type="hidden" name="lead" value="{{$lead->id}}">
                                 <div class="form-inline-simple">
                                     <select name="status" class="form-control">
+                                        <option value="" disabled selected>Please pick a status</option>
                                         @for($i=0; $i < 5; $i++)
                                             <option value="{{$i}}" @if($i == $lead->status) selected @endif>{{\App\Model\Lead::showNameStatus($i)}}</option>
                                         @endfor

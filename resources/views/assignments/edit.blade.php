@@ -28,13 +28,14 @@
                     </div>
                 @endif
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{action('AssignmentsController@update', $id)}}">
+                <form role="form" method="post" action="{{route('assignments.update', $id)}}">
                     {{ csrf_field() }}
                     <input name="_method" type="hidden" value="PATCH">
                     <div class="box-body">
                         <div class="form-group">
                             <label>Please pick a Lead to assign:</label>
                             <select name="lead" class="form-control">
+                                <option readonly="true">Please pick a lead</option>
                                 @foreach($leads as $lead)
                                     <option value="{{$lead->id}}" @if($lead->id == $assignment->lead_id) selected @endif>{{$lead->fullname}}</option>
                                 @endforeach
@@ -44,6 +45,7 @@
                         <div class="form-group">
                             <label>Assign to Consultant</label>
                             <select name="consultant" class="form-control">
+                                <option readonly="true">Please pick a consultant</option>
                                 @foreach($consultants as $consultant)
                                     <option value="{{$consultant->id}}" @if($consultant->id == $assignment->consultant_id) selected @endif>{{$consultant->fullname}}</option>
                                 @endforeach

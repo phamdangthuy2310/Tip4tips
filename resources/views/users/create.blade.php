@@ -136,6 +136,7 @@
                                     <div class="form-group">
                                         <label>Region</label>
                                         <select name="region" class="form-control">
+                                            <option value="" disabled selected>Please pick a region</option>
                                             @foreach($regions as $region)
                                                 <option value="{{$region->id}}">{{$region->name}}</option>
                                             @endforeach
@@ -148,6 +149,7 @@
                                     <div class="form-group">
                                         <label>Department</label>
                                         <select name="department" class="form-control">
+                                            <option value="" disabled selected>Please pick a department</option>
                                             @foreach($roletypes as $roletype)
                                                 <optgroup label="{{$roletype->name}}">
                                                     @foreach($roles as $role)

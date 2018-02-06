@@ -9,6 +9,8 @@ use App\Model\RoleType;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Exception;
+use Log;
 
 class AssignmentsController extends Controller
 {
@@ -78,11 +80,20 @@ class AssignmentsController extends Controller
     public function store(Request $request)
     {
         //
+        $validate = $this->validate($request,[
+            'consultant' => 'required',
+            'lead' => 'required'
+        ]);
         $user =  Auth::user();
         $assignment['consultant_id'] = $request->get('consultant');
         $assignment['lead_id'] = $request->get('lead');
         $assignment['create_by'] = $user->id;
-        Assignment::create($assignment);
+        try{
+            Assignment::create($assignment);
+        }catch (Exception $e){
+            Log::error($e->getMessage());
+        }
+
         return redirect('assignments')->with('success', 'Assignment successfully.');
     }
 

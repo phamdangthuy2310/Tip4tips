@@ -1,5 +1,21 @@
 @extends('layouts.master')
 @section('title', 'List of Tipsters')
+@section('javascript')
+    <script src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/admin/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+      $(function () {
+        $('#viewList').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : true,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : true
+        })
+      })
+    </script>
+@stop
 
 @section('content')
     <div class="box box-list">
@@ -10,7 +26,7 @@
         <!-- /.box-header -->
         <div class="box-body">
             <div class="table-responsive">
-                <table id="view-managers" class="table table-bordered table-striped tbsty">
+                <table id="viewList" class="table table-bordered table-striped tbsty">
                     <thead>
                     <tr>
                         <th width="30">No.</th>
@@ -34,8 +50,8 @@
                             <td> {{--{{\App\Model\RoleType::getNameByID($user->roletype)}} ---}} {{\App\Model\Role::getNameRoleByID($user->role_id)}}</td>
                             <td>@if($user->delete_is == 1)<label class="label label-success">Active</label>@else <label class="label label-danger">Deactive</label> @endif</td>
                             <td class="actions text-center" style="width: 100px">
-                                <a href="{{action('TipstersController@show', $user->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
-                                @if($editAction == true)<a href="{{action('TipstersController@edit', $user->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
+                                <a href="{{route('tipsters.show', $user->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
+                                @if($editAction == true)<a href="{{route('tipsters.edit', $user->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
                             </td>
                         </tr>
                     @endforeach

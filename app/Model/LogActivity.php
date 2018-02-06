@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class LogActivity extends Model
 {
@@ -19,8 +20,8 @@ class LogActivity extends Model
         return $logs;
     }
 
-    public static function getAllLogs(){
-        $logs = LogActivity::all();
+    public static function getAllLogs($limit = 5){
+        $logs = DB::table('log_activities')->select('*')->orderBy('created_at', 'desc')->limit($limit)->get();
         return $logs;
     }
 }

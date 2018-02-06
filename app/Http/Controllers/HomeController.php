@@ -6,6 +6,7 @@ use App\Common\Common;
 use App\Model\Lead;
 //use Illuminate\Foundation\Auth\User;
 use App\Model\LogActivity;
+use App\Model\Role;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -53,9 +54,18 @@ class HomeController extends Controller
         $win = Lead::getAmountByStatus(3);
         $lost = Lead::getAmountByStatus(4);
 
-        $logActivities = LogActivity::getAllLogs();
+        /*Get log activities by role*/
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $logActivities = [];
+        if($roleAuth->code == 'admin'){
+            $logActivities = LogActivity::getAllLogs();
+        }else{
+            $logActivities = LogActivity::getLogActivityByUserID($auth->id);
+        }
+
         foreach ($logActivities as $logActivity){
-            $logActivity['user_name'] = User::getUserByID($logActivity->user_id)->username;
+            $logActivity->user_name = User::getUserByID($logActivity->user_id)->username;
         }
 
         return view('admin.dashboard',compact('user',$user))->with([

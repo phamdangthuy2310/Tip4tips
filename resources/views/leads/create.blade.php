@@ -10,12 +10,12 @@
             </div>
         </div>
     @else
-        <form role="form" method="post" action="{{url('leads')}}">
+        <form role="form" method="post" action="{{route('leads.create')}}">
             {{ csrf_field() }}
-            @include('layouts.partials._input_history_user',
-                        ['affectedValue' => Utils::$LOG_AFFECTED_OBJECT_LEAD ,
-                        'actionValue' => Utils::$LOG_ACTION_CREATE,
-                        'nameObjectValue' => 'fullname'])
+            {{--@include('layouts.partials._input_history_user',--}}
+                        {{--['affectedValue' => Utils::$LOG_AFFECTED_OBJECT_LEAD ,--}}
+                        {{--'actionValue' => Utils::$LOG_ACTION_CREATE,--}}
+                        {{--'nameObjectValue' => 'fullname'])--}}
             <div class="row">
                 <div class="col-md-8">
                     <!-- create manager form -->
@@ -26,6 +26,20 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div><br />
+                            @endif
+                            @if (\Session::has('success'))
+                                <div class="alert alert-success">
+                                    <p>{{ \Session::get('success') }}</p>
+                                </div>
+                            @endif
                             <div class="row">
                                 <div class="col-xs-6">
                                     <!-- text input -->
@@ -71,6 +85,7 @@
                                     <div class="form-group">
                                         <label>Region</label>
                                         <select name="region" class="form-control">
+                                            <option value="" disabled selected>Please pick a region</option>
                                             @foreach($regions as $region)
                                                 <option value="{{$region->id}}">{{$region->name}}</option>
                                             @endforeach
@@ -81,6 +96,7 @@
                                     <div class="form-group">
                                         <label>Product</label>
                                         <select name="product" class="form-control">
+                                            <option value="" disabled selected>Please pick a product</option>
                                             @foreach(\App\Model\Product::getAllProduct() as $product)
                                                 <option value="{{$product->id}}">{{$product->name}}</option>
                                             @endforeach
@@ -111,8 +127,9 @@
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <label>Please pick a tipster</label>
+                                <label>Tipster reference</label>
                                 <select name="tipster" class="form-control">
+                                    <option  value="" disabled selected>Please pick a tipster</option>
                                     @foreach($tipsters as $tipster)
                                         <option value="{{$tipster->id}}" @if(Auth::user()->id == $tipster->id) selected @endif>{{$tipster->fullname}} - {{$tipster->username}} </option>
                                     @endforeach

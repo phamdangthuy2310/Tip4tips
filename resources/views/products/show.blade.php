@@ -10,7 +10,11 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">About Product</h3>
-                    <a href="{{route('products.edit', $product->id)}}" class="btn btn-xs btn-info pull-right"><i class="fa fa-pencil"></i> Edit</a>
+                    <span class="group__action pull-right">
+                        <a href="{{route('products.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
+                        <a href="{{route('products.edit', $product->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
+                    </span>
+
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

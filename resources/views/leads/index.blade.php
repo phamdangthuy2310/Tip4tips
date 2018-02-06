@@ -1,5 +1,23 @@
+<?php use App\Common\Common;?>
 @extends('layouts.master')
 @section('title', 'List of Leads')
+@section('javascript')
+    <script src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/admin/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+      $(function () {
+        $('#viewList').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : true,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : true
+        })
+      })
+    </script>
+@stop
+
 
 @section('content')
     <div class="box box-list">
@@ -10,7 +28,7 @@
         <!-- /.box-header -->
         <div class="box-body">
             <div class="table-responsive">
-                <table id="view-managers" class="table table-hover table-striped">
+                <table id="viewList" class="table table-hover table-striped">
                     <thead>
                     <tr>
                         <th>No.</th>
@@ -31,8 +49,8 @@
                             <td>{{$lead->fullname}}</td>
                             <td>{{ \App\Model\Product::getProductByID($lead->product_id)->name }}</td>
                             <td>{{ \App\User::getUserByID( $lead->tipster_id)->fullname }}</td>
-                            <td>{{ \Carbon\Carbon::parse($lead->created_at)->format('d F Y') }}</td>
-                            <td><span class="label-status {{\App\Model\Lead::showColorStatus($lead->status)}}">{{ \App\Model\Lead::showNameStatus($lead->status) }}</span></td>
+                            <td>{{ Common::dateFormat($lead->created_at, 'd F Y')}}</td>
+                            <td><span class="label-status {{Common::showColorStatus($lead->status)}}">{{ Common::showNameStatus($lead->status) }}</span></td>
                             <td class="actions text-center" style="width: 100px">
                                 <a href="{{route('leads.show', $lead->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
                                 @if($editAction == true)<a href="{{action('LeadsController@edit', $lead['id'])}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif

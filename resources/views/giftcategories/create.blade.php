@@ -12,7 +12,7 @@
                     <h3 class="box-title">Create Gift Category</h3>
                 </div>
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{url('giftcategories')}}">
+                <form role="form" method="post" action="{{route('giftcategories.create')}}">
                     {{ csrf_field() }}
                         <div class="box-body">
                             <div class="form-group">

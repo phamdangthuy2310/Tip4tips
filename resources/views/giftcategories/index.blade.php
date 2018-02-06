@@ -1,5 +1,21 @@
 @extends('layouts.master')
 @section('title', 'List of Product Categories')
+@section('javascript')
+    <script src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/admin/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+      $(function () {
+        $('#viewList').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : true,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : true
+        })
+      })
+    </script>
+@stop
 
 @section('content')
     <div class="box box-list">
@@ -14,7 +30,7 @@
                     <p>{{ \Session::get('success') }}</p>
                 </div><br />
             @endif
-            <table id="view-managers" class="table table-bordered table-striped">
+            <table id="viewList" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>No.</th>

@@ -124,6 +124,7 @@
                                 <div class="form-group">
                                     <label>Region</label>
                                     <select name="region" class="form-control">
+                                        <option value="" disabled selected>Please pick a region</option>
                                         @foreach($regions as $region)
                                             <option value="{{$region->id}}" @if($region->id == $user->region_id) selected @endif>{{$region->name}}</option>
                                         @endforeach
@@ -137,7 +138,7 @@
                                 <div class="form-group">
                                     <label>Department</label>
                                     <select class="form-control" name="department">
-
+                                        <option value="" disabled selected>Please pick a department</option>
                                         @foreach($roletypes as $roletype)
                                             <optgroup label="{{$roletype->name}}">
                                                 @foreach($roles as $role)
@@ -155,6 +156,7 @@
                                 <div class="form-group">
                                     <label>Status</label>
                                     <select class="form-control" name="status">
+                                        <option value="" disabled selected>Please pick a status</option>
                                         <option value="1" @if($user->delete_is == 1) selected @endif>Active</option>
                                         <option value="0" @if($user->delete_is == 0) selected @endif>Deactive</option>
                                     </select>

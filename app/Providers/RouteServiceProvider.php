@@ -86,10 +86,15 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web','checkRole','saveHistoryUser')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/route_message.php'));
-        //Route Message
+        //Route Tipster
         Route::middleware('web','checkRole','saveHistoryUser')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/route_tipster.php'));
+        //Route Activity
+        Route::middleware('web','saveHistoryUser')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/route_logactivity.php'));
+
 
     }
 

@@ -320,20 +320,37 @@ Table style*/
 }
 /*.ul__leads*/
 .ul__users{
-
 }
 .ul__users > li{
     width: 100%;
+    padding: 10px 15px;
+}
+.ul__users > li > a > span{
+    float: left;
+    display: block;
 }
 .ul__users .users-list-avatar{
-    float: left;
     width: 50px;
 }
 .ul__users .users-list-info{
     float: left;
-    width: calc(100% - 50px);
+    width: calc(100% - 150px);
     text-align: left;
     padding-left: 20px;
+}
+.ul__users .user-list-points{
+    width: 100px;
+    font-size: 18px;
+    color: #00a65a;
+    text-align: right;
+}
+.ul__users .user-list-points small{
+    font-size: 11px;
+    color: #aaaaaa;
+}
+.ul__users .user-list-fullname{
+    font-size: 11px;
+    color: #aaaaaa;
 }
 /*Pie Chart*/
 #pieChartLeads{
@@ -341,6 +358,9 @@ Table style*/
 }
 #pieChart-legend-con{
     margin-top: 30px;
+}
+.chart-legend>li{
+    width: 100%;
 }
 /*Pie Chart*/
 .box{
@@ -352,6 +372,56 @@ Table style*/
     -moz-box-shadow: 0 0 3px rgba(0,0,0,0.3);
     box-shadow: 0 0 3px rgba(0,0,0,0.3);
 }
+
+/*List of activities*/
+.activities{
+    padding: 15px;
+}
+.activities > li{
+    list-style-type: none;
+    padding: 10px 0;
+    border-bottom: 1px dotted #eeeeee;
+    overflow: hidden;
+}
+.activities > li:last-child{
+    border-bottom: none;
+}
+.activities > li > span{
+    float: left;
+    display: block;
+}
+.activities .activity__time{
+    display: block;
+    color: #aaaaaa;
+}
+.activities .activity__user-name{
+    font-weight: bold;
+}
+.activities .activity__user-avatar{
+    width: 40px;
+    margin-right: 10px;
+}
+.activities .activity__action{
+    width: 60px;
+    text-align: right;
+    padding-top: 5px;
+}
+.activities .activity__action *{
+    display: none;
+}
+.activities .activity__detail{
+    float: left;
+    width: calc(100% - 110px);
+}
+.activities .activity__user-avatar img{
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+}
+.activities > li:hover .activity__action *{
+    display: inline-block;
+}
+/*End list of activities*/
 @media (min-width: 992px) {
     .box-list .box-header{
         position: relative;

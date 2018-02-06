@@ -9,7 +9,7 @@
   var pieChartLeads = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: ["Win", "Call", "Quote", "Win", "Lost"],
+      labels: ["New", "Call", "Quote", "Win", "Lost"],
       datasets: [{
         label: '# of Votes',
         data: [{{$new}}, {{$call}}, {{$quote}}, {{$win}}, {{$lost}}],
@@ -64,7 +64,7 @@
 @section('content')
     <!-- Main row -->
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-sm-12 col-lg-6">
             <!-- LEADS LIST -->
             <div class="box box-default">
                 <div class="box-header with-border">
@@ -79,14 +79,14 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-xs-8">
                             <div class="chart-responsive">
                                 <canvas id="pieChartLeads" height="200"></canvas>
                             </div>
                             <!-- ./chart-responsive -->
                         </div>
                         <!-- /.col -->
-                        <div class="col-md-4">
+                        <div class="col-xs-4">
                             <div id="pieChart-legend-con"></div>
                         </div>
                         <!-- /.col -->
@@ -94,13 +94,13 @@
                     <!-- /.row -->
                 </div>
                 <div class="box-footer text-center">
-                    <a href="{{route('leads.index')}}" class="uppercase">View All Leads</a>
+                    <a href="{{route('leads.index')}}" class="uppercase">View More Leads</a>
                 </div>
             </div>
             <!-- /.box -->
             <!--/.box -->
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-12 col-lg-6">
             <!-- Tipster LIST -->
             <div class="box box-danger">
                 <div class="box-header with-border">
@@ -118,11 +118,22 @@
                     <ul class="users-list ul__users clearfix">
                         @foreach($highestPointTipsters as $recenttipster)
                         <li>
-                            <span class="users-list-avatar"><img src="{{asset('images/user1-128x128.jpg') }}" alt="User Image"></span>
-                            <span class="users-list-info">
-                                <a class="users-list-name" href="#">{{$recenttipster->username}}</a>
-                                <span class="users-list-date">{{$recenttipster->created_at}}</span>
-                            </span>
+                            <a href="{{route('tipsters.show', $recenttipster->id)}}">
+                                <span class="users-list-avatar">
+                                    <img src="{{asset('images/user1-128x128.jpg') }}" alt="User Image">
+                                </span>
+                                <span class="users-list-info">
+                                    <span class="users-list-name">
+                                        {{$recenttipster->username}}
+                                    </span>
+                                    <span class="user-list-fullname">{{$recenttipster->fullname}}</span>
+
+                                    {{--<span class="users-list-date">--}}
+                                        {{--{{Common::dateFormatText($recenttipster->created_at)}}--}}
+                                    {{--</span>--}}
+                                </span>
+                                <span class="user-list-points">{{$recenttipster->point}} <small>points</small></span>
+                            </a>
                         </li>
                         @endforeach
                     </ul>
@@ -130,7 +141,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer text-center">
-                    <a href="{{route('tipsters.index')}}" class="uppercase">View All Tipster</a>
+                    <a href="{{route('tipsters.index')}}" class="uppercase">View More Tipster</a>
                 </div>
                 <!-- /.box-footer -->
             </div>
@@ -151,16 +162,32 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
-                    <ul>
+                    <ul class="activities">
                         @foreach($logActivities as $logActivity)
-                            <li>{{$logActivity->user_name}} - {{$logActivity->description}}</li>
+                            <li class="activity">
+                                <span class="activity__user-avatar"><a href="{{route('users.show', $logActivity->user_id)}}"><img src="{{asset('images/avatar2.png')}}" alt="{{$logActivity->user_name}} Avatar"></a></span>
+                                <span class="activity__detail">
+                                    <span class="activity__user-name">
+                                        <a href="{{route('users.show', $logActivity->user_id)}}">{{$logActivity->user_name}}</a>
+                                    </span>
+                                    <span class="activity__description">{{$logActivity->description}}</span>
+                                    <span class="activity__time">{{Common::dateFormatText($logActivity->created_at)}}</span>
+                                </span>
+                                <span class="activity__action">
+                                    {{--<form action="{{route('activities.destroy', $logActivity->id)}}" method="post">--}}
+                                        {{--{{csrf_field()}}--}}
+                                        {{--<input name="_method" type="hidden" value="DELETE">--}}
+                                        {{--<button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>--}}
+                                    {{--</form>--}}
+                                </span>
+                            </li>
                         @endforeach
                     </ul>
 
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer text-center">
-                    <a href="javascript:void(0)" class="uppercase">View All</a>
+                    <a href="{{route('activities.index')}}" class="uppercase">View More Activities</a>
                 </div>
                 <!-- /.box-footer -->
             </div>

@@ -52,6 +52,7 @@
                             <div class="form-group">
                                 <label>Category</label>
                                 <select name="category" class="form-control">
+                                    <option value="" disabled selected>Please pick a category</option>
                                     @foreach($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach

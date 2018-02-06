@@ -18,28 +18,30 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Create new Assignment</h3>
                 </div>
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div><br />
-                @endif
-                @if (\Session::has('success'))
-                    <div class="alert alert-success">
-                        <p>{{ \Session::get('success') }}</p>
-                    </div>
-                @endif
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{url('assignments')}}">
+                <form role="form" method="post" action="{{route('assignments.create')}}">
                     {{ csrf_field() }}
 
                         <div class="box-body">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div><br />
+                            @endif
+                            @if (\Session::has('success'))
+                                <div class="alert alert-success">
+                                    <p>{{ \Session::get('success') }}</p>
+                                </div>
+                            @endif
+
                             <div class="form-group">
                                 <label>Please pick a Lead to assign:</label>
                                 <select name="lead" class="form-control">
+                                    <option value="" disabled selected>Please pick a lead</option>
                                     @foreach($leads as $lead)
                                         <option value="{{$lead->id}}">{{$lead->fullname}}</option>
                                     @endforeach
@@ -49,6 +51,7 @@
                             <div class="form-group">
                                 <label>Assign to Consultant</label>
                                 <select name="consultant" class="form-control">
+                                    <option value="" disabled selected>Please pick a consultant</option>
                                     @foreach($consultants as $consultant)
                                     <option value="{{$consultant->id}}">{{$consultant->fullname}}</option>
                                     @endforeach

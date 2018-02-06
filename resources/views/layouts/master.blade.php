@@ -79,22 +79,10 @@
 <script src="{{ asset('js/admin/jquery-jvectormap.js') }}"></script>
 <script src="{{ asset('js/admin/adminlte.min.js') }}"></script>
 <script src="{{ asset('js/admin/Chart.js') }}"></script>
-<script src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('js/admin/dataTables.bootstrap.min.js') }}"></script>
+
 <script src="{{ asset('js/admin/dashboard.js') }}"></script>
 <script src="{{ asset('js/admin/common.js') }}"></script>
-<script>
-  $(function () {
-    $('#view-managers').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : true,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : true
-    })
-  })
-</script>
+
 @yield('javascript')
 </body>
 </html>

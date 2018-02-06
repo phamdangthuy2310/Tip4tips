@@ -39,6 +39,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">About Me</h3>
                     <span class="group__action pull-right">
+                        <a href="{{route('tipsters.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
                         <a href="{{route('tipsters.edit', $user->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
                         @if($deleteAction == true)<form class="inline" action="{{action('TipstersController@destroy', $user->id)}}" method="post">
                         {{csrf_field()}}

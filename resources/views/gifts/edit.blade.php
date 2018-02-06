@@ -44,6 +44,7 @@
                             <div class="form-group">
                                 <label>Category</label>
                                 <select name="category" class="form-control">
+                                    <option readonly="true">Please pick a category</option>
                                     @foreach($categories as $category)
                                         <option value="{{$category->id}}" @if($category->id == $gift->category_id) selected @endif>{{$category->name}}</option>
                                     @endforeach

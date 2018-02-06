@@ -1,5 +1,21 @@
 @extends('layouts.master')
 @section('title', 'List of Assignments')
+@section('javascript')
+    <script src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/admin/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+      $(function () {
+        $('#viewList').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : true,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : true
+        })
+      })
+    </script>
+@stop
 
 @section('content')
     <div class="box box-list">
@@ -14,7 +30,7 @@
                     <p>{{ \Session::get('success') }}</p>
                 </div><br />
             @endif
-            <table id="view-managers" class="table table-bordered table-striped">
+            <table id="viewList" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>No.</th>
@@ -37,8 +53,8 @@
                     <td style="width: 150px">{{$assignment->created_at}}</td>
                     <td class="actions">
 {{--                        <a href="{{action('CategoriesController@show', $category->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>--}}
-                        @if($editAction == true)<a href="{{action('AssignmentsController@edit', $assignment->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
-                        @if($deleteAction == true)<form action="{{action('AssignmentsController@destroy', $assignment->id)}}" method="post">
+                        @if($editAction == true)<a href="{{route('assignments.edit', $assignment->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
+                        @if($deleteAction == true)<form action="{{route('assignments.destroy', $assignment->id)}}" method="post">
                             {{csrf_field()}}
                             <input name="_method" type="hidden" value="DELETE">
                             <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>

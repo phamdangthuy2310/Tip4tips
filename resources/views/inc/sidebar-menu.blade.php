@@ -61,27 +61,12 @@
                     </span>
                 </a>
             </li>
+            <li>
+                <a href="{{route('activities.index')}}">
+                    <i class="fa fa-file-text"></i><span>Activity</span>
+                </a>
+            </li>
 
-
-
-            {{--<li class="treeview">--}}
-                {{--<a href="#"><i class="fa fa-retweet"></i> <span>Assignment Manager</span>--}}
-                    {{--<span class="pull-right-container">--}}
-                        {{--<i class="fa fa-angle-left pull-right"></i>--}}
-                    {{--</span>--}}
-                {{--</a>--}}
-                {{--<ul class="treeview-menu">--}}
-                    {{--<li><a href="{{route('assignments.index')}}">List of Assignments</a></li>--}}
-                    {{--<li><a href="{{route('assignments.create')}}">Add Assignments</a></li>--}}
-                {{--</ul>--}}
-            {{--</li>--}}
-
-            {{--End Manager--}}
-
-            {{--<li>--}}
-                {{--<a href="#"><i class="fa fa-star"></i> <span>Rating</span></a>--}}
-            {{--</li>--}}
-            {{--End Community Manager--}}
         </ul>
         <!-- /.sidebar-menu -->
     </section>

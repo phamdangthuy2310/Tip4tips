@@ -11,7 +11,7 @@
             </div>
         </div>
     @else
-    <form role="form" method="post" action="{{url('gifts')}}">
+    <form role="form" method="post" action="{{route('gifts.create')}}">
         {{ csrf_field() }}
         <div class="row">
             <!-- /.col -->
@@ -55,6 +55,7 @@
                         <div class="form-group">
                             <label>Category</label>
                             <select name="category" class="form-control">
+                                <option value="" disabled selected>Please pick a category</option>
                                 @foreach($categories as $category)
                                 <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
