@@ -1,9 +1,14 @@
 <?php use App\Common\Common; ?>
 @extends('layouts.master')
 @section('title', 'Dashboard')
+
+@section('styles')
+    <link href="{{asset('css/jquery.scrollbar.css')}}" rel="stylesheet" type="text/css">
+@stop
 @section('javascript')
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+    <script src="{{asset('js/jquery.scrollbar.js')}}"></script>
 <script>
   var ctx = document.getElementById("pieChartLeads").getContext('2d');
   var pieChartLeads = new Chart(ctx, {
@@ -59,6 +64,14 @@
     }
   });
   $('#pieChart-legend-con').html(pieChartLeads.generateLegend());
+
+  jQuery(document).ready(function(){
+    jQuery('.scrollbar-macosx').scrollbar({
+      "showArrows": true,
+      "scrollx": "advanced",
+      "scrolly": "advanced"
+    });
+  });
 </script>
 @stop
 @section('content')
@@ -69,6 +82,47 @@
             <div class="box box-default">
                 <div class="box-header with-border">
                     <h3 class="box-title">Recent Leads</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                        <ul class="ul__users lead__list scrollbar-macosx clearfix">
+                            {{--<li class="lih">--}}
+                                {{--<span class="lead__name">Lead</span>--}}
+                                {{--<span class="lead__status">Status</span>--}}
+                                {{--<span class="lead__create-at">Created at</span>--}}
+                            {{--</li>--}}
+                            @foreach($recentleads as $recentlead)
+                            <li>
+                                <span class="lead__name">{{$recentlead->fullname}}
+                                    <span class="lead__status" style="color:{{ $recentlead->status_color }}" >{{$recentlead->status_text}}</span>
+                                </span>
+
+                                <span class="lead__create-at">{{$recentlead->created_date}}</span>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <div class="box-footer text-center">
+                    <a href="{{route('leads.index')}}" class="uppercase">View More Leads</a>
+                </div>
+            </div>
+            <!-- /.box -->
+            <!--/.box -->
+        </div>
+        <div class="col-sm-12 col-lg-6">
+            <!-- LEADS LIST -->
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Latest status</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -100,6 +154,8 @@
             <!-- /.box -->
             <!--/.box -->
         </div>
+    </div>
+    <div class="row">
         <div class="col-sm-12 col-lg-6">
             <!-- Tipster LIST -->
             <div class="box box-danger">
@@ -117,24 +173,24 @@
                 <div class="box-body no-padding">
                     <ul class="users-list ul__users clearfix">
                         @foreach($highestPointTipsters as $recenttipster)
-                        <li>
-                            <a href="{{route('tipsters.show', $recenttipster->id)}}">
+                            <li>
+                                <a href="{{route('tipsters.show', $recenttipster->id)}}">
                                 <span class="users-list-avatar">
                                     <img src="{{asset('images/user1-128x128.jpg') }}" alt="User Image">
                                 </span>
-                                <span class="users-list-info">
+                                    <span class="users-list-info">
                                     <span class="users-list-name">
                                         {{$recenttipster->username}}
                                     </span>
                                     <span class="user-list-fullname">{{$recenttipster->fullname}}</span>
 
-                                    {{--<span class="users-list-date">--}}
+                                        {{--<span class="users-list-date">--}}
                                         {{--{{Common::dateFormatText($recenttipster->created_at)}}--}}
-                                    {{--</span>--}}
+                                        {{--</span>--}}
                                 </span>
-                                <span class="user-list-points">{{$recenttipster->point}} <small>points</small></span>
-                            </a>
-                        </li>
+                                    <span class="user-list-points">{{$recenttipster->point}} <small>points</small></span>
+                                </a>
+                            </li>
                         @endforeach
                     </ul>
                     <!-- /.users-list -->
@@ -147,7 +203,7 @@
             </div>
             <!--/.box -->
         </div>
-        <div class="col-sm-12">
+        <div class="col-sm-12 col-lg-6">
             <!-- CONSULTANT LIST -->
             <div class="box box-danger">
                 <div class="box-header with-border">
@@ -165,21 +221,16 @@
                     <ul class="activities">
                         @foreach($logActivities as $logActivity)
                             <li class="activity">
-                                <span class="activity__user-avatar"><a href="{{route('users.show', $logActivity->user_id)}}"><img src="{{asset('images/avatar2.png')}}" alt="{{$logActivity->user_name}} Avatar"></a></span>
+
                                 <span class="activity__detail">
+                                    <span class="activity__time">{{Common::dateFormatText($logActivity->created_at)}}</span>
                                     <span class="activity__user-name">
                                         <a href="{{route('users.show', $logActivity->user_id)}}">{{$logActivity->user_name}}</a>
                                     </span>
                                     <span class="activity__description">{{$logActivity->description}}</span>
-                                    <span class="activity__time">{{Common::dateFormatText($logActivity->created_at)}}</span>
+
                                 </span>
-                                <span class="activity__action">
-                                    {{--<form action="{{route('activities.destroy', $logActivity->id)}}" method="post">--}}
-                                        {{--{{csrf_field()}}--}}
-                                        {{--<input name="_method" type="hidden" value="DELETE">--}}
-                                        {{--<button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>--}}
-                                    {{--</form>--}}
-                                </span>
+
                             </li>
                         @endforeach
                     </ul>

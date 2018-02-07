@@ -24,4 +24,12 @@ class Assignment extends Model
         return $consultant;
     }
 
+    public static function getMostActiveTipsters($limit = 5){
+        $leads = DB::table('assignments')
+            ->select('lead_id', DB::raw('count(*) as total'))
+            ->groupBy('lead_id')
+        ->pluck('total','lead_id');;
+
+        return $leads;
+    }
 }

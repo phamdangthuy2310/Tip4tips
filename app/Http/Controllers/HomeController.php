@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Common\Common;
+use App\Model\Assignment;
 use App\Model\Lead;
 //use Illuminate\Foundation\Auth\User;
 use App\Model\LogActivity;
@@ -42,10 +43,17 @@ class HomeController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        $recentleads = Lead::getRecentLead();
+        $recentleads = Lead::getRecentLeads(10);
+        foreach ($recentleads as $recentlead){
+            $recentlead->created_date = Common::dateFormat($recentlead->created_at,'d-M-Y');
+            $recentlead->status_text = Common::showNameStatus($recentlead->status);
+            $recentlead->status_color = Common::colorStatus($recentlead->status);
+        }
 
-        $recenttipsters = User::getRecentTipster();
+        $recenttipsters = User::getRecentTipsters(10);
+        $mostactivetipsters = Assignment::getMostActiveTipsters(10);
 
+        dd($mostactivetipsters);
         $highestPointTipsters = User::getHighestPointTipster();
 
         $new = Lead::getAmountByStatus(0);
@@ -72,6 +80,7 @@ class HomeController extends Controller
             'recentleads' => $recentleads,
             'recenttipsters' => $recenttipsters,
             'highestPointTipsters' => $highestPointTipsters,
+            'mostactivetipsters' => $mostactivetipsters,
             'new' => $new,
             'call' => $call,
             'quote' => $quote,

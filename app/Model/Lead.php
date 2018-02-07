@@ -100,7 +100,7 @@ class Lead extends Model
         return $name;
     }
 
-    public static function getRecentLead($num = 5){
+    public static function getRecentLeads($num = 5){
         $leads = DB::table('leads')->orderBy('created_at', 'desc')->limit($num)->get();
         return $leads;
     }

@@ -117,7 +117,7 @@ class User extends Authenticatable
         return $name;
     }
 
-    public static function getRecentTipster($num = 5){
+    public static function getRecentTipsters($num = 5){
         $tipsters = DB::table('users')
             ->join('roles', 'users.role_id', 'roles.id')
             ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
@@ -128,6 +128,9 @@ class User extends Authenticatable
             ->get();
         return $tipsters;
     }
+
+
+
 
     public static function getHighestPointTipster($num = 5){
         $tipsters = DB::table('users')
