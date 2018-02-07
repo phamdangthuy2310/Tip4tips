@@ -109,4 +109,55 @@ class Lead extends Model
         $amount = count(Lead::where('status', $status)->get());
         return $amount;
     }
+
+    public static function getTipsterHeighestLead($num = 5){
+        $sql = "select users.id,users.username,users.fullname, tableTips.status, tableTips.countStatus, users.point
+                from users 
+                    inner join (
+                            select leads.tipster_id,leads.status, count(leads.status) as countStatus
+                            from leads
+                                        inner join (
+                                            select tipster_id , count(tipster_id) as countTipster 
+                                            from leads 
+                                            group by tipster_id 
+                                            order by countTipster desc 
+                                            limit ".$num."
+                                     ) tableTips
+                                     ON (tableTips.tipster_id = leads.tipster_id)
+                             group by leads.tipster_id,leads.status     
+                        ) tableTips
+                    on ( tableTips.tipster_id = users.id )
+                    ";
+        $tipsters = DB::select($sql);
+        $result = array();
+        if(isset($tipsters)){
+            $tipsterIdOld = "";
+            $tipsterCurrent = null;
+            foreach($tipsters as $tipster){
+                if($tipsterIdOld != $tipster->id){
+                    array_push ($result, $tipster);
+                    $tipsterCurrent = $tipster;
+                    $strStatusLead = Lead::showNameStatus($tipster->status).":".$tipster->countStatus;
+                    $tipsterCurrent->strStatusLead = $strStatusLead;
+                }else{
+                    $strStatusLead = Lead::showNameStatus($tipster->status).":".$tipster->countStatus;
+                    $tipsterCurrent->strStatusLead.= ' - '.$strStatusLead;
+                }
+                $tipsterIdOld = $tipster->id;
+            }
+        }
+        return $result;
+    }
+
+    public static function sumStatusByRecentLead($num = 5){
+        $recents = DB::table('leads')
+            ->select('*')
+            ->orderBy('created_at', 'desc')
+            ->limit($num);
+        $tipsters = DB::table(DB::raw("({$recents->toSql()}) as recents"))
+            ->groupBy('recents.status')
+            ->get();
+        dd($recents);
+        return $tipsters;
+    }
 }

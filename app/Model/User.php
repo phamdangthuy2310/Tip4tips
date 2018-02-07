@@ -130,8 +130,6 @@ class User extends Authenticatable
     }
 
 
-
-
     public static function getHighestPointTipster($num = 5){
         $tipsters = DB::table('users')
             ->join('roles', 'users.role_id', 'roles.id')
@@ -147,6 +145,14 @@ class User extends Authenticatable
         return $tipsters;
     }
 
+    public static function getMostActiveTipsters($limit = 5){
+        $leads = DB::table('leads')
+            ->select('tipster_id', DB::raw('count(*) as total'))
+            ->groupBy('tipster_id')
+            ->orderBy('total', 'desc')->limit($limit)
+            ->get();
 
+        return $leads;
+    }
 
 }

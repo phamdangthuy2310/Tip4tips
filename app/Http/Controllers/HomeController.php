@@ -51,9 +51,14 @@ class HomeController extends Controller
         }
 
         $recenttipsters = User::getRecentTipsters(10);
-        $mostactivetipsters = Assignment::getMostActiveTipsters(10);
+//        $mostactivetipsters = User::getMostActiveTipsters(10);
 
-        dd($mostactivetipsters);
+        /*get 10 Tipsters had lead introduces are heightest*/
+        $mostactivetipsters = Lead::getTipsterHeighestLead(10);
+
+        $sumStatusByRecentTipster = Lead::sumStatusByRecentLead(10);
+        dd($sumStatusByRecentTipster);
+
         $highestPointTipsters = User::getHighestPointTipster();
 
         $new = Lead::getAmountByStatus(0);
@@ -81,6 +86,7 @@ class HomeController extends Controller
             'recenttipsters' => $recenttipsters,
             'highestPointTipsters' => $highestPointTipsters,
             'mostactivetipsters' => $mostactivetipsters,
+            'sumStatusByRecentTipster' => $sumStatusByRecentTipster,
             'new' => $new,
             'call' => $call,
             'quote' => $quote,

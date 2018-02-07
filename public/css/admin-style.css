@@ -337,21 +337,32 @@ Table style*/
 }
 .ul__users .users-list-info{
     float: left;
-    width: calc(100% - 150px);
+    width: calc(100% - 280px);
     text-align: left;
     padding-left: 20px;
 }
-.ul__users .user-list-points{
-    width: 100px;
+.ul__users .users-list-status{
+    width: 150px;
+    color: #aaa;
+}
+.ul__users .users-list-status-ttl{
+    display: block;
+    color: #444444;
+}
+.ul__users .users-list-status-detail{
+    font-size: 11px;
+}
+.ul__users .users-list-points{
+    width: 80px;
     font-size: 18px;
     color: #00a65a;
     text-align: right;
 }
-.ul__users .user-list-points small{
+.ul__users .users-list-points small{
     font-size: 11px;
     color: #aaaaaa;
 }
-.ul__users .user-list-fullname{
+.ul__users .users-list-fullname{
     font-size: 11px;
     color: #aaaaaa;
 }

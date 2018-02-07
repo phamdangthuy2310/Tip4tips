@@ -172,23 +172,24 @@
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
                     <ul class="users-list ul__users clearfix">
-                        @foreach($highestPointTipsters as $recenttipster)
+                        @foreach($mostactivetipsters as $mostactivetipster)
                             <li>
-                                <a href="{{route('tipsters.show', $recenttipster->id)}}">
-                                <span class="users-list-avatar">
-                                    <img src="{{asset('images/user1-128x128.jpg') }}" alt="User Image">
-                                </span>
-                                    <span class="users-list-info">
-                                    <span class="users-list-name">
-                                        {{$recenttipster->username}}
+                                <a href="{{route('tipsters.show', $mostactivetipster->id)}}">
+                                    <span class="users-list-avatar">
+                                        <img src="{{asset('images/user1-128x128.jpg') }}" alt="User Image">
                                     </span>
-                                    <span class="user-list-fullname">{{$recenttipster->fullname}}</span>
+                                    <span class="users-list-info">
+                                        <span class="users-list-name">
+                                            {{$mostactivetipster->username}}
+                                        </span>
+                                        <span class="users-list-fullname">{{$mostactivetipster->fullname}}</span>
 
-                                        {{--<span class="users-list-date">--}}
-                                        {{--{{Common::dateFormatText($recenttipster->created_at)}}--}}
-                                        {{--</span>--}}
-                                </span>
-                                    <span class="user-list-points">{{$recenttipster->point}} <small>points</small></span>
+                                    </span>
+                                    <span class="users-list-status">
+                                        <span class="users-list-status-ttl">Leads</span>
+                                        <span class="users-list-status-detail">{!! $mostactivetipster->strStatusLead !!}</span>
+                                    </span>
+                                    <span class="users-list-points">{{$mostactivetipster->point}} <small>points</small></span>
                                 </a>
                             </li>
                         @endforeach
