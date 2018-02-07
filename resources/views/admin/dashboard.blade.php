@@ -100,10 +100,10 @@
                             {{--</li>--}}
                             @foreach($recentleads as $recentlead)
                             <li>
-                                <span class="lead__name">{{$recentlead->fullname}}
+                                <a href="{{route('leads.show', $recentlead->id)}}"><span class="lead__name">{{$recentlead->fullname}}
                                     <span class="lead__status" style="color:{{ $recentlead->status_color }}" >{{$recentlead->status_text}}</span>
                                 </span>
-
+                                </a>
                                 <span class="lead__create-at">{{$recentlead->created_date}}</span>
                             </li>
                             @endforeach
@@ -186,7 +186,7 @@
 
                                     </span>
                                     <span class="users-list-status">
-                                        <span class="users-list-status-ttl">Leads</span>
+                                        <span class="users-list-status-ttl">Leads: {{$mostactivetipster->countStatus}}</span>
                                         <span class="users-list-status-detail">{!! $mostactivetipster->strStatusLead !!}</span>
                                     </span>
                                     <span class="users-list-points">{{$mostactivetipster->point}} <small>points</small></span>

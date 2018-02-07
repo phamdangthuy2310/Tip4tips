@@ -142,6 +142,8 @@ class Lead extends Model
                 }else{
                     $strStatusLead = Lead::showNameStatus($tipster->status).":".$tipster->countStatus;
                     $tipsterCurrent->strStatusLead.= ' - '.$strStatusLead;
+
+                    $tipsterCurrent->countStatus+=$tipster->countStatus;
                 }
                 $tipsterIdOld = $tipster->id;
             }
@@ -155,9 +157,10 @@ class Lead extends Model
             ->orderBy('created_at', 'desc')
             ->limit($num);
         $tipsters = DB::table(DB::raw("({$recents->toSql()}) as recents"))
-            ->groupBy('recents.status')
-            ->get();
-        dd($recents);
+            ->join('leads', 'recents.id', '=', 'leads.id')
+            ->groupBy('leads.status')
+            ->select(DB::raw("leads.status, count(leads.status) as countStatus"))->get();
+//        dd($tipsters);
         return $tipsters;
     }
 }

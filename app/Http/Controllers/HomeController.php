@@ -55,17 +55,37 @@ class HomeController extends Controller
 
         /*get 10 Tipsters had lead introduces are heightest*/
         $mostactivetipsters = Lead::getTipsterHeighestLead(10);
+//        dd($mostactivetipsters);
 
-        $sumStatusByRecentTipster = Lead::sumStatusByRecentLead(10);
-        dd($sumStatusByRecentTipster);
+        $statusByRecentTipster = Lead::sumStatusByRecentLead(10);
+//        dd($statusByRecentTipster);
 
         $highestPointTipsters = User::getHighestPointTipster();
 
-        $new = Lead::getAmountByStatus(0);
-        $call = Lead::getAmountByStatus(1);
-        $quote = Lead::getAmountByStatus(2);
-        $win = Lead::getAmountByStatus(3);
-        $lost = Lead::getAmountByStatus(4);
+        $new = 0;
+        $call =0;
+        $quote = 0;
+        $win = 0;
+        $lost = 0;
+        foreach($statusByRecentTipster as $sumStatus){
+            switch ($sumStatus->status) {
+                case 0:
+                    $new = $sumStatus->countStatus;
+                    break;
+                case 1:
+                    $call = $sumStatus->countStatus;
+                    break;
+                case 2:
+                    $quote = $sumStatus->countStatus;
+                    break;
+                case 3:
+                    $win = $sumStatus->countStatus;
+                    break;
+                case 4:
+                    $lost = $sumStatus->countStatus;
+                    break;
+            }
+        }
 
         /*Get log activities by role*/
         $auth = Auth::user();
@@ -86,7 +106,7 @@ class HomeController extends Controller
             'recenttipsters' => $recenttipsters,
             'highestPointTipsters' => $highestPointTipsters,
             'mostactivetipsters' => $mostactivetipsters,
-            'sumStatusByRecentTipster' => $sumStatusByRecentTipster,
+            'statusByRecentTipster' => $statusByRecentTipster,
             'new' => $new,
             'call' => $call,
             'quote' => $quote,

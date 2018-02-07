@@ -21,5 +21,6 @@ class Utils{
     public static $LOG_ACTION_CREATE = "Created";
     public static $LOG_ACTION_UPDATE = "Update";
     public static $LOG_ACTION_DELETE = "Delete";
+    public static $LOG_ACTION_UPDATE_POINT = "Update points";
     //------End Log Activity--------
 }

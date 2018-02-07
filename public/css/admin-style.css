@@ -328,6 +328,9 @@ Table style*/
     list-style-type: none;
     overflow: hidden;
 }
+.ul__users > li:hover{
+    background-color: #fbfbfb;
+}
 .ul__users > li > a > span{
     float: left;
     display: block;
