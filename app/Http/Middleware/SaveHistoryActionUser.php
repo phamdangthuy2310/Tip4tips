@@ -105,9 +105,9 @@ class SaveHistoryActionUser
                     $url = $request->url();
                     $user_id = Auth::user()->id;
                     $action_history = null;
-                    
                     if (strpos($url, 'leads') !== FALSE){
                         //
+                        dd($url);
                         $affected_object = Utils::$LOG_AFFECTED_OBJECT_LEAD;
                         if (strpos($url,"update") !== FALSE){
                             $action_history = Utils::$LOG_ACTION_CREATE;
