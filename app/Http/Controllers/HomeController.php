@@ -44,7 +44,7 @@ class HomeController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        $recentleads = Lead::getRecentLeads(10);
+        $recentleads = Lead::getRecentLeads(5);
         foreach ($recentleads as $recentlead){
             $recentlead->created_date = Common::dateFormat($recentlead->created_at,'d-M-Y');
             $recentlead->status_text = Common::showNameStatus($recentlead->status);
@@ -52,14 +52,14 @@ class HomeController extends Controller
             $recentlead->product = Product::getProductByID($recentlead->product_id)->name;
         }
 
-        $recenttipsters = User::getRecentTipsters(10);
+        $recenttipsters = User::getRecentTipsters(5);
 //        $mostactivetipsters = User::getMostActiveTipsters(10);
 
         /*get 10 Tipsters had lead introduces are heightest*/
         $mostactivetipsters = Lead::getTipsterHeighestLead(5);
 //        dd($mostactivetipsters);
 
-        $statusByRecentTipster = Lead::sumStatusByRecentLead(10);
+        $statusByRecentTipster = Lead::sumStatusByRecentLead(5);
 //        dd($statusByRecentTipster);
 
         $highestPointTipsters = User::getHighestPointTipster();

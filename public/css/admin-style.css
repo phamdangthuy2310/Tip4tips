@@ -372,7 +372,6 @@ Table style*/
     color: #aaaaaa;
 }
 .lead__list{
-    height: 200px;
 }
 .lead__list > li{
 }
@@ -426,13 +425,19 @@ Table style*/
 }
 /*Pie Chart*/
 #pieChartLeads{
-    margin-top: -20px;
+    margin-top: -35px;
 }
 #pieChart-legend-con{
-    margin-top: 30px;
+    margin-top: 10px;
+    text-align: center;
+}
+.chart-legend{
+    display: inline-block;
 }
 .chart-legend>li{
-    width: 100%;
+    list-style-type: none;
+    display: inline-block;
+    padding: 0 10px;
 }
 /*Pie Chart*/
 .box{
@@ -440,11 +445,13 @@ Table style*/
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
-    -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0 0 3px rgba(0,0,0,0.3);
-    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+    -moz-box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
 }
-
+.dashboard .box .box-footer{
+    text-align: right;
+}
 /*List of activities*/
 .activities{
     padding: 15px;
@@ -487,6 +494,10 @@ Table style*/
     padding-left: 10px;
 }
 /*End list of activities*/
+.main-footer{
+    text-align: center;
+    font-size: 12px;
+}
 @media (min-width: 992px) {
     .box-list .box-header{
         position: relative;

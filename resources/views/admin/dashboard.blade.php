@@ -76,23 +76,17 @@
 @stop
 @section('content')
     <!-- Main row -->
-    <div class="row">
+    <div class="row dashboard">
         <div class="col-sm-12 col-lg-6">
             <!-- LEADS LIST -->
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Recent Leads(10 Leads)</h3>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                    </div>
+                    <h3 class="box-title">Recent Leads(5 Leads)</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
-                        <ul class="ul__users lead__list scrollbar-macosx clearfix">
+                        <ul class="ul__users lead__list clearfix">
                             @foreach($recentleads as $recentlead)
                             <li>
                                 <span class="lead__box">
@@ -112,7 +106,7 @@
                     <!-- /.row -->
                 </div>
                 <div class="box-footer text-center">
-                    <a href="{{route('leads.index')}}" class="uppercase">View More Leads</a>
+                    <a href="{{route('leads.index')}}" class="uppercase">View More Leads &#8594;</a>
                 </div>
             </div>
             <!-- /.box -->
@@ -122,25 +116,19 @@
             <!-- LEADS LIST -->
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Latest status (10 last Leads)</h3>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                    </div>
+                    <h3 class="box-title">Latest status (5 last Leads)</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-xs-8">
+                        <div class="col-xs-12">
                             <div class="chart-responsive">
                                 <canvas id="pieChartLeads" height="200"></canvas>
                             </div>
                             <!-- ./chart-responsive -->
                         </div>
                         <!-- /.col -->
-                        <div class="col-xs-4">
+                        <div class="col-xs-12">
                             <div id="pieChart-legend-con"></div>
                         </div>
                         <!-- /.col -->
@@ -148,26 +136,19 @@
                     <!-- /.row -->
                 </div>
                 <div class="box-footer text-center">
-                    <a href="{{route('leads.index')}}" class="uppercase">View More Leads</a>
+                    <a href="{{route('leads.index')}}" class="uppercase">View More Leads &#8594;</a>
                 </div>
             </div>
             <!-- /.box -->
             <!--/.box -->
         </div>
     </div>
-    <div class="row">
+    <div class="row dashboard">
         <div class="col-sm-12 col-lg-6">
             <!-- Tipster LIST -->
             <div class="box box-danger">
                 <div class="box-header with-border">
                     <h3 class="box-title">Most active Tipsters( 5 Tipsters)</h3>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                        </button>
-                    </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
@@ -198,7 +179,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer text-center">
-                    <a href="{{route('tipsters.index')}}" class="uppercase">View More Tipster</a>
+                    <a href="{{route('tipsters.index')}}" class="uppercase">View More Tipsters &#8594;</a>
                 </div>
                 <!-- /.box-footer -->
             </div>
@@ -209,13 +190,6 @@
             <div class="box box-danger">
                 <div class="box-header with-border">
                     <h3 class="box-title">Latest Activities (5 Activities)</h3>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                        </button>
-                    </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
@@ -242,7 +216,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer text-center">
-                    <a href="{{route('activities.index')}}" class="uppercase">View More Activities</a>
+                    <a href="{{route('activities.index')}}" class="uppercase">View More Activities &#8594;</a>
                 </div>
                 <!-- /.box-footer -->
             </div>
