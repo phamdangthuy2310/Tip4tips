@@ -25,7 +25,6 @@ class SaveHistoryActionUser
                 //save history action user
                 //if method is post : create,update,delete
                 if($request->isMethod('post')){
-                    dd('vao post');
                     $url = $request->url();
                     $user_id = Auth::user()->id;
                     $action_history = null;
@@ -102,19 +101,30 @@ class SaveHistoryActionUser
 //                        $request->log_activity_id = $logActivity->id;
 //                    }
                 }
-            }
-            print_r($request->method());
-            if($request->isMethod('input')){
-                dd('vao input');
-                if (strpos($url, 'leads') !== FALSE){
-                    //
-                    $affected_object = Utils::$LOG_AFFECTED_OBJECT_LEAD;
-                    if (strpos($url,"update") !== FALSE){
-                        $action_history = Utils::$LOG_ACTION_UPDATE;
-                        $name_object_history = $request->fullname;
-                        $description = $this->getDescription($affected_object,$action_history, $name_object_history);
-                    }
+                if($request->isMethod('patch')){
+                    $url = $request->url();
+                    $user_id = Auth::user()->id;
+                    $action_history = null;
+                    dd($url);
+                    if (strpos($url, 'leads') !== FALSE){
+                        //
+                        $affected_object = Utils::$LOG_AFFECTED_OBJECT_LEAD;
+                        if (strpos($url,"update") !== FALSE){
+                            $action_history = Utils::$LOG_ACTION_CREATE;
+                            $name_object_history = $request->fullname;
+                            $description = $this->getDescription($affected_object,$action_history, $name_object_history);
+                        }
 
+                    }
+                    if(!empty($action_history)){
+                        //create history
+                        $logActivity['user_id'] = $user_id;
+                        $logActivity['affected_object'] = $affected_object;
+                        $logActivity['action'] = $action_history;
+                        $logActivity['description'] = $description;
+                        $logActivity = LogActivity::create($logActivity);
+                        $request->log_activity_id = $logActivity->id;
+                    }
                 }
             }
 

@@ -11,6 +11,11 @@
 |
 */
 Route::post('/gifts/ajaxAddCategory', 'GiftsController@ajaxAddCategory')->name('gifts.addcategory');
+Route::get('/gifts/create', 'GiftsController@create')->name('gifts.create');
+Route::post('/gifts/create', 'GiftsController@store')->name('gifts.store');
+Route::get('/gifts/{id}/edit', 'GiftsController@edit')->name('gifts.store');
+Route::get('/gifts', 'GiftsController@index')->name('gifts.index');
+
 Route::resource('gifts', 'GiftsController', [
     'name' => [
         'index' => 'gifts.index',
