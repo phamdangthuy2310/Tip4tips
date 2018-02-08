@@ -1,4 +1,7 @@
-<?php use App\Common\Utils; ?>
+<?php
+use App\Common\Utils;
+use App\Common\Common;
+?>
 @extends('layouts.master')
 @section('title', 'Edit Lead')
 @section('javascript')
@@ -177,8 +180,11 @@
                                 <div class="form-inline-simple">
                                     <select name="consultant" class="form-control">
                                         <option value="" disabled selected>Please pick a consultant</option>
-                                        @foreach(\App\User::getAllConsultant() as $consultant)
-                                            <option value="{{$consultant->id}}" @if(!empty(\App\Model\Assignment::getConsultantByLead($lead->id)) && \App\Model\Assignment::getConsultantByLead($lead->id)->consultant_id == $consultant->id) selected @endif>{{$consultant->fullname}} - {{\App\Model\Role::getInfoRoleByID($consultant->role_id)->name}}</option>
+                                        @foreach($consultants as $consultant)
+                                            <option value="{{$consultant->id}}"
+                                                    @if(!empty(\App\Model\Assignment::getConsultantByLead($lead->id)) && \App\Model\Assignment::getConsultantByLead($lead->id)->consultant_id == $consultant->id) selected @endif>
+                                                {{$consultant->fullname}} - {{\App\Model\Role::getInfoRoleByID($consultant->role_id)->name}}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <button type="submit" class="btn btn-primary pull-right">Assign</button>
@@ -190,7 +196,6 @@
                             <h5>Update status lead:</h5>
                             <form method="get" action="{{route('leads.ajaxStatus')}}" id="statusGroup">
                                 {{ csrf_field() }}
-                                {{ csrf_field() }}
                                 @include('layouts.partials._input_history_user',
                                         ['affectedValue' => Utils::$LOG_AFFECTED_OBJECT_LEAD ,
                                         'actionValue' => Utils::$LOG_ACTION_UPDATE,
@@ -201,7 +206,7 @@
                                     <select name="status" class="form-control">
                                         <option value="" disabled selected>Please pick a status</option>
                                         @for($i=0; $i < 5; $i++)
-                                            <option value="{{$i}}" @if($i == $lead->status) selected @endif>{{\App\Model\Lead::showNameStatus($i)}}</option>
+                                            <option value="{{$i}}" @if($i == $lead->status) selected @endif>{{Common::showNameStatus($i)}}</option>
                                         @endfor
                                     </select>
                                     <button type="button" class="pull-right btn btn-primary" id="statusChange">Update</button>
@@ -216,7 +221,7 @@
                                 <div id="updatePoint">
                                     <form id="updatePointForm" action="{{route('tipsters.updatePointAjax')}}">
                                         {{ csrf_field() }}
-                                        @include('layouts.partials._input_history_user',['nameObjectValue' => $lead->fullname])
+                                        @include('layouts.partials._input_history_user',['nameObjectValue' => $lead->fullname, 'idUpdateValue' => $lead->tipster_id])
                                         <label id="pointAlert" class="label"></label>
                                         <input type="hidden" name="tipster" value="{{$lead->tipster_id}}">
                                         <input type="hidden" name="lead" value="{{$lead->id}}">

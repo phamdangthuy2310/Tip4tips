@@ -15,8 +15,8 @@ class LogActivity extends Model
         'description'
     ];
 
-    public static function getLogActivityByUserID($user_id){
-        $logs = LogActivity::where('user_id', $user_id)->get();
+    public static function getLogActivityByUserID($user_id, $num = 5){
+        $logs = LogActivity::where('user_id', $user_id)->orderBy('created_at', 'desc')->limit($num)->get();
         return $logs;
     }
 

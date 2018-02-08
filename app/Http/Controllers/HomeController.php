@@ -56,7 +56,7 @@ class HomeController extends Controller
 //        $mostactivetipsters = User::getMostActiveTipsters(10);
 
         /*get 10 Tipsters had lead introduces are heightest*/
-        $mostactivetipsters = Lead::getTipsterHeighestLead(10);
+        $mostactivetipsters = Lead::getTipsterHeighestLead(5);
 //        dd($mostactivetipsters);
 
         $statusByRecentTipster = Lead::sumStatusByRecentLead(10);

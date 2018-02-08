@@ -9,12 +9,12 @@ use App\Model\Region;
 use App\Model\Role;
 use App\Model\RoleType;
 use Carbon\Carbon;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Mockery\Exception;
 use App\Common\Common;
+use App\User;
 
 class LeadsController extends Controller
 {
@@ -158,7 +158,10 @@ class LeadsController extends Controller
 
         $lead = Lead::find($id);
 
-        $rowPoint = PointHistory::countRowPlusPointForTipsterFollowLead($lead->id, $lead->tipster_id);
+        $rowPoint = PointHistory::countRowPlusPointForTipsterFollowLead(
+            $lead->id,
+            $lead->tipster_id
+        );
 //        dd($rowPoint);
         $oldPoint = 0;
         $plussed = false;
@@ -173,12 +176,14 @@ class LeadsController extends Controller
             ->select('users.*', 'roles.name', 'roletypes.code')
             ->where('roletypes.code','tipster')
             ->get();
+        $consultants = User::getAllConsultant();
         return view('leads.edit', compact('lead', 'id'))->with([
             'regions'=> $regions,
             'tipsters'=>$tipsters,
             'editAction' => $editAction,
             'plussed' => $plussed,
-            'oldPoint' => $oldPoint
+            'oldPoint' => $oldPoint,
+            'consultants' => $consultants
         ]);
     }
 

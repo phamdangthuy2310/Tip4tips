@@ -1,3 +1,4 @@
+<?php use App\Common\Common;?>
 <aside class="main-sidebar">
     <section class="sidebar">
 
@@ -57,7 +58,7 @@
                 <a href="{{route('messages.index')}}">
                     <i class="fa fa-envelope"></i><span>Messages</span>
                     <span class="pull-right-container">
-                      <small class="label pull-right bg-green">{{\App\Model\Message::countYetNotRead(Auth::user()->id)}}</small>
+                      <small class="label pull-right bg-green">{{Common::getAmountNewMessage()}}</small>
                     </span>
                 </a>
             </li>

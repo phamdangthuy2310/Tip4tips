@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Common\Common;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -138,10 +139,10 @@ class Lead extends Model
                     array_push ($result, $tipster);
                     $tipsterCurrent = $tipster;
                     $strStatusLead = Lead::showNameStatus($tipster->status).":".$tipster->countStatus;
-                    $tipsterCurrent->strStatusLead = $strStatusLead;
+                    $tipsterCurrent->strStatusLead = '<span style="color:'.Common::colorStatus($tipster->status).'">'.$strStatusLead.'</span>';
                 }else{
                     $strStatusLead = Lead::showNameStatus($tipster->status).":".$tipster->countStatus;
-                    $tipsterCurrent->strStatusLead.= ' - '.$strStatusLead;
+                    $tipsterCurrent->strStatusLead.= ' - <span style="color:'.Common::colorStatus($tipster->status).'">'.$strStatusLead.'</span>';
 
                     $tipsterCurrent->countStatus+=$tipster->countStatus;
                 }

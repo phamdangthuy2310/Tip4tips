@@ -1,7 +1,9 @@
 <?php
 namespace App\Common;
 
+use App\Model\Message;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Common{
     public static function dateFormat($value, $format = "d-M-Y H:i"){
@@ -88,5 +90,11 @@ class Common{
                 break;
         }
         return $name;
+    }
+
+    public static function getAmountNewMessage(){
+        $auth = Auth::user();
+        $messages = Message::countYetNotRead($auth->id);
+        return $messages;
     }
 }

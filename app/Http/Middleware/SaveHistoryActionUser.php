@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Model\LogActivity;
+use App\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Log;
@@ -24,6 +25,7 @@ class SaveHistoryActionUser
                 //save history action user
                 //if method is post : create,update,delete
                 if($request->isMethod('post')){
+                    dd('vao post');
                     $url = $request->url();
                     $user_id = Auth::user()->id;
                     $action_history = null;
@@ -34,10 +36,9 @@ class SaveHistoryActionUser
                             $action_history = Utils::$LOG_ACTION_CREATE;
                             $name_object_history = $request->fullname;
                             $description = $this->getDescription($affected_object,$action_history, $name_object_history);
-                        }
-                        if (strpos($url,"updatePointAjax") !== FALSE){
-                            $action_history = Utils::$LOG_ACTION_UPDATE_POINT;
-                            $name_object_history = $request->name_object_history;;
+                        }else if (strpos($url,"ajaxStatus") !== FALSE){
+                            $action_history = Utils::$LOG_ACTION_UPDATE;
+                            $name_object_history = $request->fullname;
                             $description = $this->getDescription($affected_object,$action_history, $name_object_history);
                         }
 
@@ -49,8 +50,17 @@ class SaveHistoryActionUser
                             $action_history = Utils::$LOG_ACTION_CREATE;
                             $name_object_history = $request->fullname;
                             $description = $this->getDescription($affected_object,$action_history, $name_object_history);
+                        }else if (strpos($url,"updatePointAjax") !== FALSE){
+                            $action_history = Utils::$LOG_ACTION_UPDATE_POINT;
+                            $name_object_history = '';
+                            $tipsterId = $request->id_update;
+                            $tipster = User::find($tipsterId);
+                            if(!empty($tipster)){
+                                $name_object_history = $tipster->fullname;
+                            }
+                            $description = $this->getDescription($affected_object,$action_history, $name_object_history);
                         }
-                        if (strpos($url,"update") !== FALSE){
+                        else if(strpos($url,"update") !== FALSE){
                             $action_history = Utils::$LOG_ACTION_UPDATE;
                             $name_object_history = $request->fullname;
                             $description = $this->getDescription($affected_object,$action_history, $name_object_history);
@@ -93,6 +103,21 @@ class SaveHistoryActionUser
 //                    }
                 }
             }
+            print_r($request->method());
+            if($request->isMethod('input')){
+                dd('vao input');
+                if (strpos($url, 'leads') !== FALSE){
+                    //
+                    $affected_object = Utils::$LOG_AFFECTED_OBJECT_LEAD;
+                    if (strpos($url,"update") !== FALSE){
+                        $action_history = Utils::$LOG_ACTION_UPDATE;
+                        $name_object_history = $request->fullname;
+                        $description = $this->getDescription($affected_object,$action_history, $name_object_history);
+                    }
+
+                }
+            }
+
         }catch (\Exception $e) {
             Log::error($e->getMessage());
         }
