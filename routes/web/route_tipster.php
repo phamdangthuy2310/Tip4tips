@@ -11,7 +11,7 @@
 |
 */
 Route::get('/tipsters/updatePoint', 'TipstersController@updatePoint')->name('tipsters.updatePoint');
-
+Route::post('/tipsters/updatePointAjax', 'TipstersController@updatePointAjax')->name('tipsters.updatePointAjax');
 Route::get('/tipsters', 'TipstersController@index')->name('tipsters.index');
 Route::get('/tipsters/create', 'TipstersController@create')->name('tipsters.create');
 Route::post('/tipsters/create', 'TipstersController@store')->name('tipsters.store');

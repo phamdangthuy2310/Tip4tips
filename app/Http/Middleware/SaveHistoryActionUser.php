@@ -37,12 +37,7 @@ class SaveHistoryActionUser
                         }
                         if (strpos($url,"updatePointAjax") !== FALSE){
                             $action_history = Utils::$LOG_ACTION_UPDATE_POINT;
-                            $name_object_history = "Lead";
-                            $description = $this->getDescription($affected_object,$action_history, $name_object_history);
-                        }
-                        if (strpos($url,"delete") !== FALSE){
-                            $action_history = Utils::$LOG_ACTION_DELETE;
-                            $name_object_history = "Delete";
+                            $name_object_history = $request->name_object_history;;
                             $description = $this->getDescription($affected_object,$action_history, $name_object_history);
                         }
 

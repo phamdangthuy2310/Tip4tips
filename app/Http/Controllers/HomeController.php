@@ -7,6 +7,7 @@ use App\Model\Assignment;
 use App\Model\Lead;
 //use Illuminate\Foundation\Auth\User;
 use App\Model\LogActivity;
+use App\Model\Product;
 use App\Model\Role;
 use Illuminate\Http\Request;
 use App\User;
@@ -48,6 +49,7 @@ class HomeController extends Controller
             $recentlead->created_date = Common::dateFormat($recentlead->created_at,'d-M-Y');
             $recentlead->status_text = Common::showNameStatus($recentlead->status);
             $recentlead->status_color = Common::colorStatus($recentlead->status);
+            $recentlead->product = Product::getProductByID($recentlead->product_id)->name;
         }
 
         $recenttipsters = User::getRecentTipsters(10);
@@ -99,6 +101,7 @@ class HomeController extends Controller
 
         foreach ($logActivities as $logActivity){
             $logActivity->user_name = User::getUserByID($logActivity->user_id)->username;
+            $logActivity->fullname = User::getUserByID($logActivity->user_id)->fullname;
         }
 
         return view('admin.dashboard',compact('user',$user))->with([

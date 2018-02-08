@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/leads/updatePointAjax', 'TipstersController@updatePointAjax')->name('tipsters.updatePointAjax');
 Route::get('/leads/updateStatus', 'LeadsController@updateStatus')->name('leads.updateStatus');
 Route::get('/leads/updateTipster', 'LeadsController@updateTipster')->name('leads.updateTipster');
 Route::post('/leads/ajaxStatus', 'LeadsController@ajaxStatus')->name('leads.ajaxStatus');

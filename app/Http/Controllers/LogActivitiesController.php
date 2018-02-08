@@ -19,7 +19,7 @@ class LogActivitiesController extends Controller
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $logActivities = [];
         if($roleAuth->code == 'admin'){
-            $logActivities = LogActivity::getAllLogs();
+            $logActivities = LogActivity::getAllLogs(100);
         }else{
             $logActivities = LogActivity::getLogActivityByUserID($auth->id);
         }

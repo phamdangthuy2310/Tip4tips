@@ -111,7 +111,7 @@ class Lead extends Model
     }
 
     public static function getTipsterHeighestLead($num = 5){
-        $sql = "select users.id,users.username,users.fullname, tableTips.status, tableTips.countStatus, users.point
+        $sql = "select users.id,users.username,users.fullname,users.avatar, tableTips.status, tableTips.countStatus, users.point
                 from users 
                     inner join (
                             select leads.tipster_id,leads.status, count(leads.status) as countStatus
@@ -148,7 +148,8 @@ class Lead extends Model
                 $tipsterIdOld = $tipster->id;
             }
         }
-        return $result;
+        $resultsort = collect($result)->sortBy('countStatus')->reverse()->toArray();
+        return $resultsort;
     }
 
     public static function sumStatusByRecentLead($num = 5){

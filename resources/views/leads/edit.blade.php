@@ -216,6 +216,7 @@
                                 <div id="updatePoint">
                                     <form id="updatePointForm" action="{{route('tipsters.updatePointAjax')}}">
                                         {{ csrf_field() }}
+                                        @include('layouts.partials._input_history_user',['nameObjectValue' => $lead->fullname])
                                         <label id="pointAlert" class="label"></label>
                                         <input type="hidden" name="tipster" value="{{$lead->tipster_id}}">
                                         <input type="hidden" name="lead" value="{{$lead->id}}">

@@ -81,7 +81,7 @@
             <!-- LEADS LIST -->
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Recent Leads</h3>
+                    <h3 class="box-title">10 Recent Leads</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -93,18 +93,18 @@
                 <div class="box-body">
                     <div class="row">
                         <ul class="ul__users lead__list scrollbar-macosx clearfix">
-                            {{--<li class="lih">--}}
-                                {{--<span class="lead__name">Lead</span>--}}
-                                {{--<span class="lead__status">Status</span>--}}
-                                {{--<span class="lead__create-at">Created at</span>--}}
-                            {{--</li>--}}
                             @foreach($recentleads as $recentlead)
                             <li>
-                                <a href="{{route('leads.show', $recentlead->id)}}"><span class="lead__name">{{$recentlead->fullname}}
-                                    <span class="lead__status" style="color:{{ $recentlead->status_color }}" >{{$recentlead->status_text}}</span>
+                                <span class="lead__box">
+                                    <span class="lead__create-at">{{$recentlead->created_date}}</span>
+                                    <a class="lead__info" href="{{route('leads.show', $recentlead->id)}}">
+                                        <span class="lead__name">{{$recentlead->fullname}}
+                                            <span class="lead__status" style="color:{{ $recentlead->status_color }}" >{{$recentlead->status_text}}</span>
+                                        </span>
+                                        <span class="lead__product">{{$recentlead->product}}</span>
+                                    </a>
                                 </span>
-                                </a>
-                                <span class="lead__create-at">{{$recentlead->created_date}}</span>
+
                             </li>
                             @endforeach
                         </ul>
@@ -122,7 +122,7 @@
             <!-- LEADS LIST -->
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Latest status</h3>
+                    <h3 class="box-title">Latest status (10 last Leads)</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -160,7 +160,7 @@
             <!-- Tipster LIST -->
             <div class="box box-danger">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Most active Tipsters</h3>
+                    <h3 class="box-title">Most active Tipsters( 5 Tipsters)</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -176,7 +176,7 @@
                             <li>
                                 <a href="{{route('tipsters.show', $mostactivetipster->id)}}">
                                     <span class="users-list-avatar">
-                                        <img src="{{asset('images/user1-128x128.jpg') }}" alt="User Image">
+                                        <img src="{{asset('images/') }}/{{$mostactivetipster->avatar}}" alt="{{$mostactivetipster->username}}">
                                     </span>
                                     <span class="users-list-info">
                                         <span class="users-list-name">
@@ -208,7 +208,7 @@
             <!-- CONSULTANT LIST -->
             <div class="box box-danger">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Latest Activities</h3>
+                    <h3 class="box-title">Latest Activities (5 Activities)</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -224,11 +224,14 @@
                             <li class="activity">
 
                                 <span class="activity__detail">
-                                    <span class="activity__time">{{Common::dateFormatText($logActivity->created_at)}}</span>
-                                    <span class="activity__user-name">
-                                        <a href="{{route('users.show', $logActivity->user_id)}}">{{$logActivity->user_name}}</a>
+                                    <span class="activity__time">{!! Common::dateFormatText($logActivity->created_at) !!}</span>
+                                    <span class="activity__info">
+                                        <span class="activity__user-name">
+                                            <a href="{{route('users.show', $logActivity->user_id)}}" title="{{$logActivity->fullname}}">{{$logActivity->user_name}}</a>
+                                        </span>
+                                        <span class="activity__description">{{$logActivity->description}}</span>
                                     </span>
-                                    <span class="activity__description">{{$logActivity->description}}</span>
+
 
                                 </span>
 

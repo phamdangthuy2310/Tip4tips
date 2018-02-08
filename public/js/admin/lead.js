@@ -57,6 +57,7 @@ function updatePointAjax() {
     data.lead = input_lead.val();
     data.tipster = input_tipster.val();
     data.point = input_point.val();
+    FormLogActivities.serializeDataUserHistory(data,form);
     var url = form.attr('action');
     $.ajax({
       dataType: 'json',

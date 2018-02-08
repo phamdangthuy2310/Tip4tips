@@ -340,13 +340,14 @@ Table style*/
 }
 .ul__users .users-list-info{
     float: left;
-    width: calc(100% - 280px);
+    width: calc(100% - 330px);
     text-align: left;
     padding-left: 20px;
 }
 .ul__users .users-list-status{
-    width: 150px;
+    width: 220px;
     color: #aaa;
+    padding-right: 20px;
 }
 .ul__users .users-list-status-ttl{
     display: block;
@@ -356,14 +357,15 @@ Table style*/
     font-size: 11px;
 }
 .ul__users .users-list-points{
-    width: 80px;
+    width: 60px;
     font-size: 18px;
     color: #00a65a;
-    text-align: right;
+    text-align: center;
 }
 .ul__users .users-list-points small{
     font-size: 11px;
     color: #aaaaaa;
+    display: block;
 }
 .ul__users .users-list-fullname{
     font-size: 11px;
@@ -395,6 +397,32 @@ Table style*/
 }
 .lead__list > .lih{
     font-weight: bold;
+}
+.lead__list .lead__box{
+    display: table;
+    width: 100%;
+}
+.lead__list .lead__box .lead__info,
+.lead__list .lead__box .lead__create-at{
+    display: table-cell;
+    float: none;
+    vertical-align: middle;
+}
+.lead__list .lead__box .lead__create-at{
+    width: 90px;
+    text-align: left;
+}
+.lead__list .lead__box .lead__info{
+    width: calc(100% - 90px);
+    border-left: 4px solid #337ab7;
+    padding-left: 10px;
+}
+.lead__list .lead__box .lead__status{
+    float: right;
+    font-size: 14px;
+}
+.lead__list .lead__box .lead__product{
+    display: block;
 }
 /*Pie Chart*/
 #pieChartLeads{
@@ -431,42 +459,32 @@ Table style*/
     border-bottom: none;
 }
 .activities > li > span{
-    float: left;
     display: block;
+    overflow: hidden;
+}
+
+.activities .activity__detail{
+    display: table;
+}
+.activities .activity__detail > span{
+    display: table-cell;
+    vertical-align: middle;
 }
 .activities .activity__time{
-    display: block;
     color: #aaaaaa;
+    width: 100px;
+    text-align: center;
+    border-right: 4px solid #337ab7;
+}
+.activities .activity__time > span{
+    display: block;
 }
 .activities .activity__user-name{
     font-weight: bold;
 }
-.activities .activity__user-avatar{
-    /*width: 40px;*/
-    margin-right: 10px;
-}
-.activities .activity__action{
-    /*width: 60px;*/
-    text-align: right;
-    padding-top: 5px;
-}
-.activities .activity__action *{
-    display: none;
-}
-.activities .activity__detail{
-    float: left;
-    /*width: calc(100% - 110px);*/
-
-    border-left: 4px solid #337ab7;
-    padding: 5px 0 0 10px;
-}
-.activities .activity__user-avatar img{
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    border-radius: 100%;
-}
-.activities > li:hover .activity__action *{
-    display: inline-block;
+.activities .activity__info{
+    width: calc(100% - 100px);
+    padding-left: 10px;
 }
 /*End list of activities*/
 @media (min-width: 992px) {
