@@ -43,6 +43,7 @@ use App\Common\Common;
                         <h3 class="box-title">Edit Lead</h3>
                         <a href="{{route('leads.index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-angle-left"></i> Back to list</a>
                     </div>
+                    
                     @if ($errors->any())
                     <div class="box-body">
                         <div class="alert alert-danger">

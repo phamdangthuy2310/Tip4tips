@@ -21,7 +21,7 @@
     <div class="box box-list">
         <div class="box-header clearfix">
             <h3 class="box-title">List of Products</h3>
-            @if($createAction == true)<a href="{{action('ProductsController@create')}}" class="btn btn-md btn-primary pull-right"><i class="fa fa-plus"></i> New Product</a>@endif
+            @if($createAction == true)<a href="{{route('products.create')}}" class="btn btn-md btn-primary pull-right"><i class="fa fa-plus"></i> New Product</a>@endif
         </div>
 
         <!-- /.box-header -->
@@ -54,9 +54,9 @@
                             <td>{{$product->category}}</td>
                             <td>Thumbnail</td>
                             <td class="actions text-center" style="width: 100px">
-                                <a href="{{action('ProductsController@show', $product->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
-                                @if($editAction == true)<a href="{{action('ProductsController@edit', $product->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
-                                @if($deleteAction == true)<form action="{{action('ProductsController@destroy', $product->id)}}" method="post">
+                                <a href="{{route('products.show', $product->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
+                                @if($editAction == true)<a href="{{route('products.edit', $product->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
+                                @if($deleteAction == true)<form action="{{route('products.destroy', $product->id)}}" method="post">
                                     {{csrf_field()}}
                                     <input name="_method" type="hidden" value="DELETE">
                                     <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>

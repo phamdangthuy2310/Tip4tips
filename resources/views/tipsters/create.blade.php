@@ -1,6 +1,19 @@
+<?php use \App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'Create Tipster')
-
+@section('javascript')
+    <script>
+      $(document).ready(function () {
+        var src = '{{asset(Utils::$PATH__IMAGE)}}/';
+        $("#imgAnchorInput").change(function() {
+          $("#imgHandleInput").val($(this).val());
+          src += $(this).val();
+          console.log(src, $(this).val());
+          $("#imgHandle").attr('src', src);
+        }).change();
+      })
+    </script>
+@endsection
 @section('content')
     @if($createAction == false)
         <div class="box box-danger">
@@ -11,14 +24,43 @@
     @else
     <div class="row">
         <div class="col-md-4 col-md-push-8">
-
             <!-- Profile Image -->
             <div class="box box-success">
-                <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="Tipster profile picture">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Actions</h3>
                 </div>
-                <div class="box-body text-center">
-                    <p>Please upload an image.</p>
+                <div class="box-body box-profile">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{{ $message }}</strong>
+                        </div>
+                        <input id="imgAnchorInput" type="hidden" value="{{Session::get('image')}}">
+
+                    @endif
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Whoops!</strong> There were some problems with your input.
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="upload__area-image">
+                        <span><img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/no_image_available.jpg"></span>
+                    </div>
+                    <div class="form__upload">
+                        {!! Form::open(array('route' => 'image.upload.post','files'=>true)) !!}
+                        <div class="form-inline-simple">
+                            {!! Form::file('image', array('class' => 'form-control')) !!}
+                            <button type="submit" class="btn btn-info">Upload</button>
+                        </div>
+
+                        {!! Form::close() !!}
+
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -36,7 +78,7 @@
                 </div>
 
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{route('tipsters.create')}}">
+                <form role="form" method="post" action="{{route('tipsters.store')}}">
                     {{ csrf_field() }}
                 <div class="box-body">
                     @if ($errors->any())
@@ -53,6 +95,7 @@
                             <p>{{ \Session::get('success') }}</p>
                         </div>
                     @endif
+                        <input id="imgHandleInput" name="avatar" type="hidden" value="">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">

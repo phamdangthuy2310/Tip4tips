@@ -41,7 +41,10 @@
                 <div class="box box-warning">
                     <div class="box-header with-border">
                         <h3 class="box-title">Edit User</h3>
-                        <a href="{{route('users.index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-angle-left"></i> Back to list</a>
+                        <span class="group__action pull-right">
+                            <a href="{{route('users.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
+                        </span>
+
                     </div>
                     @if ($errors->any())
                         <div class="box-body">

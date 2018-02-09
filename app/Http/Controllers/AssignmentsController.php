@@ -127,11 +127,13 @@ class AssignmentsController extends Controller
 
         $leads = Lead::getAllLeadNotYetAssign();
         $assignment = Assignment::find($id);
+        $leadAssignning = Lead::find($assignment->lead_id);
 
         return  view('assignments.edit', compact('assignment', 'id'))->with([
             'consultants'=>$consultants,
             'leads' => $leads,
-            'editAction' => $editAction
+            'editAction' => $editAction,
+            'leadAssignning' => $leadAssignning
         ]);
     }
 

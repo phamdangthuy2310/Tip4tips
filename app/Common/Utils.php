@@ -31,4 +31,7 @@ class Utils{
     public static $LOG_ACTION_UPDATE_POINT = "update points for";
     public static $LOG_ACTION_SEND = "send";
     //------End Log Activity--------
+
+    //path image
+    public static $PATH__IMAGE = "images/upload";
 }

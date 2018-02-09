@@ -17,6 +17,9 @@
             <div class="box box-warning">
                 <div class="box-header with-border">
                     <h3 class="box-title">Edit an Assignment</h3>
+                    <span class="group__action pull-right">
+                        <a href="{{route('assignments.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
+                    </span>
                 </div>
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -35,7 +38,8 @@
                         <div class="form-group">
                             <label>Please pick a Lead to assign:</label>
                             <select name="lead" class="form-control">
-                                <option readonly="true">Please pick a lead</option>
+                                <option value="" disabled selected>Please pick a lead</option>
+                                <option value="{{$leadAssignning->id}}" selected>{{$leadAssignning->fullname}}</option>
                                 @foreach($leads as $lead)
                                     <option value="{{$lead->id}}" @if($lead->id == $assignment->lead_id) selected @endif>{{$lead->fullname}}</option>
                                 @endforeach

@@ -11,7 +11,7 @@
             </div>
         </div>
     @else
-    <form role="form" method="post" action="{{route('gifts.create')}}">
+    <form role="form" method="post" action="{{route('gifts.update')}}">
         {{ csrf_field() }}
         <div class="row">
             <!-- /.col -->

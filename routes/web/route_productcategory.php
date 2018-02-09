@@ -17,5 +17,7 @@ Route::resource('productcategories', 'ProductCategoriesController',
     ['names' => [
         'index' => 'productcategories.index',
         'create' => 'productcategories.create',
-        'store' => 'productcategories.store'
+        'store' => 'productcategories.store',
+        'edit' => 'productcategories.edit',
+        'update' => 'productcategories.update'
     ]]);

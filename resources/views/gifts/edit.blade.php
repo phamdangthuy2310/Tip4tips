@@ -9,7 +9,7 @@
             </div>
         </div>
     @else
-    <form role="form" method="post" action="{{action('GiftsController@update', $id)}}">
+    <form role="form" method="post" action="{{route('gift.update', $id)}}">
         {{ csrf_field() }}
     <div class="row">
         <!-- /.col -->

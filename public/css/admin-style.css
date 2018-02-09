@@ -495,6 +495,53 @@ Table style*/
     padding-left: 10px;
 }
 /*End list of activities*/
+/*Lead reference table*/
+.lead__ref {
+
+}
+.lead__ref-info span{
+    display: block;
+    color: #aaaaaa;
+    font-size: 12px;
+}
+.lead__ref-status{
+    width: 80px;
+}
+.lead__ref-date{
+    width: 130px;
+}
+.tipster__point-total{
+    font-style: italic;
+}
+.tipster__point-total > span{
+    display: inline-block;
+    font-size: 28px;
+    color: #00a65a;
+    padding: 6px 20px;
+    border-top: 1px double #00a65a;
+    border-bottom: 1px double #00a65a;
+    font-style: normal;
+}
+/*Lead reference table*/
+/*style for upload image*/
+.upload__area-image{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.upload__area-image > span{
+    display: inline-block;
+    height: 200px;
+    width: 200px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    overflow: hidden;
+}
+.upload__area-image > span img{
+    height: 100%;
+    width: auto;
+}
+/*end style for upload image*/
 .main-footer{
     text-align: center;
     font-size: 12px;

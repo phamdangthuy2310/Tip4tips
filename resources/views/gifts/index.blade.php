@@ -54,9 +54,9 @@
                             <td>{{$gift->category}}</td>
                             <td>Thumbnail</td>
                             <td class="actions text-center" style="width: 100px">
-                                <a href="{{action('GiftsController@show', $gift->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
-                                @if($editAction ==  true)<a href="{{action('GiftsController@edit', $gift->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
-                                @if($deleteAction == true)<form action="{{action('GiftsController@destroy', $gift->id)}}" method="post">
+                                <a href="{{route('gifts.show', $gift->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
+                                @if($editAction ==  true)<a href="{{route('gifts.edit', $gift->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
+                                @if($deleteAction == true)<form action="{{route('gifts.destroy', $gift->id)}}" method="post">
                                     {{csrf_field()}}
                                     <input name="_method" type="hidden" value="DELETE">
                                     <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>

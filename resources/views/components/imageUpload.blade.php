@@ -4,7 +4,7 @@
 <div class="container">
     <div class="panel panel-primary">
 
-        <div class="panel-heading"><h2>Laravel 5.5 image upload example</h2></div>
+        <div class="panel-heading"><h2>Upload image</h2></div>
 
         <div class="panel-body">
 
@@ -20,7 +20,7 @@
 
                 </div>
 
-                <img src="images/{{ Session::get('image') }}">
+                <img src="{{asset('images/upload')}}/{{ Session::get('image') }}">
 
             @endif
 

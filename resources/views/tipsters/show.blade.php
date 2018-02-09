@@ -1,3 +1,7 @@
+<?php
+use App\Common\Common;
+use App\Common\Utils;
+?>
 @extends('layouts.master')
 @section('title', 'Profile')
 @section('javascript')
@@ -23,7 +27,9 @@
             <!-- Profile Image -->
             <div class="box box-primary">
                 <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
+                    <div class="upload__area-image">
+                        <span><img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}"></span>
+                    </div>
 
                     <p class="text-center">Avatar</p>
 
@@ -37,9 +43,14 @@
 
                     <hr>
 
-                    <p class="text-muted text-center">
+                    <p class="text-muted text-center" title="Username">
                         <strong><i class="fa fa-user margin-r-5"></i> {{$user->username}}</strong>
                     </p>
+                    <p class="text-muted text-center tipster__point-total" title="Point total">
+                        <span>{{$user->point}}</span><br/>
+                        points
+                    </p>
+
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -137,34 +148,36 @@
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
-        </div>
-        <!-- /.col -->
-    </div>
-    <div class="row">
-        <div class="col-md-8">
+
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Tipsters introduced</h3>
                 </div>
                 <div class="box-body">
-                    <table id="viewList" class="table table-striped">
+                    <table id="viewList" class="table table-striped lead__ref">
                         <thead>
                         <tr>
-                            <th>Tipster</th>
+                            <th>Lead</th>
+                            <th>Point of Lead</th>
                             <th>Status</th>
-                            <th>Create</th>
+                            <th>Created date</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @if(!empty($tipsters))
-                            @foreach($tipsters as $tipster)
+                        @if(!empty($leads))
+                            @foreach($leads as $lead)
                                 <tr>
-                                    <td>
-                                        {{$tipster->fullname}}
-                                        <span>{{$tipster->product}}</span>
+                                    <td class="lead__ref-info">
+                                        <a href="{{route('leads.show', $lead->id)}}">
+                                            {{$lead->fullname}}
+                                            <span>{{$lead->product}}</span>
+                                        </a>
                                     </td>
-                                    <td>{{$tipster->statusLead}}</td>
-                                    <td>{{$tipster->create}}</td>
+                                    <td class="lead__ref-point" width="110">{{$lead->point}}</td>
+                                    <td class="lead__ref-status">
+                                        <span class="label-status {{Common::showColorStatus($lead->status)}}">{{$lead->statusLead}}</span>
+                                    </td>
+                                    <td class="lead__ref-date">{{$lead->create}}</td>
                                 </tr>
                             @endforeach
                         @else
@@ -177,7 +190,8 @@
                         <tr>
                             <th>Tipster</th>
                             <th>Status</th>
-                            <th>Create</th>
+                            <th>Point of Lead</th>
+                            <th>Created date</th>
                         </tr>
                         </tfoot>
 
@@ -185,6 +199,6 @@
                 </div>
             </div>
         </div>
-    <!-- /.row -->
-
+        <!-- /.col -->
+    </div>
 @endsection

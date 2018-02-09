@@ -11,7 +11,7 @@
             </div>
         </div>
     @else
-    <form role="form" method="post" action="{{action('ProductsController@update', $id)}}">
+    <form role="form" method="post" action="{{route('products.update', $id)}}">
         {{ csrf_field() }}
     <div class="row">
         <!-- /.col -->

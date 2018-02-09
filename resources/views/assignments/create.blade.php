@@ -1,6 +1,14 @@
 @extends('layouts.master')
 @section('title', 'Create new Assignment')
-
+@section('javascript')
+    <script>
+        $(document).ready(function () {
+          $("#imgAnchor").change(function() {
+            $("#imgHandleInput").val($(this).val());
+          }).change();
+        })
+    </script>
+@endsection
 @section('content')
     @if($createAction == false)
         <div class="box box-danger">
@@ -17,6 +25,9 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Create new Assignment</h3>
+                    <span class="group__action pull-right">
+                        <a href="{{route('assignments.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
+                    </span>
                 </div>
                 <!-- /.box-header -->
                 <form role="form" method="post" action="{{route('assignments.create')}}">

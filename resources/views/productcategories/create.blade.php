@@ -12,7 +12,7 @@
                     <h3 class="box-title">Create Product Category</h3>
                 </div>
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{url('productcategories')}}">
+                <form role="form" method="post" action="{{route('productcategories.update')}}">
                     {{ csrf_field() }}
                         <div class="box-body">
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">

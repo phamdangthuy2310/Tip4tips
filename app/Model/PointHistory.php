@@ -25,6 +25,13 @@ class PointHistory extends Model
         $points = PointHistory::where('tipster_id', $tipster_id)->get();
         return $points;
     }
+    public static function getPointByTipsterIDLeadID($tipster_id, $lead_id){
+        $points = PointHistory::where([
+            ['tipster_id', $tipster_id],
+            ['lead_id', $lead_id]
+        ])->orderBy('created_at', 'desc')->first();
+        return $points;
+    }
 
     public static function countRowPlusPointForTipsterFollowLead($lead_id, $tipster_id){
         $rows = PointHistory::where([

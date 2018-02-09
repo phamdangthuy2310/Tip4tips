@@ -103,6 +103,7 @@ class TipstersController extends Controller
         $user['region_id'] = $request->region;
         $user['role_id'] = $request->department;
         $user['delete_is'] = 1;
+        $user['avatar'] = $request->avatar;
         User::create($user);
         return redirect('tipsters')->with('success', 'Tipster added successfully.');
     }
@@ -125,11 +126,18 @@ class TipstersController extends Controller
         $deleteAction = false;
 
         //get list lead belong tipster
-        $tipsters = Lead::getAllLeadBelongTipster($id);
-        foreach ($tipsters as $tipster){
-            $tipster->statusLead = Common::showNameStatus($tipster->status);
-            $tipster->create = Common::dateFormat($tipster->created_at);
-            $tipster->product = Product::getProductByID($tipster->product_id)->name;
+        $leads = Lead::getAllLeadBelongTipster($id);
+        foreach ($leads as $lead){
+            $lead->statusLead = Common::showNameStatus($lead->status);
+            $lead->create = Common::dateFormat($lead->created_at);
+            $lead->product = Product::getProductByID($lead->product_id)->name;
+            $point = PointHistory::getPointByTipsterIDLeadID($id, $lead->id);
+            if(!empty($point)){
+                $lead->point = $point->point;
+            }else{
+                $lead->point = 0;
+            }
+
         }
 
         if($roleAuth->code == 'community' || $roleAuth->code == 'admin' || $roleAuth->code == 'ambassador' || $roletypeAuth->code == 'consultant'){
@@ -139,7 +147,7 @@ class TipstersController extends Controller
             'role' => $role,
             'roletype' => $roletype,
             'deleteAction' => $deleteAction,
-            'tipsters' =>$tipsters
+            'leads' =>$leads,
         ]);
 
     }
@@ -195,6 +203,7 @@ class TipstersController extends Controller
         $user->role_id = $request->get('department');
         $user->delete_is = $request->get('status');
         $user->point = $request->get('point');
+        $user->avatar = $request->get('avatar');
 
         $user->save();
         return redirect('tipsters')->with('success','Users has been updated');
