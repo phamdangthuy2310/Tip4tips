@@ -1,6 +1,21 @@
 @extends('layouts.master')
 @section('title', 'Profile')
-
+@section('javascript')
+    <script src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/admin/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+      $(function () {
+        $('#viewList').DataTable({
+          'paging'      : true,
+          'lengthChange': false,
+          'searching'   : true,
+          'ordering'    : true,
+          'info'        : true,
+          'autoWidth'   : true
+        })
+      })
+    </script>
+@stop
 @section('content')
     <div class="row">
         <div class="col-md-4 col-md-push-8">
@@ -132,7 +147,7 @@
                     <h3 class="box-title">Tipsters introduced</h3>
                 </div>
                 <div class="box-body">
-                    <table class="table table-striped">
+                    <table id="viewList" class="table table-striped">
                         <thead>
                         <tr>
                             <th>Tipster</th>
