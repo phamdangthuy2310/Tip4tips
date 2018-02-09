@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Common\Common;
 use App\Model\Lead;
 use App\Model\PointHistory;
+use App\Model\Product;
 use App\Model\Region;
 use App\Model\Role;
 use App\Model\RoleType;
@@ -122,13 +124,22 @@ class TipstersController extends Controller
         $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
         $deleteAction = false;
 
+        //get list lead belong tipster
+        $tipsters = Lead::getAllLeadBelongTipster($id);
+        foreach ($tipsters as $tipster){
+            $tipster->statusLead = Common::showNameStatus($tipster->status);
+            $tipster->create = Common::dateFormat($tipster->created_at);
+            $tipster->product = Product::getProductByID($tipster->product_id)->name;
+        }
+
         if($roleAuth->code == 'community' || $roleAuth->code == 'admin' || $roleAuth->code == 'ambassador' || $roletypeAuth->code == 'consultant'){
             $deleteAction = true;
         }
         return view('tipsters.show', compact('user', 'id'))->with([
             'role' => $role,
             'roletype' => $roletype,
-            'deleteAction' => $deleteAction
+            'deleteAction' => $deleteAction,
+            'tipsters' =>$tipsters
         ]);
 
     }

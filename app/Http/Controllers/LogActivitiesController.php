@@ -40,8 +40,7 @@ class LogActivitiesController extends Controller
         }catch (Exception $e){
             Log::error($e->getMessage());
         }
-
-        return back();
+        return back()->with('success', 'Delete successfully.');
     }
 
 }

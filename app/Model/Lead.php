@@ -165,4 +165,11 @@ class Lead extends Model
 //        dd($tipsters);
         return $tipsters;
     }
+
+    public static function getAllLeadBelongTipster($tipster_id){
+        $leads = Lead::where('tipster_id', $tipster_id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return $leads;
+    }
 }

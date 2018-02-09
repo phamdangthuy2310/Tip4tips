@@ -55,7 +55,7 @@
                         </div>
                     @endif
                     <!-- /.box-header -->
-                    <form role="form" method="post" action="{{action('UsersController@update', $id)}}">
+                    <form role="form" method="post" action="{{route('users.update', $id)}}">
                         {{csrf_field()}}
                         <input name="_method" type="hidden" value="PATCH">
                     <div class="box-body">

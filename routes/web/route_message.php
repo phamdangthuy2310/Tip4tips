@@ -12,6 +12,14 @@
 */
 Route::get('messages/trash', 'MessagesController@trash')->name('messages.trash');
 Route::get('messages/sent', 'MessagesController@sent')->name('messages.sent');
+Route::get('/messages', 'MessagesController@index')->name('messages.index');
+Route::get('/messages/create', 'MessagesController@create')->name('messages.create');
+Route::post('/messages/create', 'MessagesController@store')->name('messages.store');
+Route::get('/messages/{id}/edit', 'MessagesController@edit')->name('messages.edit');
+Route::patch('/messages/{id}/update', 'MessagesController@update')->name('messages.update');
+Route::delete('/messages/delete/{id}', 'MessagesController@destroy')->name('messages.destroy');
+Route::get('/messages/{id}', 'MessagesController@show')->name('messages.show');
+
 Route::resource('messages', 'MessagesController', [
     'name' => [
         'index' => 'messages.index',

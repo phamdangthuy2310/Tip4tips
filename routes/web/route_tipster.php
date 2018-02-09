@@ -15,14 +15,15 @@ Route::post('/tipsters/updatePointAjax', 'TipstersController@updatePointAjax')->
 Route::get('/tipsters', 'TipstersController@index')->name('tipsters.index');
 Route::get('/tipsters/create', 'TipstersController@create')->name('tipsters.create');
 Route::post('/tipsters/create', 'TipstersController@store')->name('tipsters.store');
-Route::get('/tipsters/edit', 'TipstersController@edit')->name('tipsters.edit');
-Route::put('/tipsters/update', 'TipstersController@update')->name('tipsters.update');
+Route::get('/tipsters/{id}/edit', 'TipstersController@edit')->name('tipsters.edit');
+Route::patch('/tipsters/{id}/update', 'TipstersController@update')->name('tipsters.update');
 Route::delete('/tipsters/delete/{id}', 'TipstersController@destroy')->name('tipsters.destroy');
-Route::resource('/tipsters', 'TipstersController', [
-    'name' => [
-        'index' => 'tipsters.index',
-        'create' => 'tipsters.create',
-        'edit' => 'tipsters.edit',
-        'show' => 'tipsters.show',
-    ]
-]);
+Route::get('/tipsters/{id}', 'TipstersController@show')->name('tipsters.show');
+//Route::resource('/tipsters', 'TipstersController', [
+//    'name' => [
+//        'index' => 'tipsters.index',
+//        'create' => 'tipsters.create',
+//        'edit' => 'tipsters.edit',
+//        'show' => 'tipsters.show',
+//    ]
+//]);

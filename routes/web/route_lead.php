@@ -18,7 +18,7 @@ Route::post('/leads/ajaxStatus', 'LeadsController@ajaxStatus')->name('leads.ajax
 Route::get('/leads/create', 'LeadsController@create')->name('leads.create');
 Route::post('/leads/create', 'LeadsController@store')->name('leads.store');
 Route::get('/leads/{id}/edit', 'LeadsController@edit')->name('leads.edit');
-Route::patch('/leads/{id}', 'LeadsController@update')->name('leads.update');
+Route::patch('/leads/{id}/update', 'LeadsController@update')->name('leads.update');
 Route::delete('/leads/delete/{id}', 'LeadsController@destroy')->name('leads.destroy');
 Route::get('/leads/{id}', 'LeadsController@show')->name('leads.show');
 Route::get('/leads', 'LeadsController@index')->name('leads.index');

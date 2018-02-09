@@ -15,4 +15,8 @@ class Gift extends Model
         'category_id',
         'thumbnail'
     ];
+
+    public static function getGiftByID($id){
+        return Gift::find($id);
+    }
 }

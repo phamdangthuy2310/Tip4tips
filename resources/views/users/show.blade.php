@@ -38,7 +38,11 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">About Me</h3>
-                    <a href="{{route('users.edit', $user->id)}}" class="btn btn-xs btn-info pull-right"><i class="fa fa-pencil"></i> Edit</a>
+                    <span class="group__action pull-right">
+                        <a href="{{route('users.index')}}" class="btn btn-xs btn-default"></a>
+                        <a href="{{route('users.edit', $user->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
+                    </span>
+
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

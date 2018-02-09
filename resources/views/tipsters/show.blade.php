@@ -125,6 +125,51 @@
         </div>
         <!-- /.col -->
     </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tipsters introduced</h3>
+                </div>
+                <div class="box-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Tipster</th>
+                            <th>Status</th>
+                            <th>Create</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @if(!empty($tipsters))
+                            @foreach($tipsters as $tipster)
+                                <tr>
+                                    <td>
+                                        {{$tipster->fullname}}
+                                        <span>{{$tipster->product}}</span>
+                                    </td>
+                                    <td>{{$tipster->statusLead}}</td>
+                                    <td>{{$tipster->create}}</td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="3">Do not have any tipster.</td>
+                            </tr>
+                        @endif
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>Tipster</th>
+                            <th>Status</th>
+                            <th>Create</th>
+                        </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+            </div>
+        </div>
     <!-- /.row -->
 
 @endsection
