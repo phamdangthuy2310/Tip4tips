@@ -38,7 +38,7 @@ class ImageUploadController extends Controller
 
         return back()
 
-            ->with('success','You have successfully upload image.')
+            ->with('success','You have successfully upload image and please save your change.')
 
             ->with('image',$imageName);
 

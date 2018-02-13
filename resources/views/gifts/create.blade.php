@@ -1,7 +1,19 @@
+<?php use \App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'Create Gift')
 @section('javascript')
     <script src="{{ asset('js/admin/product.js') }}"></script>
+    <script>
+      $(document).ready(function () {
+        var src = '{{asset(Utils::$PATH__IMAGE)}}/';
+        $("#imgAnchorInput").change(function() {
+          $("#imgHandleInput").val($(this).val());
+          src += $(this).val();
+          console.log(src, $(this).val());
+          $("#imgHandle").attr('src', src);
+        }).change();
+      })
+    </script>
 @stop
 @section('content')
     @if($createAction == false)
@@ -11,8 +23,6 @@
             </div>
         </div>
     @else
-    <form role="form" method="post" action="{{route('gifts.update')}}">
-        {{ csrf_field() }}
         <div class="row">
             <!-- /.col -->
             <div class="col-md-8">
@@ -37,8 +47,11 @@
                         </div>
                     @endif
                     <!-- /.box-header -->
-
+                    <form role="form" method="post" action="{{route('gifts.store')}}">
+                        {{ csrf_field() }}
+                        <input id="imgHandleInput" name="thumbnail" type="hidden" value="">
                     <div class="box-body">
+
                         <div class="form-group">
                             <label>Gifts name</label>
                             <input name="name" type="text" class="form-control">
@@ -69,7 +82,7 @@
                         <a href="{{route('gifts.index')}}" class="btn btn-default">Cancel</a>
                         <button type="submit" class="btn btn-primary pull-right">Create</button>
                     </div>
-
+                    </form>
                 </div>
 
                 <!-- /.box -->
@@ -80,10 +93,38 @@
                         <h3 class="box-title">Upload Gift Image</h3>
                     </div>
                     <div class="box-body">
-                        <p><img src="{{ asset('images/no_image_available.jpg') }}"></p>
-                        <div class="form-group">
-                            <label>Image</label>
-                            <input name="thumbnail" type="file" class="form-control">
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>{{ $message }}</strong>
+                            </div>
+                            <input id="imgAnchorInput" type="hidden" value="{{Session::get('image')}}">
+
+                        @endif
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <strong>Whoops!</strong> There were some problems with your input.
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <div class="upload__area-thumbnail">
+                            <p><span>
+                            <img id="imgHandle" src="{{ asset('images/no_image_available.jpg') }}">
+                        </span></p>
+                        </div>
+                        <div class="form__upload">
+                            {!! Form::open(array('route' => 'image.upload.post','files'=>true)) !!}
+                            <div class="form-inline-simple">
+                                {!! Form::file('image', array('class' => 'form-control')) !!}
+                                <button type="submit" class="btn btn-info">Upload</button>
+                            </div>
+
+                            {!! Form::close() !!}
+
                         </div>
                     </div>
                 </div>
@@ -106,6 +147,5 @@
                 </div>
             </div>
         </div>
-    </form>
     @endif
 @endsection

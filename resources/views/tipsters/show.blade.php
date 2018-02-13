@@ -30,8 +30,15 @@ use App\Common\Utils;
                     <div class="upload__area-image">
                         <span><img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}"></span>
                     </div>
+                    <p class="text-muted text-center" title="Username">
+                        <strong><i class="fa fa-user margin-r-5"></i> {{$user->username}}</strong>
+                    </p>
+                    <p class="text-muted text-center tipster__point-total" title="Point total">
+                        <span>{{$user->point}}</span><br/>
+                        points
+                    </p>
 
-                    <p class="text-center">Avatar</p>
+                    <hr>
 
                     <p class="text-center">
                         @if($user->delete_is == 1)
@@ -39,16 +46,6 @@ use App\Common\Utils;
                         @else
                             <span class="label label-danger">Deactive</span>
                         @endif
-                    </p>
-
-                    <hr>
-
-                    <p class="text-muted text-center" title="Username">
-                        <strong><i class="fa fa-user margin-r-5"></i> {{$user->username}}</strong>
-                    </p>
-                    <p class="text-muted text-center tipster__point-total" title="Point total">
-                        <span>{{$user->point}}</span><br/>
-                        points
                     </p>
 
                 </div>
@@ -151,7 +148,7 @@ use App\Common\Utils;
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tipsters introduced</h3>
+                    <h3 class="box-title">Points History</h3>
                 </div>
                 <div class="box-body">
                     <table id="viewList" class="table table-striped lead__ref">
@@ -189,8 +186,8 @@ use App\Common\Utils;
                         <tfoot>
                         <tr>
                             <th>Tipster</th>
-                            <th>Status</th>
                             <th>Point of Lead</th>
+                            <th>Status</th>
                             <th>Created date</th>
                         </tr>
                         </tfoot>

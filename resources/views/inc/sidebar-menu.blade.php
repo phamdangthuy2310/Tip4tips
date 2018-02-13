@@ -1,11 +1,14 @@
-<?php use App\Common\Common;?>
+<?php
+use App\Common\Common;
+use App\Common\Utils;
+?>
 <aside class="main-sidebar">
     <section class="sidebar">
 
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{{ asset('images/avatar2.png')}}" class="img-circle" alt="User Image">
+                <img src="{{asset(Utils::$PATH__IMAGE)}}/{{Auth::user()->avatar}}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>@if(Auth::user()->fullname) {{ Auth::user()->fullname }} @else {{ Auth::user()->username }} @endif</p>

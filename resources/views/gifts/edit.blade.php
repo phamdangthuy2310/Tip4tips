@@ -1,6 +1,20 @@
+<?php use \App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'Edit Gift')
-
+@section('javascript')
+    <script src="{{ asset('js/admin/gift.js') }}"></script>
+    <script>
+      $(document).ready(function () {
+        var src = '{{asset(Utils::$PATH__IMAGE)}}/';
+        $("#imgAnchorInput").change(function() {
+          $("#imgHandleInput").val($(this).val());
+          src += $(this).val();
+          console.log(src, $(this).val());
+          $("#imgHandle").attr('src', src);
+        }).change();
+      })
+    </script>
+@endsection
 @section('content')
     @if($editAction == false)
         <div class="box box-danger">
@@ -9,8 +23,7 @@
             </div>
         </div>
     @else
-    <form role="form" method="post" action="{{route('gift.update', $id)}}">
-        {{ csrf_field() }}
+
     <div class="row">
         <!-- /.col -->
         <div class="col-md-8">
@@ -30,8 +43,10 @@
                     </div>
                 @endif
                 <!-- /.box-header -->
-
+                <form role="form" method="post" action="{{route('gifts.update', $gift->id)}}">
+                    {{ csrf_field() }}
                     <input name="_method" type="hidden" value="PATCH">
+                    <input id="imgHandleInput" name="thumbnail" type="hidden" value="">
                         <div class="box-body">
                             <div class="form-group">
                                 <label>Gift name</label>
@@ -60,11 +75,11 @@
                         </div>
                 <!-- /.box-body -->
 
-                <div class="box-footer">
-                    <a class="btn btn-default" href="{{route('gifts.index')}}">Cancel</a>
-                    <button type="submit" class="btn btn-primary pull-right">Update</button>
-                </div>
-
+                    <div class="box-footer">
+                        <a class="btn btn-default" href="{{route('gifts.index')}}">Cancel</a>
+                        <button type="submit" class="btn btn-primary pull-right">Update</button>
+                    </div>
+                </form>
             </div>
 
             <!-- /.box -->
@@ -75,10 +90,42 @@
                     <h3 class="box-title">Upload Gifts Image</h3>
                 </div>
                 <div class="box-body">
-                    <p><img src="{{ asset('images/no_image_available.jpg') }}"></p>
-                    <div class="form-group">
-                        <label>Image</label>
-                        <input name="thumbnail" type="file" class="form-control">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{{ $message }}</strong>
+                        </div>
+                        <input id="imgAnchorInput" type="hidden" value="{{Session::get('image')}}">
+
+                    @endif
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Whoops!</strong> There were some problems with your input.
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="upload__area-thumbnail">
+                        <p><span>
+                            @if(!empty($gift->thumbnail))
+                                <img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$gift->thumbnail}}">
+                                @else
+                                <img id="imgHandle" src="{{ asset('images/no_image_available.jpg') }}">
+                            @endif
+                        </span></p>
+                    </div>
+                    <div class="form__upload">
+                        {!! Form::open(array('route' => 'image.upload.post','files'=>true)) !!}
+                        <div class="form-inline-simple">
+                            {!! Form::file('image', array('class' => 'form-control')) !!}
+                            <button type="submit" class="btn btn-info">Upload</button>
+                        </div>
+
+                        {!! Form::close() !!}
+
                     </div>
                 </div>
             </div>
@@ -100,6 +147,6 @@
             </div>
         </div>
     </div>
-    </form>
+
     @endif
 @endsection

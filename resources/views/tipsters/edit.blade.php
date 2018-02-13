@@ -73,9 +73,9 @@
 
                     </div>
 
-                    <h3 class="profile-username text-center">@if($user->fullname) {{ $user->fullname }} @else {{ $user->username }} @endif </h3>
+                    {{--<h3 class="profile-username text-center">@if($user->fullname) {{ $user->fullname }} @else {{ $user->username }} @endif </h3>--}}
 
-                    <p class="text-muted text-center">{{\App\Model\Role::getNameRoleByID($user->role_id)}}</p>
+                    {{--<p class="text-muted text-center">{{\App\Model\Role::getNameRoleByID($user->role_id)}}</p>--}}
                 </div>
                 <!-- /.box-body -->
             </div>

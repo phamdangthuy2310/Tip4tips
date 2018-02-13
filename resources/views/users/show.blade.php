@@ -1,3 +1,7 @@
+<?php
+use App\Common\Common;
+use App\Common\Utils;
+?>
 @extends('layouts.master')
 @section('title', 'Profile')
 
@@ -8,9 +12,13 @@
             <!-- Profile Image -->
             <div class="box box-primary">
                 <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
-
-                    <p class="text-center">Avatar</p>
+                    <div class="upload__area-image">
+                        <span><img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}"></span>
+                    </div>
+                    <p class="text-muted text-center" title="Username">
+                        <strong><i class="fa fa-user margin-r-5"></i> {{$user->username}}</strong>
+                    </p>
+                    <hr>
 
                     <p class="text-center">
                         @if($user->delete_is == 1)
@@ -20,11 +28,6 @@
                         @endif
                     </p>
 
-                    <hr>
-
-                    <p class="text-muted text-center">
-                        <strong><i class="fa fa-user margin-r-5"></i> {{$user->username}}</strong>
-                    </p>
                 </div>
                 <!-- /.box-body -->
             </div>

@@ -71,7 +71,11 @@ class GiftsController extends Controller
             'name' => 'required'
         ]);
         $gift['description'] = $request->description;
-        $gift['thumbnail'] = $request->thumbnail;
+        $thumbnail = $request->thumbnail;
+        if(empty($thumbnail)){
+            $thumbnail = 'no_image_available.jpg';
+        }
+        $gift['thumbnail'] = $thumbnail;
         $gift['point'] = $request->point;
         $gift['category_id'] = $request->category;
         Gift::create($gift);
@@ -129,7 +133,11 @@ class GiftsController extends Controller
         $gift = Gift::find($id);
         $gift->name = $request->get('name');
         $gift->description = $request->get('description');
-        $gift->thumbnail = $request->get('thumbnail');
+        $thumbnail = $request->thumbnail;
+        if(empty($thumbnail)){
+            $thumbnail = 'no_image_available.jpg';
+        }
+        $gift->thumbnail = $thumbnail;
         $gift->point = $request->get('point');
         $gift->category_id = $request->get('category');
         $gift->save();

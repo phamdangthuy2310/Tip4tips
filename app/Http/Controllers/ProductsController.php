@@ -77,7 +77,11 @@ class ProductsController extends Controller
         $product['description'] = $request->description;
         $product['price'] = $request->price;
         $product['quality'] = $request->quality;
-        $product['thumbnail'] = $request->thumbnail;
+        $thumbnail = $request->thumbnail;
+        if(empty($thumbnail)){
+            $thumbnail = 'no_image_available.jpg';
+        }
+        $product['thumbnail'] = $thumbnail;
         $product['category_id'] = $request->category;
         Product::create($product);
         return redirect('products')->with('success', 'Product added successfully');
@@ -151,6 +155,11 @@ class ProductsController extends Controller
         }
         $product->quality = $quality;
         $product->category_id = $request->get('category');
+        $thumbnail  = $request->get('thumbnail');
+        if(empty($thumbnail)){
+            $thumbnail = 'no_image_available.jpg';
+        }
+        $product->thumbnail = $thumbnail;
         $product->save();
         return redirect('products')->with('success', 'Product updated successfully');
     }

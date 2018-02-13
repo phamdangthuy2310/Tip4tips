@@ -13,5 +13,8 @@
 Route::resource('giftcategories', 'GiftCategoriesController',
     ['names' => [
         'index' => 'giftcategories.index',
-        'create' => 'giftcategories.create'
+        'create' => 'giftcategories.create',
+        'store' => 'giftcategories.store',
+        'edit' => 'giftcategories.edit',
+        'update' => 'giftcategories.update'
     ]]);

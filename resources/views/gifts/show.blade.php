@@ -1,3 +1,4 @@
+<?php use \App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'Gift Information')
 
@@ -48,7 +49,11 @@
                     <h3 class="box-title">Upload Gifts Image</h3>
                 </div>
                 <div class="box-body text-center">
-                    <p><img src="{{ asset('images/no_image_available.jpg') }}"></p>
+                    <p>@if(!empty($gift->thumbnail))
+                            <img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$gift->thumbnail}}">
+                        @else
+                            <img id="imgHandle" src="{{ asset('images/no_image_available.jpg') }}">
+                        @endif</p>
                 </div>
             </div>
         </div>

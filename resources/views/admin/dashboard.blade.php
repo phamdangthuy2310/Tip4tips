@@ -157,7 +157,7 @@
                             <li>
                                 <a href="{{route('tipsters.show', $mostactivetipster->id)}}">
                                     <span class="users-list-avatar">
-                                        <img src="{{asset('images/') }}/{{$mostactivetipster->avatar}}" alt="{{$mostactivetipster->username}}">
+                                        <img src="{{asset('images/upload') }}/{{$mostactivetipster->avatar}}" alt="{{$mostactivetipster->username}}">
                                     </span>
                                     <span class="users-list-info">
                                         <span class="users-list-name">

@@ -102,6 +102,7 @@ class UsersController extends Controller
         $user['gender'] = $request->gender;
         $user['phone'] = $request->phone;
         $user['address'] = $request->address;
+        $user['avatar'] = $request->avatar;
         $user['point'] = 0;
         $user['vote'] = 0;
         $user['region_id'] = $request->region;
@@ -183,6 +184,7 @@ class UsersController extends Controller
         $user->gender = $request->get('gender');
         $user->role_id = $request->get('department');
         $user->delete_is = $request->get('status');
+        $user->avatar = $request->get('avatar');
 
         $user->save();
         return redirect('users')->with('success','Users has been updated');

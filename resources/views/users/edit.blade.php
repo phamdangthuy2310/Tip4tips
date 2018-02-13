@@ -1,6 +1,22 @@
+<?php
+use App\Common\Common;
+use App\Common\Utils;
+?>
 @extends('layouts.master')
 @section('title', 'Edit User')
-
+@section('javascript')
+    <script>
+      $(document).ready(function () {
+        var src = '{{asset(Utils::$PATH__IMAGE)}}/';
+        $("#imgAnchorInput").change(function() {
+          $("#imgHandleInput").val($(this).val());
+          src += $(this).val();
+          console.log(src, $(this).val());
+          $("#imgHandle").attr('src', src);
+        }).change();
+      })
+    </script>
+@endsection
 @section('content')
     @if($editAction == false)
         <div class="box box-danger">
@@ -24,10 +40,42 @@
                 <!-- Profile Image -->
                 <div class="box box-warning">
                     <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
-                        <div class="box-body text-center">
-                            <p>Please upload an image.</p>
+
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>{{ $message }}</strong>
+                            </div>
+                            <input id="imgAnchorInput" type="hidden" value="{{Session::get('image')}}">
+
+                        @endif
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <strong>Whoops!</strong> There were some problems with your input.
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <div class="upload__area-image">
+                            <span><img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}"></span>
                         </div>
+                        <div class="form__upload">
+                            {!! Form::open(array('route' => 'image.upload.post','files'=>true)) !!}
+                            <div class="form-inline-simple">
+                                {!! Form::file('image', array('class' => 'form-control')) !!}
+                                <button type="submit" class="btn btn-info">Upload</button>
+                            </div>
+
+                            {!! Form::close() !!}
+
+                        </div>
+
+                        {{--<h3 class="profile-username text-center">@if($user->fullname) {{ $user->fullname }} @else {{ $user->username }} @endif </h3>--}}
+
+                        {{--<p class="text-muted text-center">{{\App\Model\Role::getNameRoleByID($user->role_id)}}</p>--}}
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -61,6 +109,7 @@
                     <form role="form" method="post" action="{{route('users.update', $id)}}">
                         {{csrf_field()}}
                         <input name="_method" type="hidden" value="PATCH">
+                        <input id="imgHandleInput" name="avatar" type="hidden" value="">
                     <div class="box-body">
                         <div class="row">
                             <div class="col-sm-6">

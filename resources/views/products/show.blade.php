@@ -70,7 +70,11 @@
                     <h3 class="box-title">Product Image</h3>
                 </div>
                 <div class="box-body text-center">
-                    <p><img src="{{ asset('images/no_image_available.jpg') }}"></p>
+                    <p>@if(!empty($product->thumbnail))
+                            <img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$product->thumbnail}}">
+                        @else
+                            <img id="imgHandle" src="{{ asset('images/no_image_available.jpg') }}">
+                        @endif</p>
                 </div>
             </div>
         </div>
