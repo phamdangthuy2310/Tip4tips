@@ -1,3 +1,4 @@
+<?php use App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'Product Information')
 

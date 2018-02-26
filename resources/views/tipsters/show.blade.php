@@ -185,7 +185,7 @@ use App\Common\Utils;
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>Tipster</th>
+                            <th>Lead</th>
                             <th>Point of Lead</th>
                             <th>Status</th>
                             <th>Created date</th>

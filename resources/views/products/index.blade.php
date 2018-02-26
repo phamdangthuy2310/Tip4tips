@@ -1,3 +1,4 @@
+<?php use App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'List of Products')
 @section('javascript')
@@ -36,10 +37,10 @@
                     <thead>
                     <tr>
                         <th>No.</th>
+                        <th>Thumbnail</th>
                         <th>Product name</th>
                         <th>Description</th>
                         <th>Category</th>
-                        <th>Thumbnail</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -48,11 +49,20 @@
                     @foreach($products as $product)
                         <?php $i++ ?>
                         <tr>
-                            <td><?php echo $i?></td>
+                            <td width="80px"><?php echo $i?></td>
+                            <td width="100px">
+                                <span class="thumbnail">
+                                    @if(!empty($product->thumbnail))
+                                        <img src="{{asset(Utils::$PATH__IMAGE)}}/{{$product->thumbnail}}">
+                                    @else
+                                        <img src="{{asset(Utils::$PATH__IMAGE)}}/no_image_available.jpg" alt="">
+                                    @endif
+                                </span>
+                            </td>
                             <td>{{$product->name}}</td>
                             <td style="width: 300px;">{{{ strip_tags(str_limit($product->description, 110)) }}}</td>
                             <td>{{$product->category}}</td>
-                            <td>Thumbnail</td>
+
                             <td class="actions text-center" style="width: 100px">
                                 <a href="{{route('products.show', $product->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
                                 @if($editAction == true)<a href="{{route('products.edit', $product->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
@@ -69,10 +79,10 @@
                     <tfoot>
                     <tr>
                         <th>No.</th>
+                        <th>Thumbnail</th>
                         <th>Product name</th>
                         <th>Description</th>
                         <th>Category</th>
-                        <th>Thumbnail</th>
                         <th>Actions</th>
                     </tr>
                     </tfoot>

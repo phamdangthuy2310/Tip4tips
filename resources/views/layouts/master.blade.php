@@ -22,7 +22,7 @@
     <link href="{{ asset('css/admin/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     @yield('styles')
-    <link href="{{ asset('css/admin-style.css?v1.0.8') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin-style.css?v1.0.9') }}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

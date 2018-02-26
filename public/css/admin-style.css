@@ -546,6 +546,19 @@ Table style*/
     text-align: center;
     font-size: 12px;
 }
+/*---------------------------------
+thumbnail
+----------------------------------*/
+.thumbnail{
+    width: 90px;
+    margin: 0 auto;
+}
+/*--------------------------------
+alert
+---------------------------------*/
+.alert > ul{
+    padding-left: 15px;
+}
 @media (min-width: 992px) {
     .box-list .box-header{
         position: relative;

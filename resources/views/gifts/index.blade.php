@@ -1,3 +1,4 @@
+<?php use App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'List of gifts')
 @section('javascript')
@@ -36,10 +37,10 @@
                     <thead>
                     <tr>
                         <th>No.</th>
+                        <th>Thumbnail</th>
                         <th>Gift name</th>
                         <th>Description</th>
                         <th>Category</th>
-                        <th>Thumbnail</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -48,11 +49,19 @@
                     @foreach($gifts as $gift)
                         <?php $i++ ?>
                         <tr>
-                            <td><?php echo $i?></td>
+                            <td width="80px"><?php echo $i?></td>
+                            <td width="100px">
+                                <span class="thumbnail">
+                                    @if(!empty($gift->thumbnail))
+                                        <img src="{{asset(Utils::$PATH__IMAGE)}}/{{$gift->thumbnail}}">
+                                    @else
+                                        <img src="{{asset(Utils::$PATH__IMAGE)}}/no_image_available.jpg" alt="">
+                                    @endif
+                                </span>
+                            </td>
                             <td>{{$gift->name}}</td>
                             <td style="width:300px;">{{{ strip_tags(str_limit($gift->description, 110)) }}}</td>
                             <td>{{$gift->category}}</td>
-                            <td>Thumbnail</td>
                             <td class="actions text-center" style="width: 100px">
                                 <a href="{{route('gifts.show', $gift->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
                                 @if($editAction ==  true)<a href="{{route('gifts.edit', $gift->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
@@ -69,10 +78,10 @@
                     <tfoot>
                     <tr>
                         <th>No.</th>
+                        <th>Thumbnail</th>
                         <th>Gift name</th>
                         <th>Description</th>
                         <th>Category</th>
-                        <th>Thumbnail</th>
                         <th>Actions</th>
                     </tr>
                     </tfoot>

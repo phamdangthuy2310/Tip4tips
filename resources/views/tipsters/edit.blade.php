@@ -1,4 +1,4 @@
-<?php use \App\Common\Utils; ?>
+<?php use App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'Edit Tipster')
 @section('javascript')
