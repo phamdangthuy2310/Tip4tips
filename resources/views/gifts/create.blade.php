@@ -15,6 +15,9 @@
       })
     </script>
 @stop
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('gifts.create') }}
+@stop
 @section('content')
     @if($createAction == false)
         <div class="box box-danger">
@@ -30,7 +33,7 @@
 
                 <div class="box box-success">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Create Gift</h3>
+                        <h3 class="box-title">@yield('title')</h3>
                     </div>
                     @if ($errors->any())
                         <div class="alert alert-danger">

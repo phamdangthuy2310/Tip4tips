@@ -94,7 +94,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web','saveHistoryUser')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/route_logactivity.php'));
-
+        //Route Activity
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/breadcrumbs.php'));
 
     }
 

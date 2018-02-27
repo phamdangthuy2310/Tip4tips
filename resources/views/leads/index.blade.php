@@ -1,6 +1,7 @@
 <?php use App\Common\Common;?>
 @extends('layouts.master')
 @section('title', 'List of Leads')
+
 @section('javascript')
     <script src="{{ asset('js/admin/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/admin/dataTables.bootstrap.min.js') }}"></script>
@@ -17,12 +18,14 @@
       })
     </script>
 @stop
-
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('leads') }}
+@stop
 
 @section('content')
     <div class="box box-list">
         <div class="box-header">
-            <h3 class="box-title text-center">List of Leads</h3>
+            <h3 class="box-title">@yield('title')</h3>
             @if($createAction == true)<a href="{{route('leads.create')}}" class="btn btn-md btn-primary pull-right"><i class="fa fa-plus"></i> New Lead</a>@endif
         </div>
         <!-- /.box-header -->

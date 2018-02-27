@@ -1,7 +1,9 @@
 <?php use App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'Product Information')
-
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('products.show') }}
+@stop
 @section('content')
     <div class="row">
         <!-- /.col -->
@@ -10,7 +12,7 @@
 
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">About Product</h3>
+                    <h3 class="box-title">@yield('title')</h3>
                     <span class="group__action pull-right">
                         <a href="{{route('products.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
                         <a href="{{route('products.edit', $product->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>

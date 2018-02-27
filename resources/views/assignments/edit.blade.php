@@ -16,7 +16,7 @@
 
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Edit an Assignment</h3>
+                    <h3 class="box-title">@yield('title')</h3>
                     <span class="group__action pull-right">
                         <a href="{{route('assignments.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
                     </span>

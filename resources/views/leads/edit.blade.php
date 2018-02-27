@@ -18,6 +18,9 @@ use App\Common\Common;
         })
     </script>
 @stop
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('leads.edit') }}
+@stop
 @section('content')
     @if($editAction == false)
         <div class="box box-danger">
@@ -40,7 +43,7 @@ use App\Common\Common;
                 <!-- create manager form -->
                 <div class="box box-warning">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Edit Lead</h3>
+                        <h3 class="box-title">@yield('title')</h3>
                         <a href="{{route('leads.index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-angle-left"></i> Back to list</a>
                     </div>
                     

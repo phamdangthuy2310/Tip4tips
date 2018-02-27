@@ -15,6 +15,9 @@
       })
     </script>
 @endsection
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('gifts.edit') }}
+@stop
 @section('content')
     @if($editAction == false)
         <div class="box box-danger">
@@ -31,7 +34,7 @@
 
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Edit Gift</h3>
+                    <h3 class="box-title">@yield('title')</h3>
                 </div>
                 @if ($errors->any())
                     <div class="alert alert-danger">

@@ -17,11 +17,13 @@
       })
     </script>
 @stop
-
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('products') }}
+@stop
 @section('content')
     <div class="box box-list">
         <div class="box-header clearfix">
-            <h3 class="box-title">List of Products</h3>
+            <h3 class="box-title">@yield('title')</h3>
             @if($createAction == true)<a href="{{route('products.create')}}" class="btn btn-md btn-primary pull-right"><i class="fa fa-plus"></i> New Product</a>@endif
         </div>
 

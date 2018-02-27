@@ -1,9 +1,20 @@
 @extends('layouts.master')
 @section('title', 'Trash')
-
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('messages.trash') }}
+@stop
 @section('content')
     <div class="row">
         @include('inc.column-left-mail')
+                    <div class="box-tools pull-right">
+                        <div class="has-feedback">
+                            <input type="text" class="form-control input-sm" placeholder="Search Mail">
+                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
                 <div class="box-body no-padding">
                     <div class="mailbox-controls">
                         <!-- Check all button -->

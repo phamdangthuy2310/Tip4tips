@@ -1,10 +1,14 @@
 @extends('layouts.master')
 @section('title', 'Read Email')
-
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('messages.show') }}
+@stop
 @section('content')
     <div class="row">
 
                 @include('inc/column-left-mail')
+                </div>
+                <!-- /.box-header -->
                 <div class="box-body no-padding">
 
                     <div class="mailbox-read-message">

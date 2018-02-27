@@ -1,7 +1,9 @@
 <?php use App\Common\Common; ?>
 @extends('layouts.master')
 @section('title', 'Dashboard')
-
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('dashboard') }}
+@stop
 @section('styles')
     <link href="{{asset('css/jquery.scrollbar.css')}}" rel="stylesheet" type="text/css">
 @stop

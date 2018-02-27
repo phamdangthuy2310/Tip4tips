@@ -8,8 +8,14 @@ use App\Model\Assignment;
 use App\Model\Role;
 ?>
 @extends('layouts.master')
-@section('title', 'Profile')
+@section('title', 'Lead detail')
 
+@section('javascript')
+    <script src="{{ asset('js/admin/bootstrap-datepicker.min.js') }}"></script>
+@stop
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('leads.show') }}
+@stop
 @section('content')
     <div class="row">
 
@@ -17,17 +23,14 @@ use App\Model\Role;
             <!-- About Me Box -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">
-                        Profile</h3>
+                    <h3 class="box-title">@yield('title')</h3>
                     <span class="group__action pull-right">
                         <a href="{{route('leads.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
-                                <a href="{{route('leads.edit', $lead->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
-                        @if($deleteAction == true)<form class="inline" action="{{action('LeadsController@destroy', $lead->id)}}" method="post">
-                                {{csrf_field()}}
-                            <input name="_method" type="hidden" value="DELETE">
-                                <button title="Delete this user" class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i> Delete</button>
-                            </form>@endif
-                            </span>
+                        <a href="{{route('leads.edit', $lead->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
+                        @if($deleteAction == true)
+                            <a  data-toggle="modal" data-target="#popup-confirm" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                        @endif
+                    </span>
 
                 </div>
                 <!-- /.box-header -->
@@ -113,5 +116,19 @@ use App\Model\Role;
         <!-- /.col -->
     </div>
     <!-- /.row -->
-
+    <div id="popup-confirm" class="modal popup-confirm" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Do you really want to delete lead "{{$lead->fullname}}" ?</p>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                    @if($deleteAction == true)<form class="inline" action="{{action('LeadsController@destroy', $lead->id)}}" method="post">
+                        {{csrf_field()}}
+                        <input name="_method" type="hidden" value="DELETE">
+                        <button class="btn btn-sm btn-danger" type="submit">Yes</button>
+                    </form>@endif
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

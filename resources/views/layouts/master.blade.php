@@ -22,7 +22,7 @@
     <link href="{{ asset('css/admin/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     @yield('styles')
-    <link href="{{ asset('css/admin-style.css?v1.0.9') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin-style.css?v1.1.0') }}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,10 +48,13 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <ol class="breadcrumb">
-                <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">@yield('title')</li>
-            </ol>
+            {{--<ol class="breadcrumb">--}}
+                {{--<li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i> Home</a></li>--}}
+                {{--<li><a href="{{route('home')}}"></a></li>--}}
+                {{--<li class="active">@yield('title')</li>--}}
+            {{--</ol>--}}
+            @yield('body.breadcrumbs')
+
         </section>
 
         <!-- Main content -->

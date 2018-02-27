@@ -559,6 +559,28 @@ alert
 .alert > ul{
     padding-left: 15px;
 }
+/*--------------------------------
+Popup confirm
+---------------------------------*/
+.popup-confirm.in .modal-dialog{
+    transform: translate(0, -100%);
+    top: 50%;
+    max-width: 500px;
+    width: 100%;
+}
+.popup-confirm .modal-content{
+    text-align: center;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+.popup-confirm .modal-content .btn{
+    width: 80px;
+    margin: 0 10px;
+}
+
+
 @media (min-width: 992px) {
     .box-list .box-header{
         position: relative;

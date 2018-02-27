@@ -9,7 +9,7 @@
 
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Create Gift Category</h3>
+                    <h3 class="box-title">@yield('title')</h3>
                 </div>
                 <!-- /.box-header -->
                 <form role="form" method="post" action="{{route('giftcategories.create')}}">

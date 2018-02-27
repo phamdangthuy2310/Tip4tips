@@ -20,7 +20,7 @@
 @section('content')
     <div class="box box-list">
         <div class="box-header">
-            <h3 class="box-title">List of Assignments</h3>
+            <h3 class="box-title">@yield('title')</h3>
             @if($createAction == true)<a href="{{route('assignments.create')}}" class="btn btn-md btn-primary pull-right"><i class="fa fa-plus"></i> New Assignment</a>@endif
         </div>
         <!-- /.box-header -->

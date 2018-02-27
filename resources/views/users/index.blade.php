@@ -16,11 +16,14 @@
       })
     </script>
 @stop
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('users') }}
+@stop
 
 @section('content')
     <div class="box box-list">
         <div class="box-header">
-            <h3 class="box-title">List of Users</h3>
+            <h3 class="box-title">@yield('title')</h3>
             @if($createAction == true)<a href="{{ route('users.create') }}" class="btn btn-md btn-primary pull-right"><i class="fa fa-plus"></i> New User</a>@endif
         </div>
         <!-- /.box-header -->
@@ -90,5 +93,22 @@
         <!-- /.box-body -->
     </div>
     <!-- /.box -->
+
+    {{--popup confirm--}}
+    <div id="popup-confirm" class="modal popup-confirm" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Do you really want to delete?</p>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                    @if($deleteAction == true)<form class="inline" action="{{action('TipstersController@destroy', $user->id)}}" method="post">
+                        {{csrf_field()}}
+                        <input name="_method" type="hidden" value="DELETE">
+                        <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i> Yes</button>
+                    </form>@endif
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection

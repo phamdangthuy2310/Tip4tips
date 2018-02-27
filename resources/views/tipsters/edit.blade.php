@@ -14,6 +14,9 @@
       })
     </script>
 @endsection
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('users.edit') }}
+@stop
 @section('content')
     @if($editAction == false)
         <div class="box box-danger">
@@ -22,15 +25,6 @@
             </div>
         </div>
     @else
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <div class="row">
         <div class="col-md-4 col-md-push-8">
 
@@ -49,16 +43,7 @@
                         <input id="imgAnchorInput" type="hidden" value="{{Session::get('image')}}">
 
                     @endif
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+
                     <div class="upload__area-image">
                         <span><img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}"></span>
                     </div>
@@ -88,12 +73,15 @@
             <!-- create manager form -->
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Edit user</h3>
+                    <h3 class="box-title">@yield('title')</h3>
                     <a href="{{route('tipsters.index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-angle-left"></i> Back to list</a>
                 </div>
                 @if ($errors->any())
                 <div class="box-body">
                     <div class="alert alert-danger">
+                        @if (count($errors) > 0)
+                            <strong>Whoops!</strong> There were some problems with your input.
+                        @endif
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>

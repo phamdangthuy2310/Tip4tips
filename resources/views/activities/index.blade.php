@@ -17,11 +17,13 @@
       })
     </script>
 @stop
-
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('activities') }}
+@stop
 @section('content')
     <div class="box box-list">
         <div class="box-header clearfix">
-            <h3 class="box-title">Log Activities</h3>
+            <h3 class="box-title">@yield('title')</h3>
         </div>
 
         <!-- /.box-header -->

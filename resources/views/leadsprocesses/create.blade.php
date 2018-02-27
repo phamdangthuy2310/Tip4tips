@@ -1,10 +1,10 @@
 @extends('layouts.master')
-@section('title', 'Create Lead')
+@section('title', 'Create status process')
 
 @section('content')
     <div class="box box-primary col-sm-5">
         <div class="box-header with-border">
-            <h3 class="box-title">Status process</h3>
+            <h3 class="box-title">@yield('title')</h3>
         </div>
         <div class="box-body">
             <form id="statusGroup" method="post" action="{{route('leadsprocesses.store')}}">

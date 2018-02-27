@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Compose Message')
+@section('title', 'Compose New Message')
 @section('styles')
     <!-- Bootstrap WYSIHTML5 -->
     <link href="{{ asset('css/admin/bootstrap3-wysihtml5.min.css') }}" rel="stylesheet" type="text/css">
@@ -17,9 +17,15 @@
       });
     </script>
 @stop
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('messages.create') }}
+@stop
 @section('content')
     <div class="row">
         @include('inc.column-left-mail')
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
                 <form method="post" action="{{url('messages')}}">
                     {{ csrf_field() }}
                     <div class="box-body">

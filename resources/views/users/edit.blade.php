@@ -17,6 +17,10 @@ use App\Common\Utils;
       })
     </script>
 @endsection
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('users.edit') }}
+@stop
+
 @section('content')
     @if($editAction == false)
         <div class="box box-danger">
@@ -25,15 +29,6 @@ use App\Common\Utils;
             </div>
         </div>
     @else
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
         <div class="row">
             <div class="col-md-4 col-md-push-8">
 
@@ -48,16 +43,6 @@ use App\Common\Utils;
                             </div>
                             <input id="imgAnchorInput" type="hidden" value="{{Session::get('image')}}">
 
-                        @endif
-                        @if (count($errors) > 0)
-                            <div class="alert alert-danger">
-                                <strong>Whoops!</strong> There were some problems with your input.
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
                         @endif
                         <div class="upload__area-image">
                             <span><img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}"></span>
@@ -88,7 +73,7 @@ use App\Common\Utils;
                 <!-- create manager form -->
                 <div class="box box-warning">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Edit User</h3>
+                        <h3 class="box-title">@yield('title')</h3>
                         <span class="group__action pull-right">
                             <a href="{{route('users.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
                         </span>
@@ -97,14 +82,16 @@ use App\Common\Utils;
                     @if ($errors->any())
                         <div class="box-body">
                             <div class="alert alert-danger">
+                                @if (count($errors) > 0)
+                                    <strong>Whoops!</strong> There were some problems with your input.
+                                @endif
                                 <ul>
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
                             </div>
-                        </div>
-                    @endif
+                        </div>@endif
                     <!-- /.box-header -->
                     <form role="form" method="post" action="{{route('users.update', $id)}}">
                         {{csrf_field()}}

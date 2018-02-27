@@ -1,7 +1,9 @@
 <?php use \App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'Gift Information')
-
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('gifts.show') }}
+@stop
 @section('content')
     <div class="row">
         <!-- /.col -->
@@ -10,7 +12,7 @@
 
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">About Gift</h3>
+                    <h3 class="box-title">@yield('title')</h3>
                     <a href="{{route('gifts.edit', $gift->id)}}" class="btn btn-xs btn-info pull-right"><i class="fa fa-pencil"></i> Edit</a>
                 </div>
                 <!-- /.box-header -->

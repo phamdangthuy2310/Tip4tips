@@ -15,6 +15,9 @@
       })
     </script>
 @stop
+@section('body.breadcrumbs')
+    {{ Breadcrumbs::render('products.edit') }}
+@stop
 @section('content')
     @if($editAction == false)
         <div class="box box-danger">
@@ -93,7 +96,7 @@
         <div class="col-md-4">
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Upload Product Image</h3>
+                    <h3 class="box-title">Product Image</h3>
                 </div>
                 <div class="box-body">
                     @if ($message = Session::get('success'))
