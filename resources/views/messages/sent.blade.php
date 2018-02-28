@@ -26,7 +26,7 @@
                             <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
                         </div>
                         <!-- /.btn-group -->
-                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh" onClick="window.location.reload()"></i></button>
                         <div class="pull-right">
                             1-50/200
                             <div class="btn-group">
@@ -69,7 +69,7 @@
                             <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
                         </div>
                         <!-- /.btn-group -->
-                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" onClick="window.location.reload()"><i class="fa fa-refresh"></i></button>
                         <div class="pull-right">
                             1-50/200
                             <div class="btn-group">

@@ -2,7 +2,10 @@
 
 namespace App;
 
+use App\Model\Region;
 use App\Model\Role;
+use App\Common\Common;
+use App\Model\RoleType;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
@@ -53,12 +56,26 @@ class User extends Authenticatable
     public function getAllRole(){
         return Role::all();
     }
+    public static function getUserByID($id){
+        $user = User::find($id);
+        $roleUser = Role::getInfoRoleByID($user->role_id);
+        $roletypeUser = RoleType::getNameByID($roleUser->roletype_id);
 
+        $user['region'] = Region::getNameByID($user->region_id)->name;
+        $user['genderName'] = Common::showGender($user->gender);
+
+        $user['role'] = $roleUser->name;
+        $user['roleCode'] = $roleUser->code;
+        $user['roletype'] = $roletypeUser->name;
+        $user['roletypeCode'] = $roletypeUser->name;
+        return $user;
+    }
     public static function getAllConsultant(){
         $consultants = User::select('users.*')
             ->join('roles', 'users.role_id', 'roles.id')
             ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
             ->where('roletypes.code' ,'consultant')
+            ->select('users.*', 'roles.code as role', 'roletypes.name as roletype')
             ->get();
         return $consultants;
     }
@@ -67,6 +84,7 @@ class User extends Authenticatable
             ->join('roles', 'users.role_id', 'roles.id')
             ->join('roletypes', 'roles.roletype_id', 'roletypes.id')
             ->where('roletypes.code' ,'manager')
+            ->select('users.*', 'roles.code as role', 'roletypes.name as roletype')
             ->get();
         return $managers;
     }
@@ -97,12 +115,6 @@ class User extends Authenticatable
             ->where('roletypes.code' ,'tipster')->orderBy('created_at', 'desc')
             ->get();
         return $tipsters;
-    }
-
-    public static function getUserByID($id){
-        $name = User::where('users.id', $id)
-            ->select('users.*')->first();
-        return $name;
     }
 
     public static function showGender($gender){

@@ -35,6 +35,9 @@
             <div class="box box-warning">
                 <div class="box-header with-border">
                     <h3 class="box-title">@yield('title')</h3>
+                    <span class="group__action pull-right">
+                        <a href="{{route('gifts.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
+                    </span>
                 </div>
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -49,7 +52,7 @@
                 <form role="form" method="post" action="{{route('gifts.update', $gift->id)}}">
                     {{ csrf_field() }}
                     <input name="_method" type="hidden" value="PATCH">
-                    <input id="imgHandleInput" name="thumbnail" type="hidden" value="">
+                    <input id="imgHandleInput" name="thumbnail" type="hidden" value="{{$gift->thumbnail}}">
                         <div class="box-body">
                             <div class="form-group">
                                 <label>Gift name</label>

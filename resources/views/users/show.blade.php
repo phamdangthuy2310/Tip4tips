@@ -46,10 +46,12 @@ use App\Common\Utils;
                     <h3 class="box-title">@yield('title')</h3>
                     <span class="group__action pull-right">
                         <a href="{{route('users.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
+                        @if($editAction == true)
                         <a href="{{route('users.edit', $user->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
-                        {{--@if($deleteAction == true)--}}
-                            {{--<a  data-toggle="modal" data-target="#popup-confirm" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</a>--}}
-                        {{--@endif--}}
+                        @endif
+                        @if($deleteAction == true)
+                            <a  data-toggle="modal" data-target="#popup-confirm" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                        @endif
                     </span>
 
                 </div>
@@ -65,7 +67,7 @@ use App\Common\Utils;
                         <div class="col-sm-6">
                             <p class="text-muted">
                                 <i class="fa fa-building margin-r-5"></i> Department
-                                <span class="text-highlight">{{$role->name}} - {{$roletype->name}}</span>
+                                <span class="text-highlight">{{$user->role}} - {{$user->roletype}}</span>
 
                             </p>
                         </div>
@@ -80,7 +82,7 @@ use App\Common\Utils;
                         <div class="col-sm-6">
                             <p class="text-muted">
                                 <i class="fa fa-venus-mars margin-r-5"></i> Gender
-                                <span class="text-highlight">{{ $user::showGender($user->gender) }}</span>
+                                <span class="text-highlight">{{ $user->genderName }}</span>
                             </p>
                         </div>
                     </div>
@@ -110,7 +112,7 @@ use App\Common\Utils;
                         <div class="col-sm-6">
                             <p class="text-muted">
                                 <i class="fa fa-map-marker margin-r-5"></i> Location
-                                <span class="text-highlight">{{ \App\Model\Region::getNameByID($user->region_id)->name }}</span></p>
+                                <span class="text-highlight">{{ $user->region }}</span></p>
                         </div>
                     </div>
                     <div class="row box-line">
@@ -130,22 +132,23 @@ use App\Common\Utils;
         <!-- /.col -->
     </div>
     <!-- /.row -->
-
+    @if($deleteAction == true)
     {{--popup confirm--}}
-    {{--<div id="popup-confirm" class="modal popup-confirm" tabindex="-1" role="dialog">--}}
-        {{--<div class="modal-dialog modal-dialog-centered" role="document">--}}
-            {{--<div class="modal-content">--}}
-                {{--<div class="modal-body">--}}
-                    {{--<p>Do you really want to delete tipster "{{$user->fullname}}" ?</p>--}}
-                    {{--<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>--}}
-                    {{--@if($deleteAction == true)<form class="inline" action="{{action('UsersController@destroy', $user->id)}}" method="post">--}}
-                        {{--{{csrf_field()}}--}}
-                        {{--<input name="_method" type="hidden" value="DELETE">--}}
-                        {{--<button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i> Yes</button>--}}
-                    {{--</form>@endif--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
+    <div id="popup-confirm" class="modal popup-confirm" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Do you really want to delete user "{{$user->fullname}}" ?</p>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                    <form class="inline" action="{{route('users.destroy', $user->id)}}" method="post">
+                        {{csrf_field()}}
+                        <input name="_method" type="hidden" value="DELETE">
+                        <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i> Yes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 
 @endsection

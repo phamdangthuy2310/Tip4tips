@@ -96,7 +96,7 @@ use App\Common\Utils;
                     <form role="form" method="post" action="{{route('users.update', $id)}}">
                         {{csrf_field()}}
                         <input name="_method" type="hidden" value="PATCH">
-                        <input id="imgHandleInput" name="avatar" type="hidden" value="">
+                        <input id="imgHandleInput" name="avatar" type="hidden" value="{{$user->avatar}}">
                     <div class="box-body">
                         <div class="row">
                             <div class="col-sm-6">

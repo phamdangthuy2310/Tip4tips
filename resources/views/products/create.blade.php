@@ -35,6 +35,9 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Create Product</h3>
+                    <span class="group__action pull-right">
+                        <a href="{{route('products.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
+                    </span>
                 </div>
                 @if ($errors->any())
                     <div class="alert alert-danger">

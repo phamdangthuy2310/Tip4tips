@@ -92,9 +92,35 @@ class Common{
         return $name;
     }
 
+    public static function showGender($gender){
+        $name = '';
+        switch ($gender){
+            case 0:
+                $name = 'Male';
+                break;
+            case 1:
+                $name = 'Female';
+                break;
+        }
+        return $name;
+    }
+
     public static function getAmountNewMessage(){
         $auth = Auth::user();
         $messages = Message::countYetNotRead($auth->id);
         return $messages;
     }
+
+    public static function getAmountSentMessage(){
+        $auth = Auth::user();
+        $messages = count(Message::getMessageSent($auth->id));
+        return $messages;
+    }
+
+    public static function getAmountDeletedMessage(){
+        $auth = Auth::user();
+        $messages = count(Message::getAllMessageDeleted($auth->id));
+        return $messages;
+    }
+
 }

@@ -34,7 +34,8 @@ class ProductsController extends Controller
         }
         $products = DB::table('products')
             ->join('productcategories', 'products.category_id', 'productcategories.id')
-        ->select('products.*', 'productcategories.name as category')
+            ->select('products.*', 'productcategories.name as category')
+            ->orderBy('created_at', 'desc')
         ->get();
         return view('products.index')->with([
             'products'=>$products,

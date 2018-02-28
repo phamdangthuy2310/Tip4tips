@@ -578,9 +578,11 @@ Popup confirm
 .popup-confirm .modal-content .btn{
     width: 80px;
     margin: 0 10px;
+    font-size: 14px;
 }
-
-
+/*--------------------------------
+Responsive
+---------------------------------*/
 @media (min-width: 992px) {
     .box-list .box-header{
         position: relative;

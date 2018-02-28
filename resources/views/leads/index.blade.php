@@ -13,7 +13,8 @@
           'searching'   : true,
           'ordering'    : true,
           'info'        : true,
-          'autoWidth'   : true
+          'autoWidth'   : true,
+          'order': []
         })
       })
     </script>

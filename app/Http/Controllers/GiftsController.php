@@ -31,7 +31,9 @@ class GiftsController extends Controller
         }
         $gifts = DB::table('gifts')
             ->join('giftcategories', 'giftcategories.id', 'gifts.category_id')
-        ->select('gifts.*', 'giftcategories.name as category')->get();
+            ->select('gifts.*', 'giftcategories.name as category')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('gifts.index', [
             'gifts' => $gifts,
             'editAction' => $editAction,

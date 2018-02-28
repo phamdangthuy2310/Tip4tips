@@ -26,7 +26,7 @@
                             <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
                         </div>
                         <!-- /.btn-group -->
-                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" onClick="window.location.reload()"><i class="fa fa-refresh"></i></button>
                         <div class="pull-right">
                             1-50/200
                             <div class="btn-group">
@@ -43,9 +43,9 @@
                             @foreach($messages as $message)
                                 <tr>
                                     <td style="width: 20px;"><input type="checkbox"></td>
-                                    <td class="mailbox-name text-left"><a href="{{action('MessagesController@show', $message->id)}}">{{ \App\User::getUserByID($message->author)->username  }}</a></td>
+                                    <td class="mailbox-name text-left"><a href="{{route('messages.show', $message->id)}}">{{ \App\User::getUserByID($message->author)->username  }}</a></td>
                                     <td class="mailbox-subject text-left">
-                                        <a href="{{action('MessagesController@show', $message->id)}}">
+                                        <a href="{{route('messages.show', $message->id)}}">
                                             <b>{{$message->title}}</b>
                                             -
                                             {{{ strip_tags(str_limit($message->content, 90)) }}}
@@ -70,7 +70,7 @@
                             <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
                         </div>
                         <!-- /.btn-group -->
-                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" onClick="window.location.reload()"><i class="fa fa-refresh"></i></button>
                         <div class="pull-right">
                             1-50/200
                             <div class="btn-group">
