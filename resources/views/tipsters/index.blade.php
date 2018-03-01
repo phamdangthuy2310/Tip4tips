@@ -12,7 +12,8 @@
           'ordering'    : true,
           'info'        : true,
           'autoWidth'   : true,
-          'order': []
+          'order': [],
+          'columnDefs': [ { orderable: false, targets: [0]}]
         })
       })
     </script>

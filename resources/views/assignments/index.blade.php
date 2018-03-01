@@ -12,7 +12,8 @@
           'ordering'    : true,
           'info'        : true,
           'autoWidth'   : true,
-          'order': []
+          'order': [],
+          'columnDefs': [ { orderable: false, targets: [0]}]
         })
       })
     </script>
@@ -47,7 +48,7 @@
                 @foreach($assignments as $assignment)
                     <?php $i++ ?>
                 <tr>
-                    <td><?php echo $i?></td>
+                    <td width="40" align="center"><?php echo $i?></td>
                     <td>{{App\User::getUserByID($assignment->consultant_id)->username}}</td>
                     <td>{{App\Model\Lead::getLeadByID($assignment->lead_id)->fullname}}</td>
                     <td>{{App\User::getUserByID($assignment->create_by)->username}}</td>

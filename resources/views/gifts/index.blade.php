@@ -13,7 +13,8 @@
           'ordering'    : true,
           'info'        : true,
           'autoWidth'   : true,
-          'order': []
+          'order': [],
+          'columnDefs': [ { orderable: false, targets: [0]}]
         })
       });
       function dataDeletePopup() {
@@ -64,7 +65,7 @@
                     @foreach($gifts as $gift)
                         <?php $i++ ?>
                         <tr>
-                            <td width="80px"><?php echo $i?></td>
+                            <td width="40" align="center"><?php echo $i?></td>
                             <td width="100px">
                                 <span class="thumbnail">
                                     @if(!empty($gift->thumbnail))

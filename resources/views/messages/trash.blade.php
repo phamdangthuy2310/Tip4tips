@@ -1,3 +1,4 @@
+<?php use App\Common\Common;?>
 @extends('layouts.master')
 @section('title', 'Trash')
 @section('body.breadcrumbs')
@@ -22,18 +23,13 @@
                         </button>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                            {{--<button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>--}}
+                            {{--<button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>--}}
                         </div>
                         <!-- /.btn-group -->
                         <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
                         <div class="pull-right">
-                            1-50/200
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                            </div>
-                            <!-- /.btn-group -->
+                            {{$messages->links('messages.partials.paging')}}
                         </div>
                         <!-- /.pull-right -->
                     </div>
@@ -50,7 +46,7 @@
                                             {{{ strip_tags(str_limit($message->content, 90)) }}}
                                         </a></td>
                                     <td class="mailbox-attachment"></td>
-                                    <td class="mailbox-date">5 mins ago</td>
+                                    <td class="mailbox-date" align="right">{!! Common::dateFormatText($message->created_at)!!}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -71,12 +67,7 @@
                         <!-- /.btn-group -->
                         <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
                         <div class="pull-right">
-                            1-50/200
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                            </div>
-                            <!-- /.btn-group -->
+                            {{$messages->links('messages.partials.paging')}}
                         </div>
                         <!-- /.pull-right -->
                     </div>

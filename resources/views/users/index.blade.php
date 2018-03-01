@@ -11,7 +11,9 @@
           'searching'   : true,
           'ordering'    : true,
           'info'        : true,
-          'autoWidth'   : true
+          'autoWidth'   : true,
+          'order': [],
+          'columnDefs': [ { orderable: false, targets: [0]}]
         })
       })
     </script>

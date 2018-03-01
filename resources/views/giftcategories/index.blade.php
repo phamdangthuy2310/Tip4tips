@@ -12,7 +12,8 @@
           'ordering'    : true,
           'info'        : true,
           'autoWidth'   : true,
-          'order': []
+          'order': [],
+          'columnDefs': [ { orderable: false, targets: [0]}]
         })
       })
     </script>
@@ -45,7 +46,7 @@
                 @foreach($categories as $category)
                     <?php $i++ ?>
                 <tr>
-                    <td><?php echo $i?></td>
+                    <td width="40" align="center"><?php echo $i?></td>
                     <td>{{$category->name}}</td>
                     <td>{{$category->description}}</td>
                     <td class="actions text-center" style="width: 80px">

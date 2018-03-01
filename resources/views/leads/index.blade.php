@@ -14,7 +14,8 @@
           'ordering'    : true,
           'info'        : true,
           'autoWidth'   : true,
-          'order': []
+          'order': [],
+          'columnDefs': [ { orderable: false, targets: [0]}]
         })
       })
     </script>
@@ -49,7 +50,7 @@
                     @foreach($leads as $lead)
                         <?php $i++ ?>
                         <tr>
-                            <td>{{$i}}</td>
+                            <td width="40" align="center">{{$i}}</td>
                             <td>{{$lead->fullname}}</td>
                             <td>{{ $lead->product }}</td>
                             <td>{{ $lead->tipster }}</td>
