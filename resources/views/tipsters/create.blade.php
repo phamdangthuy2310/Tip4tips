@@ -43,9 +43,15 @@
                     <div class="form__upload">
                         {!! Form::open(array('route' => 'image.upload.post','files'=>true)) !!}
                         <div class="form-inline-simple">
-                            {!! Form::file('image', array('class' => 'form-control')) !!}
+                            {!! Form::file('image', array('class' => 'form-control', 'onchange' =>'loadFile(event)')) !!}
                             <button type="submit" class="btn btn-info">Upload</button>
                         </div>
+                        <script>
+                            var loadFile = function(event) {
+                                var output = document.getElementById('imgHandle');
+                                output.src = URL.createObjectURL(event.target.files[0]);
+                            };
+                        </script>
 
                         {!! Form::close() !!}
 
