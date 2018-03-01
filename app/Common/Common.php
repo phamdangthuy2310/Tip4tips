@@ -113,8 +113,8 @@ class Common{
 
     public static function getAmountSentMessage(){
         $auth = Auth::user();
-        $messages = count(Message::getMessageSent($auth->id));
-        return $messages;
+        $messages = Message::getMessageSent($auth->id);
+        return $messages->total();
     }
 
     public static function getAmountDeletedMessage(){

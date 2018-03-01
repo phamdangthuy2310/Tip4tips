@@ -5,7 +5,7 @@
 @stop
 @section('content')
     <div class="row">
-        @include('inc.column-left-mail')
+        @include('messages.partials.column-left-mail')
                     <div class="box-tools pull-right">
                         <div class="has-feedback">
                             <input type="text" class="form-control input-sm" placeholder="Search Mail">
@@ -44,7 +44,7 @@
                                 <tr>
                                     <td style="width: 20px;"><input type="checkbox"></td>
                                     <td class="mailbox-name text-left"><a href="{{route('messages.show', $message->id)}}">{{ \App\User::getUserByID($message->author)->username  }}</a></td>
-                                    <td class="mailbox-subject text-left">
+                                    <td class="mailbox-subject text-left" width="70%">
                                         <a href="{{route('messages.show', $message->id)}}">
                                             <b>{{$message->title}}</b>
                                             -

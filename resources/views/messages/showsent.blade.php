@@ -6,12 +6,10 @@
 @stop
 @section('content')
     <div class="row">
-
                 @include('messages.partials.column-left-mail')
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
-
                     <div class="mailbox-read-message">
                     <!-- /.mail-box-messages --></div>
                     <div class="mailbox-read-info">
@@ -32,7 +30,7 @@
                         <button type="button" class="btn btn-default"><i class="fa fa-reply"></i> Reply</button>
                         {{--<button type="button" class="btn btn-default"><i class="fa fa-share"></i> Forward</button>--}}
                     </div>
-                    <form class="inline" action="{{route('messages.destroy', $message->id)}}" method="post">
+                    <form class="inline" action="{{route('messages.deletesent', $message->id)}}" method="post">
                         {{csrf_field()}}
                         <input name="_method" type="hidden" value="DELETE">
                         <button type="submit" class="btn btn-default"><i class="fa fa-trash-o"></i> Delete</button>

@@ -22,17 +22,22 @@ class Message extends Model
 
     public static function countYetNotRead($auth){
         $message = Message::where([
+            ['delete_is', 0],
             ['read_is', 0],
             ['receiver', $auth]
-        ])->where('delete_is', 0)->get();
-        return count($message);
+        ])
+            ->orderBy('updated_at', 'desc')
+        ->paginate(3);
+        return $message->total();
     }
 
     public static function getAllMessageDeleted($auth){
         $message = Message::where([
             ['delete_is','=', 1],
-            ['receiver', '=', $auth]
-        ])->get();
+            ['delete_trash','=', 0],
+            ['receiver', '=', $auth],
+        ])
+            ->orderBy('updated_at', 'desc')->paginate(3);
         return $message;
     }
 
@@ -40,15 +45,17 @@ class Message extends Model
         $messages = Message::where([
             ['receiver', '=',$user],
             ['delete_is','=',0]
-        ])->get();
+        ])
+            ->orderBy('created_at', 'desc')->paginate(3);
         return $messages;
     }
 
     public static function getMessageSent($user){
         $messages = Message::where([
             ['author','=',$user],
-            ['delete_is','=',0]
-        ])->get();
+            ['delete_is','=',0],
+            ['delete_sent','=',0]
+        ])->orderBy('created_at', 'desc')->paginate(3);
         return $messages;
     }
 }

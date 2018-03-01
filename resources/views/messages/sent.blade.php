@@ -5,7 +5,7 @@
 @stop
 @section('content')
     <div class="row">
-        @include('inc.column-left-mail')
+        @include('messages.partials.column-left-mail')
                     <div class="box-tools pull-right">
                         <div class="has-feedback">
                             <input type="text" class="form-control input-sm" placeholder="Search Mail">
@@ -28,12 +28,7 @@
                         <!-- /.btn-group -->
                         <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh" onClick="window.location.reload()"></i></button>
                         <div class="pull-right">
-                            1-50/200
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                            </div>
-                            <!-- /.btn-group -->
+                        {{$messages->links('messages.partials.paging')}}
                         </div>
                         <!-- /.pull-right -->
                     </div>
@@ -43,8 +38,8 @@
                             @foreach($messages as $message)
                                 <tr>
                                     <td><input type="checkbox"></td>
-                                    <td class="mailbox-name">To: <a href="{{action('MessagesController@show', $message->id)}}">{{ \App\User::getUserByID($message->receiver)->username }}</a></td>
-                                    <td class="mailbox-subject"><a href="{{action('MessagesController@show', $message->id)}}">
+                                    <td class="mailbox-name">To: <a href="{{route('messages.showsent', $message->id)}}">{{ \App\User::getUserByID($message->receiver)->username }}</a></td>
+                                    <td class="mailbox-subject" width="70%"><a href="{{route('messages.showsent', $message->id)}}">
                                             <b>{{$message->title}}</b>
                                             -
                                             {{{ strip_tags(str_limit($message->content, 90)) }}}
@@ -71,12 +66,7 @@
                         <!-- /.btn-group -->
                         <button type="button" class="btn btn-default btn-sm" onClick="window.location.reload()"><i class="fa fa-refresh"></i></button>
                         <div class="pull-right">
-                            1-50/200
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                            </div>
-                            <!-- /.btn-group -->
+                            {{$messages->links('messages.partials.paging')}}
                         </div>
                         <!-- /.pull-right -->
                     </div>

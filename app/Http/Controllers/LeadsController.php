@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Lead;
 use App\Model\LeadProcess;
 use App\Model\PointHistory;
+use App\Model\Product;
 use App\Model\Region;
 use App\Model\Role;
 use App\Model\RoleType;
@@ -26,7 +27,7 @@ class LeadsController extends Controller
     public function index()
     {
         //
-        $leads= Lead::select('*')->orderBy('created_at', 'desc')->get();
+        $leads= Lead::getAllLead();
         $auth = Auth::user();
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
@@ -132,7 +133,7 @@ class LeadsController extends Controller
             $deleteAction = true;
         }
 
-        $lead = Lead::find($id);
+        $lead = Lead::getLeadByID($id);
 
         return view('leads.show', compact('lead', 'id'))->with([
             'deleteAction' => $deleteAction
@@ -156,8 +157,8 @@ class LeadsController extends Controller
             $editAction = true;
         }
 
-        $lead = Lead::find($id);
-
+        $lead = Lead::getLeadByID($id);
+        $products = Product::getAllProduct();
         $rowPoint = PointHistory::countRowPlusPointForTipsterFollowLead(
             $lead->id,
             $lead->tipster_id
@@ -178,6 +179,7 @@ class LeadsController extends Controller
             ->get();
         $consultants = User::getAllConsultant();
         return view('leads.edit', compact('lead', 'id'))->with([
+            'products'=> $products,
             'regions'=> $regions,
             'tipsters'=>$tipsters,
             'editAction' => $editAction,

@@ -22,7 +22,7 @@
 @stop
 @section('content')
     <div class="row">
-        @include('inc.column-left-mail')
+        @include('messages.partials.column-left-mail')
             <!-- /.box-tools -->
         </div>
         <!-- /.box-header -->

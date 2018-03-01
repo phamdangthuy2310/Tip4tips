@@ -32,6 +32,16 @@ class Lead extends Model
         return $this->belongsTo('App\User');
     }
 
+    public static function getAllLead(){
+        $leads = DB::table('leads')
+            ->join('products', 'products.id', 'leads.product_id')
+            ->join('users', 'users.id', 'leads.tipster_id')
+            ->join('regions', 'regions.id', 'leads.region_id')
+            ->select('leads.*', 'products.name as product', 'users.fullname as tipster', 'regions.name as region')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return $leads;
+    }
     public static function getAllLeadNotYetAssign(){
         $leads = DB::table('leads')->select('*')
             ->whereNOTIn('id', function ($query){
@@ -41,9 +51,15 @@ class Lead extends Model
     }
 
     public static function getLeadByID($id){
-        $name = Lead::where('leads.id', $id)
-            ->select('leads.*')->first();
-        return $name;
+        $lead = Lead::where('leads.id', $id)
+            ->join('products', 'products.id', 'leads.product_id')
+            ->join('users', 'users.id', 'leads.tipster_id')
+            ->join('regions', 'regions.id', 'leads.region_id')
+            ->select('leads.*', 'products.name as product', 'users.fullname as tipster', 'regions.name as region')
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        return $lead;
     }
 
     public static function showNameStatus($statusID){

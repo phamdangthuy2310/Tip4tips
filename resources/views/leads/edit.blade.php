@@ -123,7 +123,7 @@ use App\Common\Common;
                                         <label>Product</label>
                                         <select name="product" class="form-control">
                                             <option value="" disabled selected>Please pick a product</option>
-                                            @foreach(\App\Model\Product::getAllProduct() as $product)
+                                            @foreach($products as $product)
                                                 <option value="{{$product->id}}" @if($product->id == $lead->product_id) selected @endif>{{$product->name}}</option>
                                             @endforeach
                                         </select>
@@ -160,7 +160,7 @@ use App\Common\Common;
                     <div class="box-body">
                         {{--Block update tipster--}}
                         <div class="block__action">
-                            <h5>Update tipster</h5>
+                            <h5>Tipster reference</h5>
                             <form method="get" action="{{route('leads.updateTipster')}}">
                                 {{ csrf_field() }}
                                 <input type="hidden" value="{{$lead->id}}" name="lead">
@@ -197,7 +197,7 @@ use App\Common\Common;
                         </div>{{--/Block assign--}}
                         {{--Block update status--}}
                         <div class="block__action">
-                            <h5>Update status lead:</h5>
+                            <h5>Lead status:</h5>
                             <form method="get" action="{{route('leads.ajaxStatus')}}" id="statusGroup">
                                 {{ csrf_field() }}
                                 @include('layouts.partials._input_history_user',

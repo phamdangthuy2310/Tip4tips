@@ -107,6 +107,7 @@ class ProductsController extends Controller
         $product = DB::table('products')
         ->join('productcategories', 'productcategories.id', 'products.category_id')
         ->select('products.*', 'productcategories.name as category')
+            ->where('products.id', $id)
         ->first();
         return view('products.show', compact('product', 'id'))
             ->with([

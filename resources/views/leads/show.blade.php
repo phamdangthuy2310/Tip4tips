@@ -49,13 +49,13 @@ use App\Model\Role;
                         </p>@endif
                         <p class="text-muted">
                         <span class="text-label"><i class="fa fa-map-marker margin-r-5"></i> Region</span>
-                        <span class="text-highlight">@if(!empty(Region::getNameByID($lead->region_id)))
-                        {{Region::getNameByID($lead->region_id)->name}}
+                        <span class="text-highlight">@if(!empty($lead->region))
+                        {{$lead->region}}
                         @endif</span>
                         </p>
                         <p class="text-muted">
                         <span class="text-label"><i class="fa fa-shield margin-r-5"></i> Product</span>
-                        <span class="text-highlight"> @if(!empty(Product::getProductByID($lead->product_id))){{Product::getProductByID($lead->product_id)->name}}@endif </span>
+                        <span class="text-highlight"> @if(!empty($lead->product)){{$lead->product}}@endif </span>
                         </p>
                         @if($lead->notes)<p class="text-muted">
                         <span class="text-label"><i class="fa fa-file-text-o margin-r-5"></i> Notes</span>
@@ -78,7 +78,7 @@ use App\Model\Role;
                 <div class="box-body">
                     <div class="block__action">
                         <p>Tipster reference:
-                            <span class="text-highlight">{{User::getUserByID($lead->tipster_id)->fullname}}</span></p>
+                            <span class="text-highlight">{{$lead->tipster}}</span></p>
                     </div>
                     <div class="block__action">
                         <p>Be Assigned to:<br/>

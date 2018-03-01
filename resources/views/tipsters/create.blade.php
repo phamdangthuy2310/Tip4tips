@@ -34,22 +34,8 @@
                 </div>
                 <div class="box-body box-profile">
                     @if ($message = Session::get('success'))
-                        <div class="alert alert-success alert-block">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>{{ $message }}</strong>
-                        </div>
                         <input id="imgAnchorInput" type="hidden" value="{{Session::get('image')}}">
 
-                    @endif
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
                     @endif
                     <div class="upload__area-image">
                         <span><img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/no_image_available.jpg"></span>
@@ -86,6 +72,9 @@
                 <div class="box-body">
                     @if ($errors->any())
                         <div class="alert alert-danger">
+                            @if (count($errors) > 0)
+                                <strong>Whoops!</strong> There were some problems with your input.
+                            @endif
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -126,7 +115,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Full name</label>
-                                <input name="fullname" type="text" class="form-control" placeholder="Enter ..." required>
+                                <input name="fullname" value="{{old('fullname')}}" type="text" class="form-control" placeholder="Enter ..." required>
                             </div>
                         </div>
 
@@ -136,7 +125,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Birthday</label>
-                                <input name="birthday" type="date" class="form-control" placeholder="Enter ...">
+                                <input name="birthday" value="{{old('birthday')}}" type="date" class="form-control" placeholder="Enter ...">
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -161,13 +150,13 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input name="email" type="text" class="form-control" placeholder="Enter ..." required>
+                                <input name="email" type="email" value="{{old('email')}}" class="form-control" placeholder="Enter ..." required>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Phone</label>
-                                <input name="phone" type="text" class="form-control" placeholder="Enter ...">
+                                <input name="phone" type="text" value="{{old('phone')}}" class="form-control" placeholder="Enter ..." required>
                             </div>
                         </div>
                     </div>
@@ -175,13 +164,13 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Address</label>
-                                <input name="address" type="text" class="form-control" placeholder="Enter ...">
+                                <input name="address" value="{{old('address')}}" type="text" class="form-control" placeholder="Enter ...">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Region</label>
-                                <select name="region" class="form-control">
+                                <select name="region" class="form-control" required>
                                     <option value="" disabled selected>Please pick a region</option>
                                     @foreach($regions as $region)
                                         <option value="{{$region->id}}">{{$region->name}}</option>
@@ -194,7 +183,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Level</label>
-                                <select name="department" class="form-control">
+                                <select name="department" class="form-control" required>
                                     <option value="" disabled selected>Please pick a level</option>
                                     @foreach($roletypes as $roletype)
                                         <optgroup label="{{$roletype->name}}">

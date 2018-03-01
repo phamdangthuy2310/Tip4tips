@@ -111,14 +111,50 @@ class MessagesController extends Controller
         //
         $auth = Auth::user();
         $message = Message::find($id);
+        $author = User::getUserByID($message->author)->username;
         $count = Message::countYetNotRead($auth->id);
         $messagesDelete = Message::getAllMessageDeleted($auth->id);
 //        die();
         return view('messages.readmail', compact('message', 'id'))->with([
             'count' => $count,
             'messagesDelete'=>$messagesDelete,
+            'author' => $author
         ]);
     }
+
+    public function showMessageSent($id)
+    {
+        //
+        $auth = Auth::user();
+        $message = Message::find($id);
+        $author = User::getUserByID($message->author)->username;
+        $count = Message::countYetNotRead($auth->id);
+        $messagesDelete = Message::getAllMessageDeleted($auth->id);
+//        die();
+        return view('messages.showsent', compact('message', 'id'))->with([
+            'count' => $count,
+            'messagesDelete'=>$messagesDelete,
+            'author' => $author
+        ]);
+    }
+    public function showMessageTrack($id)
+    {
+        //
+        $auth = Auth::user();
+        $message = Message::find($id);
+        $author = User::getUserByID($message->author)->username;
+        $count = Message::countYetNotRead($auth->id);
+        $messagesDelete = Message::getAllMessageDeleted($auth->id);
+//        die();
+        return view('messages.showtrash', compact('message', 'id'))->with([
+            'count' => $count,
+            'messagesDelete'=>$messagesDelete,
+            'author' => $author
+        ]);
+    }
+
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -160,22 +196,43 @@ class MessagesController extends Controller
         return redirect('messages')->with('success', 'Your message removed to the trash.');
     }
 
+    public function deleteMessageSent($id)
+    {
+        //
+        $message = Message::find($id);
+        $message->delete_sent = 1;
+        $message->save();
+        return redirect('messages')->with('success', 'Your message removed.');
+    }
+    public function deleteMessageTrash($id)
+    {
+        //
+        $message = Message::find($id);
+        $message->delete_trash = 1;
+        $message->save();
+        return redirect('messages')->with('success', 'Your message removed.');
+    }
+
+
     public function trash(){
         $auth = Auth::user();
-        $count = Message::countYetNotRead($auth->id);
         $messages = Message::getAllMessageDeleted($auth->id);
-        $countDelete = count($messages);
+        foreach ($messages as $message){
+            $message['authorMess'] = User::getUserByID($message->author)->username;
+            $message['receiverMess'] = User::getUserByID($message->receiver)->username;
+        }
+
         return view('messages.trash', [
             'messages' => $messages,
-            'count' => $count,
-            'countDelete' => $countDelete
+//            'count' => $count,
+//            'countDelete' => $countDelete
         ]);
     }
 
     public function sent(){
         $auth = Auth::user();
         $messages = Message::getMessageSent($auth->id);
-        $count = count($messages);
+        $count = $messages->total();
 
         return view('messages.sent',[
             'messages' => $messages,

@@ -93,6 +93,8 @@ class TipstersController extends Controller
             'fullname' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
             'birthday' => 'required|date',
+            'phone' => 'required',
+            'region_id' => 'required',
         ]);
         $user['password']= bcrypt($request->password);
         $user['gender'] = $request->gender;

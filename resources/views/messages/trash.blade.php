@@ -5,7 +5,7 @@
 @stop
 @section('content')
     <div class="row">
-        @include('inc.column-left-mail')
+        @include('messages.partials.column-left-mail')
                     <div class="box-tools pull-right">
                         <div class="has-feedback">
                             <input type="text" class="form-control input-sm" placeholder="Search Mail">
@@ -43,8 +43,8 @@
                             @foreach($messages as $message)
                                 <tr>
                                     <td><input type="checkbox"></td>
-                                    <td class="mailbox-name"><a href="{{action('MessagesController@show', $message->id)}}">{{ $message->author }}</a></td>
-                                    <td class="mailbox-subject"><a href="{{action('MessagesController@show', $message->id)}}">
+                                    <td class="mailbox-name">{{ $message->authorMess }}, Me</td>
+                                    <td class="mailbox-subject" width="70%"><a href="{{route('messages.showtrack', $message->id)}}">
                                             <b>{{$message->title}}</b>
                                             -
                                             {{{ strip_tags(str_limit($message->content, 90)) }}}

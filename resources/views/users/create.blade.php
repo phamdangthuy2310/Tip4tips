@@ -1,5 +1,19 @@
+<?php use \App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'Create User')
+@section('javascript')
+    <script>
+      $(document).ready(function () {
+        var src = '{{asset(Utils::$PATH__IMAGE)}}/';
+        $("#imgAnchorInput").change(function() {
+          $("#imgHandleInput").val($(this).val());
+          src += $(this).val();
+          console.log(src, $(this).val());
+          $("#imgHandle").attr('src', src);
+        }).change();
+      })
+    </script>
+@endsection
 @section('body.breadcrumbs')
     {{ Breadcrumbs::render('users.create') }}
 @stop
@@ -17,12 +31,24 @@
             <!-- Profile Image -->
             <div class="box box-warning">
                 <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('images/avatar2.png') }}" alt="User profile picture">
+                    @if ($message = Session::get('success'))
+                        <input id="imgAnchorInput" type="hidden" value="{{Session::get('image')}}">
+
+                    @endif
+                    <div class="upload__area-image">
+                        <span><img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/no_image_available.jpg"></span>
+                    </div>
+                    <div class="form__upload">
+                        {!! Form::open(array('route' => 'image.upload.post','files'=>true)) !!}
+                        <div class="form-inline-simple">
+                            {!! Form::file('image', array('class' => 'form-control')) !!}
+                            <button type="submit" class="btn btn-info">Upload</button>
+                        </div>
+
+                        {!! Form::close() !!}
+
+                    </div>
                 </div>
-                <div class="box-body text-center">
-                    <p>Please upload an image.</p>
-                </div>
-                <!-- /.box-body -->
             </div>
             <!-- /.box -->
 
@@ -41,6 +67,9 @@
                         <div class="box-body">
                             @if ($errors->any())
                                 <div class="alert alert-danger">
+                                    @if (count($errors) > 0)
+                                        <strong>Whoops!</strong> There were some problems with your input.
+                                    @endif
                                     <ul>
                                         @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
@@ -53,11 +82,12 @@
                                     <p>{{ \Session::get('success') }}</p>
                                 </div>
                             @endif
+                                <input id="imgHandleInput" name="avatar" type="hidden" value="">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Username</label>
-                                        <input name="username" type="text" class="form-control" placeholder="Enter ..." required>
+                                        <input name="username" value="{{old('username')}}" type="text" class="form-control" placeholder="Enter ..." required>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +110,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Full name</label>
-                                        <input name="fullname" type="text" class="form-control" placeholder="Enter ..." required>
+                                        <input name="fullname" value="{{old('fullname')}}" type="text" class="form-control" placeholder="Enter ..." required>
                                     </div>
                                 </div>
 
@@ -90,7 +120,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Birthday</label>
-                                        <input name="birthday" type="date" class="form-control" placeholder="Enter ...">
+                                        <input name="birthday" value="{{old('birthday')}}" type="date" class="form-control" placeholder="Enter ...">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -117,13 +147,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input name="email" type="text" class="form-control" placeholder="Enter ..." required>
+                                        <input name="email" value="{{old('email')}}" type="email" class="form-control" placeholder="Enter ..." required>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Phone</label>
-                                        <input name="phone" type="text" class="form-control" placeholder="Enter ...">
+                                        <input name="phone" value="{{old('phone')}}" type="text" class="form-control" placeholder="Enter ..." required>
                                     </div>
                                 </div>
                             </div>
@@ -131,13 +161,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Address</label>
-                                        <input name="address" type="text" class="form-control" placeholder="Enter ...">
+                                        <input name="address" value="{{old('address')}}" type="text" class="form-control" placeholder="Enter ...">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Region</label>
-                                        <select name="region" class="form-control">
+                                        <select name="region" class="form-control" required>
                                             <option value="" disabled selected>Please pick a region</option>
                                             @foreach($regions as $region)
                                                 <option value="{{$region->id}}">{{$region->name}}</option>
@@ -150,7 +180,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Department</label>
-                                        <select name="department" class="form-control">
+                                        <select name="department" class="form-control" required>
                                             <option value="" disabled selected>Please pick a department</option>
                                             @foreach($roletypes as $roletype)
                                                 <optgroup label="{{$roletype->name}}">
