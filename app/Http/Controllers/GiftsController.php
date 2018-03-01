@@ -32,6 +32,7 @@ class GiftsController extends Controller
         $gifts = DB::table('gifts')
             ->join('giftcategories', 'giftcategories.id', 'gifts.category_id')
             ->select('gifts.*', 'giftcategories.name as category')
+            ->where('gifts.delete_is', '<>', 1)
             ->orderBy('created_at', 'desc')
             ->get();
         return view('gifts.index', [
@@ -78,7 +79,11 @@ class GiftsController extends Controller
             $thumbnail = 'no_image_available.jpg';
         }
         $gift['thumbnail'] = $thumbnail;
-        $gift['point'] = $request->point;
+        $point = $request->point;
+        if(empty($point)){
+            $point = 0;
+        }
+        $gift['point'] = $point;
         $gift['category_id'] = $request->category;
         Gift::create($gift);
 
@@ -94,11 +99,23 @@ class GiftsController extends Controller
     public function show($id)
     {
         //
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $editAction = false;
+        $deleteAction = false;
+        if($roleAuth->code == 'community' || $roleAuth->code == 'admin'){
+            $editAction = true;
+            $deleteAction = true;
+        }
         $gift = DB::table('gifts')
         ->join('giftcategories', 'giftcategories.id', 'gifts.category_id')
         ->where('gifts.id', $id)
             ->select('gifts.*', 'giftcategories.name as category')->first();
-        return view('gifts.show', compact('gift', 'id'));
+        return view('gifts.show', compact('gift', 'id'))
+            ->with([
+                'editAction' => $editAction,
+                'deleteAction' => $deleteAction
+            ]);
     }
 
     /**
@@ -156,7 +173,8 @@ class GiftsController extends Controller
     {
         //
         $gift = Gift::find($id);
-        $gift->delete();
+        $gift->delete_is = 1;
+        $gift->save();
         return back()->with('success', 'Gift deleted successfully.');
     }
 

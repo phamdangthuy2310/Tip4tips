@@ -575,6 +575,9 @@ Popup confirm
     border-radius: 3px;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
+.popup-confirm .modal-content p{
+    font-size: 18px;
+}
 .popup-confirm .modal-content .btn{
     width: 80px;
     margin: 0 10px;

@@ -20,10 +20,8 @@ class ProductsController extends Controller
     public function index()
     {
         //
-//        $products = Product::all();
         $auth = Auth::user();
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
-//        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
         $editAction = false;
         $deleteAction = false;
         $createAction = false;
@@ -35,6 +33,7 @@ class ProductsController extends Controller
         $products = DB::table('products')
             ->join('productcategories', 'products.category_id', 'productcategories.id')
             ->select('products.*', 'productcategories.name as category')
+            ->where('products.delete_is', '<>', 1)
             ->orderBy('created_at', 'desc')
         ->get();
         return view('products.index')->with([
@@ -97,13 +96,23 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        //
-//        $product = Product::find($id);
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $editAction = false;
+        $deleteAction = false;
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin'){
+            $editAction = true;
+            $deleteAction = true;
+        }
         $product = DB::table('products')
         ->join('productcategories', 'productcategories.id', 'products.category_id')
         ->select('products.*', 'productcategories.name as category')
         ->first();
-        return view('products.show', compact('product', 'id'));
+        return view('products.show', compact('product', 'id'))
+            ->with([
+                'editAction' => $editAction,
+                'deleteAction' => $deleteAction
+            ]);
     }
 
     /**
@@ -175,7 +184,8 @@ class ProductsController extends Controller
     {
         //
         $product = Product::find($id);
-        $product->delete();
+        $product->delete_is = 1;
+        $product->save();
         return back()->with('success', 'Product deleted successfully.');
     }
 
