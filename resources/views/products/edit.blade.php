@@ -39,21 +39,26 @@
                         <a href="{{route('products.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
                     </span>
                 </div>
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+
                 <!-- /.box-header -->
                 <form role="form" method="post" action="{{route('products.update', $id)}}">
                     {{ csrf_field() }}
                     <input name="_method" type="hidden" value="PATCH">
                     <input id="imgHandleInput" name="thumbnail" type="hidden" value="{{$product->thumbnail}}">
                         <div class="box-body">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    @if (count($errors) > 0)
+                                        <strong>Whoops!</strong> There were some problems with your input.
+                                    @endif
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             <div class="form-group">
                                 <label>Product name</label>
                                 <input name="name" value="{{$product->name}}" type="text" class="form-control">
@@ -103,23 +108,9 @@
                 </div>
                 <div class="box-body">
                     @if ($message = Session::get('success'))
-                        <div class="alert alert-success alert-block">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>{{ $message }}</strong>
-                        </div>
                         <input id="imgAnchorInput" type="hidden" value="{{Session::get('image')}}">
+                    @endif
 
-                    @endif
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <div class="upload__area-thumbnail">
                         <p><span>
                             @if(!empty($product->thumbnail))
