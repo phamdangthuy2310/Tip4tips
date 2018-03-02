@@ -37,7 +37,7 @@
                         <table class="table table-hover table-striped">
                             <tbody>
                             @foreach($messages as $message)
-                                <tr>
+                                <tr @if($message->read_is == 1) class="message__read" @endif>
                                     <td><input type="checkbox"></td>
                                     <td class="mailbox-name">{{ $message->authorMess }}, Me</td>
                                     <td class="mailbox-subject" width="70%"><a href="{{route('messages.showtrack', $message->id)}}">

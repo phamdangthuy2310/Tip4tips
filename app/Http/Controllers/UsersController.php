@@ -223,7 +223,7 @@ class UsersController extends Controller
         }else{
             if($roleAuth->code == 'sale'){
                 if(RoleType::getNameByID(Role::getInfoRoleByID($user->role_id)->roletype_id)->code == 'consultant'){
-                    $user->delete_is = 0;
+                    $user->delete_is = 1;
                     $user->save();
                     return back()->with('success', 'Delete a user successfully.');
                 } else{
@@ -231,14 +231,14 @@ class UsersController extends Controller
                 }
             }elseif($roleAuth->code == 'community'){
                 if(Role::getInfoRoleByID($user->id) == 'tipster'){
-                    $user->delete_is = 0;
+                    $user->delete_is = 1;
                     $user->save();
                     return back()->with('success', 'Delete a user successfully.');
                 }else{
                     return back()->with('error', 'You do not have access delete user.');
                 }
             }else{
-                $user->delete_is = 0;
+                $user->delete_is = 1;
                 $user->save();
                 return back()->with('success', 'Delete a user successfully.');
             }

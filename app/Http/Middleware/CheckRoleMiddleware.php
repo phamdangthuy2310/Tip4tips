@@ -47,7 +47,7 @@ class CheckRoleMiddleware
                 $arrayUrl = ['tipsters','leads','products','gifts','messages'];
                 break;
             case 'tipster_normal':
-                $arrayUrl = ['tipsters','leads','products','gifts','messages'];
+                $arrayUrl = ['tipsters','leads','products','gifts','messages', 'users'];
                 break;
         }
         foreach($arrayUrl as $url){

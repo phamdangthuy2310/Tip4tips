@@ -66,10 +66,13 @@ use App\Common\Utils;
                     <h3 class="box-title">@yield('title')</h3>
                     <span class="group__action pull-right">
                         <a href="{{route('tipsters.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
-                        <a href="{{route('tipsters.edit', $user->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
+                        @if($editAction == true)
+                            <a href="{{route('tipsters.edit', $user->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
+                        @endif
                         @if($deleteAction == true)
                             <a  data-toggle="modal" data-target="#popup-confirm" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</a>
                         @endif
+
 
                     </span>
                 </div>

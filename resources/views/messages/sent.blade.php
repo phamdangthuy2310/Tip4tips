@@ -37,7 +37,7 @@
                         <table class="table table-hover table-striped">
                             <tbody>
                             @foreach($messages as $message)
-                                <tr>
+                                <tr class="message__read">
                                     <td><input type="checkbox"></td>
                                     <td class="mailbox-name">To: <a href="{{route('messages.showsent', $message->id)}}">{{ \App\User::getUserByID($message->receiver)->username }}</a></td>
                                     <td class="mailbox-subject" width="70%"><a href="{{route('messages.showsent', $message->id)}}">

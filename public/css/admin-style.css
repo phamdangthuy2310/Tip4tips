@@ -12,8 +12,14 @@ img{
 .actions form{
     display: inline-block;
 }
+/*---------------------------------
+style for message
+-----------------------------------*/
 .mailbox-subject a{
     color: inherit;
+}
+tr.message__read{
+    color: #999999;!important;
 }
 .sidebar-menu li>a{
     text-transform: uppercase;

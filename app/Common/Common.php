@@ -2,6 +2,7 @@
 namespace App\Common;
 
 use App\Model\Message;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -105,9 +106,30 @@ class Common{
         return $name;
     }
 
+    public static function getAmountMessageInbox(){
+        $auth = Auth::user();
+        $amount = Message::countMessageInbox($auth->id, 10000);
+        return $amount;
+    }
     public static function getAmountNewMessage(){
         $auth = Auth::user();
-        $messages = Message::countYetNotRead($auth->id);
+        $messages = Message::countYetNotRead($auth->id, 10000);
+        $amount = $messages->total();
+        if($amount > 9){
+            $result = '9 +';
+        }else{
+            $result = $amount;
+        }
+        return $result;
+    }
+
+    public static function getAllNewMessage(){
+        $auth = Auth::user();
+        $messages = Message::countYetNotRead($auth->id, 10);
+        foreach ($messages as $message){
+            $message['senderAvatar'] = User::getUserByID($message->author)->avatar;
+            $message['senderUsername'] = User::getUserByID($message->author)->username;
+        }
         return $messages;
     }
 

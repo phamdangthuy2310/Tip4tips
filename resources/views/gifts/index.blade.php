@@ -55,6 +55,7 @@
                         <th>No.</th>
                         <th>Thumbnail</th>
                         <th>Gift name</th>
+                        <th>Points</th>
                         <th>Description</th>
                         <th>Category</th>
                         <th>Actions</th>
@@ -76,6 +77,7 @@
                                 </span>
                             </td>
                             <td>{{$gift->name}}</td>
+                            <td width="80px">{{$gift->point}}</td>
                             <td style="width:300px;">{{{ strip_tags(str_limit($gift->description, 110)) }}}</td>
                             <td>{{$gift->category}}</td>
                             <td class="actions text-center" style="width: 100px">
@@ -94,6 +96,7 @@
                         <th>No.</th>
                         <th>Thumbnail</th>
                         <th>Gift name</th>
+                        <th>Points</th>
                         <th>Description</th>
                         <th>Category</th>
                         <th>Actions</th>

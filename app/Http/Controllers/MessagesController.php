@@ -29,15 +29,9 @@ class MessagesController extends Controller
         }
 
         $messages = Message::getMessageOfUser($auth->id);
-        $count = Message::countYetNotRead($auth->id);
-        $messagesDelete = Message::getAllMessageDeleted($auth->id);
-        $countDelete = count($messagesDelete);
         return view('messages.mailbox',
             [
                 'messages' => $messages,
-                'count' => $count,
-                'messagesDelete'=>$messagesDelete,
-                'countDelete' => $countDelete,
                 'createAction' => $createAction
             ]
         );
@@ -66,13 +60,7 @@ class MessagesController extends Controller
             $receivers = User::getAllTipster();
         }
 
-        $count = Message::countYetNotRead($auth->id);
-        $messagesDelete = Message::getAllMessageDeleted($auth->id);
-        $countDelete = count($messagesDelete);
         return view('messages.compose')->with([
-            'count' => $count,
-            'messagesDelete'=>$messagesDelete,
-            'countDelete' => $countDelete,
             'receivers' => $receivers,
             'createAction' => $createAction
         ]);
@@ -111,45 +99,30 @@ class MessagesController extends Controller
         //
         $auth = Auth::user();
         $message = Message::find($id);
-        $author = User::getUserByID($message->author)->username;
-        $count = Message::countYetNotRead($auth->id);
-        $messagesDelete = Message::getAllMessageDeleted($auth->id);
-//        die();
+        $message->read_is = 1;
+        $message->save();
+        $message['authorMess'] = User::getUserByID($message->author)->username;
+        $message['receiverMess'] = User::getUserByID($message->receiver)->username;
+
         return view('messages.readmail', compact('message', 'id'))->with([
-            'count' => $count,
-            'messagesDelete'=>$messagesDelete,
-            'author' => $author
         ]);
     }
 
     public function showMessageSent($id)
     {
         //
-        $auth = Auth::user();
-        $message = Message::find($id);
-        $author = User::getUserByID($message->author)->username;
-        $count = Message::countYetNotRead($auth->id);
-        $messagesDelete = Message::getAllMessageDeleted($auth->id);
-//        die();
+        $message = Message::getMessageByID($id);
+
         return view('messages.showsent', compact('message', 'id'))->with([
-            'count' => $count,
-            'messagesDelete'=>$messagesDelete,
-            'author' => $author
+
         ]);
     }
     public function showMessageTrack($id)
     {
         //
-        $auth = Auth::user();
-        $message = Message::find($id);
-        $author = User::getUserByID($message->author)->username;
-        $count = Message::countYetNotRead($auth->id);
-        $messagesDelete = Message::getAllMessageDeleted($auth->id);
-//        die();
+        $message = Message::getMessageByID($id);
+
         return view('messages.showtrash', compact('message', 'id'))->with([
-            'count' => $count,
-            'messagesDelete'=>$messagesDelete,
-            'author' => $author
         ]);
     }
 
@@ -216,7 +189,7 @@ class MessagesController extends Controller
 
     public function trash(){
         $auth = Auth::user();
-        $messages = Message::getAllMessageDeleted($auth->id);
+        $messages = Message::getAllMessageDeleted($auth->id, 50);
         foreach ($messages as $message){
             $message['authorMess'] = User::getUserByID($message->author)->username;
             $message['receiverMess'] = User::getUserByID($message->receiver)->username;
@@ -231,7 +204,7 @@ class MessagesController extends Controller
 
     public function sent(){
         $auth = Auth::user();
-        $messages = Message::getMessageSent($auth->id);
+        $messages = Message::getMessageSent($auth->id, 50);
         $count = $messages->total();
 
         return view('messages.sent',[

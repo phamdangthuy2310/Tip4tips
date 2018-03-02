@@ -37,12 +37,15 @@
                         <table class="table table-hover table-striped">
                             <tbody>
                             @foreach($messages as $message)
-                                <tr>
+                                <tr @if($message->read_is == 1) class="message__read" @endif>
                                     <td style="width: 20px;"><input type="checkbox"></td>
-                                    <td class="mailbox-name text-left"><a href="{{route('messages.show', $message->id)}}">{{ \App\User::getUserByID($message->author)->username  }}</a></td>
+                                    <td class="mailbox-name text-left">
+                                        <a>{{ $message->authorMess  }}</a></td>
                                     <td class="mailbox-subject text-left" width="70%">
                                         <a href="{{route('messages.show', $message->id)}}">
-                                            <b>{{$message->title}}</b>
+
+                                                <b>{{$message->title}}</b>
+
                                             -
                                             {{{ strip_tags(str_limit($message->content, 90)) }}}
                                         </a></td>

@@ -14,7 +14,7 @@
         <div class="box-body no-padding">
             <ul class="nav nav-pills nav-stacked">
                 <li class="active"><a href="{{route('messages.index')}}"><i class="fa fa-inbox"></i> Inbox
-                        <span class="label label-primary pull-right">{{Common::getAmountNewMessage()}}</span>
+                        <span class="label label-primary pull-right">{{Common::getAmountMessageInbox()}}</span>
                     </a></li>
                 <li><a href="{{route('messages.sent')}}"><i class="fa fa-envelope-o"></i> Sent
                     <span class="label label-default pull-right">{{Common::getAmountSentMessage()}}</span>

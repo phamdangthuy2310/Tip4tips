@@ -14,8 +14,8 @@
                     <!-- /.mail-box-messages --></div>
                     <div class="mailbox-read-info">
                         <h3>{{ $message->title }}</h3>
-                        <h5>From: {{ $author }}
-                            <span class="mailbox-read-time pull-right">{{ Common::dateFormat($message->created_at) }}</span></h5>
+                        <h5>From: {{ $message->authorMess }}
+                            <span class="mailbox-read-time pull-right">{!! Common::dateFormatText($message->created_at)!!}</span></h5>
                     </div>
                     <!-- /.mailbox-read-info -->
 

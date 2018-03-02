@@ -26,7 +26,7 @@
             <!-- /.box-tools -->
         </div>
         <!-- /.box-header -->
-                <form method="post" action="{{url('messages')}}">
+                <form method="post" action="{{route('messages.store')}}">
                     {{ csrf_field() }}
                     <div class="box-body">
                         <div class="form-group">
@@ -39,10 +39,10 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input name="title" class="form-control" placeholder="Subject:">
+                            <input name="title" value="{{old('title')}}" class="form-control" placeholder="Subject:">
                         </div>
                         <div class="form-group">
-                        <textarea name="content" id="compose-textarea" class="form-control" style="height: 300px">
+                        <textarea name="content" id="compose-textarea" class="form-control" style="height: 300px" required>
 
                         </textarea>
                         </div>

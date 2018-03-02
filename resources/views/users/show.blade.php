@@ -24,7 +24,7 @@ use App\Common\Utils;
                     <hr>
 
                     <p class="text-center">
-                        @if($user->delete_is == 1)
+                        @if($user->delete_is == 0)
                             <span class="label label-success">Active</span>
                         @else
                             <span class="label label-danger">Deactive</span>
@@ -49,8 +49,8 @@ use App\Common\Utils;
                         @if($editAction == true)
                         <a href="{{route('users.edit', $user->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
                         @endif
-                        @if($deleteAction == true)
-                            <a  data-toggle="modal" data-target="#popup-confirm" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                        @if($deleteAction == true && $user->delete_is==0)
+                            <a data-toggle="modal" data-target="#popup-confirm" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</a>
                         @endif
                     </span>
 

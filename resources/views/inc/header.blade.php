@@ -1,6 +1,7 @@
 <?php
 use App\Common\Common;
 use App\Common\Utils;
+$newmessages = Common::getAllNewMessage();
 ?>
 <header class="main-header">
 
@@ -34,30 +35,36 @@ use App\Common\Utils;
                         <span class="label label-success">{{Common::getAmountNewMessage()}}</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">You have {{Common::getAmountNewMessage()}} messages</li>
+                        <li class="header">You have {{Common::getAmountNewMessage()}} new messages</li>
                         <li>
                             <!-- inner menu: contains the messages -->
                             <ul class="menu">
-                                <li><!-- start message -->
-                                    <a href="#">
+                                @if(!empty($newmessages))
+                                    @foreach($newmessages as $newmessage)
+                                        <li><!-- start message -->
+                                    <a href="{{route('messages.show', $newmessage->id)}}">
                                         <div class="pull-left">
                                             <!-- User Image -->
-                                            <img src="{{asset(Utils::$PATH__IMAGE)}}/{{Auth::user()->avatar}}" class="img-circle" alt="User Image">
+                                            <img src="{{asset(Utils::$PATH__IMAGE)}}/{{$newmessage->senderAvatar}}" class="img-circle" alt="User Image">
                                         </div>
                                         <!-- Message title and timestamp -->
                                         <h4>
-                                            Support Team
-                                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            {{$newmessage->senderUsername}}
+                                            <small><i class="fa fa-clock-o"></i> {!! Common::dateFormatText($newmessage->created_at)!!}</small>
                                         </h4>
                                         <!-- The message -->
-                                        <p>Why not buy a new awesome theme?</p>
+                                        <p>{{{ strip_tags(str_limit($newmessage->content, 30)) }}}</p>
                                     </a>
                                 </li>
+                                    @endforeach
                                 <!-- end message -->
+                                @else
+                                    <li>No messages.</li>
+                                @endif
                             </ul>
                             <!-- /.menu -->
                         </li>
-                        <li class="footer"><a href="#">See All Messages</a></li>
+                        <li class="footer"><a href="{{route('messages.index')}}">See All Messages</a></li>
                     </ul>
                 </li>
                 <!-- /.messages-menu -->

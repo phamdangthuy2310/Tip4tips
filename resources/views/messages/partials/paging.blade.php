@@ -1,5 +1,5 @@
-1-{{$paginator->count()}}/{{$paginator->total()}}
-{{--@if ($paginator->hasPages())--}}
+@if($paginator->count() > 0)1 @else 0 @endif -{{$paginator->count()}}/{{$paginator->total()}}
+
     <div class="btn-group">
 
         @if ($paginator->onFirstPage())
@@ -18,4 +18,4 @@
             <a rel="next" class="btn btn-default btn-sm disabled"><i class="fa fa-chevron-right"></i></a>
         @endif
     </div>
-{{--@endif--}}
+

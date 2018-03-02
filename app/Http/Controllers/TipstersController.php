@@ -126,6 +126,7 @@ class TipstersController extends Controller
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
         $deleteAction = false;
+        $editAction = false;
 
         //get list lead belong tipster
         $leads = Lead::getAllLeadBelongTipster($id);
@@ -144,11 +145,16 @@ class TipstersController extends Controller
 
         if($roleAuth->code == 'community' || $roleAuth->code == 'admin' || $roleAuth->code == 'ambassador' || $roletypeAuth->code == 'consultant'){
             $deleteAction = true;
+            $editAction = true;
+        }
+        if($user->id == $auth->id){
+            $editAction = true;
         }
         return view('tipsters.show', compact('user', 'id'))->with([
             'role' => $role,
             'roletype' => $roletype,
             'deleteAction' => $deleteAction,
+            'editAction' => $editAction,
             'leads' =>$leads,
         ]);
 

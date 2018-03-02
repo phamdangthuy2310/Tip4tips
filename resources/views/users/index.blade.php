@@ -61,7 +61,7 @@
                                  {{$user->role}}-{{$user->roletype}}
                                     @endif
                                 </td>
-                                <td>@if($user->delete_is == 1)<label class="label label-success">Active</label>@else <label class="label label-danger">Deactive</label> @endif</td>
+                                <td>@if($user->delete_is == 0)<label class="label label-success">Active</label>@else <label class="label label-danger">Deactive</label> @endif</td>
                                 <td class="actions text-center" style="width: 100px">
                                     <a href="{{route('users.show', $user->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
                                     @if($editAction == true)<a href="{{route('users.edit', $user->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
