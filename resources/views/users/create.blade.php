@@ -85,17 +85,27 @@
                                 <input id="imgHandleInput" name="avatar" type="hidden" value="">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="form-group">
+                                    <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                                         <label>Username</label>
                                         <input name="username" value="{{old('username')}}" type="text" class="form-control" placeholder="Enter ..." required>
+                                        @if ($errors->has('username'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('username') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                         <label>Password</label>
                                         <input name="password" type="password" class="form-control" placeholder="Enter ..." required>
+                                        @if ($errors->has('password'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -108,9 +118,14 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="form-group">
+                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                         <label>Full name</label>
                                         <input name="fullname" value="{{old('fullname')}}" type="text" class="form-control" placeholder="Enter ..." required>
+                                        @if ($errors->has('fullname'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('fullname') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -145,15 +160,25 @@
 
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                         <label>Email</label>
                                         <input name="email" value="{{old('email')}}" type="email" class="form-control" placeholder="Enter ..." required>
+                                        @if ($errors->has('email'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                         <label>Phone</label>
                                         <input name="phone" value="{{old('phone')}}" type="text" class="form-control" placeholder="Enter ..." required>
+                                        @if ($errors->has('phone'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('phone') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +190,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group{{ $errors->has('region') ? ' has-error' : '' }}">
                                         <label>Region</label>
                                         <select name="region" class="form-control" required>
                                             <option value="" disabled selected>Please pick a region</option>
@@ -173,12 +198,17 @@
                                                 <option value="{{$region->id}}">{{$region->name}}</option>
                                             @endforeach
                                         </select>
+                                        @if ($errors->has('region'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('region') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group{{ $errors->has('department') ? ' has-error' : '' }}">
                                         <label>Department</label>
                                         <select name="department" class="form-control" required>
                                             <option value="" disabled selected>Please pick a department</option>
@@ -192,6 +222,11 @@
                                                 </optgroup>
                                             @endforeach
                                         </select>
+                                        @if ($errors->has('department'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('department') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

@@ -94,7 +94,7 @@ class TipstersController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'birthday' => 'required|date',
             'phone' => 'required',
-            'region_id' => 'required',
+            'region' => 'required',
         ]);
         $user['password']= bcrypt($request->password);
         $user['gender'] = $request->gender;
@@ -104,10 +104,10 @@ class TipstersController extends Controller
         $user['vote'] = 0;
         $user['region_id'] = $request->region;
         $user['role_id'] = $request->department;
-        $user['delete_is'] = 1;
+        $user['delete_is'] = 0;
         $user['avatar'] = $request->avatar;
         User::create($user);
-        return redirect('tipsters')->with('success', 'Tipster added successfully.');
+        return redirect('tipsters')->with('success', 'Tipster was added successfully.');
     }
 
     /**
@@ -214,7 +214,7 @@ class TipstersController extends Controller
         $user->avatar = $request->get('avatar');
 
         $user->save();
-        return redirect('tipsters')->with('success','Users has been updated');
+        return redirect('tipsters')->with('success','Tipster was updated successfully.');
     }
 
     /**
@@ -227,9 +227,10 @@ class TipstersController extends Controller
     {
         //
         $tipster = User::find($id);
-        $tipster->delete();
+        $tipster->delete_is = 1;
+        $tipster->save();
 
-        return redirect('tipsters')->with('success','Deleted successfully.');
+        return redirect('tipsters')->with('success','Tipster was deleted successfully.');
     }
 
     public function updatePoint(Request $request){

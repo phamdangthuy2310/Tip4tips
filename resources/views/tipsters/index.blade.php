@@ -29,6 +29,11 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
+            @if (\Session::has('success'))
+                <div class="alert alert-success clearfix">
+                    <p>{{ \Session::get('success') }}</p>
+                </div><br />
+            @endif
             <div class="table-responsive">
                 <table id="viewList" class="table table-bordered table-striped tbsty">
                     <thead>
@@ -52,7 +57,7 @@
                             <td>{{$user->point}}</td>
                             <td>{{ $user->email }}</td>
                             <td> {{--{{\App\Model\RoleType::getNameByID($user->roletype)}} ---}} {{\App\Model\Role::getNameRoleByID($user->role_id)}}</td>
-                            <td>@if($user->delete_is == 1)<label class="label label-success">Active</label>@else <label class="label label-danger">Deactive</label> @endif</td>
+                            <td>@if($user->delete_is == 0)<label class="label label-success">Active</label>@else <label class="label label-danger">Deactive</label> @endif</td>
                             <td class="actions text-center" style="width: 100px">
                                 <a href="{{route('tipsters.show', $user->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>
                                 @if($editAction == true)<a href="{{route('tipsters.edit', $user->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif

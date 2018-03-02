@@ -192,8 +192,8 @@
                                     <label>Status</label>
                                     <select class="form-control" name="status">
                                         <option value="" disabled selected>Please pick a status</option>
-                                        <option value="1" @if($user->delete_is == 1) selected @endif>Active</option>
-                                        <option value="0" @if($user->delete_is == 0) selected @endif>Deactive</option>
+                                        <option value="0" @if($user->delete_is == 0) selected @endif>Active</option>
+                                        <option value="1" @if($user->delete_is == 1) selected @endif>Deactive</option>
                                     </select>
                                 </div>
                             </div>

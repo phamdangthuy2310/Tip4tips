@@ -43,7 +43,7 @@ class GiftCategoriesController extends Controller
 
         GiftCategory::create($category);
 
-        return redirect('giftcategories/')->with('success', 'Category added successfully.');
+        return redirect('giftcategories/')->with('success', 'Category was added successfully.');
     }
 
     /**
@@ -91,6 +91,6 @@ class GiftCategoriesController extends Controller
         //
         $category = GiftCategory::find($id);
         $category->delete();
-        return back()->with('success', 'Delete Successfully.');
+        return back()->with('success', 'Deleted Successfully.');
     }
 }

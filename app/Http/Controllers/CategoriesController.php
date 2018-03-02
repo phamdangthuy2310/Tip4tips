@@ -57,7 +57,7 @@ class CategoriesController extends Controller
         $category['belong'] = $belong;
         Category::create($category);
 
-        return redirect('categories/'.$request->belong)->with('success', 'Category added successfully.');
+        return redirect('categories/'.$request->belong)->with('success', 'Category was added successfully.');
     }
 
     /**

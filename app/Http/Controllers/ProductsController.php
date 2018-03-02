@@ -84,7 +84,7 @@ class ProductsController extends Controller
         $product['thumbnail'] = $thumbnail;
         $product['category_id'] = $request->category;
         Product::create($product);
-        return redirect('products')->with('success', 'Product added successfully');
+        return redirect('products')->with('success', 'Product was added successfully');
 
     }
 

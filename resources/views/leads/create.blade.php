@@ -35,7 +35,7 @@
                                             <li>{{ $error }}</li>
                                         @endforeach
                                     </ul>
-                                </div><br />
+                                </div>
                             @endif
                             @if (\Session::has('success'))
                                 <div class="alert alert-success">
@@ -45,9 +45,14 @@
                             <div class="row">
                                 <div class="col-xs-6">
                                     <!-- text input -->
-                                    <div class="form-group">
+                                    <div class="form-group{{ $errors->has('fullname') ? ' has-error' : '' }}">
                                         <label>Full name</label>
-                                        <input name="fullname" type="text" class="form-control" placeholder="Enter ..." required>
+                                        <input name="fullname" value="{{old('fullname')}}" type="text" class="form-control" placeholder="Enter ..." required>
+                                        @if ($errors->has('fullname'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('fullname') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-xs-6">
@@ -72,37 +77,47 @@
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label>Phone</label>
-                                        <input name="phone" type="text" class="form-control" placeholder="Enter ...">
+                                        <input name="phone" value="{{old('phone')}}" type="text" class="form-control" placeholder="Enter ...">
                                     </div>
                                 </div>
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input name="email" type="text" class="form-control" placeholder="Enter ...">
+                                        <input name="email" value="{{old('email')}}" type="text" class="form-control" placeholder="Enter ...">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <div class="form-group">
+                                    <div class="form-group{{ $errors->has('region') ? ' has-error' : '' }}">
                                         <label>Region</label>
-                                        <select name="region" class="form-control">
+                                        <select name="region" class="form-control" required>
                                             <option value="" disabled selected>Please pick a region</option>
                                             @foreach($regions as $region)
                                                 <option value="{{$region->id}}">{{$region->name}}</option>
                                             @endforeach
                                         </select>
+                                        @if ($errors->has('region'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('region') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-xs-6">
-                                    <div class="form-group">
+                                    <div class="form-group{{ $errors->has('product') ? ' has-error' : '' }}">
                                         <label>Product</label>
-                                        <select name="product" class="form-control">
+                                        <select name="product" class="form-control" required>
                                             <option value="" disabled selected>Please pick a product</option>
                                             @foreach(\App\Model\Product::getAllProduct() as $product)
                                                 <option value="{{$product->id}}">{{$product->name}}</option>
                                             @endforeach
                                         </select>
+                                        @if ($errors->has('product'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('product') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-xs-12">

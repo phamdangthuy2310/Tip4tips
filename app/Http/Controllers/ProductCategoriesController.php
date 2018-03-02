@@ -40,7 +40,7 @@ class ProductCategoriesController extends Controller
         $category['description'] = $request->description;
         ProductCategory::create($category);
 
-        return redirect('productcategories')->with('success', 'Category added successfully.');
+        return redirect('productcategories')->with('success', 'Category was added successfully.');
     }
 
     /**

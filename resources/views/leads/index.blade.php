@@ -32,6 +32,11 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
+            @if (\Session::has('success'))
+                <div class="alert alert-success clearfix">
+                    <p>{{ \Session::get('success') }}</p>
+                </div><br />
+            @endif
             <div class="table-responsive">
                 <table id="viewList" class="table table-hover table-striped">
                     <thead>

@@ -87,7 +87,7 @@ class GiftsController extends Controller
         $gift['category_id'] = $request->category;
         Gift::create($gift);
 
-        return redirect('gifts')->with('success', 'Gift created successfully.');
+        return redirect('gifts')->with('success', 'Gift was created successfully.');
     }
 
     /**
@@ -160,7 +160,7 @@ class GiftsController extends Controller
         $gift->point = $request->get('point');
         $gift->category_id = $request->get('category');
         $gift->save();
-        return redirect('gifts')->with('success', 'Gift updated successfully.');
+        return redirect('gifts')->with('success', 'Gift was updated successfully.');
     }
 
     /**
@@ -175,7 +175,7 @@ class GiftsController extends Controller
         $gift = Gift::find($id);
         $gift->delete_is = 1;
         $gift->save();
-        return back()->with('success', 'Gift deleted successfully.');
+        return back()->with('success', 'Gift was deleted successfully.');
     }
 
     public function ajaxAddCategory(Request $request){

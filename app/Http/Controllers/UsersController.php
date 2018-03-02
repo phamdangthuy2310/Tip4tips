@@ -108,7 +108,7 @@ class UsersController extends Controller
         $user['vote'] = 0;
         $user['region_id'] = $request->region;
         $user['role_id'] = $request->department;
-        $user['delete_is'] = 1;
+        $user['delete_is'] = 0;
         User::create($user);
         return redirect('users')->with('success', 'User added successfully.');
     }
