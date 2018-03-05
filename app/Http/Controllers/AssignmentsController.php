@@ -94,7 +94,7 @@ class AssignmentsController extends Controller
             Log::error($e->getMessage());
         }
 
-        return redirect('assignments')->with('success', 'Assignment successfully.');
+        return redirect()->route('assignments.index')->with('success', 'Assignment successfully.');
     }
 
     /**
@@ -153,7 +153,7 @@ class AssignmentsController extends Controller
         $assignment->lead_id = $request->get('lead');
         $assignment->create_by = $user->id;
         $assignment->save();
-        return redirect('assignments')->with('success', 'Updated successfully');
+        return redirect()->route('assignments.index')->with('success', 'Updated successfully');
     }
 
     /**
@@ -167,6 +167,6 @@ class AssignmentsController extends Controller
         //
         $ass = Assignment::find($id);
         $ass->delete();
-        return redirect('assignments')->with('success', 'Delete Successfully.');
+        return redirect()->route('assignments.index')->with('success', 'Delete Successfully.');
     }
 }

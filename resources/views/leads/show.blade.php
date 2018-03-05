@@ -116,19 +116,20 @@ use App\Model\Role;
         <!-- /.col -->
     </div>
     <!-- /.row -->
+    @if($deleteAction == true)
     <div id="popup-confirm" class="modal popup-confirm" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body">
                     <p>Do you really want to delete lead "{{$lead->fullname}}" ?</p>
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-                    @if($deleteAction == true)<form class="inline" action="{{action('LeadsController@destroy', $lead->id)}}" method="post">
+                    <form class="inline" action="{{route('leads.destroy', $lead->id)}}" method="post">
                         {{csrf_field()}}
                         <input name="_method" type="hidden" value="DELETE">
                         <button class="btn btn-sm btn-danger" type="submit">Yes</button>
-                    </form>@endif
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
+    </div>@endif
 @endsection

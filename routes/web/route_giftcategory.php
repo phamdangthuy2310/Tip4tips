@@ -10,11 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('giftcategories', 'GiftCategoriesController',
-    ['names' => [
-        'index' => 'giftcategories.index',
-        'create' => 'giftcategories.create',
-        'store' => 'giftcategories.store',
-        'edit' => 'giftcategories.edit',
-        'update' => 'giftcategories.update'
-    ]]);
+Route::get('/admin/giftcategories', 'GiftCategoriesController@index')->name('giftcategories.index');
+Route::get('/admin/giftcategories/create', 'GiftCategoriesController@create')->name('giftcategories.create');
+Route::post('/admin/giftcategories/create', 'GiftCategoriesController@store')->name('giftcategories.store');
+Route::get('/admin/giftcategories/{id}/edit', 'GiftCategoriesController@edit')->name('giftcategories.edit');
+Route::patch('/admin/giftcategories/{id}/update', 'GiftCategoriesController@update')->name('giftcategories.update');
+Route::delete('/admin/giftcategories/delete/{id}', 'GiftCategoriesController@destroy')->name('giftcategories.destroy');
+Route::get('/admin/giftcategories/{id}', 'GiftCategoriesController@show')->name('giftcategories.show');

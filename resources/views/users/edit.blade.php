@@ -5,17 +5,6 @@ use App\Common\Utils;
 @extends('layouts.master')
 @section('title', 'Edit User')
 @section('javascript')
-    <script>
-      $(document).ready(function () {
-        var src = '{{asset(Utils::$PATH__IMAGE)}}/';
-        $("#imgAnchorInput").change(function() {
-          $("#imgHandleInput").val($(this).val());
-          src += $(this).val();
-          console.log(src, $(this).val());
-          $("#imgHandle").attr('src', src);
-        }).change();
-      })
-    </script>
 @endsection
 @section('body.breadcrumbs')
     {{ Breadcrumbs::render('users.edit') }}
@@ -35,32 +24,30 @@ use App\Common\Utils;
                 <!-- Profile Image -->
                 <div class="box box-warning">
                     <div class="box-body box-profile">
-
-                        @if ($message = Session::get('success'))
-                            <div class="alert alert-success alert-block">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <strong>{{ $message }}</strong>
-                            </div>
-                            <input id="imgAnchorInput" type="hidden" value="{{Session::get('image')}}">
-
-                        @endif
                         <div class="upload__area-image">
-                            <span><img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}"></span>
+                        <span>
+                            <img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}">
+                            <label for="imgAnchorInput">Upload image</label>
+                        </span>
+                            <p><small>(Please upload a file of type: jpeg, png, jpg, gif, svg.)</small></p>
                         </div>
                         <div class="form__upload">
                             {!! Form::open(array('route' => 'image.upload.post','files'=>true)) !!}
                             <div class="form-inline-simple">
-                                {!! Form::file('image', array('class' => 'form-control')) !!}
-                                <button type="submit" class="btn btn-info">Upload</button>
+                                {!! Form::file('image', array('class' => 'form-control', 'id' => 'imgAnchorInput', 'onchange' =>'loadFile(event)')) !!}
+                                {{--<button type="submit" class="btn btn-info">Upload</button>--}}
                             </div>
+                            <script>
+                              var loadFile = function(event) {
+                                var output = document.getElementById('imgHandle');
+                                output.src = URL.createObjectURL(event.target.files[0]);
+                                document.getElementById('imgHandleInput').files = event.target.files;
+                              };
+                            </script>
 
                             {!! Form::close() !!}
 
                         </div>
-
-                        {{--<h3 class="profile-username text-center">@if($user->fullname) {{ $user->fullname }} @else {{ $user->username }} @endif </h3>--}}
-
-                        {{--<p class="text-muted text-center">{{\App\Model\Role::getNameRoleByID($user->role_id)}}</p>--}}
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -93,10 +80,10 @@ use App\Common\Utils;
                             </div>
                         </div>@endif
                     <!-- /.box-header -->
-                    <form role="form" method="post" action="{{route('users.update', $id)}}">
+                    <form role="form" method="post" action="{{route('users.update', $id)}}" enctype = "multipart/form-data">
                         {{csrf_field()}}
                         <input name="_method" type="hidden" value="PATCH">
-                        <input id="imgHandleInput" name="avatar" type="hidden" value="{{$user->avatar}}">
+                        <input id="imgHandleInput" name="avatar" type="file" value="{{$user->avatar}}">
                     <div class="box-body">
                         <div class="row">
                             <div class="col-sm-6">

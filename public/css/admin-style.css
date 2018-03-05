@@ -535,17 +535,45 @@ Table style*/
     margin-bottom: 10px;
 }
 .upload__area-image > span{
+    overflow: hidden;
+    position: relative;
+    display: block;
+}
+.box-profile .upload__area-image > span{
     display: inline-block;
     height: 200px;
     width: 200px;
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
-    overflow: hidden;
 }
-.upload__area-image > span img{
+.box-profile .upload__area-image > span img{
     height: 100%;
     width: auto;
+}
+.upload__area-image > span > label{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    background-color: rgba(0,0,0,0.5);
+    display: block;
+    line-height: 200px;
+    text-align: center;
+    font-size: 16px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: top 0.3s ease-in-out;
+}
+.upload__area-image > span:hover > label{
+    top: 0;
+    transition: top 0.3s ease-in-out;
+}
+#imgAnchorInput[type=file],
+#imgHandleInput[type=file]{
+    display: none;
 }
 /*end style for upload image*/
 .main-footer{

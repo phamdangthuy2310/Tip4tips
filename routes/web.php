@@ -16,8 +16,10 @@ Route::get('/', function () {
 });
 
 Auth::routes([
-    Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard'),
-    //Route::get('categories/{id}/create', 'CategoriesController@create')->name('categories.create'),
+    Route::get('/admin/dashboard', 'HomeController@dashboard')->name('dashboard'),
+]);
+Auth::routes([
+    Route::get('/admin/', 'HomeController@dashboard')->name('dashboard'),
 ]);
 
 

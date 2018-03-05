@@ -3,17 +3,6 @@
 @section('title', 'Edit Gift')
 @section('javascript')
     <script src="{{ asset('js/admin/gift.js') }}"></script>
-    <script>
-      $(document).ready(function () {
-        var src = '{{asset(Utils::$PATH__IMAGE)}}/';
-        $("#imgAnchorInput").change(function() {
-          $("#imgHandleInput").val($(this).val());
-          src += $(this).val();
-          console.log(src, $(this).val());
-          $("#imgHandle").attr('src', src);
-        }).change();
-      })
-    </script>
 @endsection
 @section('body.breadcrumbs')
     {{ Breadcrumbs::render('gifts.edit') }}
@@ -41,10 +30,10 @@
                 </div>
 
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{route('gifts.update', $gift->id)}}">
+                <form role="form" method="post" action="{{route('gifts.update', $gift->id)}}" enctype = "multipart/form-data">
                     {{ csrf_field() }}
                     <input name="_method" type="hidden" value="PATCH">
-                    <input id="imgHandleInput" name="thumbnail" type="hidden" value="{{$gift->thumbnail}}">
+                    <input id="imgHandleInput" name="thumbnail" type="file" value="">
                         <div class="box-body">
                             @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -98,28 +87,28 @@
         <div class="col-md-4">
             <div class="box box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Upload Gifts Image</h3>
+                    <h3 class="box-title">Gifts Image</h3>
                 </div>
                 <div class="box-body">
-                    @if ($message = Session::get('success'))
-                        <input id="imgAnchorInput" type="hidden" value="{{Session::get('image')}}">
-                    @endif
-
-                    <div class="upload__area-thumbnail">
-                        <p><span>
-                            @if(!empty($gift->thumbnail))
-                                <img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$gift->thumbnail}}">
-                                @else
-                                <img id="imgHandle" src="{{ asset('images/no_image_available.jpg') }}">
-                            @endif
-                        </span></p>
+                    <div class="upload__area-image">
+                        <span>
+                            <img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$gift->thumbnail}}">
+                            <label for="imgAnchorInput">Upload image</label>
+                        </span>
+                        <p><small>(Please upload a file of type: jpeg, png, jpg, gif, svg.)</small></p>
                     </div>
                     <div class="form__upload">
                         {!! Form::open(array('route' => 'image.upload.post','files'=>true)) !!}
                         <div class="form-inline-simple">
-                            {!! Form::file('image', array('class' => 'form-control')) !!}
-                            <button type="submit" class="btn btn-info">Upload</button>
+                            {!! Form::file('image', array('class' => 'form-control', 'id' => 'imgAnchorInput', 'onchange' =>'loadFile(event)')) !!}
                         </div>
+                        <script>
+                          var loadFile = function(event) {
+                            var output = document.getElementById('imgHandle');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                            document.getElementById('imgHandleInput').files = event.target.files;
+                          };
+                        </script>
 
                         {!! Form::close() !!}
 

@@ -85,7 +85,7 @@ class MessagesController extends Controller
         $message['delete_is'] = 0;
         $message['read_is'] = 0;
         Message::create($message);
-        return redirect('messages')->with('success', 'Sent message successfully.');
+        return redirect()->route('messages.index')->with('success', 'Sent message successfully.');
     }
 
     /**
@@ -166,7 +166,7 @@ class MessagesController extends Controller
         $message = Message::find($id);
         $message->delete_is = 1;
         $message->save();
-        return redirect('messages')->with('success', 'Your message removed to the trash.');
+        return redirect()->route('messages.index')->with('success', 'Your message removed to the trash.');
     }
 
     public function deleteMessageSent($id)
@@ -175,7 +175,7 @@ class MessagesController extends Controller
         $message = Message::find($id);
         $message->delete_sent = 1;
         $message->save();
-        return redirect('messages')->with('success', 'Your message was removed successfully.');
+        return redirect()->route('messages.index')->with('success', 'Your message was removed successfully.');
     }
     public function deleteMessageTrash($id)
     {
@@ -183,7 +183,7 @@ class MessagesController extends Controller
         $message = Message::find($id);
         $message->delete_trash = 1;
         $message->save();
-        return redirect('messages')->with('success', 'Your message was removed successfully.');
+        return redirect()->route('messages.index')->with('success', 'Your message was removed successfully.');
     }
 
 

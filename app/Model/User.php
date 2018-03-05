@@ -67,7 +67,7 @@ class User extends Authenticatable
         $user['role'] = $roleUser->name;
         $user['roleCode'] = $roleUser->code;
         $user['roletype'] = $roletypeUser->name;
-        $user['roletypeCode'] = $roletypeUser->name;
+        $user['roletypeCode'] = $roletypeUser->code;
         return $user;
     }
     public static function getAllConsultant(){

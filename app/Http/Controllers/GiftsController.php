@@ -71,14 +71,16 @@ class GiftsController extends Controller
     {
         //
         $gift = $this->validate($request,[
-            'name' => 'required'
+            'name' => 'required',
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8112'
         ]);
         $gift['description'] = $request->description;
-        $thumbnail = $request->thumbnail;
-        if(empty($thumbnail)){
-            $thumbnail = 'no_image_available.jpg';
+        $imageName = 'no_image_available.jpg';
+        if(!empty(request()->thumbnail)){
+            $imageName = time().'.'.request()->thumbnail->getClientOriginalExtension();
+            request()->thumbnail->move(public_path('images/upload'), $imageName);
         }
-        $gift['thumbnail'] = $thumbnail;
+        $gift['thumbnail'] = $imageName;
         $point = $request->point;
         if(empty($point)){
             $point = 0;
@@ -87,7 +89,7 @@ class GiftsController extends Controller
         $gift['category_id'] = $request->category;
         Gift::create($gift);
 
-        return redirect('gifts')->with('success', 'Gift was created successfully.');
+        return redirect()->route('gifts.index')->with('success', 'Gift was created successfully.');
     }
 
     /**
@@ -149,18 +151,23 @@ class GiftsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        request()->validate([
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8112'
+        ]);
         $gift = Gift::find($id);
         $gift->name = $request->get('name');
         $gift->description = $request->get('description');
-        $thumbnail = $request->thumbnail;
-        if(empty($thumbnail)){
-            $thumbnail = 'no_image_available.jpg';
+        $imageName = $gift->thumbnail;
+        if(!empty(request()->thumbnail)){
+            $imageName = time().'.'.request()->thumbnail->getClientOriginalExtension();
+
+            request()->thumbnail->move(public_path('images/upload'), $imageName);
         }
-        $gift->thumbnail = $thumbnail;
+        $gift->thumbnail = $imageName;
         $gift->point = $request->get('point');
         $gift->category_id = $request->get('category');
         $gift->save();
-        return redirect('gifts')->with('success', 'Gift was updated successfully.');
+        return redirect()->route('gifts.index')->with('success', 'Gift was updated successfully.');
     }
 
     /**

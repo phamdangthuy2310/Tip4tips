@@ -178,7 +178,7 @@ use App\Common\Common;
                         {{--Block assign--}}
                         <div class="block__action">
                             <h5>Assign to Consultant</h5>
-                            <form role="form" method="post" action="{{url('assignments')}}">
+                            <form role="form" method="post" action="{{route('assignments.store')}}">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="lead" value="{{$lead->id}}">
                                 <div class="form-inline-simple">

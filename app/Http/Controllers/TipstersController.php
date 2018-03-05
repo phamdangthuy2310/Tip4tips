@@ -95,6 +95,7 @@ class TipstersController extends Controller
             'birthday' => 'required|date',
             'phone' => 'required',
             'region' => 'required',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $user['password']= bcrypt($request->password);
         $user['gender'] = $request->gender;
@@ -105,9 +106,16 @@ class TipstersController extends Controller
         $user['region_id'] = $request->region;
         $user['role_id'] = $request->department;
         $user['delete_is'] = 0;
-        $user['avatar'] = $request->avatar;
+        $imageName = 'no_image_available.jpg';
+        if(!empty(request()->avatar)){
+            $imageName = time().'.'.request()->avatar->getClientOriginalExtension();
+            request()->avatar->move(public_path('images/upload'), $imageName);
+        }
+
+        $user['avatar'] = $imageName;
+
         User::create($user);
-        return redirect('tipsters')->with('success', 'Tipster was added successfully.');
+        return redirect()->route('tipsters.index')->with('success', 'Tipster was added successfully.');
     }
 
     /**
@@ -199,8 +207,10 @@ class TipstersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        //
+        request()->validate([
+            'fullname' => 'required',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
         $user = User::find($id);
         $user->fullname = $request->get('fullname');
         $user->email = $request->get('email');
@@ -211,10 +221,15 @@ class TipstersController extends Controller
         $user->role_id = $request->get('department');
         $user->delete_is = $request->get('status');
         $user->point = $request->get('point');
-        $user->avatar = $request->get('avatar');
+        $imageName = $user->avatar;
+        if(!empty(request()->avatar)){
+            $imageName = time().'.'.request()->avatar->getClientOriginalExtension();
 
+            request()->avatar->move(public_path('images/upload'), $imageName);
+        }
+        $user->avatar = $imageName;
         $user->save();
-        return redirect('tipsters')->with('success','Tipster was updated successfully.');
+        return redirect()->route('tipsters.index')->with('success','Tipster was updated successfully.');
     }
 
     /**
@@ -230,7 +245,7 @@ class TipstersController extends Controller
         $tipster->delete_is = 1;
         $tipster->save();
 
-        return redirect('tipsters')->with('success','Tipster was deleted successfully.');
+        return redirect()->route('tipsters.index')->with('success','Tipster was deleted successfully.');
     }
 
     public function updatePoint(Request $request){
@@ -245,7 +260,7 @@ class TipstersController extends Controller
         $tipster = User::find($request->tipster);
         $tipster->point = $tipster->point + $pointnew;
         $tipster->save();
-        return redirect('tipsters');
+        return redirect()->route('tipsters.index');
     }
 
     public function updatePointAjax(Request $request){

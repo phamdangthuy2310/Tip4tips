@@ -24,7 +24,7 @@ class PermissionsController extends Controller
             'function_id'
         ]);
         Permission::create($permission);
-        return redirect('permissions')->with('success', 'Create Successfully.');
+        return redirect()->route('permissions.index')->with('success', 'Create Successfully.');
     }
 
     public function edit($id){
@@ -39,12 +39,12 @@ class PermissionsController extends Controller
         $permission->menu = $request->get('menu');
         $permission->function_id = $request->get('function');
         $permission->save();
-        return redirect('permissions')->with('success', 'Updated successfully');
+        return redirect()->route('permissions.index')->with('success', 'Updated successfully');
     }
 
     public function destroy($id){
         $permission = Permission::find($id);
         $permission->delete();
-        return redirect('permissions')->with('success', 'Updated successfully');
+        return redirect()->route('permissions.index')->with('success', 'Updated successfully');
     }
 }

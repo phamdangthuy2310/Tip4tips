@@ -10,18 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/leads/updateStatus', 'LeadsController@updateStatus')->name('leads.updateStatus');
-Route::get('/leads/updateTipster', 'LeadsController@updateTipster')->name('leads.updateTipster');
-Route::post('/leads/ajaxStatus', 'LeadsController@ajaxStatus')->name('leads.ajaxStatus');
+Route::get('/admin/leads/updateStatus', 'LeadsController@updateStatus')->name('leads.updateStatus');
+Route::get('/admin/leads/updateTipster', 'LeadsController@updateTipster')->name('leads.updateTipster');
+Route::post('/admin/leads/ajaxStatus', 'LeadsController@ajaxStatus')->name('leads.ajaxStatus');
 
 
-Route::get('/leads/create', 'LeadsController@create')->name('leads.create');
-Route::post('/leads/create', 'LeadsController@store')->name('leads.store');
-Route::get('/leads/{id}/edit', 'LeadsController@edit')->name('leads.edit');
-Route::patch('/leads/{id}/update', 'LeadsController@update')->name('leads.update');
-Route::delete('/leads/delete/{id}', 'LeadsController@destroy')->name('leads.destroy');
-Route::get('/leads/{id}', 'LeadsController@show')->name('leads.show');
-Route::get('/leads', 'LeadsController@index')->name('leads.index');
+Route::get('/admin/leads/create', 'LeadsController@create')->name('leads.create');
+Route::post('/admin/leads/create', 'LeadsController@store')->name('leads.store');
+Route::get('/admin/leads/{id}/edit', 'LeadsController@edit')->name('leads.edit');
+Route::patch('/admin/leads/{id}/update', 'LeadsController@update')->name('leads.update');
+Route::delete('/admin/leads/delete/{id}', 'LeadsController@destroy')->name('leads.destroy');
+Route::get('/admin/leads/{id}', 'LeadsController@show')->name('leads.show');
+Route::get('/admin/leads', 'LeadsController@index')->name('leads.index');
 //Route::resource('leads', 'LeadsController',[
 //    'name' => [
 //        'index' => 'leads.index',

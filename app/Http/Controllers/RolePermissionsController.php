@@ -42,7 +42,7 @@ class RolePermissionsController extends Controller
         $rolepermiss['role_id'] = $request->role;
         $rolepermiss['permission_id'] = $request->permission;
         Permission::create($rolepermiss);
-        return redirect('rolepermissions')->with('success', 'Created Successfully.');
+        return redirect()->route('rolepermissions.index')->with('success', 'Created Successfully.');
     }
 
     /**
@@ -82,7 +82,7 @@ class RolePermissionsController extends Controller
         $rolepermiss->role_id = $request->get('role');
         $rolepermiss->permission_id = $request->get('permission');
         $rolepermiss->save();
-        return redirect('rolepermissions')->with('success', 'Updated successfully');
+        return redirect()->route('rolepermissions.index')->with('success', 'Updated successfully');
     }
 
     /**
@@ -96,6 +96,6 @@ class RolePermissionsController extends Controller
         //
         $rolepermiss = Permission::find($id);
         $rolepermiss->delete();
-        return redirect('rolepermissions')->with('success', 'Deleted Successfully');
+        return redirect()->route('rolepermissions.index')->with('success', 'Deleted Successfully');
     }
 }

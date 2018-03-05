@@ -3,17 +3,6 @@
 @section('title', 'Create Product')
 @section('javascript')
     <script src="{{ asset('js/admin/product.js') }}"></script>
-    <script>
-      $(document).ready(function () {
-        var src = '{{asset(Utils::$PATH__IMAGE)}}/';
-        $("#imgAnchorInput").change(function() {
-          $("#imgHandleInput").val($(this).val());
-          src += $(this).val();
-          console.log(src, $(this).val());
-          $("#imgHandle").attr('src', src);
-        }).change();
-      })
-    </script>
 @stop
 @section('body.breadcrumbs')
     {{ Breadcrumbs::render('products.create') }}
@@ -41,9 +30,9 @@
                 </div>
 
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{route('products.store')}}">
+                <form role="form" method="post" action="{{route('products.store')}}" enctype ="multipart/form-data">
                     {{ csrf_field() }}
-                <input id="imgHandleInput" name="thumbnail" type="hidden" value="">
+                    <input id="imgHandleInput" name="thumbnail" type="file" value="">
                         <div class="box-body">
                             @if ($errors->any())
 
@@ -109,23 +98,29 @@
         <div class="col-md-4">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">@yield('title')</h3>
+                    <h3 class="box-title">Product Image</h3>
                 </div>
                 <div class="box-body">
-                    @if ($message = Session::get('success'))
-                        <input id="imgAnchorInput" type="hidden" value="{{Session::get('image')}}">
-                    @endif
-                    <div class="upload__area-thumbnail">
-                        <p><span>
-                            <img id="imgHandle" src="{{ asset('images/no_image_available.jpg') }}">
-                        </span></p>
+                    <div class="upload__area-image">
+                        <span>
+                            <img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/no_image_available.jpg">
+                            <label for="imgAnchorInput">Upload image</label>
+                        </span>
+                        <p><small>(Please upload a file of type: jpeg, png, jpg, gif, svg.)</small></p>
                     </div>
                     <div class="form__upload">
                         {!! Form::open(array('route' => 'image.upload.post','files'=>true)) !!}
                         <div class="form-inline-simple">
-                            {!! Form::file('image', array('class' => 'form-control')) !!}
-                            <button type="submit" class="btn btn-info">Upload</button>
+                            {!! Form::file('image', array('class' => 'form-control', 'id' => 'imgAnchorInput', 'onchange' =>'loadFile(event)')) !!}
+                            {{--<button type="submit" class="btn btn-info">Upload</button>--}}
                         </div>
+                        <script>
+                          var loadFile = function(event) {
+                            var output = document.getElementById('imgHandle');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                            document.getElementById('imgHandleInput').files = event.target.files;
+                          };
+                        </script>
 
                         {!! Form::close() !!}
 

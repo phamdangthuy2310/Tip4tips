@@ -72,19 +72,21 @@ class ProductsController extends Controller
     {
         //
         $product = $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required',
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8112'
         ]);
         $product['description'] = $request->description;
         $product['price'] = $request->price;
         $product['quality'] = $request->quality;
-        $thumbnail = $request->thumbnail;
-        if(empty($thumbnail)){
-            $thumbnail = 'no_image_available.jpg';
+        $imageName = 'no_image_available.jpg';
+        if(!empty(request()->thumbnail)){
+            $imageName = time().'.'.request()->thumbnail->getClientOriginalExtension();
+            request()->thumbnail->move(public_path('images/upload'), $imageName);
         }
-        $product['thumbnail'] = $thumbnail;
+        $product['thumbnail'] = $imageName;
         $product['category_id'] = $request->category;
         Product::create($product);
-        return redirect('products')->with('success', 'Product was added successfully');
+        return redirect()->route('products.index')->with('success', 'Product was added successfully');
 
     }
 
@@ -149,10 +151,10 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        request()->validate([
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8112'
+        ]);
         $product = Product::find($id);
-//        $product = $this->validate($request, [
-//            'name' => 'required'
-//        ]);
         $product->name = $request->get('name');
         $product->description = $request->get('description');
         $price = $request->get('price');
@@ -166,13 +168,15 @@ class ProductsController extends Controller
         }
         $product->quality = $quality;
         $product->category_id = $request->get('category');
-        $thumbnail  = $request->get('thumbnail');
-        if(empty($thumbnail)){
-            $thumbnail = 'no_image_available.jpg';
+        $imageName = $product->thumbnail;
+        if(!empty(request()->thumbnail)){
+            $imageName = time().'.'.request()->thumbnail->getClientOriginalExtension();
+
+            request()->thumbnail->move(public_path('images/upload'), $imageName);
         }
-        $product->thumbnail = $thumbnail;
+        $product->thumbnail = $imageName;
         $product->save();
-        return redirect('products')->with('success', 'Product updated successfully');
+        return redirect()->route('products.index')->with('success', 'Product updated successfully');
     }
 
     /**

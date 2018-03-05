@@ -94,6 +94,7 @@ class UsersController extends Controller
             'fullname' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
             'birthday' => 'required|date',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $user['username'] = $request->username;
         $user['fullname'] = $request->fullname;
@@ -103,14 +104,21 @@ class UsersController extends Controller
         $user['gender'] = $request->gender;
         $user['phone'] = $request->phone;
         $user['address'] = $request->address;
-        $user['avatar'] = $request->avatar;
         $user['point'] = 0;
         $user['vote'] = 0;
         $user['region_id'] = $request->region;
         $user['role_id'] = $request->department;
         $user['delete_is'] = 0;
+        $imageName = 'no_image_available.jpg';
+        if(!empty(request()->avatar)){
+            $imageName = time().'.'.request()->avatar->getClientOriginalExtension();
+            request()->avatar->move(public_path('images/upload'), $imageName);
+        }
+
+        $user['avatar'] = $imageName;
+
         User::create($user);
-        return redirect('users')->with('success', 'User added successfully.');
+        return redirect()->route('users.index')->with('success', 'User was added successfully.');
     }
 
     /**
@@ -190,6 +198,10 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        request()->validate([
+            'fullname' => 'required',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
         $user = User::find($id);
         $user->fullname = $request->get('fullname');
         $user->email = $request->get('email');
@@ -198,10 +210,16 @@ class UsersController extends Controller
         $user->gender = $request->get('gender');
         $user->role_id = $request->get('department');
         $user->delete_is = $request->get('status');
-        $user->avatar = $request->get('avatar');
+        $imageName = $user->avatar;
+        if(!empty(request()->avatar)){
+            $imageName = time().'.'.request()->avatar->getClientOriginalExtension();
+
+            request()->avatar->move(public_path('images/upload'), $imageName);
+        }
+        $user->avatar = $imageName;
 
         $user->save();
-        return redirect('users')->with('success','Users has been updated');
+        return redirect()->route('users.index')->with('success','User was updated successfully');
     }
 
     /**

@@ -98,6 +98,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/breadcrumbs.php'));
+        //Route UI Tipster
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/route_ui_tipster.php'));
 
     }
 

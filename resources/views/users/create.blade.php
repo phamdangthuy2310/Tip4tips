@@ -2,17 +2,6 @@
 @extends('layouts.master')
 @section('title', 'Create User')
 @section('javascript')
-    <script>
-      $(document).ready(function () {
-        var src = '{{asset(Utils::$PATH__IMAGE)}}/';
-        $("#imgAnchorInput").change(function() {
-          $("#imgHandleInput").val($(this).val());
-          src += $(this).val();
-          console.log(src, $(this).val());
-          $("#imgHandle").attr('src', src);
-        }).change();
-      })
-    </script>
 @endsection
 @section('body.breadcrumbs')
     {{ Breadcrumbs::render('users.create') }}
@@ -31,19 +20,26 @@
             <!-- Profile Image -->
             <div class="box box-warning">
                 <div class="box-body box-profile">
-                    @if ($message = Session::get('success'))
-                        <input id="imgAnchorInput" type="hidden" value="{{Session::get('image')}}">
-
-                    @endif
                     <div class="upload__area-image">
-                        <span><img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/no_image_available.jpg"></span>
+                        <span>
+                            <img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/no_image_available.jpg">
+                            <label for="imgAnchorInput">Upload image</label>
+                        </span>
+                        <p><small>(Please upload a file of type: jpeg, png, jpg, gif, svg.)</small></p>
                     </div>
                     <div class="form__upload">
                         {!! Form::open(array('route' => 'image.upload.post','files'=>true)) !!}
                         <div class="form-inline-simple">
-                            {!! Form::file('image', array('class' => 'form-control')) !!}
-                            <button type="submit" class="btn btn-info">Upload</button>
+                            {!! Form::file('image', array('class' => 'form-control', 'id' => 'imgAnchorInput', 'onchange' =>'loadFile(event)')) !!}
+                            {{--<button type="submit" class="btn btn-info">Upload</button>--}}
                         </div>
+                        <script>
+                          var loadFile = function(event) {
+                            var output = document.getElementById('imgHandle');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                            document.getElementById('imgHandleInput').files = event.target.files;
+                          };
+                        </script>
 
                         {!! Form::close() !!}
 
@@ -62,7 +58,7 @@
                     <h3 class="box-title">@yield('title')</h3>
                     <a href="{{route('users.index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-angle-left"></i> Back to list</a>
                 </div><!-- /.box-header -->
-                    <form role="form" method="post" action="{{route('users.store')}}">
+                    <form role="form" method="post" action="{{route('users.store')}}" enctype = "multipart/form-data">
                         {{ csrf_field() }}
                         <div class="box-body">
                             @if ($errors->any())
@@ -82,7 +78,7 @@
                                     <p>{{ \Session::get('success') }}</p>
                                 </div>
                             @endif
-                                <input id="imgHandleInput" name="avatar" type="hidden" value="">
+                                <input id="imgHandleInput" name="avatar" type="file" value="">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">

@@ -43,7 +43,7 @@ class GiftCategoriesController extends Controller
 
         GiftCategory::create($category);
 
-        return redirect('giftcategories/')->with('success', 'Category was added successfully.');
+        return redirect()->route('giftcategories.index')->with('success', 'Category was added successfully.');
     }
 
     /**

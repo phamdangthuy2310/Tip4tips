@@ -113,7 +113,7 @@ class LeadsController extends Controller
         $lead['tipster_id'] = $request->tipster;
         Lead::create($lead);
 
-        return redirect('leads')->with('success', 'Lead was added successfully.');
+        return redirect()->route('leads.index')->with('success', 'Lead was added successfully.');
     }
 
     /**
@@ -211,7 +211,7 @@ class LeadsController extends Controller
         $lead->region_id = $request->get('region');
 //        $lead->status = $request->get('status');
         $lead->save();
-        return redirect('leads')->with('success','Lead was updated successfully.');
+        return redirect()->route('leads.index')->with('success','Lead was updated successfully.');
     }
 
     /**
@@ -225,7 +225,7 @@ class LeadsController extends Controller
         //
         $lead = Lead::find($id);
         $lead->delete();
-        return redirect('leads')->with('success', 'Lead was deleted successfully.');
+        return redirect()->route('leads.index')->with('success', 'Lead was deleted successfully.');
     }
 
     public function ajaxStatus(Request $request){

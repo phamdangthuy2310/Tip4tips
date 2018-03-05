@@ -213,7 +213,7 @@ use App\Common\Utils;
                     @if($deleteAction == true)<form class="inline" action="{{action('TipstersController@destroy', $user->id)}}" method="post">
                         {{csrf_field()}}
                         <input name="_method" type="hidden" value="DELETE">
-                        <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i> Yes</button>
+                        <button class="btn btn-sm btn-danger" type="submit">Yes</button>
                     </form>@endif
                 </div>
             </div>

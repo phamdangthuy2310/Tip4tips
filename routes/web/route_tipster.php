@@ -10,15 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/tipsters/updatePoint', 'TipstersController@updatePoint')->name('tipsters.updatePoint');
-Route::post('/tipsters/updatePointAjax', 'TipstersController@updatePointAjax')->name('tipsters.updatePointAjax');
-Route::get('/tipsters', 'TipstersController@index')->name('tipsters.index');
-Route::get('/tipsters/create', 'TipstersController@create')->name('tipsters.create');
-Route::post('/tipsters/create', 'TipstersController@store')->name('tipsters.store');
-Route::get('/tipsters/{id}/edit', 'TipstersController@edit')->name('tipsters.edit');
-Route::patch('/tipsters/{id}/update', 'TipstersController@update')->name('tipsters.update');
-Route::delete('/tipsters/delete/{id}', 'TipstersController@destroy')->name('tipsters.destroy');
-Route::get('/tipsters/{id}', 'TipstersController@show')->name('tipsters.show');
+Route::get('/admin/tipsters/updatePoint', 'TipstersController@updatePoint')->name('tipsters.updatePoint');
+Route::post('/admin/tipsters/updatePointAjax', 'TipstersController@updatePointAjax')->name('tipsters.updatePointAjax');
+Route::get('/admin/tipsters', 'TipstersController@index')->name('tipsters.index');
+Route::get('/admin/tipsters/create', 'TipstersController@create')->name('tipsters.create');
+Route::post('/admin/tipsters/create', 'TipstersController@store')->name('tipsters.store');
+Route::get('/admin/tipsters/{id}/edit', 'TipstersController@edit')->name('tipsters.edit');
+Route::patch('/admin/tipsters/{id}/update', 'TipstersController@update')->name('tipsters.update');
+Route::delete('/admin/tipsters/delete/{id}', 'TipstersController@destroy')->name('tipsters.destroy');
+Route::get('/admin/tipsters/{id}', 'TipstersController@show')->name('tipsters.show');
 //Route::resource('/tipsters', 'TipstersController', [
 //    'name' => [
 //        'index' => 'tipsters.index',

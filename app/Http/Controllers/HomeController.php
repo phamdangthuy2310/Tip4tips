@@ -9,6 +9,7 @@ use App\Model\Lead;
 use App\Model\LogActivity;
 use App\Model\Product;
 use App\Model\Role;
+use App\Model\RoleType;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -35,8 +36,16 @@ class HomeController extends Controller
         $user = Auth::user();
         if(isset($user)){
             return redirect('dashboard');
+//            $roletype = User::getUserByID($user->id);
+////            dd($roletype);
+//            if($roletype->roletypeCode == 'tipster'){
+////                dd('UI for tipster');
+//                return redirect()->route('uitipsters.home');
+//            }else{
+//                return redirect()->route('dashboard');
+//            }
         }else {
-            return redirect('login');
+            return redirect()->route('login');
         }
         //return view('home');
     }
