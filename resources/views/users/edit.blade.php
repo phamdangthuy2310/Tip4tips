@@ -104,7 +104,7 @@ use App\Common\Utils;
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Birthday</label>
-                                    <input name="birthday" type="text" class="form-control" value="{{$user->birthday}}" placeholder="Enter ...">
+                                    <input name="birthday" type="date" class="form-control" value="{{$user->birthday}}" placeholder="Enter ...">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -180,19 +180,22 @@ use App\Common\Utils;
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Status</label>
-                                    <select class="form-control" name="status">
-                                        <option value="" disabled selected>Please pick a status</option>
-                                        <option value="0" @if($user->delete_is == 0) selected @endif>Active</option>
-                                        <option value="1" @if($user->delete_is == 1) selected @endif>Deactive</option>
-                                    </select>
+                                    <label style="width: 100%">Status</label>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" value="0" name="status" @if($user->delete_is == 0) checked @endif>
+                                            Active
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" value="1" name="status" @if($user->delete_is == 1) checked @endif>
+                                            Non Active
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-
-
-
                     </div>
                     <!-- /.box-body -->
 

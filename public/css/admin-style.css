@@ -103,6 +103,7 @@ input[type=date]::-webkit-inner-spin-button {
     -moz-border-radius: 3px;
     height: 43px;
     background-color: #f9ffff;
+    resize: none;
 }
 .form-control[type=search]{
     height: 34px;

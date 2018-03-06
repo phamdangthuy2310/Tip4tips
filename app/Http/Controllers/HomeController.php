@@ -35,7 +35,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         if(isset($user)){
-            return redirect('dashboard');
+            return redirect()->route('dashboard');
 //            $roletype = User::getUserByID($user->id);
 ////            dd($roletype);
 //            if($roletype->roletypeCode == 'tipster'){

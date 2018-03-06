@@ -145,4 +145,17 @@ class Common{
         return $messages;
     }
 
+    public static function showTextLanguage($key){
+        $text = '';
+        switch ($key){
+            case 'vn':
+                $text = 'Vietnam';
+                break;
+            case 'en':
+                $text = 'English';
+                break;
+        }
+        return $text;
+    }
+
 }

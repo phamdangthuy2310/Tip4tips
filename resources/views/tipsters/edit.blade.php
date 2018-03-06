@@ -83,6 +83,43 @@
                     <div class="box-body">
                         <div class="row">
                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label style="width: 100%">Preferred language</label>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" value="vn" name="preferred_lang" @if($user->preferred_lang == 'vn') checked @endif>
+                                            Vietnam
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" value="en" name="preferred_lang" @if($user->preferred_lang == 'en') checked @endif>
+                                            English
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label style="width: 100%">Status</label>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" value="0" name="status" @if($user->delete_is == 0) checked @endif>
+                                            Active
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" value="1" name="status" @if($user->delete_is == 1) checked @endif>
+                                            Non Active
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Username</label>
@@ -96,11 +133,12 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Birthday</label>
-                                    <input name="birthday" type="text" class="form-control" value="{{$user->birthday}}" placeholder="Enter ...">
+                                    <input name="birthday" type="date" class="form-control" value="{{$user->birthday}}" placeholder="Enter ...">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -138,7 +176,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Address</label>
-                                    <input name="address" type="text" class="form-control" value="{{$user->address}}" placeholder="Enter ...">
+                                    <textarea name="address" class="form-control" placeholder="Enter ..." rows="4">{{$user->address}}</textarea>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -170,16 +208,6 @@
                                             </optgroup>
                                         @endforeach
 
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Status</label>
-                                    <select class="form-control" name="status">
-                                        <option value="" disabled selected>Please pick a status</option>
-                                        <option value="0" @if($user->delete_is == 0) selected @endif>Active</option>
-                                        <option value="1" @if($user->delete_is == 1) selected @endif>Deactive</option>
                                     </select>
                                 </div>
                             </div>

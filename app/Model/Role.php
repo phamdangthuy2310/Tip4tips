@@ -47,5 +47,4 @@ class Role extends Model
         })->get();
         return $roles;
     }
-
 }

@@ -27,7 +27,7 @@ use App\Common\Utils;
                         @if($user->delete_is == 0)
                             <span class="label label-success">Active</span>
                         @else
-                            <span class="label label-danger">Deactive</span>
+                            <span class="label label-danger">Non active</span>
                         @endif
                     </p>
 

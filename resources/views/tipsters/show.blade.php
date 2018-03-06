@@ -47,7 +47,7 @@ use App\Common\Utils;
                         @if($user->delete_is == 0)
                             <span class="label label-success">Active</span>
                         @else
-                            <span class="label label-danger">Deactive</span>
+                            <span class="label label-danger">Non active</span>
                         @endif
                     </p>
 
@@ -78,6 +78,14 @@ use App\Common\Utils;
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <div class="row box-line">
+                        <div class="col-sm-6">
+                            <p class="text-muted">
+                                <i class="fa fa-globe margin-r-5"></i> Preferred language
+                                <span class="text-highlight">{{ Common::showTextLanguage($user->preferred_lang) }}</span>
+                            </p>
+                        </div>
+                    </div>
                     <div class="row box-line">
                         <div class="col-sm-6">
                             <p class="text-muted">

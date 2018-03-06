@@ -96,7 +96,24 @@
                     @endif
                         <input id="imgHandleInput" name="avatar" type="file" value="">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label style="width: 100%">Preferred language</label>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" value="vn" name="preferred_lang" checked>
+                                        Vietnam
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" value="en" name="preferred_lang">
+                                        English
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
                             <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                                 <label>Username</label>
                                 <input name="username" value="{{ old('username') }}" type="text" class="form-control" placeholder="Enter ..." required>
@@ -194,7 +211,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Address</label>
-                                <input name="address" value="{{old('address')}}" type="text" class="form-control" placeholder="Enter ...">
+                                <textarea name="address" value="{{old('address')}}" class="form-control" placeholder="Enter ..." rows="4"></textarea>
                             </div>
                         </div>
                         <div class="col-sm-6">

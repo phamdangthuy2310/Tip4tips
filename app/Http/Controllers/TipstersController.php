@@ -106,6 +106,7 @@ class TipstersController extends Controller
         $user['region_id'] = $request->region;
         $user['role_id'] = $request->department;
         $user['delete_is'] = 0;
+        $user['reference_lang'] = $request->reference_lang;
         $imageName = 'no_image_available.jpg';
         if(!empty(request()->avatar)){
             $imageName = time().'.'.request()->avatar->getClientOriginalExtension();
@@ -221,6 +222,7 @@ class TipstersController extends Controller
         $user->role_id = $request->get('department');
         $user->delete_is = $request->get('status');
         $user->point = $request->get('point');
+        $user->preferred_lang = $request->get('preferred_lang');
         $imageName = $user->avatar;
         if(!empty(request()->avatar)){
             $imageName = time().'.'.request()->avatar->getClientOriginalExtension();
