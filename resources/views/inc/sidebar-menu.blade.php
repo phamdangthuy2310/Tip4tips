@@ -70,6 +70,11 @@ use App\Common\Utils;
                     <i class="fa fa-file-text"></i><span>Activity</span>
                 </a>
             </li>
+            <li>
+                <a href="{{route('messagetemplates.index')}}">
+                    <i class="fa fa-file-text"></i><span>Message Templates</span>
+                </a>
+            </li>
 
         </ul>
         <!-- /.sidebar-menu -->
