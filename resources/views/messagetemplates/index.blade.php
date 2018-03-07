@@ -23,7 +23,13 @@
     {{ Breadcrumbs::render('tipsters') }}
 @stop
 @section('content')
+    <p>
     <a class="btn btn-primary" href="{{route('messagetemplates.sendmail')}}">Send mail</a>
+    <a class="btn btn-primary" href="{{route('messagetemplates.create')}}">Create template</a>
+    </p>
+    @foreach($templates as $messagetemplate)
+    <p>{{$messagetemplate->message_id}} <a class="btn btn-primary" href="{{route('messagetemplates.edit', $messagetemplate)}}">Edit</a></p>
+    @endforeach
     <!-- /.box -->
 
 @endsection
