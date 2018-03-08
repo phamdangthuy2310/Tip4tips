@@ -19,4 +19,8 @@ class MessageTemplate extends Model
     public static function getAllTemplate(){
         return MessageTemplate::all();
     }
+    public static function getTemplateByID($id){
+        return MessageTemplate::find($id);
+    }
+
 }

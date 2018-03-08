@@ -37,7 +37,7 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">@yield('title')</h3>
-                    <a href="{{route('tipsters.index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-angle-left"></i> Back to list</a>
+                    <a href="{{route('messagetemplates.index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-angle-left"></i> Back to list</a>
                 </div>
 
                 <!-- /.box-header -->
@@ -133,74 +133,25 @@
                     <form>
                         <div class="form-group">
                             <label>Variable 1:</label>
-                            <input type="text" name="message_name_variable_1" class="form-control" readonly value="[name1]">
-                            <br/>
-                            <select class="form-control" name="message_name_value_1">
-                                <option value="" selected disabled="disabled">Please pick a item</option>
-                                <optgroup label="Tipsters">
-                                    @foreach($tipsters as $tipster)
-                                        <option value="{{$tipster->id}}">{{$tipster->fullname}}</option>
-                                    @endforeach
-                                </optgroup>
-                                <optgroup label="Leads">
-                                    @foreach($leads as $lead)
-                                        <option value="{{$lead->id}}">{{$lead->fullname}}</option>
-                                    @endforeach
-                                </optgroup>
-                                <optgroup label="Products">
-                                    @foreach($products as $product)
-                                        <option value="{{$product->id}}">{{$product->name}}</option>
-                                    @endforeach
-                                </optgroup>
-
-                            </select>
+                            <input type="text" name="message_name_variable_1" class="form-control" readonly value="[tipster.name]">
+                            <label><small>Display name of tipster.</small></label>
                         </div>
                         <div class="form-group">
                             <label>Variable 2:</label>
-                            <input type="text" name="message_name_variable_2" class="form-control" readonly value="[name2]">
-                            <br/>
-                            <select class="form-control" name="message_name_value_2">
-                                <option value="" selected disabled="disabled">Please pick a item</option>
-                                <optgroup label="Tipsters">
-                                    @foreach($tipsters as $tipster)
-                                        <option value="{{$tipster->id}}">{{$tipster->fullname}}</option>
-                                    @endforeach
-                                </optgroup>
-                                <optgroup label="Leads">
-                                    @foreach($leads as $lead)
-                                        <option value="{{$lead->id}}">{{$lead->fullname}}</option>
-                                    @endforeach
-                                </optgroup>
-                                <optgroup label="Products">
-                                    @foreach($products as $product)
-                                        <option value="{{$product->id}}">{{$product->name}}</option>
-                                    @endforeach
-                                </optgroup>
-                            </select>
+                            <input type="text" name="message_name_variable_2" class="form-control" readonly value="[lead.name]">
+                            <label><small>Display name of lead.</small></label>
                         </div>
                         <div class="form-group">
                             <label>Variable 3:</label>
-                            <input type="text" name="message_name_variable_3" class="form-control" readonly value="[name3]">
-                            <br/>
-                            <select class="form-control" name="message_name_value_3">
-                                <option value="" selected disabled="disabled">Please pick a item</option>
-                                <optgroup label="Tipsters">
-                                    @foreach($tipsters as $tipster)
-                                        <option value="{{$tipster->id}}">{{$tipster->fullname}}</option>
-                                    @endforeach
-                                </optgroup>
-                                <optgroup label="Leads">
-                                    @foreach($leads as $lead)
-                                        <option value="{{$lead->id}}">{{$lead->fullname}}</option>
-                                    @endforeach
-                                </optgroup>
-                                <optgroup label="Products">
-                                    @foreach($products as $product)
-                                        <option value="{{$product->id}}">{{$product->name}}</option>
-                                    @endforeach
-                                </optgroup>
-                            </select>
+                            <input type="text" name="message_name_variable_3" class="form-control" readonly value="[product.name]">
+                            <label><small>Display name of product.</small></label>
                         </div>
+                        <div class="form-group">
+                            <label>Variable 4:</label>
+                            <input type="text" name="message_name_variable_4" class="form-control" readonly value="[points]">
+                            <label><small>Display point of tipster.</small></label>
+                        </div>
+
                     </form>
                 </div>
                 <!-- /.box-body -->

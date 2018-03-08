@@ -89,6 +89,60 @@ class MessageTemplatesController extends Controller
         ]);
     }
 
+    public function update(Request $request, $id){
+        $template = MessageTemplate::getTemplateByID($id);
+        request()->validate([
+            'message_id' => 'required'
+        ]);
+        $template->message_id = $request->get('message_id');
+        $template->subject_vn = $request->get('subject_vn');
+        $template->subject_en = $request->get('subject_en');
+        $template->content_vn = $request->get('content_vn');
+        $template->content_en = $request->get('content_en');
+        $template->save();
+        return redirect()->route('messagetemplates.index')->with('Updated template successfully.');
+    }
+
+    public function show($id){
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $editAction = false;
+        $deleteAction = false;
+        $createAction = false;
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin'){
+            $editAction = true;
+            $deleteAction = true;
+            $createAction = true;
+        }
+        $template = MessageTemplate::getTemplateByID($id);
+        return view('messagetemplates.show', compact('template', $template))->with([
+            'editAction' => $editAction,
+            'deleteAction' => $deleteAction,
+            'createAction' => $createAction
+        ]);
+    }
+
+    public function sendmessage($id){
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $editAction = false;
+        $deleteAction = false;
+        $createAction = false;
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin'){
+            $editAction = true;
+            $deleteAction = true;
+            $createAction = true;
+        }
+        $template = MessageTemplate::getTemplateByID($id);
+        return view('messagetemplates.sendmessage', compact('template', $template))->with([
+            'editAction' => $editAction,
+            'deleteAction' => $deleteAction,
+            'createAction' => $createAction
+        ]);
+    }
+
+
+
     public function sendMail(){
         $data['title'] = 'Tip4tip Website Mail';
 //        $subject = 'Thank you';

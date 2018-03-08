@@ -41,85 +41,85 @@
                 </div>
 
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{route('messagetemplates.update', $template->id)}}" enctype = "multipart/form-data">
+                <form role="form" method="post" action="{{route('messagetemplates.edit', $template->id)}}" enctype = "multipart/form-data">
                     {{ csrf_field() }}
                     <input name="_method" type="hidden" value="PATCH">
-                    <div class="box-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                @if (count($errors) > 0)
-                                    <strong>Whoops!</strong> There were some problems with your input.
-                                @endif
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div><br />
-                        @endif
-                        @if (\Session::has('success'))
-                            <div class="alert alert-success">
-                                <p>{{ \Session::get('success') }}</p>
-                            </div>
-                        @endif
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Message ID:</label>
-                                    <input value="{{$template->message_id}}" name="message_id" type="text" placeholder="Ex: thank_you_letter" class="form-control" required autofocus>
-                                </div>
+                <div class="box-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            @if (count($errors) > 0)
+                                <strong>Whoops!</strong> There were some problems with your input.
+                            @endif
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div><br />
+                    @endif
+                    @if (\Session::has('success'))
+                        <div class="alert alert-success">
+                            <p>{{ \Session::get('success') }}</p>
+                        </div>
+                    @endif
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Message ID:</label>
+                                <input value="{{$template->message_id}}" name="message_id" type="text" placeholder="Ex: thank_you_letter" class="form-control" required autofocus>
                             </div>
                         </div>
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#menu1">Vietname language</a></li>
-                            <li><a data-toggle="tab" href="#menu2">English language</a></li>
-                        </ul>
+                    </div>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#menu1">Vietname language</a></li>
+                        <li><a data-toggle="tab" href="#menu2">English language</a></li>
+                    </ul>
 
-                        <div class="tab-content" style="padding-top: 20px">
-                            <div id="menu1" class="tab-pane fade active in">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Subject</label>
-                                            <input value="{{$template->subject_vn}}" name="subject_vn" type="text" placeholder="Ex: Thư cảm ơn" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Content</label>
-                                            <textarea name="content_vn" id="content_vn" class="form-control" style="height: 300px">{{$template->content_vn}}</textarea>
-                                        </div>
-
+                    <div class="tab-content" style="padding-top: 20px">
+                        <div id="menu1" class="tab-pane fade active in">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Subject</label>
+                                        <input value="{{$template->subject_vn}}" name="subject_vn" type="text" placeholder="Ex: Thư cảm ơn" class="form-control">
                                     </div>
                                 </div>
                             </div>
-                            <div id="menu2" class="tab-pane fade">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Subject</label>
-                                            <input value="{{$template->subject_en}}" name="subject_en" type="text" placeholder="Ex: Thank you letter" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
                                         <label>Content</label>
-                                        <textarea name="content_en" id="content_en" class="form-control" style="height: 300px">{{$template->content_en}}</textarea>
+                                        <textarea name="content_vn" id="content_vn" class="form-control" style="height: 300px">{{$template->content_vn}}</textarea>
                                     </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menu2" class="tab-pane fade">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Subject</label>
+                                        <input value="{{$template->subject_en}}" name="subject_en" type="text" placeholder="Ex: Thank you letter" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Content</label>
+                                    <textarea name="content_en" id="content_en" class="form-control" style="height: 300px">{{$template->content_en}}</textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- /.box-body -->
+                </div>
+                <!-- /.box-body -->
 
-                    <div class="box-footer">
-                        <a href="{{route('messagetemplates.index')}}" class="btn btn-default">Cancel</a>
-                        <button type="submit" class="btn btn-primary pull-right">Update</button>
-                    </div>
-                </form>
+                <div class="box-footer">
+                    <a href="{{route('messagetemplates.index')}}" class="btn btn-default">Cancel</a>
+                    <button type="submit" class="btn btn-primary pull-right">Update</button>
+                </div>
+            </form>
             </div>
 
             <!-- /.box -->

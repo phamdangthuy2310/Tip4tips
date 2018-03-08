@@ -101,7 +101,7 @@
                 <div class="modal-body">
                     <p>Do you really want to delete?</p>
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-                    @if($deleteAction == true)<form class="inline" action="{{action('TipstersController@destroy', $user->id)}}" method="post">
+                    @if($deleteAction == true)<form class="inline" action="{{route('users.destroy', $user->id)}}" method="post">
                         {{csrf_field()}}
                         <input name="_method" type="hidden" value="DELETE">
                         <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i> Yes</button>

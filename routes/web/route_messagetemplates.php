@@ -12,5 +12,6 @@ Route::post('/admin/messagetemplates/create', 'MessageTemplatesController@store'
 Route::get('/admin/messagetemplates/{id}/edit', 'MessageTemplatesController@edit')->name('messagetemplates.edit');
 Route::patch('/admin/messagetemplates/{id}/update', 'MessageTemplatesController@update')->name('messagetemplates.update');
 Route::delete('/admin/messagetemplates/delete/{id}', 'MessageTemplatesController@destroy')->name('messagetemplates.destroy');
+Route::get('/admin/messagetemplates/{id}/sendmessage', 'MessageTemplatesController@sendmessage')->name('messagetemplates.sendmessage');
 Route::get('/admin/messagetemplates/{id}', 'MessageTemplatesController@show')->name('messagetemplates.show');
 Route::get('/admin/messagetemplates', 'MessageTemplatesController@index')->name('messagetemplates.index');
