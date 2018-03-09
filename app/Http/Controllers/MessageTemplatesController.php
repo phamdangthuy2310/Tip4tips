@@ -33,7 +33,10 @@ class MessageTemplatesController extends Controller
             'createAction' => $createAction
         ]);
     }
-
+    /*-------------------------------------------------------
+     * Display layout
+     * that let user can enter information about new template
+    ---------------------------------------------------------*/
     public function create(){
         $auth = Auth::user();
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
@@ -52,7 +55,10 @@ class MessageTemplatesController extends Controller
             'products' => $products
         ]);
     }
-
+    /*---------------------------------------
+     * HANDLE: Create a new row in database
+     * message_id is required
+    ---------------------------------------*/
     public function store(Request $request){
         request()->validate([
             'message_id' => 'required'
@@ -65,7 +71,10 @@ class MessageTemplatesController extends Controller
         MessageTemplate::create($message);
         return redirect()->route('messagetemplates.index');
     }
-
+    /*--------------------------------------------------------
+     * Display layout
+     * to user can edit the informations of message tempplate.
+     --------------------------------------------------------*/
     public function edit($id){
         $auth = Auth::user();
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
@@ -89,6 +98,10 @@ class MessageTemplatesController extends Controller
         ]);
     }
 
+    /*---------------------------------------
+     * HANDLE: Save information
+     *  that has been changed by user
+    ---------------------------------------*/
     public function update(Request $request, $id){
         $template = MessageTemplate::getTemplateByID($id);
         request()->validate([
@@ -103,6 +116,9 @@ class MessageTemplatesController extends Controller
         return redirect()->route('messagetemplates.index')->with('Updated template successfully.');
     }
 
+    /*---------------------------------------
+     * Display message template by id
+    ---------------------------------------*/
     public function show($id){
         $auth = Auth::user();
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
@@ -122,7 +138,11 @@ class MessageTemplatesController extends Controller
         ]);
     }
 
-    public function sendmessage($id){
+
+    /*---------------------------------------
+     * Display template send message
+    ---------------------------------------*/
+    public function showSendMessage($id){
         $auth = Auth::user();
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $editAction = false;
@@ -133,23 +153,50 @@ class MessageTemplatesController extends Controller
             $deleteAction = true;
             $createAction = true;
         }
+
+        $tipsters = User::getAllTipster();
+        $leads = Lead::getAllLead();
+        $products = Product::getAllProduct();
         $template = MessageTemplate::getTemplateByID($id);
         return view('messagetemplates.sendmessage', compact('template', $template))->with([
             'editAction' => $editAction,
             'deleteAction' => $deleteAction,
-            'createAction' => $createAction
+            'createAction' => $createAction,
+            'tipsters' => $tipsters,
+            'leads' => $leads,
+            'products' => $products
         ]);
     }
 
-
-
-    public function sendMail(){
-        $data['title'] = 'Tip4tip Website Mail';
+    /*---------------------------------------
+     * HANDLE: Send message to tipster email
+    ---------------------------------------*/
+    public function sendMail(Request $request, $id){
+        $tipster = User::getUserByID($request->tipster_id);
+//        $points = $request->points;
+        $lead = Lead::getLeadByID($request->lead_id);
+//        $product = Product::getProductByID($request->lead->id);
+        $template = MessageTemplate::getTemplateByID($id);
+//        dd($product);
 //        $subject = 'Thank you';
 
-        $data['body'] = '<p>Hello {{tipster.name}},</p>'.
-            '<p>Thank you.</p>';
+        $keys = ([
+            'tipster.name' => $tipster->fullname,
+            'lead.name' => $lead->fullname,
+        ]);
 
+        if($tipster->prefferd_lang == 'vn'){
+            $title = $template->subject_vn;
+            $content = $template->content_vn;
+        }else{
+            $title = $template->subject_en;
+            $content = $template->content_en;
+        }
+        $data['title'] = $title;
+        foreach ($keys as $key=> $value){
+            $content = str_replace('['.$key.']', $value, $content);
+        }
+        $data['body'] = $content;
         Mail::send('messagetemplates.emails.email', $data, function($message) {
 
             $message->to('phamdangthuy2310@gmail.com', 'Receiver Name')

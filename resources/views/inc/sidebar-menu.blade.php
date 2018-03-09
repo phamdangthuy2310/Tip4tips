@@ -72,10 +72,9 @@ use App\Common\Utils;
             </li>
             <li>
                 <a href="{{route('messagetemplates.index')}}">
-                    <i class="fa fa-file-text"></i><span>Message Templates</span>
+                    <i class="fa fa-newspaper-o"></i><span>Message Templates</span>
                 </a>
             </li>
-
         </ul>
         <!-- /.sidebar-menu -->
     </section>

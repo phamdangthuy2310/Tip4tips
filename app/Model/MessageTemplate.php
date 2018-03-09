@@ -16,9 +16,15 @@ class MessageTemplate extends Model
         'content_en'
     ];
 
+    /*---------------------------------------
+     * Get all Message templates
+    ---------------------------------------*/
     public static function getAllTemplate(){
         return MessageTemplate::all();
     }
+    /*---------------------------------------
+     * Get all information of template by template id
+    ---------------------------------------*/
     public static function getTemplateByID($id){
         return MessageTemplate::find($id);
     }

@@ -60,7 +60,7 @@
                             <td>{{ $template->content_vn }}</td>
                             <td>{{$template->content_en}}</td>
                             <td class="actions text-center" style="width: 100px">
-                                <a href="{{route('messagetemplates.sendmessage', $template->id)}}" class="btn btn-xs btn-primary" title="Send message"><i class="fa fa-paper-plane"></i></a>
+                                <a href="{{route('messagetemplates.showsendmessage', $template->id)}}" class="btn btn-xs btn-primary" title="Send message"><i class="fa fa-paper-plane"></i></a>
                                 {{--<a href="{{route('messagetemplates.show', $template->id)}}" class="btn btn-xs btn-success" title="View"><i class="fa fa-eye"></i></a>--}}
                                 @if($editAction == true)<a href="{{route('messagetemplates.edit', $template->id)}}" class="btn btn-xs btn-info" title="Edit"><i class="fa fa-pencil"></i></a>@endif
                                 {{--@if($deleteAction == true)<form action="{{route('messagetemplates.destroy', $template->id)}}" method="post">--}}
@@ -90,16 +90,6 @@
         </div>
         <!-- /.box-body -->
     </div>
-    <!-- /.box -->
-
-
-    <p>
-    <a class="btn btn-primary" href="{{route('messagetemplates.sendmail')}}">Send mail</a>
-    <a class="btn btn-primary" href="{{route('messagetemplates.create')}}">Create template</a>
-    </p>
-    @foreach($templates as $messagetemplate)
-    <p>{{$messagetemplate->message_id}} <a class="btn btn-primary" href="{{route('messagetemplates.edit', $messagetemplate)}}">Edit</a></p>
-    @endforeach
     <!-- /.box -->
 
 @endsection

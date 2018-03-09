@@ -131,26 +131,46 @@
                     <h3 class="box-title">Variable</h3>
                 </div>
                 <div class="box-body box-profile">
-                    <form>
+                    <form method="post" action="{{route('messagetemplates.sendmail', $template->id)}}">
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <label>Variable 1:</label>
                             <input type="text" name="message_name_variable_1" class="form-control" readonly value="[tipster.name]">
                             <label><small>Display name of tipster.</small></label>
+                            <select class="form-control" name="tipster_id">
+                                @foreach($tipsters as $tipster)
+                                <option value="{{$tipster->id}}">{{$tipster->fullname}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Variable 2:</label>
                             <input type="text" name="message_name_variable_2" class="form-control" readonly value="[lead.name]">
                             <label><small>Display name of lead.</small></label>
+                            <select class="form-control" name="lead_id">
+                                @foreach($leads as $lead)
+                                    <option value="{{$lead->id}}">{{$lead->fullname}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Variable 3:</label>
                             <input type="text" name="message_name_variable_3" class="form-control" readonly value="[product.name]">
                             <label><small>Display name of product.</small></label>
+                            <select class="form-control" name="product_id">
+                                @foreach($products as $product)
+                                    <option value="{{$product->id}}">{{$product->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Variable 4:</label>
                             <input type="text" name="message_name_variable_4" class="form-control" readonly value="[points]">
                             <label><small>Display point of tipster.</small></label>
+                            <input name="points" type="number" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="submit" class="btn btn-primary">Send message</button>
                         </div>
                     </form>
                 </div>

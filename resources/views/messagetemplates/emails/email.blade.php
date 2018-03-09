@@ -260,7 +260,7 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        {{$body}}
+                                        {!! html_entity_decode($body) !!}
                                     </td>
                                 </tr>
                             </table>
