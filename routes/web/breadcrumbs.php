@@ -162,5 +162,25 @@ Breadcrumbs::register('messages.trash', function ($breadcrumbs) {
     $breadcrumbs->push('Trash Inbox', route('messages.index'));
 });
 
+// Home > Message Templates
+Breadcrumbs::register('messagetemplates', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('List of Message Templates', route('messagetemplates.index'));
+});
+// Home > Message Templates > Create message template
+Breadcrumbs::register('messagetemplates.create', function ($breadcrumbs) {
+    $breadcrumbs->parent('messagetemplates');
+    $breadcrumbs->push('Create Message Templates', route('messagetemplates.index'));
+});
+// Home > Message Templates >
+Breadcrumbs::register('messagetemplates.edit', function ($breadcrumbs) {
+    $breadcrumbs->parent('messagetemplates');
+    $breadcrumbs->push('Edit Message Templates', route('messagetemplates.index'));
+});
+// Home > Message Templates >
+Breadcrumbs::register('messagetemplates.showsendmessage', function ($breadcrumbs) {
+    $breadcrumbs->parent('messagetemplates');
+    $breadcrumbs->push('Show send message', route('messagetemplates.index'));
+});
 
 

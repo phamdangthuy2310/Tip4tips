@@ -20,7 +20,7 @@
     </script>
 @stop
 @section('body.breadcrumbs')
-    {{ Breadcrumbs::render('tipsters') }}
+    {{ Breadcrumbs::render('messagetemplates') }}
 @stop
 @section('content')
     <div class="box box-list">

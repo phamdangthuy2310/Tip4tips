@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Lead;
 use App\Model\LeadProcess;
+use App\Model\MessageTemplate;
 use App\Model\PointHistory;
 use App\Model\Product;
 use App\Model\Region;

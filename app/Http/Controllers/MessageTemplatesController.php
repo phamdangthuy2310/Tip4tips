@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Lead;
 use App\Model\MessageTemplate;
+use App\Model\PointHistory;
 use App\Model\Product;
 use App\Model\Role;
 use App\User;
@@ -158,7 +159,7 @@ class MessageTemplatesController extends Controller
         $leads = Lead::getAllLead();
         $products = Product::getAllProduct();
         $template = MessageTemplate::getTemplateByID($id);
-        return view('messagetemplates.sendmessage', compact('template', $template))->with([
+        return view('messagetemplates.showsendmessage', compact('template', $template))->with([
             'editAction' => $editAction,
             'deleteAction' => $deleteAction,
             'createAction' => $createAction,
@@ -173,38 +174,66 @@ class MessageTemplatesController extends Controller
     ---------------------------------------*/
     public function sendMail(Request $request, $id){
         $tipster = User::getUserByID($request->tipster_id);
-//        $points = $request->points;
         $lead = Lead::getLeadByID($request->lead_id);
-//        $product = Product::getProductByID($request->lead->id);
+
+        if(!empty($request->points)){
+            $points = $request->points;
+        }else{
+            $points = PointHistory::getPointByTipsterIDLeadID($tipster->id, $lead->id);
+        }
+        $product_id = $request->product_id;
+        if(!empty($product_id)){
+            $product = Product::getProductByID($product_id);
+        }else{
+            $product = Product::getProductByID($lead->product_id);
+        }
+        if(!empty($tipster)){
+            $tipster_name = $tipster->fullname;
+        }
+
         $template = MessageTemplate::getTemplateByID($id);
-//        dd($product);
-//        $subject = 'Thank you';
 
-        $keys = ([
-            'tipster.name' => $tipster->fullname,
-            'lead.name' => $lead->fullname,
-        ]);
 
-        if($tipster->prefferd_lang == 'vn'){
+        /*------------------------------------------------------
+         * Check Preferred Language to set title & content consistent
+         *------------------------------------------------------ */
+        if($tipster->preferred_lang == 'vn'){
             $title = $template->subject_vn;
             $content = $template->content_vn;
         }else{
             $title = $template->subject_en;
             $content = $template->content_en;
         }
+        if(!empty($lead)){
+            $lead_name = $lead->fullname;
+        }
+        if(!empty($product)){
+            $product_name = $product->name;
+        }
+
         $data['title'] = $title;
+        $keys = ([
+            'tipster.name' => $tipster_name,
+            'lead.name' => $lead_name,
+            'product.name' => $product_name,
+            'points' => $points,
+        ]);
+
+
         foreach ($keys as $key=> $value){
             $content = str_replace('['.$key.']', $value, $content);
         }
         $data['body'] = $content;
-        Mail::send('messagetemplates.emails.email', $data, function($message) {
+        $emailTo = $tipster->email;
+        $subjectTo = $title;
 
-            $message->to('phamdangthuy2310@gmail.com', 'Receiver Name')
+        Mail::send('messagetemplates.emails.email', $data, function($message) use ($emailTo, $subjectTo) {
 
-                ->subject('Thank you for your introduce.');
+            $message->to($emailTo, 'Receiver Name')
+                ->subject($subjectTo);
 
         });
 
-        dd("Mail Sent successfully");
+        return redirect()->route('messagetemplates.index')->with('success', 'Send message successfully.');
     }
 }

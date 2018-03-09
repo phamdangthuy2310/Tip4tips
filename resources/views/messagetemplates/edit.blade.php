@@ -20,7 +20,7 @@
     </script>
 @stop
 @section('body.breadcrumbs')
-    {{ Breadcrumbs::render('tipsters.create') }}
+    {{ Breadcrumbs::render('messagetemplates.edit') }}
 @stop
 @section('content')
     @if($editAction == false)
