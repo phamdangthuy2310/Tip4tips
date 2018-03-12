@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Mockery\Exception;
 use App\Common\Common;
@@ -232,7 +233,7 @@ class LeadsController extends Controller
 
     public function ajaxStatus(Request $request){
         //
-        $lead = $request->lead;
+        $lead_id = $request->lead;
         $status = $request->status;
         $tipster_id = $request->tipster_id;
         $product_id = $request->product_id;
@@ -240,20 +241,20 @@ class LeadsController extends Controller
         $product = Product::getProductByID($product_id);
         $response = array();
         try{
-            $result = count(LeadProcess::checkExist($lead, $status));
-            $leadTable = Lead::find($lead);
+            $result = count(LeadProcess::checkExist($lead_id, $status));
+            $leadTable = Lead::find($lead_id);
             if($result < 1){
                 $statusDb = $leadTable->status;
                 $response['status_db'] = $statusDb;
                 $response['status_view'] = $status;
                 if($statusDb != $status){
-                    $process['lead_id'] = $lead;
+                    $process['lead_id'] = $lead_id;
                     $process['status_id'] = $status;
                     LeadProcess::create($process);
                     $leadTable->status = $status;
                     $leadTable->save();
                     //get all history
-                    $newHistoryProcess = LeadProcess::getStatusByLead($lead)->first();
+                    $newHistoryProcess = LeadProcess::getStatusByLead($lead_id)->first();
                     $newHistoryProcess->created_format = Common::dateFormat($newHistoryProcess->created_at,'d-M-Y H:i');
                     $newHistoryProcess->classStatus = Lead::showColorStatus($status);
                     $newHistoryProcess->nameStatus = Lead::showNameStatus($status);
@@ -264,9 +265,12 @@ class LeadsController extends Controller
                     $response["message"] = $message;
 
                     /*-----------------------------------------------
-                     * config send mail when lead status change
+                     * config send mail when lead status change to:
+                     * CALL/QUOTE/LOST
                      * ----------------------------------------------*/
-
+                    if($status != 0 && $status !=3 ){
+                        $this->sendMailChangeStatus($status, $tipster_id, $lead_id, $product_id, 0);
+                    }
                 }else{
                     $error = "Current status was picked. Please pick another.";
                     $response["error"] = $error;
@@ -318,6 +322,8 @@ class LeadsController extends Controller
             LeadProcess::create($process);
             $lead = Lead::find($lead);
             $lead->status = $status;
+            Log::info($lead);
+//            $this->sendMailChangeStatus($status, $request->tipster_id, $lead->id, $request->product_id, 0);
             $lead->save();
             return back()->with(['success', 'Updated status successfully']);
         }
@@ -328,12 +334,11 @@ class LeadsController extends Controller
         $lead = Lead::find($request->lead);
         $lead->tipster_id = $tipster;
         $lead->save();
-        $this->sendMailChangeStatus($request->status);
         return back()->with('Updated tipster successfully.');
     }
 
     public function sendMailChangeStatus($status, $tipster_id = 1, $lead_id = 1, $product_id = 1, $points = 0){
-        dd('vao');
+        $template = MessageTemplate::getTemplateByMessageID('update_lead_call');
         if($status == 1){
             // Is "Call"
             $template = MessageTemplate::getTemplateByMessageID('update_lead_call');
@@ -343,25 +348,29 @@ class LeadsController extends Controller
             $template = MessageTemplate::getTemplateByMessageID('update_lead_quote');
         }
         if($status == 3){
-            //Is "Win"
+            //Is "Quote"
             $template = MessageTemplate::getTemplateByMessageID('update_lead_win');
         }
+
         if($status == 4){
             //Is "Lost"
             $template = MessageTemplate::getTemplateByMessageID('update_lead_lost');
         }
-        $points = PointHistory::getPointByTipsterIDLeadID($tipster_id, $lead->id);
 
-        if(!empty($product_id)){
-            $product = Product::getProductByID($product_id);
-        }
-        if(!empty($tipster)){
+        $points = PointHistory::getPointByTipsterIDLeadID($tipster_id, $lead_id);
+
+        $product = Product::getProductByID($product_id);
+        $tipster = User::getUserByID($tipster_id);
+        $lead = Lead::getLeadByID($lead_id);
+
+        $tipster_name = "";
+        if(isset($tipster)){
             $tipster_name = $tipster->fullname;
         }
 
         /*------------------------------------------------------
          * Check Preferred Language to set title & content consistent
-         *------------------------------------------------------ */
+         ------------------------------------------------------ */
         if($tipster->preferred_lang == 'vn'){
             $title = $template->subject_vn;
             $content = $template->content_vn;
@@ -369,10 +378,12 @@ class LeadsController extends Controller
             $title = $template->subject_en;
             $content = $template->content_en;
         }
-        if(!empty($lead)){
+        $lead_name = "";
+        if(asset($lead)){
             $lead_name = $lead->fullname;
         }
-        if(!empty($product)){
+        $product_name = "";
+        if(asset($product)){
             $product_name = $product->name;
         }
 
@@ -391,7 +402,6 @@ class LeadsController extends Controller
         $data['body'] = $content;
         $emailTo = $tipster->email;
         $subjectTo = $title;
-
         return Mail::send('messagetemplates.emails.email', $data, function($message) use ($emailTo, $subjectTo) {
 
             $message->to($emailTo, 'Receiver Name')
