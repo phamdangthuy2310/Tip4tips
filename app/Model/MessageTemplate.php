@@ -28,5 +28,11 @@ class MessageTemplate extends Model
     public static function getTemplateByID($id){
         return MessageTemplate::find($id);
     }
+    /*---------------------------------------
+     * Get all information of template by template id code
+    ---------------------------------------*/
+    public static function getTemplateByMessageID($messId){
+        return MessageTemplate::where('message_id', $messId)->first();
+    }
 
 }

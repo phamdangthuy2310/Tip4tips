@@ -206,6 +206,8 @@ use App\Common\Common;
                                         'descriptionValue' => 'Update status lead : '.$lead->fullname])
                                 <label id="statusAlert" class="label"></label>
                                 <input type="hidden" name="lead" value="{{$lead->id}}">
+                                <input type="hidden" name="tipster_id" value="{{$lead->tipster_id}}">
+                                <input type="hidden" name="product_id" value="{{$lead->product_id}}">
                                 <div class="form-inline-simple">
                                     <select name="status" class="form-control">
                                         <option value="" disabled selected>Please pick a status</option>

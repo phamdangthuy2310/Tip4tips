@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Mockery\Exception;
 use App\Common\Common;
 use App\User;
@@ -233,6 +234,10 @@ class LeadsController extends Controller
         //
         $lead = $request->lead;
         $status = $request->status;
+        $tipster_id = $request->tipster_id;
+        $product_id = $request->product_id;
+        $tipster = User::getUserByID($tipster_id);
+        $product = Product::getProductByID($product_id);
         $response = array();
         try{
             $result = count(LeadProcess::checkExist($lead, $status));
@@ -257,6 +262,11 @@ class LeadsController extends Controller
                     $message= "Update successfully";
                     $response["status"] = "0";
                     $response["message"] = $message;
+
+                    /*-----------------------------------------------
+                     * config send mail when lead status change
+                     * ----------------------------------------------*/
+
                 }else{
                     $error = "Current status was picked. Please pick another.";
                     $response["error"] = $error;
@@ -318,6 +328,75 @@ class LeadsController extends Controller
         $lead = Lead::find($request->lead);
         $lead->tipster_id = $tipster;
         $lead->save();
+        $this->sendMailChangeStatus($request->status);
         return back()->with('Updated tipster successfully.');
+    }
+
+    public function sendMailChangeStatus($status, $tipster_id = 1, $lead_id = 1, $product_id = 1, $points = 0){
+        dd('vao');
+        if($status == 1){
+            // Is "Call"
+            $template = MessageTemplate::getTemplateByMessageID('update_lead_call');
+        }
+        if($status == 2){
+            //Is "Quote"
+            $template = MessageTemplate::getTemplateByMessageID('update_lead_quote');
+        }
+        if($status == 3){
+            //Is "Win"
+            $template = MessageTemplate::getTemplateByMessageID('update_lead_win');
+        }
+        if($status == 4){
+            //Is "Lost"
+            $template = MessageTemplate::getTemplateByMessageID('update_lead_lost');
+        }
+        $points = PointHistory::getPointByTipsterIDLeadID($tipster_id, $lead->id);
+
+        if(!empty($product_id)){
+            $product = Product::getProductByID($product_id);
+        }
+        if(!empty($tipster)){
+            $tipster_name = $tipster->fullname;
+        }
+
+        /*------------------------------------------------------
+         * Check Preferred Language to set title & content consistent
+         *------------------------------------------------------ */
+        if($tipster->preferred_lang == 'vn'){
+            $title = $template->subject_vn;
+            $content = $template->content_vn;
+        }else{
+            $title = $template->subject_en;
+            $content = $template->content_en;
+        }
+        if(!empty($lead)){
+            $lead_name = $lead->fullname;
+        }
+        if(!empty($product)){
+            $product_name = $product->name;
+        }
+
+        $data['title'] = $title;
+        $keys = ([
+            'tipster.name' => $tipster_name,
+            'lead.name' => $lead_name,
+            'product.name' => $product_name,
+            'points' => $points,
+        ]);
+
+
+        foreach ($keys as $key=> $value){
+            $content = str_replace('['.$key.']', $value, $content);
+        }
+        $data['body'] = $content;
+        $emailTo = $tipster->email;
+        $subjectTo = $title;
+
+        return Mail::send('messagetemplates.emails.email', $data, function($message) use ($emailTo, $subjectTo) {
+
+            $message->to($emailTo, 'Receiver Name')
+                ->subject($subjectTo);
+
+        });
     }
 }

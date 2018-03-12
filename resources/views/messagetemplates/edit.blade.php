@@ -37,7 +37,7 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">@yield('title')</h3>
-                    <a href="{{route('tipsters.index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-angle-left"></i> Back to list</a>
+                    <a href="{{route('messagetemplates.index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-angle-left"></i> Back to list</a>
                 </div>
 
                 <!-- /.box-header -->
@@ -66,7 +66,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Message ID:</label>
-                                    <input value="{{$template->message_id}}" name="message_id" type="text" placeholder="Ex: thank_you_letter" class="form-control" required autofocus>
+                                    <input readonly value="{{$template->message_id}}" name="message_id" type="text" placeholder="Ex: thank_you_letter" class="form-control" required autofocus>
                                 </div>
                             </div>
                         </div>
