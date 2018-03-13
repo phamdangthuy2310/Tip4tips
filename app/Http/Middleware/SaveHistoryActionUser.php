@@ -27,11 +27,11 @@ class SaveHistoryActionUser
             if(Auth::check()){
                 //save history action user
                 //if method is post : create,update,delete
+                Log:info($request->url());
                 if($request->isMethod('post')){
                     $url = $request->url();
                     $user_id = Auth::user()->id;
                     $action_history = null;
-
 
                     if (strpos($url, 'messagetemplates') !== FALSE){
                         //
@@ -144,7 +144,6 @@ class SaveHistoryActionUser
                     $url = $request->url();
                     $user_id = Auth::user()->id;
                     $action_history = null;
-
 
                     if (strpos($url, 'messagetemplates') !== FALSE){
                         //

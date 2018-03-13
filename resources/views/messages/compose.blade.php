@@ -29,22 +29,36 @@
                 <form method="post" action="{{route('messages.store')}}">
                     {{ csrf_field() }}
                     <div class="box-body">
-                        <div class="form-group">
-                            <select name="receiver" class="form-control select2" style="width: 100%;">
-                                <option selected disabled>To:</option>
+                        <div class="form-group{{ $errors->has('receivers') ? ' has-error' : '' }}">
+                            <select name="receivers[]" class="mdb-select form-control select2" multiple style="width: 100%;" required autofocus>
+                                <option value="" selected disabled>To:</option>
                                 @foreach($receivers as $receiver)
-                                    <option value="{{$receiver->id}}">{{$receiver->username}}</option>
+                                    <option value="{{$receiver->id}}">{{$receiver->username}} - {{$receiver->fullname}}</option>
                                 @endforeach
 
                             </select>
+                            @if ($errors->has('receivers'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('receivers') }}</strong>
+                                </span>
+                            @endif
                         </div>
-                        <div class="form-group">
-                            <input name="title" value="{{old('title')}}" class="form-control" placeholder="Subject:">
+                        <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                            <input name="title" value="{{old('title')}}" class="form-control" placeholder="Subject:" required autofocus>
+                            @if ($errors->has('receivers'))
+                                <span class="help-block">
+                                                <strong>{{ $errors->first('title') }}</strong>
+                                            </span>
+                            @endif
                         </div>
-                        <div class="form-group">
-                        <textarea name="content" id="compose-textarea" class="form-control" style="height: 300px" required>
-
-                        </textarea>
+                        <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
+                            <textarea name="content" id="compose-textarea" class="form-control" style="height: 300px" required autofocus>
+                            </textarea>
+                            @if ($errors->has('content'))
+                                <span class="help-block">
+                                                <strong>{{ $errors->first('content') }}</strong>
+                                            </span>
+                            @endif
                         </div>
                         {{--<div class="form-group">--}}
                             {{--<div class="btn btn-default btn-file">--}}
@@ -53,6 +67,20 @@
                             {{--</div>--}}
                             {{--<p class="help-block">Max. 32MB</p>--}}
                         {{--</div>--}}
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        @if (\Session::has('success'))
+                            <div class="alert alert-success">
+                                <p>{{ \Session::get('success') }}</p>
+                            </div>
+                        @endif
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">

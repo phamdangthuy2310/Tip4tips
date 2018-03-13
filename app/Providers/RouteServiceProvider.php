@@ -103,7 +103,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/web/route_ui_tipster.php'));
         //Route UI Tipster
-        Route::middleware('web')
+        Route::middleware('web','saveHistoryUser')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/route_messagetemplates.php'));
 

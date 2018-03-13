@@ -23,10 +23,10 @@ class MessagesController extends Controller
         $auth = Auth::user();
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
-        $createAction = false;
-        if($roletypeAuth->code == 'manager' || $roleAuth->code == 'ambassador'){
-            $createAction = true;
-        }
+        $createAction = true;
+//        if($roletypeAuth->code == 'manager' || $roleAuth->code == 'ambassador'){
+//            $createAction = true;
+//        }
 
         $messages = Message::getMessageOfUser($auth->id);
         return view('messages.mailbox',
@@ -49,16 +49,16 @@ class MessagesController extends Controller
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
         $createAction = false;
-        $receivers = User::all();
-        if($roletypeAuth->code == 'manager' || $roleAuth->code == 'ambassador'){
-            $createAction = true;
-        }
-        if($roleAuth->code == 'sale'){
-            $receivers = User::getAllConsultant();
-        }
-        if($roleAuth->code == 'community' || $roleAuth->code == 'ambassador'){
-            $receivers = User::getAllTipster();
-        }
+        $receivers = User::select('*')->where('id', '<>', $auth->id)->orderBy('username','desc')->get();
+//        if($roletypeAuth->code == 'manager' || $roleAuth->code == 'ambassador'){
+//            $createAction = true;
+//        }
+//        if($roleAuth->code == 'sale'){
+//            $receivers = User::getAllConsultant();
+//        }
+//        if($roleAuth->code == 'community' || $roleAuth->code == 'ambassador'){
+//            $receivers = User::getAllTipster();
+//        }
 
         return view('messages.compose')->with([
             'receivers' => $receivers,
@@ -76,15 +76,21 @@ class MessagesController extends Controller
     {
         //
         $message = $this->validate($request,[
-            'receiver' => 'required'
+            'subject' => 'required',
+            'content' => 'required'
         ]);
-        $message['receiver'] = $request->get('receiver');
+
+//        $message['receiver'] = $request->get('receiver');
         $message['author'] = Auth::user()->id;
         $message['title'] = $request->get('title');
         $message['content'] = $request->get('content');
         $message['delete_is'] = 0;
         $message['read_is'] = 0;
-        Message::create($message);
+
+        foreach ($request->receivers as $item=>$value){
+            $message['receiver'] = $value;
+            Message::create($message);
+        }
         return redirect()->route('messages.index')->with('success', 'Sent message successfully.');
     }
 
