@@ -31,6 +31,18 @@ class SaveHistoryActionUser
                     $url = $request->url();
                     $user_id = Auth::user()->id;
                     $action_history = null;
+
+
+                    if (strpos($url, 'messagetemplates') !== FALSE){
+                        //
+                        $affected_object = Utils::$LOG_AFFECTED_OBJECT_MESSAGE_TEMPLATE;
+                        if (strpos($url,"create") !== FALSE){
+                            $action_history = Utils::$LOG_ACTION_CREATE;
+                            $name_object_history = $request->message_id;
+                            $description = $this->getDescription($affected_object,$action_history, $name_object_history);
+                        }
+                    }
+
                     if (strpos($url, 'leads') !== FALSE){
                         //
                         $affected_object = Utils::$LOG_AFFECTED_OBJECT_LEAD;
@@ -132,6 +144,18 @@ class SaveHistoryActionUser
                     $url = $request->url();
                     $user_id = Auth::user()->id;
                     $action_history = null;
+
+
+                    if (strpos($url, 'messagetemplates') !== FALSE){
+                        //
+                        $affected_object = Utils::$LOG_AFFECTED_OBJECT_MESSAGE_TEMPLATE;
+                        if (strpos($url,"update") !== FALSE){
+                            $action_history = Utils::$LOG_ACTION_UPDATE;
+                            $name_object_history = $request->message_id;
+                            $description = $this->getDescription($affected_object,$action_history, $name_object_history);
+                        }
+
+                    }
                     if (strpos($url, 'leads') !== FALSE){
                         //
                         $affected_object = Utils::$LOG_AFFECTED_OBJECT_LEAD;

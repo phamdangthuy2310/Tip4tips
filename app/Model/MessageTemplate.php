@@ -20,7 +20,7 @@ class MessageTemplate extends Model
      * Get all Message templates
     ---------------------------------------*/
     public static function getAllTemplate(){
-        return MessageTemplate::all();
+        return MessageTemplate::select('*')->orderBy('created_at', 'desc')->get();
     }
     /*---------------------------------------
      * Get all information of template by template id

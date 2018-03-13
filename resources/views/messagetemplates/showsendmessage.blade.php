@@ -44,7 +44,7 @@
                             <label>Variable 1:</label>
                             <input type="text" name="message_name_variable_1" class="form-control" readonly value="[tipster.name]">
                             <label><small>Display name of tipster.</small></label>
-                            <select class="form-control" name="tipster_id">
+                            <select class="form-control" name="tipster_id" required>
                                 <option value="" disabled="disabled" selected>Please select a item</option>
                                 @foreach($tipsters as $tipster)
                                     <option value="{{$tipster->id}}">{{$tipster->fullname}}</option>
@@ -75,9 +75,15 @@
                         </div>
                         <div class="form-group">
                             <label>Variable 4:</label>
-                            <input type="text" name="message_name_variable_4" class="form-control" readonly value="[points]">
-                            <label><small>Display point of tipster.</small></label>
-                            <input name="points" type="number" class="form-control">
+                            <input type="text" name="message_name_variable_4" class="form-control" readonly value="[points.new]">
+                            <label><small>Display points of tipster.</small></label>
+                            <input name="points_new" type="number" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Variable 5:</label>
+                            <input type="text" name="message_name_variable_5" class="form-control" readonly value="[points.current]">
+                            <label><small>Display current points of tipster.</small></label>
+                            <input name="points_current" type="number" class="form-control">
                         </div>
                         <div class="form-group">
                             <button type="submit" name="submit" class="btn btn-primary">Send message</button>

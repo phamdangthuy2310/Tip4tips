@@ -618,6 +618,23 @@ Popup confirm
     margin: 0 10px;
     font-size: 14px;
 }
+
+/*--------------------------------
+Icon waiting
+---------------------------------*/
+.waiting{
+    display: inline-block;
+    width: 16px;
+}
+.waiting img{
+    max-width: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+.processing img{
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
 /*--------------------------------
 Responsive
 ---------------------------------*/

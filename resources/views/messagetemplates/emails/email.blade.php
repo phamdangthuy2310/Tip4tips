@@ -31,6 +31,9 @@
             font-family: sans-serif;
             font-size: 14px;
             vertical-align: top; }
+        table td p{
+            color: #333333;
+        }
         /* -------------------------------------
             BODY & CONTAINER
         ------------------------------------- */

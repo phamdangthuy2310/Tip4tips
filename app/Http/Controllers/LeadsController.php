@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Common\Utils;
 use App\Model\Lead;
 use App\Model\LeadProcess;
 use App\Model\MessageTemplate;
@@ -114,7 +115,9 @@ class LeadsController extends Controller
         $lead['status'] = 0;
         $lead['region_id'] = $request->region;
         $lead['tipster_id'] = $request->tipster;
-        Lead::create($lead);
+        $leadnew = Lead::create($lead);
+        $new = Utils::$lead_process_status_new;
+        Common::sendMailChangeStatus($new, $leadnew->tipster_id, $leadnew->id, $leadnew->product_id, 0);
 
         return redirect()->route('leads.index')->with('success', 'Lead was added successfully.');
     }
@@ -268,8 +271,8 @@ class LeadsController extends Controller
                      * config send mail when lead status change to:
                      * CALL/QUOTE/LOST
                      * ----------------------------------------------*/
-                    if($status != 0 && $status !=3 ){
-                        $this->sendMailChangeStatus($status, $tipster_id, $lead_id, $product_id, 0);
+                    if($status != 0){
+                        Common::sendMailChangeStatus($status, $tipster_id, $lead_id, $product_id, 0);
                     }
                 }else{
                     $error = "Current status was picked. Please pick another.";
@@ -322,7 +325,6 @@ class LeadsController extends Controller
             LeadProcess::create($process);
             $lead = Lead::find($lead);
             $lead->status = $status;
-            Log::info($lead);
 //            $this->sendMailChangeStatus($status, $request->tipster_id, $lead->id, $request->product_id, 0);
             $lead->save();
             return back()->with(['success', 'Updated status successfully']);
@@ -335,78 +337,5 @@ class LeadsController extends Controller
         $lead->tipster_id = $tipster;
         $lead->save();
         return back()->with('Updated tipster successfully.');
-    }
-
-    public function sendMailChangeStatus($status, $tipster_id = 1, $lead_id = 1, $product_id = 1, $points = 0){
-        $template = MessageTemplate::getTemplateByMessageID('update_lead_call');
-        if($status == 1){
-            // Is "Call"
-            $template = MessageTemplate::getTemplateByMessageID('update_lead_call');
-        }
-        if($status == 2){
-            //Is "Quote"
-            $template = MessageTemplate::getTemplateByMessageID('update_lead_quote');
-        }
-        if($status == 3){
-            //Is "Quote"
-            $template = MessageTemplate::getTemplateByMessageID('update_lead_win');
-        }
-
-        if($status == 4){
-            //Is "Lost"
-            $template = MessageTemplate::getTemplateByMessageID('update_lead_lost');
-        }
-
-        $points = PointHistory::getPointByTipsterIDLeadID($tipster_id, $lead_id);
-
-        $product = Product::getProductByID($product_id);
-        $tipster = User::getUserByID($tipster_id);
-        $lead = Lead::getLeadByID($lead_id);
-
-        $tipster_name = "";
-        if(isset($tipster)){
-            $tipster_name = $tipster->fullname;
-        }
-
-        /*------------------------------------------------------
-         * Check Preferred Language to set title & content consistent
-         ------------------------------------------------------ */
-        if($tipster->preferred_lang == 'vn'){
-            $title = $template->subject_vn;
-            $content = $template->content_vn;
-        }else{
-            $title = $template->subject_en;
-            $content = $template->content_en;
-        }
-        $lead_name = "";
-        if(asset($lead)){
-            $lead_name = $lead->fullname;
-        }
-        $product_name = "";
-        if(asset($product)){
-            $product_name = $product->name;
-        }
-
-        $data['title'] = $title;
-        $keys = ([
-            'tipster.name' => $tipster_name,
-            'lead.name' => $lead_name,
-            'product.name' => $product_name,
-            'points' => $points,
-        ]);
-
-
-        foreach ($keys as $key=> $value){
-            $content = str_replace('['.$key.']', $value, $content);
-        }
-        $data['body'] = $content;
-        $emailTo = $tipster->email;
-        $subjectTo = $title;
-        return Mail::send('messagetemplates.emails.email', $data, function($message) use ($emailTo, $subjectTo) {
-
-            $message->to($emailTo, 'Receiver Name')
-                ->subject($subjectTo);
-
-        });
     }
 }

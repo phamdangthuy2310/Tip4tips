@@ -196,8 +196,8 @@ use App\Common\Common;
                             </form>
                         </div>{{--/Block assign--}}
                         {{--Block update status--}}
-                        <div class="block__action">
-                            <h5>Lead status:</h5>
+                        <div id="updateStatus" class="block__action">
+                            <h5>Lead status <span class="waiting"><img src="{{asset('images/svg/w-loading-black-icon.svg')}}" alt="waiting"></span></h5>
                             <form method="get" action="{{route('leads.ajaxStatus')}}" id="statusGroup">
                                 {{ csrf_field() }}
                                 @include('layouts.partials._input_history_user',
@@ -223,7 +223,7 @@ use App\Common\Common;
                         {{--Block plus point--}}
                         {{--@if($lead->status == Utils::$lead_process_status_win)--}}
                             <div id="plusPoint" class="block__action @if($lead->status != Utils::$lead_process_status_win) hidden @endif">
-                                <h5>Point for tipster</h5>
+                                <h5>Point for tipster <span class="waiting"><img src="{{asset('images/svg/w-loading-black-icon.svg')}}" alt="waiting"></span></h5>
                                 <div id="updatePoint">
                                     <form id="updatePointForm" action="{{route('tipsters.updatePointAjax')}}">
                                         {{ csrf_field() }}

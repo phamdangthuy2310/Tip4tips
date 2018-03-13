@@ -10,8 +10,12 @@ use App\Model\Lead;
  */
 
 class Utils{
-    //Status id for win
+    //Status id for lead status
+    public static $lead_process_status_new = "0";
+    public static $lead_process_status_call = "1";
+    public static $lead_process_status_quote = "2";
     public static $lead_process_status_win = "3";
+    public static $lead_process_status_lost = "4";
     //-----Start Log Activity---------
     //affected object history
     public static $LOG_AFFECTED_OBJECT_LEAD = "Lead";
@@ -23,6 +27,7 @@ class Utils{
     public static $LOG_AFFECTED_OBJECT_PRODUCT = "Product";
     public static $LOG_AFFECTED_OBJECT_GIFT = "Gift";
     public static $LOG_AFFECTED_OBJECT_Message = "Message";
+    public static $LOG_AFFECTED_OBJECT_MESSAGE_TEMPLATE = "Message template";
 
     //action history
     public static $LOG_ACTION_CREATE = "created";

@@ -176,11 +176,17 @@ class MessageTemplatesController extends Controller
         $tipster = User::getUserByID($request->tipster_id);
         $lead = Lead::getLeadByID($request->lead_id);
 
-        if(!empty($request->points)){
-            $points = $request->points;
+        if(!empty($request->points_new)){
+            $points_new = $request->points_new;
         }else{
-            $points = PointHistory::getPointByTipsterIDLeadID($tipster->id, $lead->id);
+            $points_new = PointHistory::getPointByTipsterIDLeadID($tipster->id, $lead->id);
         }
+        if(!empty($request->points_current)){
+            $points_current = $request->points_current;
+        }else{
+            $points_current = $tipster->point;
+        }
+
         $product_id = $request->product_id;
         if(!empty($product_id)){
             $product = Product::getProductByID($product_id);
@@ -216,7 +222,8 @@ class MessageTemplatesController extends Controller
             'tipster.name' => $tipster_name,
             'lead.name' => $lead_name,
             'product.name' => $product_name,
-            'points' => $points,
+            'points.new' => $points_new,
+            'points.current' => $points_current,
         ]);
 
 
@@ -227,9 +234,9 @@ class MessageTemplatesController extends Controller
         $emailTo = $tipster->email;
         $subjectTo = $title;
 
-        Mail::send('messagetemplates.emails.email', $data, function($message) use ($emailTo, $subjectTo) {
+        Mail::send('messagetemplates.emails.email', $data, function($message) use ($emailTo, $subjectTo, $tipster_name) {
 
-            $message->to($emailTo, 'Receiver Name')
+            $message->to($emailTo, $tipster_name)
                 ->subject($subjectTo);
 
         });

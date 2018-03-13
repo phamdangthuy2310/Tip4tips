@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Common\Common;
+use App\Common\Utils;
 use App\Model\Lead;
 use App\Model\PointHistory;
 use App\Model\Product;
@@ -251,17 +252,22 @@ class TipstersController extends Controller
     }
 
     public function updatePoint(Request $request){
+        $lead_id = $request->lead;
+        $tipster_id = $request->tipster;
         $pointnew = $request->point;
+        $product_id = Lead::getLeadByID($lead_id)->product_id;
         //Add points, tipster, lead to point_histories
-        $history['lead_id'] = $request->lead;
-        $history['tipster_id'] = $request->tipster;
+        $history['lead_id'] = $lead_id;
+        $history['tipster_id'] = $tipster_id;
         $history['point'] = $pointnew;
         PointHistory::create($history);
 
         //Update points to Tipster
-        $tipster = User::find($request->tipster);
+        $tipster = User::find($tipster_id);
         $tipster->point = $tipster->point + $pointnew;
         $tipster->save();
+        $win = Utils::$lead_process_status_win;
+        Common::sendMailChangeStatus($win,$tipster_id, $lead_id, $product_id, $pointnew);
         return redirect()->route('tipsters.index');
     }
 
@@ -270,6 +276,10 @@ class TipstersController extends Controller
         $lead_id = $request->lead;
         $tipster_id = $request->tipster;
         $newpoint = $request->point;
+        $lead = Lead::getLeadByID($lead_id);
+        $product_id = $lead->product_id;
+        $ups = 'ups';
+        $pps = 'pps';
         $response = array();
         try{
             /*Check point plussed for this tipster from lead?*/
@@ -292,6 +302,10 @@ class TipstersController extends Controller
                 $tipster = User::find($tipster_id);
                 $tipster['point'] = $tipster['point'] - $oldPoint + $newpoint;
                 $tipster->save();
+                /*----------------------------------------------------
+                 * Send email to tipster to notify update points
+                 * ---------------------------------------------------*/
+                Common::sendMailChangeStatus($ups,$tipster_id, $lead_id, $product_id, $newpoint);
 
             }else{/*If tipster do not plussed point yet.*/
                 //Add points, tipster, lead to point_histories table
@@ -305,9 +319,13 @@ class TipstersController extends Controller
                 $tipster->point = $tipster->point + $newpoint;
                 $tipster->save();
 
-                $success = 'Plussed successfully.';
+                $success = 'Added points successfully.';
                 $response["status"] = "0";
                 $response["success"] = $success;
+                /*----------------------------------------------------
+                 * Send email to tipster to notify plus points
+                 * ---------------------------------------------------*/
+                Common::sendMailChangeStatus($pps,$tipster_id, $lead_id, $product_id, $newpoint);
             }
 
         }catch(Exception $e){

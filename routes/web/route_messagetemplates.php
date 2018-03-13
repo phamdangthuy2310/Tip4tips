@@ -5,7 +5,6 @@
 //Route::patch('/admin/leads/{id}/update', 'LeadsController@update')->name('leads.update');
 //Route::delete('/admin/leads/delete/{id}', 'LeadsController@destroy')->name('leads.destroy');
 //Route::get('/admin/leads/{id}', 'LeadsController@show')->name('leads.show');
-Route::get('/admin/messagetemplates', 'MessageTemplatesController@index')->name('messagetemplates.index');
 Route::get('/admin/messagetemplates/create', 'MessageTemplatesController@create')->name('messagetemplates.create');
 Route::post('/admin/messagetemplates/create', 'MessageTemplatesController@store')->name('messagetemplates.store');
 Route::get('/admin/messagetemplates/{id}/edit', 'MessageTemplatesController@edit')->name('messagetemplates.edit');

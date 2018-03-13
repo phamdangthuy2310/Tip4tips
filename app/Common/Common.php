@@ -1,10 +1,15 @@
 <?php
 namespace App\Common;
 
+use App\Model\Lead;
 use App\Model\Message;
+use App\Model\MessageTemplate;
+use App\Model\PointHistory;
+use App\Model\Product;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class Common{
     public static function dateFormat($value, $format = "d-M-Y H:i"){
@@ -156,6 +161,106 @@ class Common{
                 break;
         }
         return $text;
+    }
+
+    /*---------------------------------------------------------------------------
+     * Function send email when lead changed status
+     * Parameter:
+     *  $status: new/call/quote/win/lost; default is: new
+     *  $tipster_id
+     *  $lead_id
+     *  $product_id
+     *  $points_new: Points plussed after lead of tipster change status to win
+     *  $points_current: Total points of tipster
+     * -------------------------------------------------------------------------*/
+    public static function sendMailChangeStatus($status, $tipster_id = 1, $lead_id = 1, $product_id = 1, $points_new = 0){
+        $call = Utils::$lead_process_status_call;
+        $quote = Utils::$lead_process_status_quote;
+        $win = Utils::$lead_process_status_win;
+        $lost = Utils::$lead_process_status_lost;
+        $template = MessageTemplate::getTemplateByMessageID('thank_you_letter');
+        $product = Product::getProductByID($product_id);
+        $tipster = User::getUserByID($tipster_id);
+        $lead = Lead::getLeadByID($lead_id);
+        /*------------------------------
+         * Check status of lead
+         * -----------------------------*/
+        if($status == 'ups'){
+            //Update points
+            $template = MessageTemplate::getTemplateByMessageID('update_points_tipster');
+        }
+        if($status == 'pps'){
+            //Update points
+            $template = MessageTemplate::getTemplateByMessageID('plus_points_tipster');
+        }
+
+        if($status == $call){
+            // Is "Call"
+            $template = MessageTemplate::getTemplateByMessageID('update_lead_call');
+        }
+        if($status == $quote){
+            //Is "Quote"
+            $template = MessageTemplate::getTemplateByMessageID('update_lead_quote');
+        }
+        if($status == $win){
+            //Is "Win"
+            $template = MessageTemplate::getTemplateByMessageID('update_lead_win');
+        }
+        if($status == $lost){
+            //Is "Lost"
+            $template = MessageTemplate::getTemplateByMessageID('update_lead_lost');
+        }
+
+        if($points_new <= 0){
+            $points_new = PointHistory::getPointByTipsterIDLeadID($tipster_id, $lead_id);
+        }
+        $tipster_name = "";
+        if(isset($tipster)){
+            $tipster_name = $tipster->fullname;
+            $points_current = $tipster->point;
+        }
+
+        /*------------------------------------------------------
+         * Check Preferred Language to set title & content consistent
+         ------------------------------------------------------ */
+        if($tipster->preferred_lang == 'vn'){
+            $title = $template->subject_vn;
+            $content = $template->content_vn;
+        }else{
+            $title = $template->subject_en;
+            $content = $template->content_en;
+        }
+        $lead_name = "";
+        if(asset($lead)){
+            $lead_name = $lead->fullname;
+        }
+        $product_name = "";
+        if(asset($product)){
+            $product_name = $product->name;
+        }
+
+        $data['title'] = $title;
+        $keys = ([
+            'tipster.name' => $tipster_name,
+            'lead.name' => $lead_name,
+            'product.name' => $product_name,
+            'points.new' => $points_new,
+            'points.current' => $points_current,
+        ]);
+
+
+        foreach ($keys as $key=> $value){
+            $content = str_replace('['.$key.']', $value, $content);
+        }
+        $data['body'] = $content;
+        $emailTo = $tipster->email;
+        $subjectTo = $title;
+        return Mail::send('messagetemplates.emails.email', $data, function($message) use ($emailTo, $subjectTo, $tipster_name) {
+
+            $message->to($emailTo, $tipster_name)
+                ->subject($subjectTo);
+
+        });
     }
 
 }

@@ -13,6 +13,9 @@ function ajaxAddStatus(){
     data.tipster_id = form.find('[name=tipster_id]').val();
     data.product_id = form.find('[name=product_id]').val();
     FormLogActivities.serializeDataUserHistory(data,form);
+    /*Display icon waiting*/
+    $('#updateStatus').find('.waiting').addClass('processing');
+
     var url = form.attr('action');
     $.ajax({
       dataType: 'json',
@@ -43,6 +46,9 @@ function ajaxAddStatus(){
         }else if(data.status == -2){
           alert(data.error);
         }
+
+        /*Hide icon waiting*/
+        $('#updateStatus').find('.waiting').removeClass('processing');
       }
     });
   })
@@ -56,6 +62,7 @@ function updatePointAjax() {
     var input_point = form.find('[name=point]');
     var button_plus = form.find('button');
     var data = {};
+    $('#plusPoint').find('.waiting').addClass('processing');
     data.lead = input_lead.val();
     data.tipster = input_tipster.val();
     data.point = input_point.val();
@@ -81,6 +88,7 @@ function updatePointAjax() {
         }else{
           alert(data.message);
         }
+        $('#plusPoint').find('.waiting').removeClass('processing');
       }
     });
   })
