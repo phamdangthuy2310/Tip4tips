@@ -2,6 +2,7 @@
 namespace App\Common;
 
 use App\Model\Lead;
+use App\Model\LogsSentMessageTemplate;
 use App\Model\Message;
 use App\Model\MessageTemplate;
 use App\Model\PointHistory;
@@ -190,7 +191,7 @@ class Common{
             $template = MessageTemplate::getTemplateByMessageID('update_points_tipster');
         }
         if($status == 'pps'){
-            //Update points
+            //Add points
             $template = MessageTemplate::getTemplateByMessageID('plus_points_tipster');
         }
 
@@ -255,6 +256,14 @@ class Common{
         $data['body'] = $content;
         $emailTo = $tipster->email;
         $subjectTo = $title;
+
+        $logs['sender_id'] = 0;
+        $logs['receiver_id'] = $tipster_id;
+        $logs['message_id'] = $template->message_id;
+        $logs['subject'] = $title;
+        $logs['content'] = $content;
+        LogsSentMessageTemplate::create($logs);
+
         return Mail::send('messagetemplates.emails.email', $data, function($message) use ($emailTo, $subjectTo, $tipster_name) {
 
             $message->to($emailTo, $tipster_name)
@@ -263,4 +272,12 @@ class Common{
         });
     }
 
+    public static function saveLogsSentMessage($sender_id, $receiver_id, $message_id, $subject, $content){
+        $logs['sender_id'] = $sender_id;
+        $logs['receiver_id'] = $receiver_id;
+        $logs['message_id'] = $message_id;
+        $logs['subject'] = $subject;
+        $logs['content'] = $content;
+        return LogsSentMessageTemplate::create($logs);
+    }
 }

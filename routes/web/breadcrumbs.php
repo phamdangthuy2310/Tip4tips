@@ -182,5 +182,10 @@ Breadcrumbs::register('messagetemplates.showsendmessage', function ($breadcrumbs
     $breadcrumbs->parent('messagetemplates');
     $breadcrumbs->push('Show send message', route('messagetemplates.index'));
 });
+// Home > Logs Sent Message Templates
+Breadcrumbs::register('logssentmessagetemplates', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('List of logs sent message template', route('logsentmessages.index'));
+});
 
 

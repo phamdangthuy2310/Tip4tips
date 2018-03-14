@@ -29,13 +29,13 @@ class CheckRoleMiddleware
         $arrayUrl = [];
         switch ($role->code) {
             case 'admin':
-                $arrayUrl = ['leadsprocesses','users','leads','products','productcategories','tipsters','gifts','giftcategories','messages', 'assignments'];
+                $arrayUrl = ['messagetemplates','activities','logssentmessagetemplates','leadsprocesses','users','leads','products','productcategories','tipsters','gifts','giftcategories','messages', 'assignments'];
                 break;
             case 'community':
-                $arrayUrl = ['users','leads','tipsters','products','gifts','messages'];
+                $arrayUrl = ['activities','users','leads','tipsters','products','gifts','messages'];
                 break;
             case 'sale':
-                $arrayUrl = ['users','leads','tipsters','products','gifts','messages', 'assignments'];
+                $arrayUrl = ['activities','users','leads','tipsters','products','gifts','messages', 'assignments'];
                 break;
             case 'insurance':
             case 'car':

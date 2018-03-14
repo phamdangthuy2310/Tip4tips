@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Lead;
+use App\Model\LogsSentMessageTemplate;
 use App\Model\MessageTemplate;
 use App\Model\PointHistory;
 use App\Model\Product;
@@ -61,15 +62,18 @@ class MessageTemplatesController extends Controller
      * message_id is required
     ---------------------------------------*/
     public function store(Request $request){
-        request()->validate([
-            'message_id' => 'required'
+        $v = request()->validate([
+            'message_id' => 'required|unique:message_templates'
         ]);
-        $message['message_id'] = $request->message_id;
+
+        $message_id = $request->message_id;
+        $message['message_id'] = $message_id;
         $message['subject_vn'] = $request->subject_vn;
         $message['subject_en'] = $request->subject_en;
         $message['content_vn'] = $request->content_vn;
         $message['content_en'] = $request->content_en;
         MessageTemplate::create($message);
+
         return redirect()->route('messagetemplates.index');
     }
     /*--------------------------------------------------------
@@ -240,6 +244,14 @@ class MessageTemplatesController extends Controller
                 ->subject($subjectTo);
 
         });
+
+        $user = Auth::user();
+        $logs['sender_id'] = $user->id;
+        $logs['receiver_id'] = $tipster->id;
+        $logs['message_id'] = $template->message_id;
+        $logs['subject'] = $title;
+        $logs['content'] = $content;
+        LogsSentMessageTemplate::create($logs);
 
         return redirect()->route('messagetemplates.index')->with('success', 'Send message successfully.');
     }

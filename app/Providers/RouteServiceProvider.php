@@ -91,7 +91,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/web/route_tipster.php'));
         //Route Activity
-        Route::middleware('web','saveHistoryUser')
+        Route::middleware('web','checkRole','saveHistoryUser')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/route_logactivity.php'));
         //Route Activity
@@ -103,9 +103,12 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/web/route_ui_tipster.php'));
         //Route UI Tipster
-        Route::middleware('web','saveHistoryUser')
+        Route::middleware('web','checkRole','saveHistoryUser')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/route_messagetemplates.php'));
+        Route::middleware('web','checkRole')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/route_logssentmessagetemplate.php'));
 
     }
 
