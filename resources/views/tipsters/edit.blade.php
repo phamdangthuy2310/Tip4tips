@@ -121,15 +121,25 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <!-- text input -->
-                                <div class="form-group">
+                                <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                                     <label>Username</label>
-                                    <input name="username" type="text" class="form-control" value="{{$user->username}}" disabled="">
+                                    <input name="username" type="text" class="form-control" value="{{$user->username}}">
+                                    @if ($errors->has('username'))
+                                        <span class="help-block">
+                                                <strong>{{ $errors->first('username') }}</strong>
+                                            </span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group">
+                                <div class="form-group{{ $errors->has('fullname') ? ' has-error' : '' }}">
                                     <label>Full name</label>
                                     <input name="fullname" type="text" class="form-control" value="{{$user->fullname}}" placeholder="Enter ...">
+                                    @if ($errors->has('fullname'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('fullname') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -160,9 +170,14 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="form-group">
+                                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label>Email</label>
                                     <input name="email" type="text" class="form-control" value="{{$user->email}}" placeholder="Enter ...">
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-sm-6">

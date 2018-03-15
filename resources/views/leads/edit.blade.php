@@ -168,7 +168,7 @@ use App\Common\Common;
                                     <select id="tipsterAnchor" name="tipster" class="form-control">
                                         <option value="" disabled selected>Please pick a tipster</option>
                                         @foreach($tipsters as $tipster)
-                                            <option value="{{$tipster->id}}" @if($tipster->id == $lead->tipster_id) selected @endif>{{$tipster->fullname}}</option>
+                                            <option value="{{$tipster->id}}" @if($tipster->id == $lead->tipster_id) selected @endif>{{$tipster->fullname}} - {{$tipster->username}}</option>
                                         @endforeach
                                     </select>
                                     <button type="submit" class="btn btn-primary pull-right" title="Update">Update</button>

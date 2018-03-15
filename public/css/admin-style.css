@@ -635,6 +635,14 @@ Icon waiting
     opacity: 1;
     transition: opacity 0.3s ease-in-out;
 }
+
+/*--------------------------------
+Footer
+---------------------------------*/
+.main-footer{
+    background-color: #ecf0f5;
+    border-color: #ecf0f5;
+}
 /*--------------------------------
 Responsive
 ---------------------------------*/

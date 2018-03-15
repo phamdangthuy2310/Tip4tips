@@ -89,7 +89,7 @@ class TipstersController extends Controller
     {
         //
         $user = $this->validate(request(),[
-            'username' => 'required',
+            'username' => 'required|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'fullname' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
@@ -209,13 +209,38 @@ class TipstersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        request()->validate([
+        $validator = request()->validate([
+            'username' => 'required',
+            'email' => 'required',
             'fullname' => 'required',
             'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $user = User::find($id);
+        $username = $request->get('username');
+        if($username != $user->username){
+            $countUsername = User::where('username', $username)->count();
+            if($countUsername > 0){
+                request()->validate([
+                    'username' => 'unique:users',
+                ]);
+            }else{
+                $user->username = $username;
+            }
+        }
+
+        $email = $request->get('email');
+        if($email != $user->email){
+            $countEmail = User::where('email', $email)->count();
+            if($countEmail > 0){
+                request()->validate([
+                    'email' => 'unique:users',
+                ]);
+            }else{
+                $user->email = $email;
+            }
+        }
+
         $user->fullname = $request->get('fullname');
-        $user->email = $request->get('email');
         $user->phone = $request->get('phone');
         $user->birthday = $request->get('birthday');
         $user->address = $request->get('address');
@@ -232,7 +257,9 @@ class TipstersController extends Controller
         }
         $user->avatar = $imageName;
         $user->save();
-        return redirect()->route('tipsters.index')->with('success','Tipster was updated successfully.');
+        return redirect()->route('tipsters.index')->with([
+            'success' => 'Tipster was updated successfully.',
+        ]);
     }
 
     /**

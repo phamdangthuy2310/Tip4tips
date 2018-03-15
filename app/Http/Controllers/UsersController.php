@@ -199,12 +199,36 @@ class UsersController extends Controller
     {
         //
         request()->validate([
+            'username' => 'required',
+            'email' => 'required',
             'fullname' => 'required',
             'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         $user = User::find($id);
+        $username = $request->get('username');
+        if($username != $user->username){
+            $countUsername = User::where('username', $username)->count();
+            if($countUsername > 0){
+                request()->validate([
+                    'username' => 'unique:users',
+                ]);
+            }else{
+                $user->username = $username;
+            }
+        }
+
+        $email = $request->get('email');
+        if($email != $user->email){
+            $countEmail = User::where('email', $email)->count();
+            if($countEmail > 0){
+                request()->validate([
+                    'email' => 'unique:users',
+                ]);
+            }else{
+                $user->email = $email;
+            }
+        }
         $user->fullname = $request->get('fullname');
-        $user->email = $request->get('email');
         $user->phone = $request->get('phone');
         $user->address = $request->get('address');
         $user->gender = $request->get('gender');
