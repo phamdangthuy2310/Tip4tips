@@ -146,7 +146,7 @@
                             <div class="form-group">
                                 <label>Tipster reference</label>
                                 <select name="tipster" class="form-control">
-                                    <option  value="" disabled selected>Please pick a tipster</option>
+                                    {{--<option  value="" disabled selected>Please pick a tipster</option>--}}
                                     @foreach($tipsters as $tipster)
                                         <option value="{{$tipster->id}}" @if(Auth::user()->id == $tipster->id) selected @endif>{{$tipster->fullname}} - {{$tipster->username}} </option>
                                     @endforeach

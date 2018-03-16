@@ -102,7 +102,7 @@
                                 <div class="radio-inline">
                                     <label>
                                         <input type="radio" value="vn" name="preferred_lang" checked>
-                                        Vietnam
+                                        Vietnamese
                                     </label>
                                 </div>
                                 <div class="radio-inline">
