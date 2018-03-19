@@ -63,7 +63,7 @@ class MessageTemplatesController extends Controller
     ---------------------------------------*/
     public function store(Request $request){
         $v = request()->validate([
-            'message_id' => 'required|unique:message_templates'
+            'message_id' => 'required|unique:message_templates,message_id|required_without:'
         ]);
 
         $message_id = $request->message_id;
@@ -177,6 +177,10 @@ class MessageTemplatesController extends Controller
      * HANDLE: Send message to tipster email
     ---------------------------------------*/
     public function sendMail(Request $request, $id){
+        Request()->validate([
+            'points_new' => 'numeric',
+            'points_current' => 'numeric',
+        ]);
         $tipster = User::getUserByID($request->tipster_id);
         $lead = Lead::getLeadByID($request->lead_id);
 

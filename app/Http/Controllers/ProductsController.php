@@ -73,7 +73,9 @@ class ProductsController extends Controller
         //
         $product = $this->validate($request, [
             'name' => 'required',
-            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8112'
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8112',
+            'category' => 'required',
+            'price' => 'numeric'
         ]);
         $product['description'] = $request->description;
         $product['price'] = $request->price;
@@ -152,7 +154,9 @@ class ProductsController extends Controller
     {
         //
         request()->validate([
-            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8112'
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8112',
+            'category' => 'required',
+            'price' => 'numeric'
         ]);
         $product = Product::find($id);
         $product->name = $request->get('name');
