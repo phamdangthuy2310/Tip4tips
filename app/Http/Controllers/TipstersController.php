@@ -183,20 +183,30 @@ class TipstersController extends Controller
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
         $editAction = false;
+        $editPoints = true;
+        $user = User::getUserByID($id);
         if($roleAuth->code == 'community' || $roleAuth->code == 'admin' ||
-            $roletypeAuth->code == 'consultant' || $roleAuth->code == 'ambassador'){
+            $roletypeAuth->code == 'consultant' || $roleAuth->code == 'ambassador' || $user->id == $auth->id){
             $editAction = true;
+
+        }
+        if($roleAuth->code == 'tipster' || $user->id == $auth->id){
+            $editPoints = false;
+        }
+        $roles = Role::getAllRole();
+        if($roleAuth->code == 'tipster_normal'){
+            $roles = Role::getRoleByCode('tipster_normal');
         }
 
-        $user = User::find($id);
-        $roles = Role::all();
         $roletypes = RoleType::where('code', 'tipster')->get();
         $regions = Region::all();
+
         return view('tipsters.edit',compact('user','id'))->with([
             'roles'=>$roles,
             'roletypes' => $roletypes,
             'regions'=> $regions,
-            'editAction' => $editAction
+            'editAction' => $editAction,
+            'editPoints' => $editPoints,
         ]);
     }
 

@@ -228,8 +228,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Point</label>
-                                    <input class="form-control" type="number" value="{{$user->point}}" name="point">
+                                    <label>Points</label>
+                                    <input class="form-control" type="number" value="{{$user->point}}" name="point" @if($editPoints == false) readonly @endif>
                                 </div>
                             </div>
 

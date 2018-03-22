@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Model\Role;
+use App\Model\RoleType;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -72,5 +75,23 @@ class RegisterController extends Controller
             'role_id' => $role_id,
             'region_id' => $data['region_id']
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        $auth = Auth::user();
+        $roleAuth = Role::getInfoRoleByID($auth->role_id);
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
+        if($roletypeAuth->code == 'tipster'){
+            return redirect()->route('tipsters.show', $auth->id);
+        }else{
+            return redirect()->route('users.show', $auth->id);
+        }
     }
 }

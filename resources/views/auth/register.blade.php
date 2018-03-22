@@ -7,14 +7,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default form__transparent">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">Tipster Register</div>
 
                 <div class="panel-body">
                     <form class="register__form" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                            <label for="username">User Name</label>
+                            <label for="username">Username</label>
 
                             <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
 

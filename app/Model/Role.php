@@ -15,7 +15,7 @@ class Role extends Model
         'roletype_id'
     ];
 
-    public function getAllRole(){
+    public static function getAllRole(){
         return Role::all();
     }
 
@@ -45,6 +45,14 @@ class Role extends Model
         ->whereNOTIn('id', function ($query){
             $query->select('id')->where('code', 'tipster')->from('roletypes');
         })->get();
+        return $roles;
+    }
+
+    public static function getRoleByCode($code){
+        $roles = DB::table('roles')
+            ->where('code', $code)
+            ->select('*')
+            ->get();
         return $roles;
     }
 }

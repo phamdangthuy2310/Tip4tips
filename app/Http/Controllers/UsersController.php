@@ -162,24 +162,29 @@ class UsersController extends Controller
     public function edit($id)
     {
         //
-        $user = User::getUserByID($id);
-        $roles = Role::where('code','<>', 'admin')->get();
-        $roletypes = RoleType::where('code', '<>', 'tipster')->get();
-        $regions = Region::all();
+
 
         $auth = Auth::user();
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
-        $editAction = false;
+        $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
 
-        if($roleAuth->code == 'admin' || $roleAuth->code == 'sale' || $user->id == $auth->id){
-            $editAction = true;
+        if($roletypeAuth->code != 'tipster'){
+            $editAction = false;
+            $user = User::getUserByID($id);
+            $roles = Role::where('code','<>', 'admin')->get();
+            $roletypes = RoleType::where('code', '<>', 'tipster')->get();
+            $regions = Region::all();
+            if($roleAuth->code == 'admin' || $roleAuth->code == 'sale' || $user->id == $auth->id){
+                $editAction = true;
+            }
+            if($roleAuth->code == 'admin'){
+                $roles = Role::all();
+            }
+            if($roleAuth->code == 'sale' && $user->id != $auth->id){
+                $roletypes = RoleType::where('code', 'consultant')->get();
+            }
         }
-        if($roleAuth->code == 'admin'){
-            $roles = Role::all();
-        }
-        if($roleAuth->code == 'sale' && $user->id != $auth->id){
-            $roletypes = RoleType::where('code', 'consultant')->get();
-        }
+
         return view('users.edit',compact('user','id'))->with([
             'roles'=>$roles,
             'roletypes' => $roletypes,
