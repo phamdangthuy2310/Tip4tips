@@ -1,3 +1,4 @@
+<?php use \App\Model\Region; ?>
 @extends('layouts.app')
 @section('bodyclass','has-img')
 @include('inc.changeImageBody')
@@ -50,7 +51,21 @@
                             <label for="password-confirm">Confirm Password</label>
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                         </div>
+                        <div class="form-group{{ $errors->has('region_id') ? ' has-error' : '' }}">
+                            <label for="password">Region</label>
+                            <select class="form-control" name="region_id" required autofocus>
+                                <option value="" selected disabled="disabled">Please select your region</option>
+                                @foreach(Region::getAllRegion() as $region )
+                                    <option value="{{$region->id}}">{{$region->name}}</option>
+                                @endforeach
+                            </select>
 
+                            @if ($errors->has('region_id'))
+                                <span class="help-block">
+                                        <strong>{{ $errors->first('region_id') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">
                                 Register

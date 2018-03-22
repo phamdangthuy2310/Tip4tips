@@ -64,12 +64,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $role_id = Role::getIDRoleByCode('tipster');
+        $role_id = Role::getIDRoleByCode('tipster_normal');
         return User::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'role_id' => $role_id
+            'role_id' => $role_id,
+            'region_id' => $data['region_id']
         ]);
     }
 }

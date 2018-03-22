@@ -17,4 +17,8 @@ class Region extends Model
         $name = Region::find($id);
         return $name;
     }
+
+    public static function getAllRegion(){
+        return Region::all();
+    }
 }

@@ -35,9 +35,9 @@ class Role extends Model
     public static function getIDRoleByCode($code){
         $code = DB::table('roles')
         ->where('code', $code)
-        ->select('id')
-        ->get();
-        return $code;
+        ->select('*')
+        ->first();
+        return $code->id;
     }
 
     public static function getAllRoleInCompany(){
