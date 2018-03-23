@@ -177,20 +177,30 @@ class MessageTemplatesController extends Controller
      * HANDLE: Send message to tipster email
     ---------------------------------------*/
     public function sendMail(Request $request, $id){
-        Request()->validate([
-            'points_new' => 'numeric',
-            'points_current' => 'numeric',
-        ]);
         $tipster = User::getUserByID($request->tipster_id);
-        $lead = Lead::getLeadByID($request->lead_id);
+        /*Set default*/
+        $lead_name = '';
+        $product_name = '';
+        $points_new = 0;
+        $points_current= 0;
+        if(!empty($request->lead_id)){
+            $lead = Lead::getLeadByID($request->lead_id);
+        }
 
         if(!empty($request->points_new)){
             $points_new = $request->points_new;
+            if($points_new < 1){
+                $points_new = 0;
+            }
         }else{
+            if(!empty($tipster->id && !empty($lead->id)))
             $points_new = PointHistory::getPointByTipsterIDLeadID($tipster->id, $lead->id);
         }
         if(!empty($request->points_current)){
             $points_current = $request->points_current;
+            if($points_current < 1){
+                $points_current = 0;
+            }
         }else{
             $points_current = $tipster->point;
         }
@@ -199,7 +209,9 @@ class MessageTemplatesController extends Controller
         if(!empty($product_id)){
             $product = Product::getProductByID($product_id);
         }else{
-            $product = Product::getProductByID($lead->product_id);
+            if(!empty($lead->product_id)){
+                $product = Product::getProductByID($lead->product_id);
+            }
         }
         if(!empty($tipster)){
             $tipster_name = $tipster->fullname;

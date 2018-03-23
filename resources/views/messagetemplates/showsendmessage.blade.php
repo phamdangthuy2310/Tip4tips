@@ -77,13 +77,13 @@
                             <label>Variable 4:</label>
                             <input type="text" name="message_name_variable_4" class="form-control" readonly value="[points.new]">
                             <label><small>Display points of tipster.</small></label>
-                            <input name="points_new" type="number" class="form-control">
+                            <input name="points_new" type="number" class="form-control" value="0">
                         </div>
                         <div class="form-group">
                             <label>Variable 5:</label>
                             <input type="text" name="message_name_variable_5" class="form-control" readonly value="[points.current]">
                             <label><small>Display current points of tipster.</small></label>
-                            <input name="points_current" type="number" class="form-control">
+                            <input name="points_current" type="number" class="form-control" value="0">
                         </div>
                         <div class="form-group">
                             <button type="submit" name="submit" class="btn btn-primary">Send message</button>
