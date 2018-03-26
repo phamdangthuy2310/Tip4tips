@@ -31,7 +31,7 @@ use App\Common\Utils;
             <div class="box box-primary">
                 <div class="box-body box-profile">
                     <div class="upload__area-image">
-                        <span><img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}"></span>
+                        <span><img id="imgHandle" @if($user->avavatar)src="{{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}" @else src="{{asset(Utils::$PATH__IMAGE)}}/no_image_available.jpg" @endif ></span>
                     </div>
                     <p class="text-muted text-center" title="Username">
                         <strong><i class="fa fa-user margin-r-5"></i> {{$user->username}}</strong>

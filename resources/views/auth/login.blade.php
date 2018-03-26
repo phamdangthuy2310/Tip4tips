@@ -5,6 +5,20 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (\Session::has('success'))
+                <div class="alert alert-success">
+                    <p>{{ \Session::get('success') }}</p>
+                </div>
+            @endif
             <div class="panel panel-default login__wrapper form__transparent">
                 <div class="panel-heading">Login</div>
 

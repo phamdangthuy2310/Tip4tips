@@ -135,7 +135,7 @@ class LeadsController extends Controller
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $roletypeAuth = RoleType::getNameByID($roleAuth->roletype_id);
         $deleteAction = false;
-        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin' || $roletypeAuth->code == 'consultant' || $roletypeAuth->code == 'tipster'){
+        if($roleAuth->code == 'sale' || $roleAuth->code == 'admin' || $roletypeAuth->code == 'consultant'){
             $deleteAction = true;
         }
 
