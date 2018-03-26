@@ -620,8 +620,15 @@ Popup confirm
 }
 
 /*--------------------------------
+Avatar or Image
+---------------------------------*/
+.navbar-nav>.user-menu .user-image{
+    overflow: hidden;
+}
+/*--------------------------------
 Icon waiting
 ---------------------------------*/
+
 .waiting{
     display: inline-block;
     width: 16px;

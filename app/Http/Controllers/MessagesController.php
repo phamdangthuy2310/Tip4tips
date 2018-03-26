@@ -76,7 +76,7 @@ class MessagesController extends Controller
     {
         //
         $message = $this->validate($request,[
-            'subject' => 'required',
+            'title' => 'required',
             'content' => 'required'
         ]);
 

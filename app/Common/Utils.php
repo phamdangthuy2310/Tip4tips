@@ -1,6 +1,5 @@
 <?php
 namespace App\Common;
-use App\Model\Lead;
 
 /**
  * Created by PhpStorm.
@@ -10,6 +9,7 @@ use App\Model\Lead;
  */
 
 class Utils{
+
     //Status id for lead status
     public static $lead_process_status_new = "0";
     public static $lead_process_status_call = "1";
@@ -39,4 +39,9 @@ class Utils{
 
     //path image
     public static $PATH__IMAGE = "images/upload";
+    //path default image
+    public static $PATH__DEFAULT__IMAGE = "images/no_image_available.jpg";
+    //path default avatar
+    public static $PATH__DEFAULT__AVATAR = "images/no_image_available.jpg";
+
 }

@@ -41,13 +41,13 @@ class CheckRoleMiddleware
             case 'car':
             case 'realestate':
             case 'service':
-                $arrayUrl = ['users','leads','products','gifts','messages', 'assignments'];
+                $arrayUrl = ['activities','users','leads','products','gifts','messages', 'assignments'];
                 break;
             case 'ambassador':
-                $arrayUrl = ['tipsters','leads','products','gifts','messages'];
+                $arrayUrl = ['activities','tipsters','leads','products','gifts','messages', 'users'];
                 break;
             case 'tipster_normal':
-                $arrayUrl = ['tipsters','leads','products','gifts','messages', 'users'];
+                $arrayUrl = ['activities','tipsters','leads','products','gifts','messages', 'users'];
                 break;
         }
         foreach($arrayUrl as $url){

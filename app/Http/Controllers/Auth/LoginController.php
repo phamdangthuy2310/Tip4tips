@@ -44,12 +44,16 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        if (Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password'), 'delete_is' => 0])) {
+        $remember = false;
+        if(!empty($request->get('remember'))){
+            $remember = true;
+        }
+        if (Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password'), 'delete_is' => 0], $remember)) {
             // The user is active, not suspended, and exists.
             // Redirect home page
             return redirect()->route('home');
         }else{
-            return back();
+            return redirect()->route('login')->withErrors('Your email, password incorrect or Your account locked.');
         }
 
     }

@@ -1,6 +1,7 @@
 <?php
 use App\Common\Common;
 use App\Common\Utils;
+$auth = Auth::user();
 ?>
 <aside class="main-sidebar">
     <section class="sidebar">
@@ -8,10 +9,10 @@ use App\Common\Utils;
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{{asset(Utils::$PATH__IMAGE)}}/{{Auth::user()->avatar}}" class="img-circle" alt="User Image">
+                <img @if($auth->avatar) src="{{asset(Utils::$PATH__IMAGE)}}/{{$auth->avatar}}" @else src="{{asset(Utils::$PATH__DEFAULT__AVATAR)}}" @endif class="img-circle" alt="{{$auth->fullname}} Avatar">
             </div>
             <div class="pull-left info">
-                <p>@if(Auth::user()->fullname) {{ Auth::user()->fullname }} @else {{ Auth::user()->username }} @endif</p>
+                <p>@if($auth->fullname) {{ $auth->fullname }} @else {{ $auth->username }} @endif</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>

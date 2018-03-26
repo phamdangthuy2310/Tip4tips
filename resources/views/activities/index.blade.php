@@ -55,11 +55,11 @@
                             <td>{{$logActivity->description}}</td>
                             <td>{{Common::dateFormat($logActivity->created_at)}}</td>
                             <td class="actions text-center">
-                                <form action="{{route('activities.destroy', $logActivity->id)}}" method="post">
+                                @if($deleteAction == true)<form action="{{route('activities.destroy', $logActivity->id)}}" method="post">
                                     {{csrf_field()}}
                                     <input name="_method" type="hidden" value="DELETE">
                                     <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>
-                                </form>
+                                </form>@endif
                             </td>
                         </tr>
                     @endforeach

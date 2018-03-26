@@ -18,8 +18,10 @@ class LogActivitiesController extends Controller
         $auth = Auth::user();
         $roleAuth = Role::getInfoRoleByID($auth->role_id);
         $logActivities = [];
+        $deleteAction = false;
         if($roleAuth->code == 'admin'){
             $logActivities = LogActivity::getAllLogs(100);
+            $deleteAction = true;
         }else{
             $logActivities = LogActivity::getLogActivityByUserID($auth->id);
         }
@@ -28,7 +30,8 @@ class LogActivitiesController extends Controller
             $logActivity->user_name = User::getUserByID($logActivity->user_id)->username;
         }
         return view('activities.index')->with([
-            'logActivities' => $logActivities
+            'logActivities' => $logActivities,
+            'deleteAction' => $deleteAction
         ]);
     }
     public function destroy($id)

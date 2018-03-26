@@ -1,6 +1,7 @@
 <?php
 use App\Common\Common;
 use App\Common\Utils;
+$auth = Auth::user();
 $newmessages = Common::getAllNewMessage();
 ?>
 <header class="main-header">
@@ -45,7 +46,7 @@ $newmessages = Common::getAllNewMessage();
                                     <a href="{{route('messages.show', $newmessage->id)}}">
                                         <div class="pull-left">
                                             <!-- User Image -->
-                                            <img src="{{asset(Utils::$PATH__IMAGE)}}/{{$newmessage->senderAvatar}}" class="img-circle" alt="User Image">
+                                            <img src="@if($newmessage->senderAvatar){{asset(Utils::$PATH__IMAGE)}}/{{$newmessage->senderAvatar}}@else{{ asset(Utils::$PATH__DEFAULT__AVATAR) }}@endif" class="img-circle" alt="{{$newmessage->sender}}">
                                         </div>
                                         <!-- Message title and timestamp -->
                                         <h4>
@@ -97,24 +98,24 @@ $newmessages = Common::getAllNewMessage();
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-                        <img src="{{ asset(Utils::$PATH__IMAGE) }}/{{Auth::user()->avatar}}" class="user-image" alt="User Image">
+                        <img src="@if($auth->avatar){{ asset(Utils::$PATH__IMAGE) }}/{{$auth->avatar}}@else{{ asset(Utils::$PATH__DEFAULT__AVATAR) }}@endif" class="user-image" alt="{{$auth->fullname}}">
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">@if(Auth::user()->fullname) {{ Auth::user()->fullname }} @else {{ Auth::user()->username }} @endif</span>
+                        <span class="hidden-xs">@if($auth->fullname) {{ $auth->fullname }} @else {{ $auth->username }} @endif</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            <img src="{{ asset(Utils::$PATH__IMAGE) }}/{{Auth::user()->avatar}}" class="img-circle" alt="User Image">
+                            <img src="@if($auth->avatar){{ asset(Utils::$PATH__IMAGE) }}/{{$auth->avatar}}@else{{asset(Utils::$PATH__DEFAULT__AVATAR)}}@endif" class="img-circle" alt="User Image">
 
                             <p>
-                                @if(Auth::user()->fullname) {{ Auth::user()->fullname }} @else {{ Auth::user()->username }} @endif - {{\App\Model\Role::getNameRoleByID(Auth::user()->role_id)}}
-                                <small>Member since {{ \Carbon\Carbon::parse(Auth::user()->create_at)->format('F. Y') }}</small>
+                                @if($auth->fullname) {{ $auth->fullname }} @else {{ $auth->username }} @endif - {{\App\Model\Role::getNameRoleByID($auth->role_id)}}
+                                <small>Member since {{ \Carbon\Carbon::parse($auth->create_at)->format('F. Y') }}</small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{{route('users.show', Auth::user()->id)}}" class="btn btn-default btn-flat">Profile</a>
+                                <a href="{{route('users.show', $auth->id)}}" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <a href="{{ route('logout') }}" class="btn btn-default btn-flat"

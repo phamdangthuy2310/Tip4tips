@@ -26,7 +26,7 @@ use App\Common\Utils;
                     <div class="box-body box-profile">
                         <div class="upload__area-image">
                         <span>
-                            <img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}">
+                            <img id="imgHandle" src="@if($user->avatar){{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}@else{{Utils::$PATH__DEFAULT__AVATAR}}@endif">
                             <label for="imgAnchorInput">Upload image</label>
                         </span>
                             <p><small>(Please upload a file of type: jpeg, png, jpg, gif, svg.)</small></p>
