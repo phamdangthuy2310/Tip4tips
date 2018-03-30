@@ -127,6 +127,29 @@ input[type=date]::-webkit-inner-spin-button {
     top: 0;
     width: 70px;
 }
+
+.form-horizontal-custom{
+
+}
+.form-horizontal-custom .control-label,
+.form-horizontal-custom .control-input{
+    padding: 0 15px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.form-horizontal-custom .control-label{
+    width: 135px;
+}
+.form-horizontal-custom .control-input{
+    width: calc(100% - 140px);
+}
+.form-horizontal-custom .control-inline .form-control{
+    float: left;
+}
+.form-horizontal-custom .form-action{
+    padding-left: 140px;
+    overflow: hidden;
+}
 /*profile*/
 .text-head span.text-highlight{
     color: #636b6f;
@@ -646,6 +669,21 @@ Icon waiting
 /*--------------------------------
 Footer
 ---------------------------------*/
+.box-points{
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+.box-points h4{
+    font-size: 18px;
+}
+.box-points h4 > span{
+    color: #00a65a;
+    font-size: 20px;
+    font-weight: bold;
+}
+/*--------------------------------
+Footer
+---------------------------------*/
 .main-footer{
     background-color: #ecf0f5;
     border-color: #ecf0f5;
@@ -665,5 +703,14 @@ Responsive
         -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
         z-index: 99;
+    }
+}
+@media (max-width: 479px) {
+    .form-horizontal-custom .control-label,
+    .form-horizontal-custom .control-input{
+        width: 100%;
+    }
+    .form-horizontal-custom .form-action{
+        padding-left: 0;
     }
 }

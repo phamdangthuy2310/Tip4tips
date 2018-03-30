@@ -372,4 +372,19 @@ class TipstersController extends Controller
 
         return response()->json($response);
     }
+
+    public function updatePointSendMail(Request $request, $id){
+        $tipster = User::getUserByID($id);
+        $actionType = $request->actionType;
+        $pointsNew = $request->pointsUpdate;
+        $action = $request->action;
+        $comment = $request->comment;
+        if($actionType === 'plus'){
+            $tipster->point = $tipster->point + $pointsNew;
+        }elseif ($actionType === 'minus'){
+            $tipster->point = $tipster->point - $pointsNew;
+        }
+        $tipster->save();
+        return redirect()->route('tipsters.edit', $id)->with('success', 'Update points of tipster successfully.');
+    }
 }

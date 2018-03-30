@@ -30,6 +30,7 @@
                             <label for="imgAnchorInput">Upload image</label>
                         </span>
                         <p><small>(Please upload a file of type: jpeg, png, jpg, gif, svg.)</small></p>
+                        <h4>Avatar</h4>
                     </div>
                     <div class="form__upload">
                         {!! Form::open(array('route' => 'image.upload.post','files'=>true)) !!}
@@ -49,6 +50,11 @@
 
                 </div>
                 <!-- /.box-body -->
+
+                <div class="box-body box-points">
+                    <h4>Points total: <span>{{$user->point}}</span> points</h4>
+                    <p><a data-toggle="modal" data-target="#pointsAction" class="btn btn-primary">Update points</a></p>
+                </div>
             </div>
             <!-- /.box -->
 
@@ -250,5 +256,61 @@
             <!-- /.box -->
         </div>
     </div>
+        <div id="pointsAction" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Points Action</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="get" class="form-horizontal form-horizontal-custom" action="{{route('tipsters.updatePointSendMail', $user->id)}}">
+                            {{csrf_field()}}
+                            <div class="form-group">
+                                <label class="control-label" for="frmTipster">Tipster:</label>
+                                <div class="control-input">
+                                    <input id="frmTipster" type="text" readonly class="form-control" placeholder="{{$user->username}}-{{$user->fullname}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="frmAction">Action:</label>
+                                <div class="control-input">
+                                    <select id="frmAction" class="form-control" name="action" required autofocus>
+                                        <option value="{{Utils::$lead_process_status_call}}">Call</option>
+                                        <option value="{{Utils::$lead_process_status_quote}}">Quote</option>
+                                        <option value="{{Utils::$lead_process_status_win}}">Win</option>
+                                        <option value="{{Utils::$lead_process_status_lost}}">Lost</option>
+                                        <option value="{{Utils::$tipster_process_bonus}}">Bonus</option>
+                                        <option value="{{Utils::$tipster_process_buy_gift}}">Buy Gift</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="frmActionType">Points:</label>
+                                <div class="control-input control-inline">
+                                    <select id="frmActionType" class="form-control" name="actionType" style="width: 60px; margin-right: 10px">
+                                        <option value="plus" selected>+</option>
+                                        <option value="minus">-</option>
+                                    </select>
+                                    <input name="pointsUpdate" type="number" class="form-control" required autofocus style="width: calc(100% - 70px)">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="frmComment" style="vertical-align: top;">Comment:</label>
+                                <div class="control-input">
+                                    <textarea id="frmComment" name="comment" class="form-control" rows="5" ></textarea>
+                                </div>
+                            </div>
+                            <div class="form-action">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary pull-right">Update points</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 @endif
 @endsection
