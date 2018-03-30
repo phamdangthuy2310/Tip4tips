@@ -374,7 +374,7 @@ class TipstersController extends Controller
     }
 
     public function updatePointSendMail(Request $request, $id){
-        $tipster = User::getUserByID($id);
+        $tipster = User::find($id);
         $actionType = $request->actionType;
         $pointsNew = $request->pointsUpdate;
         $action = $request->action;
