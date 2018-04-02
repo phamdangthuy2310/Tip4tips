@@ -1,7 +1,11 @@
 <?php
 use App\Common\Common;
 use App\Common\Utils;
+use App\Model\Role;
+use \Carbon\Carbon;
+use \App\User;
 $auth = Auth::user();
+$infoUser = User::getUserByID($auth->id);
 $newmessages = Common::getAllNewMessage();
 ?>
 <header class="main-header">
@@ -108,14 +112,14 @@ $newmessages = Common::getAllNewMessage();
                             <img src="@if($auth->avatar){{ asset(Utils::$PATH__IMAGE) }}/{{$auth->avatar}}@else{{asset(Utils::$PATH__DEFAULT__AVATAR)}}@endif" class="img-circle" alt="User Image">
 
                             <p>
-                                @if($auth->fullname) {{ $auth->fullname }} @else {{ $auth->username }} @endif - {{\App\Model\Role::getNameRoleByID($auth->role_id)}}
-                                <small>Member since {{ \Carbon\Carbon::parse($auth->create_at)->format('F. Y') }}</small>
+                                @if($auth->fullname) {{ $auth->fullname }} @else {{ $auth->username }} @endif - {{Role::getNameRoleByID($auth->role_id)}}
+                                <small>Member since {{ Carbon::parse($auth->create_at)->format('F. Y') }}</small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{{route('users.show', $auth->id)}}" class="btn btn-default btn-flat">Profile</a>
+                                <a href="@if($infoUser->roletypeCode == 'tipster'){{route('tipsters.show', $auth->id)}}@else{{route('users.show', $auth->id)}} @endif" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <a href="{{ route('logout') }}" class="btn btn-default btn-flat"

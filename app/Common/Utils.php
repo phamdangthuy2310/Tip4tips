@@ -16,8 +16,13 @@ class Utils{
     public static $lead_process_status_quote = "2";
     public static $lead_process_status_win = "3";
     public static $lead_process_status_lost = "4";
-    public static $tipster_process_bonus = "5";
-    public static $tipster_process_buy_gift = "6";
+    public static $tipster_process_init = "5";
+    public static $tipster_process_bonus = "6";
+    public static $tipster_process_buy_gift = "7";
+    public static $tipster_text_init = "Init";
+    public static $tipster_text_bonus = "Bonus";
+    public static $tipster_text_buy_gift = "Buy Gift";
+
 
     //-----Start Log Activity---------
     //affected object history

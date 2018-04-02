@@ -280,4 +280,8 @@ class Common{
         $logs['content'] = $content;
         return LogsSentMessageTemplate::create($logs);
     }
+
+    public static function userInfo($id){
+        return User::getUserByID($id);
+    }
 }

@@ -13,6 +13,8 @@ use App\Model\RoleType;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Log;
+use Illuminate\Support\Facades\Mail;
 use Mockery\Exception;
 
 class TipstersController extends Controller
@@ -138,7 +140,7 @@ class TipstersController extends Controller
         $deleteAction = false;
         $editAction = false;
 
-        //get list lead belong tipster
+//        //get list lead belong tipster
         $leads = Lead::getAllLeadBelongTipster($id);
         foreach ($leads as $lead){
             $lead->statusLead = Common::showNameStatus($lead->status);
@@ -153,6 +155,25 @@ class TipstersController extends Controller
 
         }
 
+        //Get points histories
+        $histories = PointHistory::getPointByTipsterID($id);
+
+        foreach ($histories as $history){
+            $leadInfo = Lead::getLeadByID($history->lead_id);
+            if (!empty($leadInfo)){
+                $history['leadName'] = $leadInfo->fullname;
+                $history['product'] = $leadInfo->product;
+                $history['statusLead'] = Common::showNameStatus($leadInfo->status);
+                $history['statusColor'] = Common::showColorStatus($leadInfo->status);
+            }else{
+                $history['leadName'] = '';
+                $history['product'] = '';
+                $history['statusLead'] = $history->activity;
+                $history['statusColor'] = '';
+            }
+            $history['create'] = Common::dateFormat($history->created_at);
+
+        }
         if($roleAuth->code == 'community' || $roleAuth->code == 'admin' || $roleAuth->code == 'ambassador' || $roletypeAuth->code == 'consultant'){
             $deleteAction = true;
             $editAction = true;
@@ -160,12 +181,14 @@ class TipstersController extends Controller
         if($user->id == $auth->id){
             $editAction = true;
         }
+
         return view('tipsters.show', compact('user', 'id'))->with([
             'role' => $role,
             'roletype' => $roletype,
             'deleteAction' => $deleteAction,
             'editAction' => $editAction,
-            'leads' =>$leads,
+//            'leads' =>$leads,
+            'histories' =>$histories,
         ]);
 
     }
@@ -373,18 +396,48 @@ class TipstersController extends Controller
         return response()->json($response);
     }
 
-    public function updatePointSendMail(Request $request, $id){
+    public function updatePointManual(Request $request, $id){
         $tipster = User::find($id);
         $actionType = $request->actionType;
         $pointsNew = $request->pointsUpdate;
-        $action = $request->action;
-        $comment = $request->comment;
+        $action = $request->get('action');
+        $comment = $request->get('comment');
+        $history = [];
+        $history['tipster_id'] = $id;
         if($actionType === 'plus'){
             $tipster->point = $tipster->point + $pointsNew;
+            $history['point'] = $pointsNew;
         }elseif ($actionType === 'minus'){
             $tipster->point = $tipster->point - $pointsNew;
+            $history['point'] = - $pointsNew;
         }
-        $tipster->save();
-        return redirect()->route('tipsters.edit', $id)->with('success', 'Update points of tipster successfully.');
+        $history['comment'] = $comment;
+        $history['activity'] = $action;
+
+
+        $data['title'] = '';
+        $data['body'] = $comment;
+        $emailTo = $tipster->email;
+        $subjectTo = $action;
+        $tipster_name = $tipster->fullname;
+
+        try{
+            //update point for tipster to users table
+            $tipster->save();
+            //create new row in point_stories table
+            PointHistory::create($history);
+
+            //Send email to email of tipster
+            Mail::send('messagetemplates.emails.email', $data, function($message) use ($emailTo, $subjectTo, $tipster_name) {
+
+                $message->to($emailTo, $tipster_name)
+                    ->subject($subjectTo);
+
+            });
+        }catch(Exception $ex){
+            Log::error($ex);
+        }
+
+        return redirect()->route('tipsters.show', $id)->with('success', 'Update points of tipster successfully.');
     }
 }

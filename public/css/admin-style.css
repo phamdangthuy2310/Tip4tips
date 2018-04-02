@@ -144,7 +144,14 @@ input[type=date]::-webkit-inner-spin-button {
     width: calc(100% - 140px);
 }
 .form-horizontal-custom .control-inline .form-control{
-    float: left;
+    display: inline-block;
+    vertical-align: middle;
+}
+.form-horizontal-custom .control-inline .radio-inline{
+    display: inline-block;
+    padding-top: 0;
+    vertical-align: middle;
+    margin-right: 10px;
 }
 .form-horizontal-custom .form-action{
     padding-left: 140px;

@@ -12,8 +12,8 @@ class PointHistory extends Model
         'tipster_id',
         'lead_id',
         'point',
-        'created_at',
-        'updated_at'
+        'comment',
+        'activity'
     ];
 
     public static function getAllPointHistories(){

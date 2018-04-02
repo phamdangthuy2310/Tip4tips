@@ -244,7 +244,7 @@
                             <tr>
                                 <td class="content-block">
                                     <span class="apple-link">Tip4tips Company Inc</span>
-                                    <br> Don't like these emails? <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>.
+                                    <br> Don't like these emails? <a href="#">Unsubscribe</a>.
                                 </td>
                             </tr>
                             <tr>

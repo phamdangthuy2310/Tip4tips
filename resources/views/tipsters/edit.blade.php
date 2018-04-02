@@ -1,8 +1,21 @@
 <?php use App\Common\Utils; ?>
 @extends('layouts.master')
 @section('title', 'Edit Tipster')
+@section('styles')
+    <!-- Bootstrap WYSIHTML5 -->
+    <link href="{{ asset('css/admin/bootstrap3-wysihtml5.min.css') }}" rel="stylesheet" type="text/css">
+@stop
 @section('javascript')
-@endsection
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="{{ asset('js/admin/bootstrap3-wysihtml5.all.min.js') }}"></script>
+    <script src="{{ asset('js/admin/select2.full.min.js') }}"></script>
+    <script>
+      $(function () {
+        //Add text editor
+        $("#frmComment").wysihtml5();
+      });
+    </script>
+@stop
 @section('body.breadcrumbs')
     {{ Breadcrumbs::render('users.edit') }}
 @stop
@@ -53,7 +66,7 @@
 
                 <div class="box-body box-points">
                     <h4>Points total: <span>{{$user->point}}</span> points</h4>
-                    <p><a data-toggle="modal" data-target="#pointsAction" class="btn btn-primary">Update points</a></p>
+                    @if($editPoints == true)<p><a data-toggle="modal" data-target="#pointsAction" class="btn btn-primary">Update points</a></p>@endif
                 </div>
             </div>
             <!-- /.box -->
@@ -232,12 +245,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Points</label>
-                                    <input class="form-control" type="number" value="{{$user->point}}" name="point" @if($editPoints == false) readonly @endif>
-                                </div>
-                            </div>
 
                         </div>
 
@@ -265,7 +272,7 @@
                         <h4 class="modal-title">Points Action</h4>
                     </div>
                     <div class="modal-body">
-                        <form method="get" class="form-horizontal form-horizontal-custom" action="{{route('tipsters.updatePointSendMail', $user->id)}}">
+                        <form method="get" class="form-horizontal form-horizontal-custom" action="{{route('tipsters.updatePointManual', $user->id)}}">
                             {{csrf_field()}}
                             <div class="form-group">
                                 <label class="control-label" for="frmTipster">Tipster:</label>
@@ -277,23 +284,25 @@
                                 <label class="control-label" for="frmAction">Action:</label>
                                 <div class="control-input">
                                     <select id="frmAction" class="form-control" name="action" required autofocus>
-                                        <option value="{{Utils::$lead_process_status_call}}">Call</option>
-                                        <option value="{{Utils::$lead_process_status_quote}}">Quote</option>
-                                        <option value="{{Utils::$lead_process_status_win}}">Win</option>
-                                        <option value="{{Utils::$lead_process_status_lost}}">Lost</option>
-                                        <option value="{{Utils::$tipster_process_bonus}}">Bonus</option>
-                                        <option value="{{Utils::$tipster_process_buy_gift}}">Buy Gift</option>
+                                        <option value="{{Utils::$tipster_text_init}}">Init</option>
+                                        <option value="{{Utils::$tipster_text_bonus}}">Bonus</option>
+                                        <option value="{{Utils::$tipster_text_buy_gift}}">Buy Gift</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="frmActionType">Points:</label>
-                                <div class="control-input control-inline">
-                                    <select id="frmActionType" class="form-control" name="actionType" style="width: 60px; margin-right: 10px">
-                                        <option value="plus" selected>+</option>
-                                        <option value="minus">-</option>
-                                    </select>
-                                    <input name="pointsUpdate" type="number" class="form-control" required autofocus style="width: calc(100% - 70px)">
+                                <div id="frmActionType" class="control-input control-inline">
+                                    <div class="radio-inline">
+                                        <input value="plus" type="radio" name="actionType" checked>
+                                        <label> + </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <input value="minus" type="radio" name="actionType">
+                                        <label> - </label>
+                                    </div>
+                                    <input name="pointsUpdate" type="number" class="form-control" required autofocus style="width: 100px;">
+                                    <label>Points</label>
                                 </div>
                             </div>
                             <div class="form-group">

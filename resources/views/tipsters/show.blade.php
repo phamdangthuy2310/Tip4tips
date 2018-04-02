@@ -167,27 +167,29 @@ use App\Common\Utils;
                     <table id="viewList" class="table table-striped lead__ref">
                         <thead>
                         <tr>
+                            <th>Points</th>
+                            <th>Activity</th>
                             <th>Lead</th>
-                            <th>Point of Lead</th>
-                            <th>Status</th>
+                            <th>Comment</th>
                             <th>Created date</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @if(!empty($leads))
-                            @foreach($leads as $lead)
+                        @if(!empty($histories))
+                            @foreach($histories as $history)
                                 <tr>
+                                    <td>{{$history->point}}</td>
+                                    <td class="lead__ref-status">
+                                        <span class="label-status {{$history->statusColor}}">{{$history->statusLead}}</span>
+                                    </td>
                                     <td class="lead__ref-info">
-                                        <a href="{{route('leads.show', $lead->id)}}">
-                                            {{$lead->fullname}}
-                                            <span>{{$lead->product}}</span>
+                                        <a href="{{route('leads.show', $history->lead_id)}}">
+                                            {{$history->leadName}}
+                                            <span>{{$history->product}}</span>
                                         </a>
                                     </td>
-                                    <td class="lead__ref-point" width="110">{{$lead->point}}</td>
-                                    <td class="lead__ref-status">
-                                        <span class="label-status {{Common::showColorStatus($lead->status)}}">{{$lead->statusLead}}</span>
-                                    </td>
-                                    <td class="lead__ref-date">{{$lead->create}}</td>
+                                    <td style="width: 250px" class="lead__ref-point" width="110">{{$history->comment}}</td>
+                                    <td class="lead__ref-date">{{$history->create}}</td>
                                 </tr>
                             @endforeach
                         @else
@@ -198,9 +200,10 @@ use App\Common\Utils;
                         </tbody>
                         <tfoot>
                         <tr>
+                            <th>Points</th>
+                            <th>Activity</th>
                             <th>Lead</th>
-                            <th>Point of Lead</th>
-                            <th>Status</th>
+                            <th>Comment</th>
                             <th>Created date</th>
                         </tr>
                         </tfoot>
