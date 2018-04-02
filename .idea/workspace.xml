@@ -3,18 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4544e009-9f90-4611-8f33-4b92bbf10174" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Common/Common.php" afterPath="$PROJECT_DIR$/app/Common/Common.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Common/Utils.php" afterPath="$PROJECT_DIR$/app/Common/Utils.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/TipstersController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/TipstersController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Model/PointHistory.php" afterPath="$PROJECT_DIR$/app/Model/PointHistory.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/admin-style.css" afterPath="$PROJECT_DIR$/public/css/admin-style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/inc/header.blade.php" afterPath="$PROJECT_DIR$/resources/views/inc/header.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/messagetemplates/emails/email.blade.php" afterPath="$PROJECT_DIR$/resources/views/messagetemplates/emails/email.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/messagetemplates/emails/example_en.blade.php" afterPath="$PROJECT_DIR$/resources/views/messagetemplates/emails/example_en.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/messagetemplates/emails/example_vn.blade.php" afterPath="$PROJECT_DIR$/resources/views/messagetemplates/emails/example_vn.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/tipsters/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/tipsters/edit.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/tipsters/show.blade.php" afterPath="$PROJECT_DIR$/resources/views/tipsters/show.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web/route_tipster.php" afterPath="$PROJECT_DIR$/routes/web/route_tipster.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TipstersController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TipstersController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TipstersController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="169" column="41" lean-forward="true" selection-start-line="169" selection-start-column="41" selection-end-line="169" selection-end-column="41" />
+            <state relative-caret-position="404">
+              <caret line="281" column="51" lean-forward="false" selection-start-line="281" selection-start-column="51" selection-end-line="281" selection-end-column="51" />
               <folding>
                 <element signature="e#40#62#0#PHP" expanded="true" />
               </folding>
@@ -57,10 +46,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="email.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="email.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/messagetemplates/emails/email.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
+            <state relative-caret-position="276">
               <caret line="281" column="72" lean-forward="false" selection-start-line="281" selection-start-column="72" selection-end-line="281" selection-end-column="72" />
               <folding />
             </state>
@@ -227,10 +216,10 @@
         <option value="$PROJECT_DIR$/app/Common/Common.php" />
         <option value="$PROJECT_DIR$/resources/views/inc/header.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/tipsters/show.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/TipstersController.php" />
         <option value="$PROJECT_DIR$/resources/views/messagetemplates/emails/example_en.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/messagetemplates/emails/example_vn.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/messagetemplates/emails/email.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/TipstersController.php" />
       </list>
     </option>
   </component>
@@ -584,15 +573,16 @@
       <workItem from="1521773290739" duration="12589000" />
       <workItem from="1522031024652" duration="16662000" />
       <workItem from="1522381083944" duration="16323000" />
-      <workItem from="1522635220161" duration="15716000" />
+      <workItem from="1522635220161" duration="16090000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1085908000" />
+    <option name="totallyTimeSpent" value="1086282000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30257186" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -602,7 +592,7 @@
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3289689" sideWeight="0.4969743" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.4969743" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1016,16 +1006,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TipstersController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="169" column="41" lean-forward="true" selection-start-line="169" selection-start-column="41" selection-end-line="169" selection-end-column="41" />
-          <folding>
-            <element signature="e#40#62#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/messagetemplates/emails/example_en.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
@@ -1044,9 +1024,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/messagetemplates/emails/email.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
+        <state relative-caret-position="276">
           <caret line="281" column="72" lean-forward="false" selection-start-line="281" selection-start-column="72" selection-end-line="281" selection-end-column="72" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TipstersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="281" column="51" lean-forward="false" selection-start-line="281" selection-start-column="51" selection-end-line="281" selection-end-column="51" />
+          <folding>
+            <element signature="e#40#62#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

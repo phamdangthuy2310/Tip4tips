@@ -280,7 +280,6 @@ class TipstersController extends Controller
         $user->gender = $request->get('gender');
         $user->role_id = $request->get('department');
         $user->delete_is = $request->get('status');
-        $user->point = $request->get('point');
         $user->preferred_lang = $request->get('preferred_lang');
         $imageName = $user->avatar;
         if(!empty(request()->avatar)){
