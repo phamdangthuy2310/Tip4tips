@@ -2,6 +2,7 @@
 use App\Common\Common;
 use App\Common\Utils;
 $auth = Auth::user();
+$authInfo = Common::userInfo($auth->id);
 ?>
 <aside class="main-sidebar">
     <section class="sidebar">
@@ -58,6 +59,11 @@ $auth = Auth::user();
             <li>
                 <a href="{{route('gifts.index')}}"><i class="fa fa-gift"></i><span>Gifts</span></a>
             </li>
+            @if($authInfo->roleCode == 'admin' || $authInfo->roleCode == 'sale')
+            <li>
+                <a href="{{route('regions.index')}}"><i class="fa fa-globe"></i><span>Regions</span></a>
+            </li>
+            @endif
             <li>
                 <a href="{{route('messages.index')}}">
                     <i class="fa fa-envelope"></i><span>Messages</span>

@@ -1,4 +1,7 @@
-<?php use App\Common\Utils; ?>
+<?php
+use App\Common\Utils;
+$auth = Auth::user();
+?>
 @extends('layouts.master')
 @section('title', 'Edit Tipster')
 @section('styles')
@@ -79,7 +82,11 @@
             <div class="box box-warning">
                 <div class="box-header with-border">
                     <h3 class="box-title">@yield('title')</h3>
-                    <a href="{{route('tipsters.index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-angle-left"></i> Back to list</a>
+                    <span class="group__action pull-right">
+                        @if($auth->id == $user->id)<a href="{{route('changePassword')}}" class="btn-xs btn-link">Change Your Password</a>@endif
+                        <a href="{{route('tipsters.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
+                    </span>
+
                 </div>
                 @if ($errors->any())
                 <div class="box-body">
@@ -263,6 +270,8 @@
             <!-- /.box -->
         </div>
     </div>
+    @if($editPoints == true)
+        {{--Area view to update point--}}
         <div id="pointsAction" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
@@ -319,6 +328,59 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    @endif
+        {{--Area view to change password--}}
+        <div id="viewChangePassword" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Change Password</h4>
+                    </div>
+                    <div class="modal-body">
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        <form method="post" action="{{ route('changePassword') }}">
+                            {{ csrf_field() }}
+                            <div class="form-group{{ $errors->has('current_password') ? ' has-error' : '' }}">
+                                <label>Current Password*</label>
+                                <input class="form-control" type="password" name="current_password" required autofocus>
+                                @if ($errors->has('current_password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('current_password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group{{ $errors->has('region_id') ? ' has-error' : '' }}">
+                                <label>New Password*</label>
+                                <input class="form-control" type="password" name="new_password" required autofocus>
+                                @if ($errors->has('new_password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('new_password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label>New Password Confirm*</label>
+                                <input class="form-control" type="password" name="new_password_confirmation" required autofocus>
+                            </div>
+                            <div class="form-action">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary pull-right">Change</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
 @endif

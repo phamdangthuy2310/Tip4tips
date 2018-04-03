@@ -1,6 +1,7 @@
 <?php
 use App\Common\Common;
 use App\Common\Utils;
+$auth = Auth::user();
 ?>
 @extends('layouts.master')
 @section('title', 'Edit User')
@@ -62,6 +63,7 @@ use App\Common\Utils;
                     <div class="box-header with-border">
                         <h3 class="box-title">@yield('title')</h3>
                         <span class="group__action pull-right">
+                            @if($auth->id == $user->id)<a href="{{route('changePassword')}}" class="btn-xs btn-link">Change Your Password</a>@endif
                             <a href="{{route('users.index')}}" class="btn btn-xs btn-default"><i class="fa fa-angle-left"></i> Back to list</a>
                         </span>
 

@@ -109,6 +109,9 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web','checkRole')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/route_logssentmessagetemplate.php'));
+        Route::middleware('web','checkRole')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/route_region.php'));
 
     }
 

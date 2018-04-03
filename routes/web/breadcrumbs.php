@@ -189,3 +189,21 @@ Breadcrumbs::register('logssentmessagetemplates', function ($breadcrumbs) {
 });
 
 
+// Home > List of regions
+Breadcrumbs::register('regions', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('List of regions', route('regions.index'));
+});
+// Home > List of regions > Create regions
+Breadcrumbs::register('regions.create', function ($breadcrumbs) {
+    $breadcrumbs->parent('regions');
+    $breadcrumbs->push('Create Region', route('regions.index'));
+});
+// Home > List of regions > Edit regions
+Breadcrumbs::register('regions.edit', function ($breadcrumbs) {
+    $breadcrumbs->parent('regions');
+    $breadcrumbs->push('Edit Region', route('regions.index'));
+});
+
+
+

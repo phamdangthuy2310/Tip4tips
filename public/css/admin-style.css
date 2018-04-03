@@ -696,6 +696,14 @@ Footer
     border-color: #ecf0f5;
 }
 /*--------------------------------
+Change Password
+---------------------------------*/
+.form__password-change{
+    max-width: 500px;
+    margin: 0 auto 40px;
+    padding: 30px;
+}
+/*--------------------------------
 Responsive
 ---------------------------------*/
 @media (min-width: 992px) {

@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-default form__transparent">
+            <div class="panel panel-default panel-register form__transparent">
                 <div class="panel-heading">Tipster Register</div>
 
                 <div class="panel-body">

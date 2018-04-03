@@ -10,7 +10,8 @@ class Region extends Model
     protected $table = 'regions';
     protected $fillable = [
         'id',
-        'name'
+        'name',
+        'code'
     ];
 
     public static function getNameByID($id){
