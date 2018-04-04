@@ -85,13 +85,23 @@ class RegionsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $validate = $this->validate(request(),[
-            'name' => 'required|unique:regions',
-            'code' => 'required|unique:regions',
-        ]);
+
         $region = Region::find($id);
-        $region->name = $region->get('name');
-        $region->code = $region->get('code');
+        $name = $request->get('name');
+        $code = $request->get('code');
+        if($code !== $region->code){
+            $validate = $this->validate(request(),[
+                'code' => 'required|unique:regions',
+            ]);
+        }
+        if($name !== $region->name){
+            $validate = $this->validate(request(),[
+                'name' => 'required|unique:regions',
+            ]);
+        }
+
+        $region->name = $name;
+        $region->code = $code;
         $region->save();
         return redirect()->route('regions.index')->with('success', 'Update region successfully.');
     }

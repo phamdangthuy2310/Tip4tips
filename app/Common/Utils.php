@@ -1,13 +1,6 @@
 <?php
 namespace App\Common;
 
-/**
- * Created by PhpStorm.
- * User: User
- * Date: 031, 31-1-2018
- * Time: 22:37
- */
-
 class Utils{
 
     //Status id for lead status
@@ -36,6 +29,7 @@ class Utils{
     public static $LOG_AFFECTED_OBJECT_GIFT = "Gift";
     public static $LOG_AFFECTED_OBJECT_Message = "Message";
     public static $LOG_AFFECTED_OBJECT_MESSAGE_TEMPLATE = "Message template";
+    public static $LOG_AFFECTED_OBJECT_REGION = "Region";
 
     //action history
     public static $LOG_ACTION_CREATE = "created";

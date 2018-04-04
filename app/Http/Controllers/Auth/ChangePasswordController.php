@@ -39,8 +39,9 @@ class ChangePasswordController extends Controller
         $user = Auth::user();
         $user->password = bcrypt($request->get('new_password'));
         $user->save();
-
-        return redirect()->back()->with("success","Password changed successfully !");
+        auth()->logout();
+        session()->flash('success', 'Your Password has been changed successfully. Please login again.');
+        return redirect()->route('login');
 
     }
 }

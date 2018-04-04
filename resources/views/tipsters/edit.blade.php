@@ -102,7 +102,7 @@ $auth = Auth::user();
                     </div>
                 </div>@endif
                 <!-- /.box-header -->
-                <form role="form" method="post" action="{{route('tipsters.update', $id)}}" enctype = "multipart/form-data">
+                <form role="form" method="post" action="{{route('tipsters.update', $user->id)}}" enctype = "multipart/form-data">
                     {{csrf_field()}}
                     <input name="_method" type="hidden" value="PATCH">
                     <input id="imgHandleInput" name="avatar" type="file" value="{{$user->avatar}}">

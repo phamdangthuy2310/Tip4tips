@@ -15,8 +15,8 @@ class Region extends Model
     ];
 
     public static function getNameByID($id){
-        $name = Region::find($id);
-        return $name;
+        $region = Region::find($id);
+        return $region;
     }
 
     public static function getAllRegion(){

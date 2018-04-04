@@ -19,8 +19,9 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-sm-6 col-sm-push-3">
-                    <form role="form" method="post" action="{{route('regions.store')}}" enctype = "multipart/form-data">
+                    <form role="form" method="post" action="{{route('regions.update', $region->id)}}">
                         {{ csrf_field() }}
+                        <input name="_method" type="hidden" value="PATCH">
                         @if (\Session::has('success'))
                             <div class="alert alert-success">
                                 <p>{{ \Session::get('success') }}</p>

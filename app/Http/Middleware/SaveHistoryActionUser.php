@@ -6,6 +6,7 @@ use App\Model\Gift;
 use App\Model\Lead;
 use App\Model\LogActivity;
 use App\Model\Product;
+use App\Model\Region;
 use App\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
@@ -104,6 +105,15 @@ class SaveHistoryActionUser
                             $description = $this->getDescription($affected_object,$action_history, $name_object_history);
                         }
                     }
+                    if (strpos($url, 'regions') !== FALSE){
+                        //
+                        $affected_object = Utils::$LOG_AFFECTED_OBJECT_REGION;
+                        if (strpos($url,"create") !== FALSE){
+                            $action_history = Utils::$LOG_ACTION_CREATE;
+                            $name_object_history = $request->name;
+                            $description = $this->getDescription($affected_object,$action_history, $name_object_history);
+                        }
+                    }
 
 
                     if(!empty($action_history)){
@@ -195,6 +205,17 @@ class SaveHistoryActionUser
                         }
 
                     }
+                    if (strpos($url, 'regions') !== FALSE){
+                        //
+                        $affected_object = Utils::$LOG_AFFECTED_OBJECT_REGION;
+                        if (strpos($url,"update") !== FALSE){
+                            $action_history = Utils::$LOG_ACTION_UPDATE;
+                            $name_object_history = $request->name;
+                            $description = $this->getDescription($affected_object,$action_history, $name_object_history);
+                        }
+
+                    }
+
                     if (strpos($url, 'products') !== FALSE){
                         //
                         $affected_object = Utils::$LOG_AFFECTED_OBJECT_PRODUCT;
@@ -262,6 +283,15 @@ class SaveHistoryActionUser
                         if (strpos($url,"delete") !== FALSE){
                             $action_history = Utils::$LOG_ACTION_DELETE;
                             $name_object_history = Gift::getGiftByID($request->id)->name;
+                            $description = $this->getDescription($affected_object,$action_history, $name_object_history);
+                        }
+                    }
+                    if (strpos($url, 'regions') !== FALSE){
+                        //
+                        $affected_object = Utils::$LOG_AFFECTED_OBJECT_REGION;
+                        if (strpos($url,"delete") !== FALSE){
+                            $action_history = Utils::$LOG_ACTION_DELETE;
+                            $name_object_history = Region::getNameByID($request->id)->name;
                             $description = $this->getDescription($affected_object,$action_history, $name_object_history);
                         }
                     }

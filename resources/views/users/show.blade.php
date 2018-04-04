@@ -16,7 +16,7 @@ use App\Common\Utils;
             <div class="box box-primary">
                 <div class="box-body box-profile">
                     <div class="upload__area-image">
-                        <span><img id="imgHandle" src="@if($user->avavatar){{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}@else{{asset(Utils::$PATH__DEFAULT__AVATAR)}}" @endif ></span>
+                        <span><img id="imgHandle" src="@if($user->avatar){{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}@else{{Utils::$PATH__DEFAULT__AVATAR}}@endif" ></span>
                     </div>
                     <p class="text-muted text-center" title="Username">
                         <strong><i class="fa fa-user margin-r-5"></i> {{$user->username}}</strong>
