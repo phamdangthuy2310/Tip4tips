@@ -42,7 +42,7 @@ $auth = Auth::user();
 
                     <div class="upload__area-image">
                         <span>
-                            <img id="imgHandle" src="{{asset(Utils::$PATH__IMAGE)}}/no_image_available.jpg">
+                            <img id="imgHandle" src="@if($user->avatar){{asset(Utils::$PATH__IMAGE)}}/{{$user->avatar}}@else{{asset(Utils::$PATH__DEFAULT__AVATAR)}}@endif">
                             <label for="imgAnchorInput">Upload image</label>
                         </span>
                         <p><small>(Please upload a file of type: jpeg, png, jpg, gif, svg.)</small></p>

@@ -16,6 +16,10 @@ class Gift extends Model
         'thumbnail'
     ];
 
+    public static function getAllGifts(){
+        $gifts = Gift::all();
+        return $gifts;
+    }
     public static function getGiftByID($id){
         return Gift::find($id);
     }

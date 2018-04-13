@@ -52,11 +52,11 @@
                             @endif
                             <div class="form-group">
                                 <label>Gifts name</label>
-                                <input name="name" type="text" class="form-control">
+                                <input value="{{old('name')}}" name="name" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea name="description" class="form-control" rows="5"></textarea>
+                                <textarea name="description" class="form-control" rows="5">{{old('description')}}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -65,7 +65,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Category</label>
-                                <select name="category" class="form-control">
+                                <select name="category" class="form-control" required>
                                     <option value="" disabled selected>Please pick a category</option>
                                     @foreach($categories as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>

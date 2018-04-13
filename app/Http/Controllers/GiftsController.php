@@ -72,6 +72,7 @@ class GiftsController extends Controller
         //
         $gift = $this->validate($request,[
             'name' => 'required',
+            'point' => 'integer|min:0',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8112'
         ]);
         $gift['description'] = $request->description;
@@ -152,7 +153,8 @@ class GiftsController extends Controller
     public function update(Request $request, $id)
     {
         request()->validate([
-            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8112'
+            'point' => 'integer|min:0',
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8112',
         ]);
         $gift = Gift::find($id);
         $gift->name = $request->get('name');
